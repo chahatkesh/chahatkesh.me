@@ -9,6 +9,7 @@ import Portfolio from "./pages/Portfolio";
 
 // Importing the Project pages
 import Webmark from "./pages/projects/Webmark";
+import Footer from "./components/layout/Footer";
 
 // PageTitle component to set document title
 const PageTitle = ({ title }) => {
@@ -46,6 +47,13 @@ const WebmarkWithTitle = () => (
   </>
 );
 
+// const ServolendWithTitle = () => (
+//   <>
+//     <PageTitle title="Servolend - AI Powered Loan Origination Platform" />
+//     <Webmark />
+//   </>
+// );
+
 const App = () => {
   return (
     <div>
@@ -55,10 +63,10 @@ const App = () => {
         <Route path="/projects" element={<ProjectsLayout />}>
           <Route index element={<PortfolioWithTitle />} />
           <Route path="webmark" element={<WebmarkWithTitle />} />
-          {/* Add more project routes here as needed */}
-          {/* Example: <Route path="projectname" element={<ProjectNameWithTitle />} /> */}
+          {/* <Route path="servolend" element={<ServolendNameWithTitle />} /> */}
         </Route>
       </Routes>
+      <Footer />
     </div>
   );
 };
