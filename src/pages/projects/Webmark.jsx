@@ -490,10 +490,10 @@ export default function Webmark() {
           </a>
           <ChevronRight size={14} />
           <a
-            href="/projects"
+            href="/portfolio"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/projects");
+              navigate("/portfolio");
             }}
             className="hover:text-gray-900">
             Portfolio
