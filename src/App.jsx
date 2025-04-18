@@ -57,7 +57,7 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<HomeWithTitle />} />
-        <Route path="/projects" element={<ProjectsLayout />}>
+        <Route path="/portfolio" element={<ProjectsLayout />}>
           <Route index element={<PortfolioWithTitle />} />
           <Route path="webmark" element={<WebmarkWithTitle />} />
           <Route path="servolend" element={<ServolendWithTitle />} />

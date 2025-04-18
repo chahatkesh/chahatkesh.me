@@ -198,7 +198,7 @@ export default function PortfolioPage() {
   // Handle project click to navigate to detail page
   const handleProjectClick = (slug) => {
     // Use React Router's navigate function to go to the project detail page
-    navigate(`/projects/${slug}`);
+    navigate(`/portfolio/${slug}`);
   };
 
   // Handle keyboard shortcuts
