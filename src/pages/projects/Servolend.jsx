@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Home, ChevronRight, ExternalLink, Github } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function Webmark() {
+export default function Servolend() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("overview");
 
   // Project details
   const project = {
     id: 1,
-    title: "Webmark",
-    subtitle: "Modern Bookmark Management Platform",
+    title: "Servolend AI",
+    subtitle: "AI-Augmented Loan Origination Platform",
     description:
       "Webmark revolutionizes bookmark management with a centralized hub, smart organization, military-grade security, and cross-platform synchronization.",
     coverImage: "/projects/webmark.png",
@@ -499,7 +499,7 @@ export default function Webmark() {
             Portfolio
           </a>
           <ChevronRight size={14} />
-          <span className="text-gray-900 font-medium">Webmark</span>
+          <span className="text-gray-900 font-medium">Servolend AI</span>
         </nav>
 
         {/* Project Header */}

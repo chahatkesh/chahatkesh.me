@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 
-import Navbar from "./components/layout/Navbar";
-
 // Importing the pages
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
 
 // Importing the Project pages
 import Webmark from "./pages/projects/Webmark";
-import Footer from "./components/layout/Footer";
+import Servolend from "./pages/projects/Servolend";
 
 // PageTitle component to set document title
 const PageTitle = ({ title }) => {
@@ -47,26 +45,24 @@ const WebmarkWithTitle = () => (
   </>
 );
 
-// const ServolendWithTitle = () => (
-//   <>
-//     <PageTitle title="Servolend - AI Powered Loan Origination Platform" />
-//     <Webmark />
-//   </>
-// );
+const ServolendWithTitle = () => (
+  <>
+    <PageTitle title="Servolend - AI Powered Loan Origination Platform" />
+    <Servolend />
+  </>
+);
 
 const App = () => {
   return (
     <div>
-      <Navbar />
       <Routes>
         <Route path="/" element={<HomeWithTitle />} />
         <Route path="/projects" element={<ProjectsLayout />}>
           <Route index element={<PortfolioWithTitle />} />
           <Route path="webmark" element={<WebmarkWithTitle />} />
-          {/* <Route path="servolend" element={<ServolendNameWithTitle />} /> */}
+          <Route path="servolend" element={<ServolendWithTitle />} />
         </Route>
       </Routes>
-      <Footer />
     </div>
   );
 };
