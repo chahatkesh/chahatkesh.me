@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../styles/fonts.css";
 
 const DraggableNote = ({
   content,
@@ -139,7 +138,7 @@ const DraggableNote = ({
           darkText ? "text-[#333333]" : ""
         }`}
         style={{
-          fontFamily: "'Comic Sans MS', cursive, sans-serif",
+          fontFamily: "Delius, cursive, sans-serif",
           textShadow: "0.3px 0.3px 0px rgba(0,0,0,0.05)",
           lineHeight: "1.3",
         }}>
