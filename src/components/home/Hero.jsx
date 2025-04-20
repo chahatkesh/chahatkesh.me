@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import "../../styles/fonts.css";
 
 const DraggableNote = ({
   content,
@@ -24,6 +25,11 @@ const DraggableNote = ({
 
     return () => clearTimeout(timer);
   }, [index]);
+
+  // Update position when initialPosition changes (for responsive layout)
+  useEffect(() => {
+    setPosition(initialPosition);
+  }, [initialPosition]);
 
   // Handle mouse events
   const handleMouseDown = (e) => {
@@ -133,7 +139,7 @@ const DraggableNote = ({
           darkText ? "text-[#333333]" : ""
         }`}
         style={{
-          fontFamily: "Comic Sans MS, cursive, sans-serif",
+          fontFamily: "'Comic Sans MS', cursive, sans-serif",
           textShadow: "0.3px 0.3px 0px rgba(0,0,0,0.05)",
           lineHeight: "1.3",
         }}>
@@ -239,29 +245,7 @@ const Hero = () => {
     };
   }, []);
 
-  // Calculate safe boundaries to ensure notes remain visible
-  const safeMargin = isMobile ? 20 : 40;
-  const minX = safeMargin;
-  const maxX = windowSize.width - (isMobile ? 100 : 150) - safeMargin;
-  const minY = safeMargin;
-  const maxY = windowSize.height - (isMobile ? 100 : 150) - safeMargin;
-
-  // Helper function to ensure positions stay within screen boundaries
-  const ensureInBounds = (x, y) => {
-    return {
-      x: Math.max(minX, Math.min(maxX, x)),
-      y: Math.max(minY, Math.min(maxY, y)),
-    };
-  };
-
-  // Calculate position based on screen size using percentages rather than fixed values
-  const calculatePosition = (xPercent, yPercent, xOffset = 0, yOffset = 0) => {
-    const x = (windowSize.width * xPercent) / 100 + xOffset;
-    const y = (windowSize.height * yPercent) / 100 + yOffset;
-    return ensureInBounds(x, y);
-  };
-
-  // Define sticky notes with positions around the central text using more responsive positioning
+  // Define sticky notes with separate mobile and desktop positions
   const stickyNotes = [
     {
       id: 1,
@@ -269,11 +253,10 @@ const Hero = () => {
       icon: "💻",
       bgColor: "#fff3cc",
       rotate: "4deg",
-      position: calculatePosition(
-        isMobile ? 10 : 20,
-        isMobile ? 15 : 30,
-        isMobile ? 0 : -150
-      ),
+      position: {
+        mobile: { x: 40, y: 120 },
+        desktop: { x: 150, y: 220 },
+      },
       darkText: true,
     },
     {
@@ -282,24 +265,22 @@ const Hero = () => {
       icon: "✅",
       bgColor: "#d4f9db",
       rotate: "-3deg",
-      position: calculatePosition(
-        isMobile ? 70 : 50,
-        isMobile ? 65 : 60,
-        isMobile ? 0 : 100
-      ),
+      position: {
+        mobile: { x: 90, y: 480 },
+        desktop: { x: windowSize.width - 250, y: 350 },
+      },
       darkText: true,
     },
     {
       id: 3,
-      content: "5+ years experience",
+      content: "2+ years experience",
       icon: "🏆",
       bgColor: "#ffd5d5",
       rotate: "5deg",
-      position: calculatePosition(
-        isMobile ? 15 : 30,
-        isMobile ? 80 : 60,
-        isMobile ? 0 : -50
-      ),
+      position: {
+        mobile: { x: 210, y: 480 },
+        desktop: { x: 200, y: 400 },
+      },
       darkText: true,
     },
     {
@@ -308,11 +289,10 @@ const Hero = () => {
       icon: "🎨",
       bgColor: "#d5e8ff",
       rotate: "-5deg",
-      position: calculatePosition(
-        isMobile ? 65 : 55,
-        isMobile ? 10 : 20,
-        isMobile ? 0 : 70
-      ),
+      position: {
+        mobile: { x: 250, y: 100 },
+        desktop: { x: windowSize.width - 300, y: 160 },
+      },
       darkText: true,
     },
     {
@@ -321,11 +301,10 @@ const Hero = () => {
       icon: "👋",
       bgColor: "#f9e0ff",
       rotate: "-2deg",
-      position: calculatePosition(
-        isMobile ? 70 : 75,
-        isMobile ? 65 : 35,
-        isMobile ? 0 : 100
-      ),
+      position: {
+        mobile: { x: 60, y: 320 },
+        desktop: { x: windowSize.width - 200, y: 280 },
+      },
       darkText: true,
     },
     {
@@ -334,14 +313,18 @@ const Hero = () => {
       icon: "⚛️",
       bgColor: "#ffe8d4",
       rotate: "6deg",
-      position: calculatePosition(
-        isMobile ? 40 : 35,
-        isMobile ? 25 : 15,
-        isMobile ? 0 : -50
-      ),
+      position: {
+        mobile: { x: 160, y: 200 },
+        desktop: { x: 300, y: 150 },
+      },
       darkText: true,
     },
   ];
+
+  // Filter sticky notes for mobile devices
+  const visibleStickyNotes = isMobile
+    ? stickyNotes.filter((note) => [2, 3].includes(note.id))
+    : stickyNotes;
 
   return (
     <section
@@ -369,14 +352,16 @@ const Hero = () => {
       </div>
 
       {/* Draggable sticky notes */}
-      {stickyNotes.map((note, index) => (
+      {visibleStickyNotes.map((note, index) => (
         <DraggableNote
           key={note.id}
           id={note.id}
           content={note.content}
           bgColor={note.bgColor}
           initialRotate={note.rotate}
-          initialPosition={note.position}
+          initialPosition={
+            isMobile ? note.position.mobile : note.position.desktop
+          }
           isMobile={isMobile}
           icon={note.icon}
           darkText={note.darkText}
