@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
 const DraggableNote = ({
-  id,
   content,
   bgColor,
   initialRotate,
@@ -130,7 +129,7 @@ const DraggableNote = ({
         }
       }}>
       <div
-        className={`relative z-20 font-medium text-center ${
+        className={`relative z-20 text-[9px] md:text-sm font-medium text-center ${
           darkText ? "text-[#333333]" : ""
         }`}
         style={{
@@ -138,7 +137,7 @@ const DraggableNote = ({
           textShadow: "0.3px 0.3px 0px rgba(0,0,0,0.05)",
           lineHeight: "1.3",
         }}>
-        {icon && <div className="text-2xl mb-1">{icon}</div>}
+        {icon && <div className="text-xl md:text-2xl mb-1">{icon}</div>}
         {content}
       </div>
 
@@ -240,11 +239,29 @@ const Hero = () => {
     };
   }, []);
 
-  // Calculate center position for positioning notes
-  const centerX = windowSize.width / 2;
-  const centerY = windowSize.height / 2;
+  // Calculate safe boundaries to ensure notes remain visible
+  const safeMargin = isMobile ? 20 : 40;
+  const minX = safeMargin;
+  const maxX = windowSize.width - (isMobile ? 100 : 150) - safeMargin;
+  const minY = safeMargin;
+  const maxY = windowSize.height - (isMobile ? 100 : 150) - safeMargin;
 
-  // Define sticky notes with positions around the central text
+  // Helper function to ensure positions stay within screen boundaries
+  const ensureInBounds = (x, y) => {
+    return {
+      x: Math.max(minX, Math.min(maxX, x)),
+      y: Math.max(minY, Math.min(maxY, y)),
+    };
+  };
+
+  // Calculate position based on screen size using percentages rather than fixed values
+  const calculatePosition = (xPercent, yPercent, xOffset = 0, yOffset = 0) => {
+    const x = (windowSize.width * xPercent) / 100 + xOffset;
+    const y = (windowSize.height * yPercent) / 100 + yOffset;
+    return ensureInBounds(x, y);
+  };
+
+  // Define sticky notes with positions around the central text using more responsive positioning
   const stickyNotes = [
     {
       id: 1,
@@ -252,10 +269,11 @@ const Hero = () => {
       icon: "💻",
       bgColor: "#fff3cc",
       rotate: "4deg",
-      position: {
-        x: centerX - (isMobile ? 150 : 320),
-        y: centerY - (isMobile ? 80 : 45),
-      },
+      position: calculatePosition(
+        isMobile ? 10 : 20,
+        isMobile ? 15 : 30,
+        isMobile ? 0 : -150
+      ),
       darkText: true,
     },
     {
@@ -264,10 +282,11 @@ const Hero = () => {
       icon: "✅",
       bgColor: "#d4f9db",
       rotate: "-3deg",
-      position: {
-        x: centerX + (isMobile ? 65 : 185),
-        y: centerY + (isMobile ? 80 : 50),
-      },
+      position: calculatePosition(
+        isMobile ? 70 : 50,
+        isMobile ? 65 : 60,
+        isMobile ? 0 : 100
+      ),
       darkText: true,
     },
     {
@@ -276,10 +295,11 @@ const Hero = () => {
       icon: "🏆",
       bgColor: "#ffd5d5",
       rotate: "5deg",
-      position: {
-        x: centerX - (isMobile ? 80 : 120),
-        y: centerY + (isMobile ? 90 : 110),
-      },
+      position: calculatePosition(
+        isMobile ? 15 : 30,
+        isMobile ? 80 : 60,
+        isMobile ? 0 : -50
+      ),
       darkText: true,
     },
     {
@@ -288,10 +308,11 @@ const Hero = () => {
       icon: "🎨",
       bgColor: "#d5e8ff",
       rotate: "-5deg",
-      position: {
-        x: centerX + (isMobile ? 10 : 60),
-        y: centerY - (isMobile ? 120 : 170),
-      },
+      position: calculatePosition(
+        isMobile ? 65 : 55,
+        isMobile ? 10 : 20,
+        isMobile ? 0 : 70
+      ),
       darkText: true,
     },
     {
@@ -300,22 +321,24 @@ const Hero = () => {
       icon: "👋",
       bgColor: "#f9e0ff",
       rotate: "-2deg",
-      position: {
-        x: centerX + (isMobile ? 120 : 270),
-        y: centerY - (isMobile ? 20 : 40),
-      },
+      position: calculatePosition(
+        isMobile ? 70 : 75,
+        isMobile ? 65 : 35,
+        isMobile ? 0 : 100
+      ),
       darkText: true,
     },
     {
       id: 6,
-      content: "React & Next.js expert",
+      content: "Building for Impact",
       icon: "⚛️",
       bgColor: "#ffe8d4",
       rotate: "6deg",
-      position: {
-        x: centerX - (isMobile ? 30 : 180),
-        y: centerY - (isMobile ? 130 : 170),
-      },
+      position: calculatePosition(
+        isMobile ? 40 : 35,
+        isMobile ? 25 : 15,
+        isMobile ? 0 : -50
+      ),
       darkText: true,
     },
   ];
