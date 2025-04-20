@@ -1,608 +1,549 @@
-import { useState } from "react";
-import { Home, ChevronRight, ExternalLink, Github } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Award,
+  Users,
+  AlertCircle,
+  CheckCircle,
+  Code,
+  Layers,
+  PenTool,
+  GitBranch,
+  Calendar,
+  Zap,
+} from "lucide-react";
+import LetsTalk from "../../components/common/LetsTalk";
 
-export default function Webmark() {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("overview");
+const Webmark = () => {
+  // Technology stack data
+  const frontendTech = [
+    { name: "React.js", description: "Modular components for organized UI" },
+    { name: "React Router", description: "Seamless, single-page navigation" },
+    { name: "TypeScript", description: "Type safety for fewer bugs" },
+    { name: "React Query", description: "Optimized data fetching & caching" },
+    { name: "Context API", description: "Global state management" },
+    { name: "Tailwind CSS", description: "Utility-first CSS framework" },
+    { name: "Radix UI", description: "Accessible, unstyled components" },
+    { name: "Framer Motion", description: "Smooth animations & transitions" },
+    { name: "React Beautiful DnD", description: "Drag-and-drop functionality" },
+    { name: "Vite", description: "Fast development build tool" },
+  ];
 
-  // Project details
-  const project = {
-    id: 1,
-    title: "Webmark",
-    subtitle: "Modern Bookmark Management Platform",
-    description:
-      "Webmark revolutionizes bookmark management with a centralized hub, smart organization, military-grade security, and cross-platform synchronization.",
-    coverImage: "/projects/webmark.png",
-    demoUrl: "https://webmark.site",
-    githubUrl: "https://github.com/chahatkesh/webmark",
-    tags: [
-      { name: "React", color: "bg-red-100 text-red-800", category: "Tech" },
-      {
-        name: "Node.js",
-        color: "bg-green-100 text-green-800",
-        category: "Tech",
-      },
-      {
-        name: "MongoDB",
-        color: "bg-blue-100 text-blue-800",
-        category: "Tech",
-      },
-      {
-        name: "Team-built",
-        color: "bg-purple-100 text-purple-800",
-        category: "Type",
-      },
-    ],
-    stats: [
-      { label: "Active Users", value: "60+" },
-      { label: "Bookmarks Saved", value: "10,000+" },
-      { label: "Cross-Platform", value: "Yes" },
-      { label: "Security", value: "End-to-End" },
-    ],
-    features: [
-      {
-        title: "Drag & Drop Interface",
-        description:
-          "Intuitive bookmark organization using React Beautiful DnD",
-        icon: "🔄",
-      },
-      {
-        title: "Smart Collections",
-        description: "Automatic category suggestions using machine learning",
-        icon: "🧠",
-      },
-      {
-        title: "Secure Sharing",
-        description: "Encrypted collection sharing with AES-256 encryption",
-        icon: "🔒",
-      },
-      {
-        title: "Advanced Search",
-        description: "Full-text search across all bookmarks with ElasticSearch",
-        icon: "🔍",
-      },
-    ],
-    techStack: {
-      frontend: [
-        "React.js",
-        "TypeScript",
-        "React Query",
-        "Tailwind CSS",
-        "Radix UI",
-        "Lucide React",
-        "Framer Motion",
-        "React Beautiful DnD",
-        "Vite",
-        "React Toastify",
-      ],
-      backend: [
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Mongoose",
-        "JWT",
-        "Bcrypt",
-        "Nodemailer",
-        "Node-cron",
-        "Dotenv",
+  const backendTech = [
+    { name: "Node.js & Express", description: "Server-side framework" },
+    { name: "MongoDB", description: "Scalable NoSQL data storage" },
+    { name: "Mongoose", description: "MongoDB object modeling" },
+    { name: "JWT", description: "Secure authentication & authorization" },
+    { name: "Bcrypt", description: "Password hashing" },
+    { name: "Nodemailer", description: "Email notifications" },
+    { name: "Node-cron", description: "Scheduled tasks" },
+  ];
+
+  // Development phases
+  const developmentPhases = [
+    {
+      name: "Conceptualization",
+      duration: "2 weeks",
+      tasks: ["Market research", "Feature planning", "Technology selection"],
+    },
+    {
+      name: "Design",
+      duration: "3 weeks",
+      tasks: ["UI/UX wireframing", "Component design", "User flow mapping"],
+    },
+    {
+      name: "Frontend Development",
+      duration: "4 weeks",
+      tasks: [
+        "Component implementation",
+        "State management",
+        "Responsive design",
       ],
     },
-    problems: [
-      "73% of users lose important links due to poor organization",
-      "Average user spends 12 minutes daily searching for saved links",
-      "68% struggle with cross-device bookmark synchronization",
-      "82% express concerns about bookmark security",
-    ],
-    solutions: [
-      "Centralized Hub: Unified platform for all bookmarks",
-      "Smart Organization: AI-powered categorization (coming soon)",
-      "Military-Grade Security: End-to-end encryption",
-      "Cross-Platform Sync: Instant access across devices",
-    ],
-    developmentJourney: [
-      {
-        phase: "Phase 1: Foundation (4 weeks)",
-        tasks: [
-          "Core bookmark CRUD operations",
-          "Basic user authentication",
-          "Initial UI components",
-        ],
-      },
-      {
-        phase: "Phase 2: Enhancement (6 weeks)",
-        tasks: [
-          "Advanced search implementation",
-          "Drag & drop functionality",
-          "Cross-device synchronization",
-        ],
-      },
-      {
-        phase: "Phase 3: Optimization (2 weeks)",
-        tasks: [
-          "Performance improvements",
-          "Security enhancements",
-          "Automated testing suite",
-        ],
-      },
-    ],
-    upcomingFeatures: [
-      {
-        title: "AI-Powered Insights",
-        timeline: "Q4 2024",
-        description:
-          "Advanced analytics and suggestions based on bookmark patterns",
-      },
-      {
-        title: "Browser Extension",
-        timeline: "Q1 2025",
-        description: "One-click saving from any browser with custom tagging",
-      },
-      {
-        title: "Team Collaboration",
-        timeline: "Q2 2025",
-        description:
-          "Real-time collaboration tools for teams and organizations",
-      },
-    ],
-    team: [
-      {
-        name: "Chahat Kesharwani",
-        role: "Lead Developer",
-        github: "https://github.com/chahatkesh",
-      },
-    ],
-  };
-
-  // For demo purposes - would normally come from API
-  const screenshots = [
     {
-      id: 1,
-      title: "Dashboard View",
-      description: "The main dashboard showing categories and bookmarks",
-      url: "/projects/webmark.png",
+      name: "Backend Development",
+      duration: "3 weeks",
+      tasks: ["Database schema", "API development", "Authentication system"],
     },
     {
-      id: 2,
-      title: "Bookmark Organization",
-      description: "Drag and drop interface for organizing bookmarks",
-      url: "/api/placeholder/800/450",
+      name: "Integration and Testing",
+      duration: "2 weeks",
+      tasks: ["Integration", "Testing", "Bug fixing"],
     },
     {
-      id: 3,
-      title: "Search Functionality",
-      description: "Powerful search across all bookmarks with filters",
-      url: "/api/placeholder/800/450",
-    },
-    {
-      id: 4,
-      title: "Search Functionality",
-      description: "Powerful search across all bookmarks with filters",
-      url: "/api/placeholder/800/450",
+      name: "Deployment",
+      duration: "1 week",
+      tasks: ["Vercel deployment", "Initial user testing", "Monitoring"],
     },
   ];
 
-  // Tabs content rendering
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "overview":
-        return (
-          <div className="space-y-6">
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Project Overview
-              </h3>
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <h4 className="text-lg font-medium mb-3 text-gray-700">
-                      The Bookmark Management Crisis
-                    </h4>
-                    <ul className="space-y-2 text-gray-600">
-                      {project.problems.map((problem, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-red-500 mr-2">•</span>
-                          <span>{problem}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium mb-3 text-gray-700">
-                      Webmark's Solution
-                    </h4>
-                    <ul className="space-y-2 text-gray-600">
-                      {project.solutions.map((solution, index) => (
-                        <li key={index} className="flex items-start">
-                          <span className="text-green-500 mr-2">•</span>
-                          <span>{solution}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-4 gap-4">
-                  {project.stats.map((stat, index) => (
-                    <div
-                      key={index}
-                      className="p-4 bg-gray-50 rounded-md text-center">
-                      <div className="text-2xl font-bold text-blue-600">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-gray-500">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+  // Key features
+  const keyFeatures = [
+    {
+      title: "Structured Organization",
+      description:
+        "Create collections and categories for systematic bookmark management",
+    },
+    {
+      title: "Intuitive Interface",
+      description: "Drag & Drop functionality for easy rearrangement",
+    },
+    {
+      title: "Advanced Search",
+      description: "Quick and specific bookmark and note search",
+    },
+    {
+      title: "Personalization",
+      description: "Custom colors and icons for enhanced user experience",
+    },
+    {
+      title: "Security",
+      description: "Private collections to protect sensitive bookmarks",
+    },
+    {
+      title: "Cross-Device Accessibility",
+      description: "Responsive design for desktop and mobile",
+    },
+  ];
 
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Key Features
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {project.features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex items-start">
-                      <div className="text-2xl mr-4">{feature.icon}</div>
-                      <div>
-                        <h4 className="text-lg font-medium text-gray-800">
-                          {feature.title}
-                        </h4>
-                        <p className="text-gray-600 mt-1">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Coming Soon
-              </h3>
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <div className="space-y-4">
-                  {project.upcomingFeatures.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-gray-50 rounded-md">
-                      <div>
-                        <h4 className="font-medium text-gray-800">
-                          {feature.title}
-                        </h4>
-                        <p className="text-gray-600 text-sm">
-                          {feature.description}
-                        </p>
-                      </div>
-                      <div className="mt-2 md:mt-0 md:ml-4">
-                        <span className="inline-block px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-                          {feature.timeline}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-          </div>
-        );
-
-      case "tech":
-        return (
-          <div className="space-y-6">
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Technology Stack
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h4 className="text-lg font-medium mb-4 text-gray-700 flex items-center">
-                    <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                    Frontend Technologies
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.frontend.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-md text-sm">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                  <h4 className="text-lg font-medium mb-4 text-gray-700 flex items-center">
-                    <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    Backend Technologies
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.techStack.backend.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1.5 bg-green-50 text-green-700 rounded-md text-sm">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Technical Architecture
-              </h3>
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <div className="mb-6">
-                  <h4 className="text-lg font-medium mb-3 text-gray-700">
-                    Frontend Architecture
-                  </h4>
-                  <div className="bg-gray-50 p-4 rounded-md text-sm text-gray-700 overflow-x-auto">
-                    <p>React.js → Routing via React Router</p>
-                    <p>React.js → Type Safety via TypeScript</p>
-                    <p>React.js → State Management via React Query</p>
-                    <p>React Query → Global State via Context API</p>
-                    <p>React.js → Styling via Tailwind CSS</p>
-                    <p>Tailwind CSS → Accessible Components via Radix UI</p>
-                    <p>React.js → Drag & Drop via React Beautiful DnD</p>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-lg font-medium mb-3 text-gray-700">
-                    Backend Architecture
-                  </h4>
-                  <div className="bg-gray-50 p-4 rounded-md text-sm text-gray-700 overflow-x-auto">
-                    <p>Node.js & Express.js → Database via MongoDB</p>
-                    <p>MongoDB → Modeling via Mongoose</p>
-                    <p>Node.js & Express.js → Authentication via JWT</p>
-                    <p>JWT → Password Hashing via Bcrypt</p>
-                    <p>Node.js & Express.js → Email Service via Nodemailer</p>
-                    <p>Node.js & Express.js → Scheduled Tasks via Node-cron</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        );
-
-      case "gallery":
-        return (
-          <div className="space-y-6">
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Project Gallery
-              </h3>
-              <div className="grid gap-6">
-                {screenshots.map((screenshot) => (
-                  <div
-                    key={screenshot.id}
-                    className="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                    <h4 className="text-lg font-medium mb-2 text-gray-700">
-                      {screenshot.title}
-                    </h4>
-                    <p className="text-gray-600 mb-4">
-                      {screenshot.description}
-                    </p>
-                    <div className="bg-gray-100 rounded-md overflow-hidden">
-                      <img
-                        src={screenshot.url}
-                        alt={screenshot.title}
-                        className="w-full h-auto object-cover"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
-        );
-
-      case "journey":
-        return (
-          <div className="space-y-6">
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">
-                Development Journey
-              </h3>
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <div className="relative border-l-2 border-gray-200 pl-6 ml-6">
-                  {project.developmentJourney.map((phase, phaseIndex) => (
-                    <div key={phaseIndex} className="mb-8 relative">
-                      <div className="absolute -left-9 mt-1.5 w-5 h-5 rounded-full bg-blue-500"></div>
-                      <h4 className="text-lg font-medium text-gray-800 mb-3">
-                        {phase.phase}
-                      </h4>
-                      <ul className="space-y-2">
-                        {phase.tasks.map((task, taskIndex) => (
-                          <li
-                            key={taskIndex}
-                            className="text-gray-600 flex items-center">
-                            <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
-                            {task}
-                          </li>
-                        ))}
-                      </ul>
-                      {phaseIndex < project.developmentJourney.length - 1 && (
-                        <div className="h-6"></div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <h3 className="text-xl font-medium mb-4 text-gray-800">Team</h3>
-              <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-xl font-bold">
-                      CK
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="font-medium text-gray-800">
-                        {project.team[0].name}
-                      </h4>
-                      <p className="text-gray-600 text-sm">
-                        {project.team[0].role}
-                      </p>
-                    </div>
-                  </div>
-                  <a
-                    href={project.team[0].github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center mt-4 md:mt-0 text-gray-600 hover:text-gray-900">
-                    <Github size={16} className="mr-1" />
-                    <span>GitHub Profile</span>
-                  </a>
-                </div>
-              </div>
-            </section>
-          </div>
-        );
-
-      default:
-        return null;
-    }
-  };
+  // Future innovations
+  const futureInnovations = [
+    {
+      title: "Browser Extension",
+      description:
+        "Direct bookmark fetching from browser with seamless integration",
+    },
+    {
+      title: "AI-Powered Categorization",
+      description:
+        "Intelligent bookmark categorization using Large Language Models",
+    },
+    {
+      title: "Social Sharing",
+      description: "Public bookmark collections and collaborative management",
+    },
+    {
+      title: "Enhanced Personalization",
+      description: "ML-based recommendations and browsing analytics",
+    },
+  ];
 
   return (
-    <div
-      className="min-h-screen bg-gray-50 text-gray-800 font-sans"
-      style={{
-        fontFamily:
-          "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
-      }}>
-      <main className="max-w-5xl mx-auto px-6 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 mb-6 text-sm text-gray-500">
-          <a href="/" className="flex items-center hover:text-gray-900">
-            <Home size={16} className="mr-1" />
-            <span>Home</span>
-          </a>
-          <ChevronRight size={14} />
-          <a
-            href="/portfolio"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/portfolio");
-            }}
-            className="hover:text-gray-900">
-            Portfolio
-          </a>
-          <ChevronRight size={14} />
-          <span className="text-gray-900 font-medium">Webmark</span>
-        </nav>
+    <div className="min-h-screen bg-white text-[#37352f] flex flex-col">
+      <main className="flex-1">
+        <article className="py-16 px-6 md:px-12 lg:px-24 max-w-4xl mx-auto">
+          {/* Project Header */}
+          <header className="mb-12">
+            <div className="border border-gray-200 rounded-xl overflow-hidden mb-6">
+              <img
+                src="/projects/webmark.png"
+                alt="Webmark Dashboard"
+                className="w-full object-cover h-auto max-h-[400px]"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = `https://via.placeholder.com/1200x600?text=Webmark`;
+                }}
+              />
+            </div>
 
-        {/* Project Header */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden mb-8">
-          <div className="aspect-w-16 aspect-h-6 bg-gray-100">
-            <img
-              src={project.coverImage || "/api/placeholder/1200/400"}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="p-6 md:p-8">
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                {project.title}
-              </h1>
-              <p className="text-xl text-gray-600">{project.subtitle}</p>
+            <div className="flex flex-col md:flex-row justify-between gap-4 md:items-center mb-8">
+              <div>
+                <h1 className="text-4xl font-bold mb-2">Webmark</h1>
+                <p className="text-gray-600 text-lg">
+                  Encrypted Cross-Platform Bookmark Manager
+                </p>
+              </div>
+              <a
+                href="https://webmark.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex justify-center items-center px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition-colors">
+                Visit Project <ExternalLink size={16} className="ml-2" />
+              </a>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
-              {project.tags.map((tag, index) => (
-                <span
+              <span className="px-3 py-1 bg-red-100 text-red-800 text-xs rounded-md border border-red-200">
+                React
+              </span>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-md border border-green-200">
+                Node.js
+              </span>
+              <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-md border border-blue-200">
+                MongoDB
+              </span>
+              <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-md border border-purple-200">
+                Live
+              </span>
+              <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-md border border-yellow-200">
+                UX/UI Design
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+              <div className="flex items-center">
+                <Users size={16} className="mr-2 text-gray-400" />
+                <span>60+ active users</span>
+              </div>
+              <div className="flex items-center">
+                <Award size={16} className="mr-2 text-gray-400" />
+                <span>Solo Development</span>
+              </div>
+              <div className="flex items-center">
+                <Calendar size={16} className="mr-2 text-gray-400" />
+                <span>Oct 2024 - Dec 2024</span>
+              </div>
+            </div>
+          </header>
+
+          {/* Project Overview */}
+          <section className="mb-16 p-6 bg-gray-50 rounded-lg border border-gray-100">
+            <h2 className="text-2xl font-semibold mb-4">Project Overview</h2>
+            <p className="text-gray-700 mb-4">
+              Webmark is a secure, comprehensive bookmark management solution
+              that allows users to organize, categorize, and access their web
+              bookmarks across multiple devices. This project was developed to
+              address the challenge of managing an overwhelming number of
+              bookmarks in today's digital landscape.
+            </p>
+            <p className="text-gray-700">
+              The platform features encrypted storage, intuitive drag-and-drop
+              organization, advanced search capabilities, and personalized
+              bookmark management—all designed with both security and user
+              experience in mind.
+            </p>
+          </section>
+
+          {/* Problem Statement */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#fff3e1] text-[#ff8c38] mr-3">
+                <AlertCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-semibold">Problem Statement</h2>
+            </div>
+
+            <p className="text-gray-700 mb-6">
+              In the digital age, users face significant challenges managing
+              their ever-growing collection of web bookmarks:
+            </p>
+
+            <ul className="space-y-3 mb-6 list-disc pl-6 text-gray-700">
+              <li>
+                <strong>Overwhelming volume:</strong> Users accumulate hundreds
+                of bookmarks across multiple browsers and devices
+              </li>
+              <li>
+                <strong>Poor organization:</strong> Built-in browser bookmark
+                managers offer limited categorization options
+              </li>
+              <li>
+                <strong>Limited accessibility:</strong> Browser-specific
+                bookmarks are often trapped in their respective ecosystems
+              </li>
+              <li>
+                <strong>Inefficient retrieval:</strong> Finding specific
+                bookmarks becomes time-consuming as collections grow
+              </li>
+              <li>
+                <strong>Lack of personalization:</strong> Most bookmark systems
+                offer minimal customization options
+              </li>
+            </ul>
+          </section>
+
+          {/* Solution */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#d4f9db] text-[#0e9d3a] mr-3">
+                <CheckCircle size={20} />
+              </div>
+              <h2 className="text-2xl font-semibold">Webmark's Solution</h2>
+            </div>
+
+            <p className="text-gray-700 mb-8">
+              Webmark addresses these challenges through a comprehensive
+              bookmark management platform that prioritizes organization,
+              accessibility, and user experience.
+            </p>
+
+            {/* Key Features */}
+            <div className="mb-10">
+              <h3 className="text-xl font-medium mb-6">Key Features</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {keyFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="p-4 border border-gray-100 rounded-lg hover:border-gray-300 transition-all">
+                    <h4 className="font-medium text-gray-800 mb-2">
+                      {feature.title}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      {feature.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Value Propositions */}
+            <div>
+              <h3 className="text-xl font-medium mb-4">
+                Unique Value Propositions
+              </h3>
+              <ul className="space-y-2 pl-6 list-disc text-gray-700">
+                <li>One-stop platform for centralized bookmark management</li>
+                <li>Visual and interactive bookmark organization</li>
+                <li>Personalized user experience with custom collections</li>
+                <li>
+                  Efficient link retrieval through advanced search capabilities
+                </li>
+                <li>
+                  End-to-end encryption ensures bookmark privacy and security
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Technology Stack */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#e1f0ff] text-[#2382FC] mr-3">
+                <Code size={20} />
+              </div>
+
+              <h2 className="text-2xl font-semibold">Technology Stack</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              {/* Frontend Technologies */}
+              <div>
+                <h3 className="text-xl font-medium mb-4 flex items-center">
+                  <Layers size={18} className="mr-2 text-gray-500" />
+                  Frontend
+                </h3>
+                <div className="space-y-3">
+                  {frontendTech.map((tech, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center text-sm border-b border-gray-100 pb-2">
+                      <span className="font-medium w-1/3 text-gray-800">
+                        {tech.name}
+                      </span>
+                      <span className="text-gray-600">{tech.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Backend Technologies */}
+              <div>
+                <h3 className="text-xl font-medium mb-4 flex items-center">
+                  <Code size={18} className="mr-2 text-gray-500" />
+                  Backend
+                </h3>
+                <div className="space-y-3">
+                  {backendTech.map((tech, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center text-sm border-b border-gray-100 pb-2">
+                      <span className="font-medium w-1/3 text-gray-800">
+                        {tech.name}
+                      </span>
+                      <span className="text-gray-600">{tech.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* UI/UX Design */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#f9e9fd] text-[#bf4ec5] mr-3">
+                <PenTool size={20} />
+              </div>
+              <h2 className="text-2xl font-semibold">UI/UX Approach</h2>
+            </div>
+
+            <p className="text-gray-700 mb-6">
+              The Webmark interface was meticulously designed to provide an
+              optimal user experience across different devices, focusing on
+              intuitive navigation and visual organization.
+            </p>
+
+            <div className="space-y-8 mb-8">
+              {/* Design challenge sections */}
+              <div>
+                <h3 className="text-lg font-medium mb-3 text-gray-800">
+                  Navbar & Navigation
+                </h3>
+                <p className="text-gray-600 mb-2">
+                  Created a compact, accessible design with integrated welcome
+                  message and profile toggle functionality. The responsive menu
+                  adapts to different screen sizes while maintaining easy access
+                  to key functions.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium mb-3 text-gray-800">
+                  Bookmark Organization & Display
+                </h3>
+                <p className="text-gray-600 mb-2">
+                  Implemented a structured layout to contain bookmarks clearly,
+                  with seamless adaptation across device sizes. The bookmark
+                  cards maintain consistent formatting with logo, name, and
+                  action buttons while preserving readability on mobile devices.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-medium mb-3 text-gray-800">
+                  Drag-and-Drop Functionality
+                </h3>
+                <p className="text-gray-600">
+                  Developed intuitive desktop interactions with optimized mobile
+                  alternatives, ensuring smooth, responsive movement of
+                  bookmarks for organizational purposes. The system prevents
+                  accidental deletions while maintaining consistent
+                  functionality across devices.
+                </p>
+              </div>
+            </div>
+
+            {/* UI Image */}
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <img
+                src="/projects/webmark-ui.png"
+                alt="Webmark UI Screenshots"
+                className="w-full"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = `https://via.placeholder.com/1200x600?text=Webmark+UI+Design`;
+                }}
+              />
+            </div>
+          </section>
+
+          {/* Development Journey */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#e8e9ff] text-[#4851d5] mr-3">
+                <GitBranch size={20} />
+              </div>
+              <h2 className="text-2xl font-semibold">Development Journey</h2>
+            </div>
+
+            <p className="text-gray-700 mb-8">
+              Webmark was developed as a solo project, requiring a disciplined
+              approach to project management and development. The journey
+              involved wearing multiple hats: designer, developer, tester, and
+              product manager.
+            </p>
+
+            {/* Development Phases */}
+            <h3 className="text-xl font-medium mb-6">Development Timeline</h3>
+            <div className="space-y-6 mb-12">
+              {developmentPhases.map((phase, index) => (
+                <div
                   key={index}
-                  className={`px-3 py-1 rounded-md text-sm ${tag.color}`}>
-                  {tag.name}
-                </span>
+                  className="flex flex-col md:flex-row gap-4 pb-6 border-b border-gray-100 last:border-0">
+                  <div className="md:w-1/4">
+                    <h4 className="font-medium text-gray-900">{phase.name}</h4>
+                    <p className="text-sm text-gray-500">{phase.duration}</p>
+                  </div>
+                  <div className="md:w-3/4">
+                    <ul className="list-disc pl-5 space-y-1 text-gray-700">
+                      {phase.tasks.map((task, taskIndex) => (
+                        <li key={taskIndex}>{task}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               ))}
             </div>
 
-            <p className="text-gray-700 mb-6 text-lg leading-relaxed">
-              {project.description}
+            {/* Key Achievements */}
+            <div className="p-6 bg-gray-50 rounded-lg border border-gray-100 mb-10">
+              <h3 className="text-xl font-medium mb-4">Key Achievements</h3>
+              <ul className="space-y-3 list-disc pl-5 text-gray-700">
+                <li>
+                  <span className="font-medium">Complete Solo Project:</span>{" "}
+                  Developed entire full-stack application independently
+                </li>
+                <li>
+                  <span className="font-medium">User Adoption:</span> Grew to
+                  60+ active users within first months of launch
+                </li>
+                <li>
+                  <span className="font-medium">Feedback Iteration:</span>{" "}
+                  Implemented 15+ user-suggested improvements
+                </li>
+                <li>
+                  <span className="font-medium">Scalable Architecture:</span>{" "}
+                  Built with future expansion capabilities
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Future Plans */}
+          <section className="mb-16">
+            <div className="flex items-center mb-6">
+              <div className="p-2 rounded-md bg-[#d5e8ff] text-[#0074e3] mr-3">
+                <Zap size={20} />
+              </div>
+              <h2 className="text-2xl font-semibold">
+                Future Plans & Innovation
+              </h2>
+            </div>
+
+            <p className="text-gray-700 mb-8">
+              Webmark continues to evolve with ambitious plans for new features
+              and capabilities to enhance the bookmark management experience.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              {project.demoUrl && (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                  <ExternalLink size={18} className="mr-2" />
-                  Visit Live Demo
-                </a>
-              )}
-              {project.githubUrl && (
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                  <Github size={18} className="mr-2" />
-                  View on GitHub
-                </a>
-              )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              {futureInnovations.map((innovation, index) => (
+                <div
+                  key={index}
+                  className="p-4 border border-gray-100 rounded-lg hover:border-gray-300 transition-all">
+                  <h4 className="font-medium text-gray-800 mb-2">
+                    {innovation.title}
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    {innovation.description}
+                  </p>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
+          </section>
 
-        {/* Tab Navigation */}
-        <div className="mb-6 border-b border-gray-200">
-          <div className="flex space-x-8 overflow-x-auto">
-            <button
-              onClick={() => setActiveTab("overview")}
-              className={`py-3 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === "overview"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}>
-              Overview
-            </button>
-            <button
-              onClick={() => setActiveTab("tech")}
-              className={`py-3 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === "tech"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}>
-              Technology
-            </button>
-            <button
-              onClick={() => setActiveTab("gallery")}
-              className={`py-3 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === "gallery"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}>
-              Gallery
-            </button>
-            <button
-              onClick={() => setActiveTab("journey")}
-              className={`py-3 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === "journey"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}>
-              Journey
-            </button>
-          </div>
-        </div>
+          {/* Conclusion */}
+          <section className="mb-16 p-6 bg-gray-50 rounded-lg border border-gray-100">
+            <h2 className="text-2xl font-semibold mb-4">Conclusion</h2>
+            <p className="text-gray-700">
+              Webmark represents a modern, user-centric approach to bookmark
+              management, combining intuitive design, powerful features, and
+              scalable technology. The project stands as a testament to focused,
+              independent software development—taking an idea from conception to
+              a fully-functional product that serves real users and solves a
+              common digital organization challenge.
+            </p>
+          </section>
 
-        {/* Tab Content */}
-        {renderTabContent()}
+          {/* Add LetsTalk component at bottom */}
+          <div className="mt-16">
+            <LetsTalk />
+          </div>
+        </article>
       </main>
     </div>
   );
-}
+};
+
+export default Webmark;
