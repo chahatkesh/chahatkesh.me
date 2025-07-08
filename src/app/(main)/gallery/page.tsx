@@ -4,15 +4,26 @@ import { MotionDiv } from "~/components/motion-wrapper";
 import { typo } from "~/components/ui/typograpghy";
 import { galleryItems } from "~/data/gallery";
 import BackButton from "~/components/back-btn";
+import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
+import config from "~/config";
 
-export const metadata: Metadata = {
-  title: "Gallery | Chahat Kesharwani",
-  description: "A collection of my favorite moments and photography",
-};
+export const metadata: Metadata = getSEOTags({
+  title: "Gallery",
+  description: `Explore ${config.appName}'s gallery showcasing photography, design work, and visual projects.`,
+  canonicalUrlRelative: "/gallery",
+  openGraph: {
+    title: `Gallery | ${config.appName}`,
+    description: `Browse through my collection of photos, design work, and visual projects. Get a glimpse into my creative side beyond coding.`,
+  },
+});
 
 export default function GalleryPage() {
   return (
     <div className="space-y-8">
+      {renderBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Gallery", url: "/gallery" },
+      ])}
       <BackButton>Back</BackButton>
       <MotionDiv 
         className="space-y-3"

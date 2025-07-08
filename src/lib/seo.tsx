@@ -9,26 +9,34 @@ export const getSEOTags = ({
   openGraph,
   canonicalUrlRelative,
   extraTags,
+  noIndex = false,
 }: Metadata & {
   canonicalUrlRelative?: string;
-  extraTags?: Record<string, any>;
+  extraTags?: Record<string, unknown>;
+  noIndex?: boolean;
 } = {}) => {
+  const finalTitle = title
+    ? `${title} | ${config.appName}`
+    : config.seo.defaultTitle;
+
+  const finalDescription = description || config.seo.defaultDescription;
+  const finalKeywords = keywords || config.seo.defaultKeywords;
+
   return {
-    title: title || config.appName,
-    description: description || config.appDescription,
-    keywords: keywords || [
-      "portfolio",
-      "personal portfolio",
-      "web developer",
-      "software engineer",
-      "front-end developer",
-      "creative",
-      "coder",
-      "programmer",
-      "developer",
-      "portfolio website",
-    ],
+    title: finalTitle,
+    description: finalDescription,
+    keywords: finalKeywords,
     applicationName: config.appName,
+    authors: [{ name: config.appName, url: `https://${config.domainName}` }],
+    creator: config.appName,
+    publisher: config.appName,
+    formatDetection: {
+      telephone: true,
+      date: true,
+      address: true,
+      email: true,
+      url: true,
+    },
 
     metadataBase: new URL(
       process.env.NODE_ENV === "development"
@@ -36,24 +44,48 @@ export const getSEOTags = ({
         : `https://${config.domainName}/`
     ),
 
+    ...(noIndex && {
+      robots: {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: {
+          index: false,
+          follow: false,
+        },
+      },
+    }),
+
     openGraph: {
-      title: openGraph?.title || config.appName,
-      description: openGraph?.description || config.appDescription,
+      title: openGraph?.title || finalTitle,
+      description: openGraph?.description || finalDescription,
       url: openGraph?.url || `https://${config.domainName}/`,
-      siteName: openGraph?.title || config.appName,
-      locale: "en_US",
+      siteName: config.appName,
+      locale: config.seo.language,
       type: "website",
+      images: [
+        {
+          url: `https://${config.domainName}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${config.appName} - ${config.appDesignation}`,
+        },
+      ],
     },
 
     twitter: {
-      title: openGraph?.title || config.appName,
-      description: openGraph?.description || config.appDescription,
+      title: openGraph?.title || finalTitle,
+      description: openGraph?.description || finalDescription,
       card: "summary_large_image",
-      creator: "@FaisalTari78554",
+      site: "@chahatkesh",
+      creator: "@chahatkesh",
+      images: [`https://${config.domainName}/twitter-image.png`],
     },
 
     ...(canonicalUrlRelative && {
-      alternates: { canonical: canonicalUrlRelative },
+      alternates: {
+        canonical: canonicalUrlRelative,
+      },
     }),
 
     ...extraTags,
@@ -61,6 +93,8 @@ export const getSEOTags = ({
 };
 
 export const renderSchemaTags = () => {
+  const currentDate = new Date().toISOString();
+
   return (
     <Script
       id="schemaTags"
@@ -71,36 +105,106 @@ export const renderSchemaTags = () => {
           "@context": "http://schema.org",
           "@type": "ProfilePage",
           name: config.appName,
-          description: config.appDescription,
-          image: `https://${config.domainName}/icon.png`,
+          description: config.seo.defaultDescription,
+          image: `https://${config.domainName}/logo.png`,
           url: `https://${config.domainName}/`,
 
-          dateCreated: "2022-12-23T12:34:00-05:00",
-          dateModified: "2023-12-26T14:53:00-05:00",
+          dateCreated: config.seo.siteCreationDate,
+          dateModified: currentDate,
+
           mainEntity: {
             "@type": "Person",
-            name: "Faisal Tariq",
-            alternateName: "faisal_griz",
-            identifier: "123475623",
-            interactionStatistic: [
+            name: config.appName,
+            jobTitle: config.appDesignation,
+            description: config.seo.defaultDescription,
+            url: `https://${config.domainName}/`,
+            sameAs: [
+              config.social.github,
+              config.social.linkedin,
+              config.social.twitter,
+              config.social.instagram,
+              config.social.youtube,
+            ],
+            image: `https://${config.domainName}/chahat.jpg`,
+            email: config.social.email,
+            telephone: config.social.phone,
+            address: {
+              "@type": "PostalAddress",
+              addressCountry: "India",
+            },
+            alumniOf: [
               {
-                "@type": "InteractionCounter",
-                interactionType: "https://schema.org/FollowAction",
-                userInteractionCount: 1,
-              },
-              {
-                "@type": "InteractionCounter",
-                interactionType: "https://schema.org/LikeAction",
-                userInteractionCount: 5,
+                "@type": "EducationalOrganization",
+                name: "Your University Name",
+                url: "https://university-url.edu",
               },
             ],
+            knowsAbout: [
+              "Web Development",
+              "React",
+              "Next.js",
+              "TypeScript",
+              "JavaScript",
+              "Frontend Development",
+              "Software Engineering",
+            ],
           },
+
           applicationCategory: "ProfilePage",
-          agentInteractionStatistic: {
-            "@type": "InteractionCounter",
-            interactionType: "https://schema.org/WriteAction",
-            userInteractionCount: 2346,
+        }),
+      }}
+    />
+  );
+};
+
+export const renderOrganizationSchema = () => {
+  return (
+    <Script
+      id="organizationSchema"
+      strategy="afterInteractive"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: config.appName,
+          url: `https://${config.domainName}`,
+          logo: `https://${config.domainName}/logo.png`,
+          sameAs: [
+            config.social.github,
+            config.social.linkedin,
+            config.social.twitter,
+            config.social.instagram,
+            config.social.youtube,
+          ],
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: config.social.email,
+            telephone: config.social.phone,
+            contactType: "Customer Service",
           },
+        }),
+      }}
+    />
+  );
+};
+
+export const renderBreadcrumbSchema = (items: { name: string; url: string }[]) => {
+  return (
+    <Script
+      id="breadcrumbSchema"
+      strategy="afterInteractive"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: items.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.name,
+            item: `https://${config.domainName}${item.url}`,
+          })),
         }),
       }}
     />

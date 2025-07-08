@@ -6,6 +6,15 @@ export interface ConfigProps {
   appDesignation: string;
   domainName: string;
 
+  seo: {
+    titleTemplate: string;
+    defaultTitle: string;
+    defaultDescription: string;
+    defaultKeywords: string[];
+    language: string;
+    siteCreationDate: string;
+  };
+
   social: {
     github: string;
     linkedin: string;

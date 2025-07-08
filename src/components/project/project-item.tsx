@@ -6,8 +6,12 @@ import { cn } from "~/lib/utils";
 import SmartLink from "../ui/smart-link";
 import { typo } from "../ui/typograpghy";
 import { TProject } from "./_project-mock";
+import { ProjectJsonLd } from "./project-jsonld";
+import config from "~/config";
 
-type ProjectItemProps = {} & TProject;
+type ProjectItemProps = {
+  metadata?: boolean;
+} & TProject;
 
 const linkClass = "!p-0 h-full hover:!text-[#25dde5] !flex items-center gap-2 !text-sm !text-ring";
 
@@ -19,9 +23,24 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   stacks,
   isRepo,
   repoUrl,
+  slug,
+  datePublished,
+  dateModified,
+  metadata = false,
 }) => {
   return (
     <li role="listitem">
+      {metadata && (
+        <ProjectJsonLd
+          title={title}
+          description={description}
+          slug={slug}
+          datePublished={datePublished}
+          dateModified={dateModified}
+          image={`https://${config.domainName}${cover.src}`}
+          tags={stacks}
+        />
+      )}
       <div className="grid gap-4 rounded-md">
         <div className="relative aspect-video">
           <Image
