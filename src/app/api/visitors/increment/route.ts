@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import dbConnect from "~/lib/mongodb";
 import { Visitor } from "~/models/visitor";
 
+// This ensures the route is not statically optimized
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     if (!process.env.MONGODB_URI) {
@@ -19,7 +22,16 @@ export async function GET() {
       visitorData.count += 1;
       visitorData.lastUpdated = new Date();
       await visitorData.save();
-      return NextResponse.json({ count: visitorData.count }, { status: 200 });
+      
+      // Add cache-control headers to prevent caching
+      return NextResponse.json({ count: visitorData.count }, { 
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      });
     } else {
       // Create a new document with initial count of 1
       const newVisitor = await Visitor.create({

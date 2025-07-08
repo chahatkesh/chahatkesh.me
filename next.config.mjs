@@ -11,6 +11,10 @@ const nextConfig = {
     imageSizes: [16, 32, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
   },
+  // Ensure API routes are not cached by default
+  serverRuntimeConfig: {
+    disableRouteCache: true,
+  },
   redirects: async () => {
     return [
       {

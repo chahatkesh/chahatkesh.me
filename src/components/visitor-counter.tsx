@@ -12,15 +12,22 @@ const VisitorCounter = () => {
   useEffect(() => {
     // Function to increment visitor count
     const incrementVisitorCount = async () => {
+      // Add a console log to help debug
+      console.log('Incrementing visitor count');
       try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
         
-        const response = await fetch('/api/visitors/increment', { 
+        // Add a timestamp query parameter to bust any caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/visitors/increment?t=${timestamp}`, { 
           signal: controller.signal,
           headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate'
-          }
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+          },
+          // Set cache property to no-store to prevent browser caching
+          cache: 'no-store'
         });
         
         clearTimeout(timeoutId);
@@ -47,7 +54,15 @@ const VisitorCounter = () => {
     // Fallback function to just get the visitor count without incrementing
     const fetchVisitorCount = async () => {
       try {
-        const response = await fetch('/api/visitors');
+        // Add a timestamp query parameter to bust any caching
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/visitors?t=${timestamp}`, {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
+          },
+          cache: 'no-store'
+        });
         if (response.ok) {
           const data = await response.json();
           setCount(data.count);
@@ -59,7 +74,23 @@ const VisitorCounter = () => {
       }
     };
 
+    // Call the function initially
     incrementVisitorCount();
+    
+    // Add an event listener for page visibility changes
+    // This will help with detecting when a user returns to the tab
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        incrementVisitorCount();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   return (
