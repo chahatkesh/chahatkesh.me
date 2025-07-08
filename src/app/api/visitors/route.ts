@@ -4,6 +4,11 @@ import { Visitor } from "~/models/visitor";
 
 export async function GET() {
   try {
+    if (!process.env.MONGODB_URI) {
+      console.error('MONGODB_URI environment variable is not defined');
+      return NextResponse.json({ count: 0, error: 'Database configuration error' }, { status: 200 });
+    }
+    
     await dbConnect();
     
     // Find the visitor document, or create one if it doesn't exist

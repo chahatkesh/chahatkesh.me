@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = "mongodb+srv://cobum:ur8HA2oblrJ13wZH@cluster0.l5368.mongodb.net/chahatkesh";
+const MONGODB_URI = process.env.MONGODB_URI || "";
+
+if (!MONGODB_URI) {
+  throw new Error('Please define the MONGODB_URI environment variable');
+}
 
 // Global is used here to maintain a cached connection across hot reloads
 // in development and to prevent connections from growing exponentially
