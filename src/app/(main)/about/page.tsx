@@ -119,7 +119,7 @@ const AboutPage = () => {
         { name: "About Me", url: "/about" },
       ])}
       <div className="space-y-12">
-        <BackButton />
+        <BackButton>Back</BackButton>
         <section className="space-y-4">
           {/* Hero Section */}
           <div className="!mt-8 space-y-14">
