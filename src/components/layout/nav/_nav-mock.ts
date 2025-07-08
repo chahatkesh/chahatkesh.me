@@ -13,8 +13,13 @@ export const navData = [
   },
   {
     id: createId(),
-    label: "Blog",
-    path: "/blog",
+    label: "Gallery",
+    path: "/gallery",
+  },
+  {
+    id: createId(),
+    label: "About",
+    path: "/about",
   },
 ];
 

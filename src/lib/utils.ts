@@ -1,4 +1,3 @@
-import { Post } from "~/data/blog";
 import { type ClassValue, clsx } from "clsx";
 
 import { twMerge } from "tailwind-merge";
@@ -17,14 +16,4 @@ export function formatDate(input: string | number): string {
   });
 }
 
-export function sortPosts(posts: Array<Post>) {
-  return posts.sort((a, b) => {
-    if (a.date > b.date) return -1;
-    if (a.date < b.date) return 1;
-    return 0;
-  });
-}
-
 export const BasePath = (path: string) => `https://${config.domainName}${path}`;
-
-// Tag-related utilities removed

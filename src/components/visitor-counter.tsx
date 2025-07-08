@@ -31,7 +31,7 @@ const VisitorCounter = () => {
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
       <Users className="h-4 w-4" aria-hidden="true" />
-      <span>{loading ? "..." : count?.toLocaleString() || 0} visitors</span>
+      <span>Visitor #{loading ? "..." : count?.toLocaleString() || 0}</span>
     </div>
   );
 };

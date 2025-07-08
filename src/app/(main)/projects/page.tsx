@@ -1,10 +1,9 @@
 import { ProjectList, projects } from "~/components/project";
-import SearchInput from "~/components/search-input";
-import config from "~/config";
 import { getSEOTags } from "~/lib/seo";
+import BackButton from "~/components/back-btn";
 
 export const metadata: ReturnType<typeof getSEOTags> = getSEOTags({
-  title: `All Projects - ${config.appName}`,
+  title: `Projects | Chahat Kesharwani`,
   description:
     "Explore a digital garden of my projects, where I showcase insights on shipping exceptional products, advancing as a developer, and thriving in the tech industry",
   canonicalUrlRelative: "/projects",
@@ -17,10 +16,10 @@ const ProjectsPage = ({ searchParams }: { searchParams: { search: string | undef
   );
 
   return (
-    <div className="!mt-8">
-      <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row sm:items-center">
+    <div className="space-y-8">
+      <BackButton>Back</BackButton>
+      <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row sm:items-center mt-4">
         <h1 className="text-left text-xl font-medium"> All Projects </h1>
-        <SearchInput />
       </div>
 
       <div className="mt-6">
