@@ -1,11 +1,10 @@
 import { ConfigProps } from "./types/config";
 
 export const config = {
-  appName: "Hi I'm Ayush",
+  appName: "Hi I'm Chahat",
   appDesignation: "Software Developer",
-  appDescription: `Hi, I'm Ayush. I'm funny.`,
-
-  domainName: "ayushworks.com",
+  appDescription: `Hi, I'm Chahat. I'm funny.`,
+  domainName: "chahatkesh.me",
 
   colors: {
     theme: "dark",

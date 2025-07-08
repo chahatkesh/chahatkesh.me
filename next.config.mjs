@@ -16,52 +16,47 @@ const nextConfig = {
       {
         source: "/resume",
         destination:
-          "https://drive.google.com/file/d/19vcwL4S0tHNh-TmYq64MZvooWogjaynQ/view?usp=sharing",
+          "https://drive.google.com/file/d/1ZdX5oQ7PXUymfJ47OFRwR6ijk9D3wzEZ/view?usp=sharing",
         permanent: true,
       },
       {
         source: "/linkedin",
-        destination: "https://www.linkedin.com/in/ayush-that/",
+        destination: "https://www.linkedin.com/in/chahatkesharwani/",
         permanent: true,
       },
       {
         source: "/github",
-        destination: "https://github.com/ayush-that",
+        destination: "https://github.com/chahatkesh",
         permanent: true,
       },
       {
         source: "/support",
-        destination: "https://buymeacoffee.com/shydev69",
+        destination: "https://buymeacoffee.com/chahatkesh",
         permanent: true,
       },
       {
         source: "/instagram",
-        destination: "https://www.instagram.com/fitlesshot/",
+        destination: "https://www.instagram.com/chahat.kesharwanii/",
         permanent: true,
       },
       {
         source: "/twitter",
-        destination: "https://x.com/shydev69",
+        destination: "https://x.com/chahatkesh",
         permanent: true,
       },
       {
         source: "/youtube",
-        destination: "https://www.youtube.com/@ayush-that",
+        destination: "https://www.youtube.com/@chahatkesh",
         permanent: true,
       },
       {
         source: "/x",
-        destination: "https://www.x.com/shydev69",
-        permanent: true,
-      },
-      {
-        source: "/peerlist",
-        destination: "https://peerlist.io/shydev69",
+        destination: "https://www.x.com/chahatkesh",
         permanent: true,
       },
       {
         source: "/discord",
-        destination: "https://discord.com/users/fitlesshot",
+        destination: "https://discord.com/users/chahatkesh",
         permanent: true,
       },
     ];
