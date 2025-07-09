@@ -4,6 +4,7 @@ import { StaticImageData } from "next/image";
 // Project cover images
 import webmark from "~/assets/images/projects/webmark.png";
 import tomato from "~/assets/images/projects/tomato.png";
+import gitroast from "~/assets/images/projects/gitroast.png";
 
 export interface Project {
   id: string;
@@ -79,7 +80,43 @@ const projects: Project[] = [
     datePublished: "2024-12-15",
     dateModified: "2025-07-09",
     isFeatured: false,
-  }
+  },
+  {
+    id: createId(),
+    title: "GitRoast",
+    slug: "gitroast-github-profile-roaster",
+    description: "An AI-powered developer entertainment platform that generates hilarious, technically-accurate roasts based on GitHub profile analysis.",
+    detailedDescription: "GitRoast is a sophisticated full-stack web application I developed that revolutionizes developer entertainment by combining GitHub API integration with OpenAI's GPT models to generate personalized, technically-savvy roasts based on comprehensive profile analysis. The platform features a modern Next.js 15 frontend with React 19 and TypeScript, implementing advanced GitHub statistics compilation including repository analysis, commit pattern recognition, programming language distribution, and account age calculations. The application utilizes OpenAI's API to generate contextually-aware roasts with adjustable intensity levels (mild, medium, spicy), ensuring content appropriateness while maintaining technical accuracy and humor. Key features include real-time visitor analytics powered by MongoDB Atlas, responsive design with Tailwind CSS and Framer Motion animations, advanced image export functionality using html-to-image for social media sharing, and integrated Twitter sharing capabilities. The backend leverages Next.js API routes with Edge Runtime for optimal performance, implements comprehensive error handling for GitHub API rate limiting, and includes JWT-based authentication patterns. The platform demonstrates advanced software architecture with clean separation of concerns, TypeScript interface definitions for GitHub API responses, and production-ready deployment configuration with custom domain integration.",
+    tagline: "Because Sometimes Your Commit History Needs a Reality Check",
+    task: "Developed GitRoast, an innovative AI-powered platform that analyzes GitHub profiles and generates humorous, technically-accurate roasts using OpenAI's GPT models. Built with Next.js 15, React 19, and TypeScript, the application features comprehensive GitHub API integration for real-time profile analysis, customizable roast intensity levels, MongoDB Atlas integration for visitor analytics, and advanced social sharing capabilities. Implemented sophisticated GitHub statistics compilation including repository analysis, commit pattern recognition, programming language distribution calculations, and account age analytics. The platform includes responsive design with Tailwind CSS, smooth animations using Framer Motion, image export functionality for social media sharing, and Twitter integration for viral content distribution. Successfully deployed on custom domain with Edge Runtime optimization, demonstrating expertise in modern web development, API integration, AI/ML implementation, database design, and production deployment strategies.",
+    features: [
+      "AI-powered GitHub profile analysis and roast generation",
+      "Comprehensive repository statistics and commit pattern analysis",
+      "Customizable roast intensity levels (mild, medium, spicy)",
+      "Advanced image export and social media sharing",
+      "Responsive design with smooth animations",
+      "GitHub API rate limiting and error handling",
+      "Edge Runtime optimization for performance",
+      "TypeScript-based architecture with type safety"
+    ],
+    stacks: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "OpenAI API",
+      "GitHub API",
+      "MongoDB",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
+    cover: gitroast,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/gitroast",
+    deployedURL: "https://gitroast.chahatkesh.me/",
+    datePublished: "2025-05-15",
+    dateModified: "2025-07-09",
+    isFeatured: false,
+  },
 ];
 
 export default projects;

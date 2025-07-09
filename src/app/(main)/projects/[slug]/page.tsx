@@ -257,7 +257,7 @@ export default function ProjectPage({ params }: Props) {
       >
         <h2 className={typo({ variant: "h2" })}>More Projects</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           {projects
             .filter((p) => p.id !== project.id)
             .slice(0, 3)
@@ -271,10 +271,10 @@ export default function ProjectPage({ params }: Props) {
               >
                 <SmartLink
                   href={`/projects/${relatedProject.slug}`}
-                  className="block h-full"
+                  className="block w-full h-full"
                 >
-                  <div className="rounded-xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full flex flex-col">
-                    <div className="relative h-48 w-full overflow-hidden">
+                  <div className="rounded-xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
+                    <div className="relative w-full aspect-video overflow-hidden">
                       <Image
                         src={relatedProject.cover}
                         alt={relatedProject.title}
@@ -286,13 +286,13 @@ export default function ProjectPage({ params }: Props) {
                     </div>
 
                     <div className="p-5 flex-1 flex flex-col">
-                      <h3 className="text-lg font-semibold mb-2">
+                      <h3 className="text-lg font-semibold mb-2 line-clamp-2">
                         {relatedProject.title}
                       </h3>
-                      <p className="text-sm text-neutral-400 line-clamp-2 mb-4 flex-1">
+                      <p className="text-sm text-neutral-400 line-clamp-3 mb-4 flex-1">
                         {relatedProject.tagline}
                       </p>
-                      <div className="flex flex-wrap gap-2 mt-auto">
+                      <div className="flex flex-wrap gap-2">
                         {relatedProject.stacks.slice(0, 3).map((stack, i) => {
                           const techInfo = ALL_STACKS[stack];
                           const Icon = techInfo?.Icon;
