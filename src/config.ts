@@ -2,17 +2,18 @@ import { ConfigProps } from "./types/config";
 
 export const config = {
   appName: "Chahat Kesharwani",
-  appDesignation: "Software Developer",
-  appDescription: `Hi, I'm Chahat Kesharwani. I'm a passionate software developer specializing in web development, creating engaging user experiences with modern technologies like React, Next.js, and TypeScript.`,
+  appDesignation: "Full Stack Developer & UI/UX Enthusiast",
+  appDescription: `Hi, I'm Chahat Kesharwani. I'm a passionate developer specializing in web development, creating engaging user experiences with modern technologies like React, Next.js, and TypeScript.`,
   domainName: "chahatkesh.me",
 
   seo: {
     titleTemplate: "%s | Chahat Kesharwani",
-    defaultTitle: "Chahat Kesharwani - Software Developer Portfolio",
-    defaultDescription: "Software Developer specializing in web development with React, Next.js and TypeScript. Check out my projects, skills, and experience.",
+    defaultTitle: "Chahat Kesharwani - Full Stack Developer & UI/UX Enthusiast Portfolio",
+    defaultDescription: "Full Stack Developer & UI/UX Enthusiast specializing in web development with React, Next.js and TypeScript. Check out my projects, skills, and experience.",
     defaultKeywords: [
       "Chahat Kesharwani",
-      "software developer",
+      "full stack developer",
+      "ui/ux enthusiast",
       "web developer",
       "React developer",
       "Next.js developer",
@@ -22,7 +23,7 @@ export const config = {
       "fullstack developer",
     ],
     language: "en-US",
-    siteCreationDate: "2023-01-01",
+    siteCreationDate: "2025-07-05",
   },
 
   colors: {
@@ -42,10 +43,6 @@ export const config = {
     buymeacoffee: "https://buymeacoffee.com/chahatkesh",
   },
 
-  auth: {
-    loginUrl: "/api/auth/signin",
-    callbackUrl: "/dashboard",
-  },
 } as ConfigProps;
 
 export default config;

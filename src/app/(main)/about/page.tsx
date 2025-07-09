@@ -33,7 +33,7 @@ import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
   title: "About Me",
-  description: `Learn more about ${config.appName}, a ${config.appDesignation} with experience in web development and software engineering. Discover my journey, skills, and interests.`,
+  description: `Learn more about ${config.appName}, a ${config.appDesignation} with experience in web development and product design. Discover my journey, skills, and interests.`,
   openGraph: {
     title: `About ${config.appName} - ${config.appDesignation}`,
     description: `Learn more about my background, skills, and journey as a ${config.appDesignation}. Get to know the person behind the code.`,
