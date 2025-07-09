@@ -6,12 +6,17 @@ import SmartLink from "~/components/ui/smart-link";
 import { typo } from "~/components/ui/typograpghy";
 import projects from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { FaExternalLinkAlt } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa6";
+import { FiGlobe} from	"react-icons/fi";
+import { TbBrandGithub } from "react-icons/tb";
+import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
 import { ProjectJsonLd } from "~/components/project/project-jsonld";
 import { MotionDiv } from "~/components/motion-wrapper";
-import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
+import {
+  FRONTEND_STACKS,
+  BACKEND_DEVOPS,
+  LANGUAGES_TOOLS
+} from "~/data/stack";
 
 type Props = {
   params: {
@@ -21,14 +26,14 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === params.slug);
-  
+
   if (!project) {
     return getSEOTags({
       title: "Project Not Found",
-      description: "The requested project could not be found.",
+      description: "The requested project could not be found."
     });
   }
-  
+
   return getSEOTags({
     title: project.title,
     description: project.description,
@@ -37,23 +42,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: project.title,
       description: project.description,
-      images: [{
-        url: `https://${config.domainName}${project.cover.src}`,
-        width: 1200,
-        height: 630,
-        alt: project.title
-      }]
-    },
+      images: [
+        {
+          url: `https://${config.domainName}${project.cover.src}`,
+          width: 1200,
+          height: 630,
+          alt: project.title
+        }
+      ]
+    }
   });
 }
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
-    slug: project.slug,
+    slug: project.slug
   }));
 }
 
-// Combine all tech stacks for icon lookup
 const ALL_STACKS = {
   ...FRONTEND_STACKS,
   ...BACKEND_DEVOPS,
@@ -67,20 +73,23 @@ export default function ProjectPage({ params }: Props) {
     notFound();
   }
 
-  const formattedDate = new Date(project.dateModified).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const formattedDate = new Date(project.dateModified).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+  );
 
   return (
     <div className="space-y-8">
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Projects", url: "/projects" },
-        { name: project.title, url: `/projects/${project.slug}` },
+        { name: project.title, url: `/projects/${project.slug}` }
       ])}
-      
+
       <ProjectJsonLd
         title={project.title}
         description={project.description}
@@ -90,95 +99,223 @@ export default function ProjectPage({ params }: Props) {
         image={`https://${config.domainName}${project.cover.src}`}
         tags={project.stacks}
       />
-      
+
       <BackButton>Back to Projects</BackButton>
-      
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8">
-        {/* Left column (5/12) */}
-        <div className="md:col-span-5 space-y-6">
-          <div className="bg-gradient-to-br from-neutral-900 via-neutral-950 to-black p-6 rounded-2xl">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-lg">
-              <Image
-                src={project.cover}
-                alt={project.title}
-                fill
-                className="object-cover"
-                priority
-                placeholder="blur"
-              />
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Tech Stack</h3>
-            <div className="flex flex-wrap gap-2">
-              {project.stacks.map((stack, index) => {
-                const techInfo = ALL_STACKS[stack];
-                const Icon = techInfo?.Icon;
-                const className = techInfo?.className || "text-neutral-400";
-                
-                return (
-                  <MotionDiv
-                    key={index}
-                    className="flex items-center gap-2 px-3 py-2 rounded-full bg-neutral-900 border border-neutral-800 text-sm"
-                    whileHover={{ y: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {Icon && <Icon className={className} size={16} aria-label={stack} />}
-                    <span className="whitespace-nowrap">{stack}</span>
-                  </MotionDiv>
-                );
-              })}
-            </div>
-          </div>
-          
-          <div className="flex flex-wrap gap-4">
-            {project.deployedURL && (
-              <SmartLink 
-                href={project.deployedURL} 
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-              >
-                <FaExternalLinkAlt size={14} />
-                <span>View Live Site</span>
-              </SmartLink>
-            )}
-            
-            {project.isRepo && project.repoUrl && (
-              <SmartLink 
-                href={project.repoUrl} 
-                className="inline-flex items-center gap-2 rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/90"
-              >
-                <FaGithub size={14} />
-                <span>View Source Code</span>
-              </SmartLink>
-            )}
-          </div>
-        </div>
-        
-        {/* Right column (7/12) */}
-        <div className="md:col-span-7 space-y-6">
-          <div>
-            <p className="text-sm text-neutral-400 mb-2">{project.tagline}</p>
-            <h1 className="text-3xl font-bold mb-3">{project.title}</h1>
-            <p className="text-sm text-neutral-500 mb-6">Last updated: {formattedDate}</p>
-            
-            <div className="prose prose-neutral dark:prose-invert max-w-none">
-              <p className={typo({ variant: "paragraph" })}>{project.description}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Key Features</h2>
-            <ul className="space-y-3">
-              {project.features.map((feature, index) => (
-                <li key={index} className="bg-neutral-900/50 rounded-lg p-4 border border-neutral-800">
-                  <p className="text-base">{feature}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+
+      <div className="relative w-full h-[60vh] min-h-[500px] rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
+        <Image
+          src={project.cover}
+          alt={project.title}
+          fill
+          className="object-cover object-center transition-transform duration-700 ease-in-out group-hover:scale-105"
+          priority
+          placeholder="blur"
+          sizes="(max-width: 1200px) 100vw"
+        />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 z-20 p-6 md:p-8 max-w-3xl">
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
+              {project.title}
+            </h1>
+            <p className="text-lg md:text-xl text-primary mb-2 font-medium">
+              {project.tagline}
+            </p>
+            <p className="text-sm text-neutral-300">
+              Last updated: {formattedDate}
+            </p>
+          </MotionDiv>
         </div>
       </div>
+
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <div className="flex flex-wrap gap-2">
+          {project.stacks.map((stack, index) => {
+            const techInfo = ALL_STACKS[stack];
+            const Icon = techInfo?.Icon;
+            const className = techInfo?.className || "text-neutral-400";
+
+            return (
+              <MotionDiv
+                key={index}
+                className="flex items-center h-8 gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2 }}
+              >
+                {Icon && (
+                  <Icon className={className} size={14} aria-label={stack} />
+                )}
+                <span className="whitespace-nowrap">{stack}</span>
+              </MotionDiv>
+            );
+          })}
+        </div>
+      </MotionDiv>
+
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+          <p className={typo({ variant: "paragraph", size: "lg" })}>
+            {project.task}
+          </p>
+        </div>
+      </MotionDiv>
+
+      <div className="space-y-12">
+      <MotionDiv
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: 0.15 }}
+  className="space-y-5"
+>
+  <div className="flex gap-8">
+    {project.deployedURL && (
+      <SmartLink
+        href={project.deployedURL}
+        className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
+      >
+        <div className="flex items-center gap-2">
+  <span className="leading-none">View Live Site</span>
+  <FiGlobe className="w-4 h-4 relative" />
+</div>
+      </SmartLink>
+    )}
+
+    {project.isRepo && project.repoUrl && (
+      <SmartLink
+        href={project.repoUrl}
+        className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
+      >
+        <div className="flex items-center gap-2">
+          <span className="leading-none">View Source Code</span>
+          <TbBrandGithub className="w-4 h-4 relative" />
+        </div>
+      </SmartLink>
+    )}
+  </div>
+</MotionDiv>
+
+
+
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="space-y-6"
+        >
+          <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
+          <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+            <p className={typo({ variant: "paragraph", size: "lg" })}>
+              {project.detailedDescription}
+            </p>
+          </div>
+        </MotionDiv>
+
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="space-y-6"
+        >
+          <h2 className={typo({ variant: "h2" })}>Key Features</h2>
+          <ul className="grid grid-cols-1 gap-5">
+            {project.features.map((feature, index) => (
+              <MotionDiv
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 * index }}
+              >
+                <li className="flex items-start gap-3 rounded-xl transition-colors">
+                  <span className="text-ring flex-shrink-0 mt-1 group-hover:text-primary transition-colors">
+                    <FaChevronRight size={16} />
+                  </span>
+                  <p className="text-base">{feature}</p>
+                </li>
+              </MotionDiv>
+            ))}
+          </ul>
+        </MotionDiv>
+      </div>
+
+      <MotionDiv
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="mt-16 pt-16 border-t border-neutral-800"
+      >
+        <h2 className={typo({ variant: "h2" })}>More Projects</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {projects
+            .filter((p) => p.id !== project.id)
+            .slice(0, 3)
+            .map((relatedProject, index) => (
+              <MotionDiv
+                key={relatedProject.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 * index }}
+                className="group"
+              >
+                <SmartLink
+                  href={`/projects/${relatedProject.slug}`}
+                  className="block h-full"
+                >
+                  <div className="rounded-xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full flex flex-col">
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <Image
+                        src={relatedProject.cover}
+                        alt={relatedProject.title}
+                        fill
+                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                    </div>
+
+                    <div className="p-5 flex-1 flex flex-col">
+                      <h3 className="text-lg font-semibold mb-2">
+                        {relatedProject.title}
+                      </h3>
+                      <p className="text-sm text-neutral-400 line-clamp-2 mb-4 flex-1">
+                        {relatedProject.tagline}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        {relatedProject.stacks.slice(0, 3).map((stack, i) => {
+                          const techInfo = ALL_STACKS[stack];
+                          const Icon = techInfo?.Icon;
+
+                          return Icon ? (
+                            <span key={i} className="text-neutral-400">
+                              <Icon size={16} aria-label={stack} />
+                            </span>
+                          ) : null;
+                        })}
+                        {relatedProject.stacks.length > 3 && (
+                          <span className="text-xs text-neutral-500">
+                            +{relatedProject.stacks.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </SmartLink>
+              </MotionDiv>
+            ))}
+        </div>
+      </MotionDiv>
     </div>
   );
 }

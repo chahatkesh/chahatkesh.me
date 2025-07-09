@@ -8,6 +8,8 @@ const typography = cva(["font-bold inline-block font-ubuntu"], {
     },
     size: {
       sm: "text-sm",
+      md: "text-md",
+      lg: "text-lg",
     },
     font: {
       sans: "font-sans",
