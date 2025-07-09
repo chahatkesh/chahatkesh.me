@@ -49,16 +49,13 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
       )}
       <Link href={`/projects/${slug}`}>
         <MotionDiv 
-          className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300 p-4"
+          className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
           whileHover={{ y: -3 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Left side with gradient and image - takes 2/5 of the width */}
-          <div className="sm:col-span-2 relative flex flex-col justify-center items-center bg-gradient-to-br from-neutral-900 via-neutral-950 to-black rounded-lg overflow-hidden p-4">
-            <p className="text-xs text-neutral-400 mb-3 text-center line-clamp-1">{tagline}</p>
-            
-            <MotionDiv 
-              className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-md"
+          {/* Left side with full image and tagline overlay - takes 2/5 of the width */}
+          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black rounded-lg overflow-hidden">              <MotionDiv 
+              className="relative w-full h-full min-h-[200px] overflow-hidden"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
@@ -67,8 +64,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 priority
                 placeholder="blur"
                 src={cover}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
+                fill
               />
+              
+              {/* Tagline overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 pt-8">
+                <p className="text-xs text-neutral-200 line-clamp-1">{tagline}</p>
+              </div>
               
               {/* Decorative elements */}
               <div className="absolute -top-8 -left-8 w-16 h-16 bg-blue-500 opacity-10 rounded-full blur-xl"></div>
@@ -77,21 +80,23 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           </div>
           
           {/* Right side with content - takes 3/5 of the width */}
-          <div className="sm:col-span-3 flex flex-col">
+          <div className="sm:col-span-3 flex flex-col p-4">
             <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
             
-            <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-2 line-clamp-2")}>
+            <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-3 line-clamp-2")}>
               {description}
             </p>
             
-            <ul className="mb-6 space-y-1">
-              {features.map((feature, index) => (
-                <li key={index} className="text-sm text-neutral-400 flex items-start">
-                  <span className="mr-2 text-primary">•</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
+            {features && features.length > 0 && (
+              <ul className="mb-4 space-y-1">
+                {features.map((feature, index) => (
+                  <li key={index} className="text-xs text-neutral-400 flex items-start">
+                    <span className="mr-1 text-primary">•</span>
+                    <span className="line-clamp-1">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             
             <div className="mt-auto">
               <div className="flex flex-wrap gap-1.5">

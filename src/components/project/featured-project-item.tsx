@@ -49,26 +49,29 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
       )}
       <Link href={`/projects/${slug}`} className="block">
         <MotionDiv 
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
+          className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
           whileHover={{ y: -5 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Left side with gradient and image */}
-          <div className="relative flex flex-col justify-center items-center p-8 bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">
-            <p className="text-sm text-neutral-400 mb-6 text-center">{tagline}</p>
-            
-            <MotionDiv 
-              className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-lg"
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.2 }}
+          {/* Left side with full image and tagline overlay */}
+          <div className="relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">              <MotionDiv 
+              className="relative w-full h-full min-h-[300px] overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
             >
               <Image
                 alt={`${title} screenshot`}
                 priority
                 placeholder="blur"
                 src={cover}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
+                fill
               />
+              
+              {/* Tagline overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12">
+                <p className="text-sm text-neutral-200">{tagline}</p>
+              </div>
               
               {/* Decorative elements */}
               <div className="absolute -top-10 -left-10 w-20 h-20 bg-blue-500 opacity-10 rounded-full blur-xl"></div>
