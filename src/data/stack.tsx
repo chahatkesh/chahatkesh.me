@@ -10,6 +10,8 @@ import {
   SiTypescript,
   SiReact,
   SiNextdotjs,
+  SiHtml5,
+  SiCss3,
   SiTailwindcss,
   SiChakraui,
   SiFramer,
@@ -24,7 +26,10 @@ import {
   SiLangchain,
   SiSlack,
   SiNotion,
-  SiFigma
+  SiFigma,
+  SiVite,
+  SiStripe,
+  SiJsonwebtokens
 } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
@@ -53,8 +58,11 @@ export const LANGUAGES_TOOLS: stacksProps = {
 };
 
 export const FRONTEND_STACKS: stacksProps = {
+  "HTML5": { Icon: SiHtml5, className: "text-orange-500" },
+  "CSS3": { Icon: SiCss3, className: "text-blue-500" },
   "React.js": { Icon: SiReact, className: "text-sky-500" },
   "Next.js": { Icon: SiNextdotjs, className: "text-neutral-400" },
+  "Vite": { Icon: SiVite, className: "text-purple-500" },
   "Tailwind CSS": { Icon: SiTailwindcss, className: "text-cyan-300" },
   "Chakra UI": { Icon: SiChakraui, className: "text-teal-500" },
   "Shadcn UI": { Icon: SiNextdotjs, className: "text-neutral-200" },
@@ -81,4 +89,6 @@ export const BACKEND_DEVOPS: stacksProps = {
   "OpenAI API": { Icon: SiOpenai, className: "text-teal-500" },
   LangChain: { Icon: SiLangchain, className: "text-teal-500" },
   "Vector Databases": { Icon: BsVectorPen, className: "text-purple-500" },
+  "Stripe": { Icon: SiStripe, className: "text-purple-600" },
+  "JWT": { Icon: SiJsonwebtokens, className: "text-pink-500" },
 };

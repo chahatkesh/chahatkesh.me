@@ -102,7 +102,7 @@ export default function ProjectPage({ params }: Props) {
 
       <BackButton>Back to Projects</BackButton>
 
-      <div className="relative w-full h-[60vh] min-h-[500px] rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
+      <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
         <Image
           src={project.cover}
           alt={project.title}
@@ -112,7 +112,7 @@ export default function ProjectPage({ params }: Props) {
           placeholder="blur"
           sizes="(max-width: 1200px) 100vw"
         />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-[85%] md:h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
         <div className="absolute bottom-0 left-0 z-20 p-6 md:p-8 max-w-3xl">
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
@@ -146,7 +146,7 @@ export default function ProjectPage({ params }: Props) {
             return (
               <MotionDiv
                 key={index}
-                className="flex items-center h-8 gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
+                className="flex items-center h-6 md:h-8 gap-1.5 px-3 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.2 }}
               >

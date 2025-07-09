@@ -54,7 +54,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           transition={{ duration: 0.3 }}
         >
           {/* Left side with full image and tagline overlay - takes 2/5 of the width */}
-          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black rounded-lg overflow-hidden">              <MotionDiv 
+          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">              <MotionDiv 
               className="relative w-full h-full min-h-[200px] overflow-hidden"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
