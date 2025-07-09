@@ -19,13 +19,17 @@ const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean
     }
   };
 
+  // Check if we're on a project detail page when the path is /projects
+  const isProjectDetailPage = path === "/projects" && pathname.startsWith("/projects/");
+  const isActive = pathname === path || isProjectDetailPage;
+  
   return (
     <li
       role="listitem"
       className={cn(
         "relative flex h-7 items-center rounded-md px-2 font-medium transition-colors duration-300 sm:px-0",
         {
-          "bg-ring sm:bg-transparent sm:text-ring": pathname === path,
+          "bg-ring sm:bg-transparent sm:text-ring": isActive,
         }
       )}
       onClick={onClickHandler}
@@ -39,7 +43,7 @@ const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean
         {label}
       </Link>
 
-      {pathname === path && (
+      {isActive && (
         <MotionSpan
           layoutId="pill-tab"
           transition={{ type: "spring", duration: 0.4, bounce: 0, delay: 0.1 }}

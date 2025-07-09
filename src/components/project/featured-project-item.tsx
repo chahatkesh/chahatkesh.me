@@ -69,7 +69,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
               />
               
               {/* Tagline overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-12">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent z-20 p-6 pt-16">
                 <p className="text-sm text-neutral-200">{tagline}</p>
               </div>
               
