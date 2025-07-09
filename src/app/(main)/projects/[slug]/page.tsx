@@ -122,12 +122,21 @@ export default function ProjectPage({ params }: Props) {
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
               {project.title}
             </h1>
-            <p className="text-lg md:text-xl text-primary mb-2 font-medium">
+            <p className="hidden md:block text-lg md:text-xl text-primary mb-2 font-medium">
               {project.tagline}
             </p>
-            <p className="text-sm text-neutral-300">
-              Last updated: {formattedDate}
-            </p>
+            <div className="flex gap-4">
+              <p className="text-sm text-neutral-300">
+                Published on: {new Date(project.datePublished).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric"
+                })}
+              </p>
+              <p className="hidden md:block text-sm text-neutral-300">
+                Last updated: {formattedDate}
+              </p>
+            </div>
           </MotionDiv>
         </div>
       </div>
@@ -283,6 +292,14 @@ export default function ProjectPage({ params }: Props) {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                      <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-md px-2 z-20">
+                        <span className="text-xs text-neutral-300">
+                          {new Date(relatedProject.datePublished).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short"
+                          })}
+                        </span>
+                      </div>
                     </div>
 
                     <div className="p-5 flex-1 flex flex-col">

@@ -50,11 +50,11 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
       <Link href={`/projects/${slug}`}>
         <MotionDiv 
           className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
-          whileHover={{ y: -3 }}
           transition={{ duration: 0.3 }}
         >
           {/* Left side with full image and tagline overlay - takes 2/5 of the width */}
-          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">              <MotionDiv 
+          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">
+            <MotionDiv
               className="relative w-full h-full min-h-[200px] overflow-hidden"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
@@ -81,11 +81,20 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           
           {/* Right side with content - takes 3/5 of the width */}
           <div className="sm:col-span-3 flex flex-col p-4">
-            <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
-            
+            <div className="flex items-start justify-between">
+              <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
+              <span className="text-[9px] text-neutral-300">
+                {new Date(datePublished).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short"
+                })}
+              </span>
+            </div>
+
             <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-3 line-clamp-2")}>
               {description}
             </p>
+            
             
             {features && features.length > 0 && (
               <ul className="mb-4 space-y-1">
