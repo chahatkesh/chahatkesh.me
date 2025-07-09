@@ -16,43 +16,68 @@ export default async function Image() {
           height: '100%',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           backgroundColor: '#000',
           color: '#fff',
           fontFamily: 'sans-serif',
-          padding: '40px',
+          padding: '60px',
         }}
       >
         <div
           style={{
-            fontSize: 60,
-            fontWeight: 'bold',
-            marginBottom: 20,
-            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
           }}
         >
-          {config.appName}
+          <div
+            style={{
+              fontSize: 72,
+              fontWeight: 'bold',
+              marginBottom: 20,
+              background: 'linear-gradient(90deg, #fff 0%, #ccc 100%)',
+              backgroundClip: 'text',
+              color: 'transparent',
+            }}
+          >
+            {config.appName}
+          </div>
+          <div
+            style={{
+              fontSize: 36,
+              marginBottom: 20,
+              color: '#888',
+            }}
+          >
+            {config.appDesignation}
+          </div>
+          <div
+            style={{
+              fontSize: 24,
+              color: '#aaa',
+              lineHeight: 1.4,
+              maxWidth: '90%',
+            }}
+          >
+            {config.appDescription.substring(0, 120)}...
+          </div>
         </div>
         <div
           style={{
-            fontSize: 36,
-            textAlign: 'center',
-            marginBottom: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 280,
+            height: 280,
+            borderRadius: '50%',
+            backgroundColor: '#111',
+            border: '4px solid #333',
+            fontSize: 120,
           }}
         >
-          {config.appDesignation}
-        </div>
-        <div
-          style={{
-            fontSize: 24,
-            textAlign: 'center',
-            color: '#ccc',
-            maxWidth: '80%',
-          }}
-        >
-          {config.seo.defaultDescription}
+          👨‍💻
         </div>
       </div>
     ),

@@ -16,43 +16,68 @@ export default async function Image() {
           height: '100%',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           backgroundColor: '#000',
           color: '#fff',
           fontFamily: 'sans-serif',
-          padding: '40px',
+          padding: '60px',
         }}
       >
         <div
           style={{
-            fontSize: 60,
-            fontWeight: 'bold',
-            marginBottom: 20,
-            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
           }}
         >
-          {config.appName}
+          <div
+            style={{
+              fontSize: 64,
+              fontWeight: 'bold',
+              marginBottom: 16,
+              background: 'linear-gradient(90deg, #1DA1F2 0%, #0E71A8 100%)',
+              backgroundClip: 'text',
+              color: 'transparent',
+            }}
+          >
+            {config.appName}
+          </div>
+          <div
+            style={{
+              fontSize: 32,
+              marginBottom: 16,
+              color: '#888',
+            }}
+          >
+            {config.appDesignation}
+          </div>
+          <div
+            style={{
+              fontSize: 22,
+              color: '#aaa',
+              lineHeight: 1.4,
+              maxWidth: '90%',
+            }}
+          >
+            {config.appDescription.substring(0, 100)}...
+          </div>
         </div>
         <div
           style={{
-            fontSize: 36,
-            textAlign: 'center',
-            marginBottom: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 240,
+            height: 240,
+            borderRadius: '50%',
+            backgroundColor: '#111',
+            border: '3px solid #1DA1F2',
+            fontSize: 100,
           }}
         >
-          {config.appDesignation}
-        </div>
-        <div
-          style={{
-            fontSize: 24,
-            textAlign: 'center',
-            color: '#ccc',
-            maxWidth: '80%',
-          }}
-        >
-          Follow me on Twitter @chahatkesh
+          👨‍💻
         </div>
       </div>
     ),

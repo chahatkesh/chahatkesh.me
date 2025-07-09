@@ -65,7 +65,7 @@ export const getSEOTags = ({
       type: "website",
       images: [
         {
-          url: `https://${config.domainName}/og-image.png`,
+          url: `https://${config.domainName}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: `${config.appName} - ${config.appDesignation}`,
@@ -79,16 +79,27 @@ export const getSEOTags = ({
       card: "summary_large_image",
       site: "@chahatkesh",
       creator: "@chahatkesh",
-      images: [`https://${config.domainName}/twitter-image.png`],
+      images: [`https://${config.domainName}/twitter-image`],
     },
 
-    ...(canonicalUrlRelative && {
-      alternates: {
-        canonical: canonicalUrlRelative,
-      },
-    }),
+    // Additional meta tags for better social media support
+    other: {
+      // WhatsApp and Telegram
+      "og:image:width": "1200",
+      "og:image:height": "630",
+      "twitter:image:width": "1200",
+      "twitter:image:height": "630",
 
-    ...extraTags,
+      // LinkedIn
+      "article:author": config.appName,
+
+      // Discord
+      "theme-color": "#000000",
+
+      // General social media
+      "og:updated_time": new Date().toISOString(),
+      ...extraTags,
+    },
   };
 };
 
