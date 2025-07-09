@@ -112,7 +112,7 @@ export default function ProjectPage({ params }: Props) {
           placeholder="blur"
           sizes="(max-width: 1200px) 100vw"
         />
-        <div className="absolute bottom-0 left-0 w-full h-[85%] md:h-1/3 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 w-full h-[85%] md:h-1/2 bg-gradient-to-t from-black via-black/75 to-transparent z-10" />
         <div className="absolute bottom-0 left-0 z-20 p-6 md:p-8 max-w-3xl">
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
