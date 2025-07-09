@@ -3,6 +3,7 @@ import { FaGithub, FaAws, FaDocker, FaGit } from "react-icons/fa";
 import { VscCode } from "react-icons/vsc";
 import { 
   SiCplusplus,
+  SiRadixui,
   SiC, 
   SiPython,
   SiJavascript,
@@ -61,6 +62,7 @@ export const FRONTEND_STACKS: stacksProps = {
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
   "GitHub API": { Icon: FaGithub, className: "text-neutral-300" },
   "Retrieval-Augmented Generation": { Icon: BsRobot, className: "text-rose-500" },
+  "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
 };
 
 export const BACKEND_DEVOPS: stacksProps = {

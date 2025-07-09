@@ -1,3 +1,5 @@
+"use client";
+
 import ContentNotFound from "../ui/content-not-found";
 import { typo } from "../ui/typograpghy";
 import { Project } from "~/data/projects";
@@ -17,11 +19,19 @@ const ProjectList = ({ projects, metadata, showFeatured = false }: ProjectListPr
 
       <div className="!mt-8">
         {projects.length > 0 ? (
-          <ol className="grid gap-8 md:grid-cols-2" role="list">
+          <ol className={`grid gap-8 ${showFeatured ? 'md:grid-cols-1' : 'md:grid-cols-1'}`} role="list">
             {projects.map((project) => (
               showFeatured ? 
-              <FeaturedProjectItem key={project.id} {...project} metadata={metadata} /> :
-              <ProjectItem key={project.id} {...project} metadata={metadata} />
+              <FeaturedProjectItem 
+                key={project.id} 
+                {...project} 
+                metadata={metadata}
+              /> :
+              <ProjectItem 
+                key={project.id} 
+                {...project} 
+                metadata={metadata}
+              />
             ))}
           </ol>
         ) : (

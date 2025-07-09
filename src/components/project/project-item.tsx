@@ -1,32 +1,38 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa6";
+import Link from "next/link";
 import { cn } from "~/lib/utils";
-import SmartLink from "../ui/smart-link";
 import { typo } from "../ui/typograpghy";
 import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
 import { Project } from "~/data/projects";
+import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
+import { MotionDiv } from "../motion-wrapper";
 
 type ProjectItemProps = {
   metadata?: boolean;
 } & Project;
 
-const linkClass = "!p-0 h-full hover:!text-[#25dde5] !flex items-center gap-2 !text-sm !text-ring";
+// Combine all tech stacks for icon lookup
+const ALL_STACKS = {
+  ...FRONTEND_STACKS,
+  ...BACKEND_DEVOPS,
+  ...LANGUAGES_TOOLS
+};
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
   title,
   description,
-  deployedURL,
   cover,
   stacks,
-  isRepo,
-  repoUrl,
   slug,
   datePublished,
   dateModified,
   metadata = false,
+  tagline,
+  features,
 }) => {
   return (
     <li role="listitem">
@@ -41,66 +47,82 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           tags={stacks}
         />
       )}
-      <div className="grid gap-4 rounded-md">
-        <div className="relative aspect-video">
-          <Image
-            alt={`${title} not found`}
-            priority
-            placeholder="blur"
-            src={cover}
-            className="size-full rounded-md object-cover"
-          />
-        </div>
-
-        <hgroup className="space-y-2 sm:space-y-1">
-          <h2 className="font-ubuntu text-base font-medium">{title}</h2>
-
-          <p className={"text-xs text-ring"} aria-label="project stacks">
-            {stacks.join(" / ")}
-          </p>
-
-          <p className={cn(typo({ variant: "paragraph", size: "sm" }), "!mt-4 line-clamp-2")}>
-            {description}
-          </p>
-
-          <div className="!mt-2 flex items-center gap-4">
-            {deployedURL && (
-              <SmartLink
-                aria-label={`visit ${title} live URL}`}
-                href={deployedURL}
-                className={linkClass}
-              >
-                <FaExternalLinkAlt size={12} />
-                <span> Live Preview</span>
-              </SmartLink>
-            )}
-
-            {isRepo && (
-              <SmartLink
-                aria-label={`visit ${title} Github Repo`}
-                href={repoUrl as string}
-                className={linkClass}
-              >
-                <FaGithub />
-                <span> Repo Url</span>
-              </SmartLink>
-            )}
+      <Link href={`/projects/${slug}`}>
+        <MotionDiv 
+          className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300 p-4"
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Left side with gradient and image - takes 2/5 of the width */}
+          <div className="sm:col-span-2 relative flex flex-col justify-center items-center bg-gradient-to-br from-neutral-900 via-neutral-950 to-black rounded-lg overflow-hidden p-4">
+            <p className="text-xs text-neutral-400 mb-3 text-center line-clamp-1">{tagline}</p>
+            
+            <MotionDiv 
+              className="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-md"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Image
+                alt={`${title} screenshot`}
+                priority
+                placeholder="blur"
+                src={cover}
+                className="w-full h-full object-cover"
+              />
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-8 -left-8 w-16 h-16 bg-blue-500 opacity-10 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-purple-500 opacity-10 rounded-full blur-xl"></div>
+            </MotionDiv>
           </div>
-        </hgroup>
-      </div>
+          
+          {/* Right side with content - takes 3/5 of the width */}
+          <div className="sm:col-span-3 flex flex-col">
+            <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
+            
+            <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-2 line-clamp-2")}>
+              {description}
+            </p>
+            
+            <ul className="mb-6 space-y-1">
+              {features.map((feature, index) => (
+                <li key={index} className="text-sm text-neutral-400 flex items-start">
+                  <span className="mr-2 text-primary">•</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+            
+            <div className="mt-auto">
+              <div className="flex flex-wrap gap-1.5">
+                {stacks.slice(0, 5).map((stack, index) => {
+                  const techInfo = ALL_STACKS[stack];
+                  const Icon = techInfo?.Icon;
+                  const className = techInfo?.className || "text-neutral-400";
+                  
+                  return (
+                    <MotionDiv
+                      key={index}
+                      className="flex items-center gap-1 px-2 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[10px]"
+                      whileHover={{ y: -1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {Icon && <Icon className={className} size={12} aria-label={stack} />}
+                      <span className="whitespace-nowrap">{stack}</span>
+                    </MotionDiv>
+                  );
+                })}
+                {stacks.length > 5 && (
+                  <span className="text-xs text-neutral-500 self-end pl-1">
+                    +{stacks.length - 5} more
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </MotionDiv>
+      </Link>
     </li>
   );
 };
 export default ProjectItem;
-
-{
-  /* <div className="flex gap-2 items-center">
-<div className="size-8 rounded-full grid place-content-center bg-neutral-900">
-  <SquareArrowOutUpRight className="size-3" />
-</div>
-
-<div className="size-8 rounded-full grid place-content-center bg-neutral-900">
-  <Github className="size-3" />
-</div>
-</div> */
-}

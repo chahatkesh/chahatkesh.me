@@ -9,6 +9,8 @@ export interface Project {
   title: string;
   slug: string;
   description: string;
+  tagline: string;
+  features: string[];
   stacks: string[];
   cover: StaticImageData;
   isRepo: boolean;
@@ -26,6 +28,14 @@ const projects: Project[] = [
     slug: "webmark",
     description:
       "A full-stack bookmark management solution for organizing and categorizing Web links.",
+    tagline: "A platform for efficient bookmark organization and management",
+    features: [
+      "Intuitive drag-and-drop organization",
+      "Advanced search and filtering",
+      "Tag-based categorization system",
+      "One-click bookmark saving",
+      "Cross-device synchronization"
+    ],
     stacks: ["React.js", "Tailwind CSS", "Node.js", "MongoDB", "Radix UI"],
     cover: webmark,
     isRepo: true,
