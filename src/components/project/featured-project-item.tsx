@@ -9,13 +9,13 @@ import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
 import { Project } from "~/data/projects";
 
-type ProjectItemProps = {
+type FeaturedProjectItemProps = {
   metadata?: boolean;
 } & Project;
 
 const linkClass = "!p-0 h-full hover:!text-[#25dde5] !flex items-center gap-2 !text-sm !text-ring";
 
-const ProjectItem: React.FC<ProjectItemProps> = ({
+const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
   title,
   description,
   deployedURL,
@@ -29,7 +29,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   metadata = false,
 }) => {
   return (
-    <li role="listitem">
+    <li role="listitem" className="featured-project">
       {metadata && (
         <ProjectJsonLd
           title={title}
@@ -53,17 +53,17 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
         </div>
 
         <hgroup className="space-y-2 sm:space-y-1">
-          <h2 className="font-ubuntu text-base font-medium">{title}</h2>
+          <h2 className="font-ubuntu text-lg font-medium">{title}</h2>
 
-          <p className={"text-xs text-ring"} aria-label="project stacks">
+          <p className={"text-sm text-ring"} aria-label="project stacks">
             {stacks.join(" / ")}
           </p>
 
-          <p className={cn(typo({ variant: "paragraph", size: "sm" }), "!mt-4 line-clamp-2")}>
+          <p className={cn(typo({ variant: "paragraph", size: "sm" }), "!mt-4 line-clamp-3")}>
             {description}
           </p>
 
-          <div className="!mt-2 flex items-center gap-4">
+          <div className="!mt-4 flex items-center gap-4">
             {deployedURL && (
               <SmartLink
                 aria-label={`visit ${title} live URL}`}
@@ -91,16 +91,5 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
     </li>
   );
 };
-export default ProjectItem;
 
-{
-  /* <div className="flex gap-2 items-center">
-<div className="size-8 rounded-full grid place-content-center bg-neutral-900">
-  <SquareArrowOutUpRight className="size-3" />
-</div>
-
-<div className="size-8 rounded-full grid place-content-center bg-neutral-900">
-  <Github className="size-3" />
-</div>
-</div> */
-}
+export default FeaturedProjectItem;

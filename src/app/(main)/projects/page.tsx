@@ -17,7 +17,7 @@ export const metadata: Metadata = getSEOTags({
 
 const ProjectsPage = ({ searchParams }: { searchParams: { search: string | undefined } }) => {
   const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(decodeURIComponent(searchParams.search || ""))
+    project.title.toLowerCase().includes(decodeURIComponent(searchParams.search || "").toLowerCase())
   );
 
   return (

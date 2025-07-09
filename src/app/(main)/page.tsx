@@ -29,7 +29,11 @@ const HomePage = () => {
         <AboutSection />
         <GitHubContributions />
         <Skills />
-        <ProjectList projects={projects.slice(0, 4)} metadata />
+        <ProjectList 
+          projects={projects.filter(project => project.isFeatured).slice(0, 4)} 
+          metadata 
+          showFeatured={true}
+        />
         <ProfessionalExperience />
         <ContactUs />
       </div>
