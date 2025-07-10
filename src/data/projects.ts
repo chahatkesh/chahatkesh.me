@@ -77,7 +77,7 @@ const projects: Project[] = [
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/food-delivery-app",
     deployedURL: "https://tomato.chahatkesh.me/",
-    datePublished: "2024-12-15",
+    datePublished: "2024-07-07",
     dateModified: "2025-07-09",
     isFeatured: false,
   },

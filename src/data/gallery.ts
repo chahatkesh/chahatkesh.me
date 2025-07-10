@@ -1,6 +1,6 @@
 import { GalleryItem } from "~/components/gallery";
 
-export const galleryItems: GalleryItem[] = [
+const unsortedGalleryItems: GalleryItem[] = [
   {
     id: "1",
     title: "Utkansh 2025",
@@ -43,4 +43,18 @@ export const galleryItems: GalleryItem[] = [
     date: "August 15, 2024",
     aspectRatio: "big-square",
   },
+  {
+    id: "7",
+    title: "Maa Vaishno Devi",
+    location: "Katra",
+    date: "June 26, 2025",
+    aspectRatio: "big-square",
+  },
 ];
+
+// Sort gallery items by date in descending order (newest first)
+export const galleryItems: GalleryItem[] = unsortedGalleryItems.sort((a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateB.getTime() - dateA.getTime();
+});
