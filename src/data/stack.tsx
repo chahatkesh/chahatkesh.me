@@ -29,7 +29,9 @@ import {
   SiFigma,
   SiVite,
   SiStripe,
-  SiJsonwebtokens
+  SiJsonwebtokens,
+  SiMongoose,
+  SiAxios
 } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
@@ -68,6 +70,7 @@ export const FRONTEND_STACKS: stacksProps = {
   "Shadcn UI": { Icon: SiNextdotjs, className: "text-neutral-200" },
   "Aceternity UI": { Icon: SiFramer, className: "text-purple-400" },
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
+  "React Toastify": { Icon: SiReact, className: "text-yellow-400" },
   "GitHub API": { Icon: FaGithub, className: "text-neutral-300" },
   "Retrieval-Augmented Generation": { Icon: BsRobot, className: "text-rose-500" },
   "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
@@ -77,6 +80,8 @@ export const BACKEND_DEVOPS: stacksProps = {
   "Node.js": { Icon: SiNodedotjs, className: "text-green-600" },
   "Express.js": { Icon: SiExpress, className: "text-neutral-400" },
   MongoDB: { Icon: SiMongodb, className: "text-green-500" },
+  Mongoose: { Icon: SiMongoose, className: "text-red-500" },
+  Axios: { Icon: SiAxios, className: "text-blue-600" },
   PostgreSQL: { Icon: SiPostgresql, className: "text-blue-500" },
   MySQL: { Icon: SiMysql, className: "text-blue-600" },
   Docker: { Icon: FaDocker, className: "text-blue-400" },
