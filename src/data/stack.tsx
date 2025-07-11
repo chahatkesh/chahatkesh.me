@@ -82,7 +82,7 @@ export const BACKEND_DEVOPS: stacksProps = {
   "Express.js": { Icon: SiExpress, className: "text-neutral-400" },
   MongoDB: { Icon: SiMongodb, className: "text-green-500" },
   Mongoose: { Icon: SiMongoose, className: "text-red-500" },
-  Cloudinary: { Icon: SiCloudinary, className: "text-green-500" },
+  Cloudinary: { Icon: SiCloudinary, className: "text-blue-500" },
   "REST APIs": { Icon: TbApi, className: "text-blue-400" },
   Axios: { Icon: SiAxios, className: "text-blue-600" },
   PostgreSQL: { Icon: SiPostgresql, className: "text-blue-500" },
