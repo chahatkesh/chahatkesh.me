@@ -16,9 +16,18 @@ export const metadata: Metadata = getSEOTags({
 });
 
 const ProjectsPage = ({ searchParams }: { searchParams: { search: string | undefined } }) => {
-  const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(decodeURIComponent(searchParams.search || "").toLowerCase())
-  );
+  const filteredProjects = projects
+    .filter((project) =>
+      project.title.toLowerCase().includes(decodeURIComponent(searchParams.search || "").toLowerCase())
+    )
+    .sort((a, b) => {
+      // First, sort by featured status (featured projects on top)
+      if (a.isFeatured && !b.isFeatured) return -1;
+      if (!a.isFeatured && b.isFeatured) return 1;
+      
+      // Then sort by published date (newest first)
+      return new Date(b.datePublished).getTime() - new Date(a.datePublished).getTime();
+    });
 
   return (
     <div className="space-y-8">

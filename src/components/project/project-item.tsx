@@ -33,6 +33,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   metadata = false,
   tagline,
   features,
+  isFeatured,
 }) => {
   return (
     <li role="listitem">
@@ -83,12 +84,18 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           <div className="sm:col-span-3 flex flex-col p-4">
             <div className="flex items-start justify-between">
               <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
-              <span className="text-[9px] text-neutral-300">
-                {new Date(datePublished).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short"
-                })}
-              </span>
+              <div className="flex items-end gap-1 text-[9px] text-neutral-300">
+                {isFeatured ? (
+                  <span className="text-ring">FEATURED</span>
+                ) : (
+                <span>
+                  {new Date(datePublished).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    })}
+                </span>
+               )}
+              </div>
             </div>
 
             <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-3 line-clamp-2")}>
@@ -98,12 +105,18 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
             
             {features && features.length > 0 && (
               <ul className="mb-4 space-y-1">
-                {features.map((feature, index) => (
+                {features.slice(0, 5).map((feature, index) => (
                   <li key={index} className="text-xs text-neutral-400 flex items-start">
                     <span className="mr-1 text-primary">•</span>
                     <span className="line-clamp-1">{feature}</span>
                   </li>
                 ))}
+                {features.length > 4 && (
+                  <li className="text-xs text-neutral-500 flex items-start">
+                    <span className="mr-1">•</span>
+                    <span>+{features.length - 4} more features</span>
+                  </li>
+                )}
               </ul>
             )}
             
