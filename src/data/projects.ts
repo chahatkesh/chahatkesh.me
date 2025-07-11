@@ -5,6 +5,7 @@ import { StaticImageData } from "next/image";
 import webmark from "~/assets/images/projects/webmark.png";
 import tomato from "~/assets/images/projects/tomato.png";
 import gitroast from "~/assets/images/projects/gitroast.png";
+import blogger from "~/assets/images/projects/blogger.png";
 
 export interface Project {
   id: string;
@@ -81,6 +82,35 @@ const projects: Project[] = [
     dateModified: "2025-07-09",
     isFeatured: false,
   },
+  {
+    id: createId(),
+    title: `Blogger`,
+    slug: "blogger",
+    description:
+      "A modern full-stack blog platform with comprehensive content management and reader engagement features.",
+    detailedDescription:
+      "Blogger is a sophisticated content management platform I engineered to revolutionize the blogging experience for both creators and readers. This full-stack application combines the power of Next.js 14 with MongoDB to deliver a lightning-fast, SEO-optimized blog platform that handles everything from content creation to audience engagement. The platform features a professional admin panel with drag-and-drop image uploads, rich text editing, and real-time analytics, while readers enjoy a beautifully crafted interface with category filtering, responsive design, and seamless social sharing. What sets Blogger apart is its intelligent email subscription system that automatically manages newsletter campaigns and its performance-first architecture that ensures blazing-fast load times across all devices. Built with modern web technologies including React 18, TailwindCSS, and Mongoose ODM, Blogger demonstrates enterprise-level scalability while maintaining an intuitive user experience that makes content creation effortless and content consumption delightful.",
+    tagline: "Where Stories Come to Life - Professional Blogging Redefined",
+    task: "Architected and developed Blogger, a cutting-edge full-stack blog platform that seamlessly integrates content management with reader engagement. The application showcases advanced Next.js 14 capabilities including App Router, server-side rendering, and API routes, while leveraging MongoDB for scalable data management. Key technical achievements include implementing a sophisticated admin dashboard with image upload handling, creating a responsive blog listing system with category-based filtering, developing an automated email subscription service, and optimizing performance through Next.js image optimization and caching strategies. This project exemplifies expertise in modern React development, database design, API architecture, and user experience optimization.",
+    features: [
+      "Professional admin panel with CRUD operations",
+      "Dynamic category filtering (Technology, Startup, Lifestyle)",
+      "Automated email subscription management",
+      "Responsive image upload and optimization",
+      "Real-time toast notifications and feedback",
+      "SEO-optimized blog post pages",
+      "Social media sharing integration",
+      "Mobile-first responsive design"
+    ],
+    stacks: ["Next.js", "React.js", "Tailwind CSS", "MongoDB", "Mongoose", "Node.js", "Axios", "React Toastify"],
+    cover: blogger,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/blog-app",
+    deployedURL: "https://blogger.chahatkesh.me",
+    datePublished: "2024-07-03",
+    dateModified: "2025-07-11",
+    isFeatured: false,
+ },
   {
     id: createId(),
     title: "GitRoast",
