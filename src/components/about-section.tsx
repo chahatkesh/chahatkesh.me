@@ -21,7 +21,7 @@ const AboutSection = () => {
           Hello! I'm a developer from India. I enjoy programming and exploring technology.
           I've participated in{" "}
           <span className="text-white">
-            <a href="https://docs.google.com/spreadsheets/d/12_9qHndKpcrtrfCzGFSlu9Cb07TkeHIRHsQtRZdIeJ8/edit?usp=sharing">
+            <a href="/about">
               5+ hackathons
             </a>
           </span>{" "}
