@@ -14,7 +14,7 @@ export const metadata: Metadata = getSEOTags({
   canonicalUrlRelative: "/gallery",
   openGraph: {
     title: `Gallery | ${config.appName}`,
-    description: `Browse through my collection of photos, design work, and visual projects. Get a glimpse into my creative side beyond coding.`,
+    description: `This gallery shows moments, projects, and memories that matter to me. Each picture shares a small part of my story, how I see, feel, and create.`,
   },
 });
 
