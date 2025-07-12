@@ -19,36 +19,41 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#000',
+          backgroundColor: '#000000',
           color: '#fff',
-          fontFamily: 'sans-serif',
+          fontFamily: 'Ubuntu, sans-serif',
         }}
       >
         <div
           style={{
-            fontSize: 72,
+            fontSize: 80,
             fontWeight: 'bold',
             marginBottom: 20,
-            color: '#1DA1F2',
+            color: '#fff',
+            letterSpacing: '-2px',
+            textShadow: '0 2px 16px #000',
           }}
         >
           {config.appName}
         </div>
         <div
           style={{
-            fontSize: 32,
+            fontSize: 36,
             marginBottom: 20,
-            color: '#888',
+            color: '#00adb5',
+            fontWeight: 600,
+            letterSpacing: '-1px',
           }}
         >
           {config.appDesignation}
         </div>
         <div
           style={{
-            fontSize: 22,
-            color: '#aaa',
+            fontSize: 24,
+            color: '#d4d4d8',
             textAlign: 'center',
             maxWidth: '80%',
+            fontWeight: 400,
           }}
         >
           {config.seo.defaultDescription}
