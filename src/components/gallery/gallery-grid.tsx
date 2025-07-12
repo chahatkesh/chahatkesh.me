@@ -130,6 +130,7 @@ export type GalleryItem = {
   date: string;
   className?: string;
   aspectRatio?: "portrait" | "landscape" | "square" | "big-square";
+  isFeatured?: boolean;
 };
 
 type BentoGridProps = {
@@ -155,9 +156,10 @@ export function GalleryGrid({ items }: BentoGridProps) {
             "group relative overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950",
             item.className,
             {
-              "col-span-1 md:col-span-2": item.aspectRatio === "landscape",
+              // Mobile: all items are single column width, different aspect ratios apply to desktop only
+              "md:col-span-2": item.aspectRatio === "landscape",
               "row-span-2": item.aspectRatio === "portrait",
-              "col-span-2 row-span-2": item.aspectRatio === "big-square",
+              "md:col-span-2 row-span-2": item.aspectRatio === "big-square",
               "col-span-1 row-span-1": item.aspectRatio === "square" || !item.aspectRatio,
             }
           )}

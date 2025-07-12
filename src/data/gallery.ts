@@ -7,6 +7,7 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "NITJ",
     date: "April 13, 2025",
     aspectRatio: "portrait",
+    isFeatured: true,
   },
   {
     id: "2",
@@ -14,6 +15,7 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "Delhi",
     date: "April 4, 2025",
     aspectRatio: "big-square",
+    isFeatured: true,
   },
   {
     id: "3",
@@ -21,6 +23,7 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "NITJ",
     date: "February 05, 2025",
     aspectRatio: "portrait",
+    isFeatured: true,
   },
   {
     id: "4",
@@ -84,6 +87,7 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "Chandigarh",
     date: "June 23, 2025",
     aspectRatio: "portrait",
+    isFeatured: true,
   },
   {
     id: "13",
@@ -91,6 +95,7 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "NITJ",
     date: "April 30, 2025",
     aspectRatio: "portrait",
+    isFeatured: true,
   },
   {
     id: "14",
