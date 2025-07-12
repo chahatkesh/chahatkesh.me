@@ -19,9 +19,9 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#000',
+          backgroundColor: '#000000',
           color: '#fff',
-          fontFamily: 'sans-serif',
+          fontFamily: 'Ubuntu, sans-serif',
         }}
       >
         <div
@@ -30,6 +30,8 @@ export default async function Image() {
             fontWeight: 'bold',
             marginBottom: 20,
             color: '#fff',
+            letterSpacing: '-2px',
+            textShadow: '0 2px 16px #000',
           }}
         >
           {config.appName}
@@ -38,7 +40,9 @@ export default async function Image() {
           style={{
             fontSize: 36,
             marginBottom: 20,
-            color: '#888',
+            color: '#00adb5',
+            fontWeight: 600,
+            letterSpacing: '-1px',
           }}
         >
           {config.appDesignation}
@@ -46,9 +50,10 @@ export default async function Image() {
         <div
           style={{
             fontSize: 24,
-            color: '#aaa',
+            color: '#d4d4d8',
             textAlign: 'center',
             maxWidth: '80%',
+            fontWeight: 400,
           }}
         >
           {config.seo.defaultDescription}
