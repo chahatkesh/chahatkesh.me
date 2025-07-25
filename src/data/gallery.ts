@@ -7,7 +7,6 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "NITJ",
     date: "April 13, 2025",
     aspectRatio: "portrait",
-    isFeatured: true,
   },
   {
     id: "2",
@@ -110,6 +109,35 @@ const unsortedGalleryItems: GalleryItem[] = [
     location: "Startup Mahakumbh",
     date: "April 05, 2025",
     aspectRatio: "portrait",
+  },
+  {
+    id: "16",
+    title: "Team Apogee",
+    location: "Space Club NITJ",
+    date: "August 23, 2024",
+    aspectRatio: "big-square",
+    isFeatured: true,
+  },
+  {
+    id: "17",
+    title: "Ideathon",
+    location: "Organized by IOTA",
+    date: "September 01, 2024",
+    aspectRatio: "big-square",
+  },
+  {
+    id: "18",
+    title: "Theatre",
+    location: "PVR Jalandhar",
+    date: "September 15, 2024",
+    aspectRatio: "portrait",
+  },
+  {
+    id: "19",
+    title: "Work Mode",
+    location: "LSM Hackathon",
+    date: "January 19, 2025",
+    aspectRatio: "square",
   },
 ];
 
