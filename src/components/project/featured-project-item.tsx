@@ -89,18 +89,24 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
             
             <h3 className="text-sm font-medium text-neutral-300 mb-2">Key Features</h3>
             <ul className="mb-6 space-y-1">
-              {features.map((feature, index) => (
+              {features.slice(0, 3).map((feature, index) => (
                 <li key={index} className="text-sm text-neutral-400 flex items-start">
                   <span className="mr-2 text-primary">•</span>
                   {feature}
                 </li>
               ))}
+              {features.length > 3 && (
+                <li className="text-sm text-neutral-500 flex items-start">
+                  <span className="mr-2 text-primary">•</span>
+                  <span className="italic">+{features.length - 3} more features</span>
+                </li>
+              )}
             </ul>
             
             <div className="mt-auto">
               <h3 className="text-sm font-medium text-neutral-300 mb-2">Tech Stack</h3>
               <div className="flex flex-wrap gap-2">
-                {stacks.map((stack, index) => {
+                {stacks.slice(0, 3).map((stack, index) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
@@ -117,6 +123,11 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                     </MotionDiv>
                   );
                 })}
+                {stacks.length > 3 && (
+                  <div className="flex items-center px-3 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-xs text-neutral-400">
+                    <span className="whitespace-nowrap">+{stacks.length - 3}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

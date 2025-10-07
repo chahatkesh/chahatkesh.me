@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { ProjectList, projects } from "~/components/project";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import BackButton from "~/components/back-btn";
+import { typo } from "~/components/ui/typograpghy";
+import { cn } from "~/lib/utils";
 import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
@@ -37,7 +39,7 @@ const ProjectsPage = ({ searchParams }: { searchParams: { search: string | undef
       ])}
       <BackButton>Back</BackButton>
       <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row sm:items-center mt-4">
-        <h1 className="text-left text-xl font-medium"> All Projects </h1>
+        <h1 className={cn(typo({ variant: "h2" }))}>All Projects</h1>
       </div>
 
       <div className="mt-6">

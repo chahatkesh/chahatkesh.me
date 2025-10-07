@@ -140,9 +140,9 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                   );
                 })}
                 {stacks.length > 5 && (
-                  <span className="text-xs text-neutral-500 self-end pl-1">
-                    +{stacks.length - 5} more
-                  </span>
+                  <div className="flex items-center px-3 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-xs text-neutral-400">
+                    <span className="whitespace-nowrap">+{stacks.length - 5}</span>
+                  </div>
                 )}
               </div>
             </div>
