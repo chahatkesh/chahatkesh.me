@@ -6,6 +6,7 @@ import webmark from "~/assets/images/projects/webmark.png";
 import tomato from "~/assets/images/projects/tomato.png";
 import gitroast from "~/assets/images/projects/gitroast.png";
 import blogger from "~/assets/images/projects/blogger.png";
+import openlearn from "~/assets/images/projects/openlearn.png";
 
 export interface Project {
   id: string;
@@ -27,6 +28,41 @@ export interface Project {
 }
 
 const projects: Project[] = [
+  {
+    id: createId(),
+    title: "OpenLearn",
+    slug: "openlearn",
+    description:
+      "A full-stack cohort learning platform with gamified progression and role-based collaboration built using TypeScript and React 19.",
+    detailedDescription:
+      "OpenLearn is a comprehensive full-stack learning management system I designed and developed to transform skill-based education through cohort learning, hierarchical role management, and gamified progression. The platform unites a TypeScript-based backend with a React 19-powered frontend, delivering an enterprise-level ecosystem that enhances both academic and administrative experiences. The backend is built with TypeScript, Express.js, Prisma ORM, and PostgreSQL, handles complex relationships between 25+ database models across users, cohorts, leagues, and resources. It supports hierarchical role-based access control with 5 user levels (Grand Pathfinder → Chief Pathfinder → Pathfinder → Pioneer → Luminary), advanced progress analytics, OTP-based email verification, assignment workflows, badge gamification, and leaderboard systems. Performance and reliability are ensured through Redis caching, Docker containerization, AWS SES integration, and secure JWT-based authentication, all deployed with production-grade CI/CD pipelines. The frontend is developed using React 19, Vite 6.3.5, and Tailwind CSS 4.1.8, provides a high-performance, responsive single-page interface inspired by Apple’s design philosophy. It offers an interactive dashboard with real-time progress visualization, cohort insights, leaderboard tracking, and assignment management. Advanced features include a multi-tiered role-based system, content creation tools, GitHub integration, and an administrative panel for managing users, leagues, and curricula. Performance is optimized through code splitting, lazy loading, and Framer Motion animations. Together, the OpenLearn platform represents an enterprise-grade, production-ready educational ecosystem, combining scalable backend architecture with cutting-edge frontend performance and design precision. It demonstrates expertise in modern web engineering, complex database management, API-driven systems, authentication flows, and user-centered interface design.",
+    tagline: "Democratising Learning, Transforming Futures",
+    task:
+      "Architected and developed OpenLearn, a full-stack educational platform uniting a TypeScript-based backend with a React 19 frontend. Implemented cohort-based learning with hierarchical RBAC (5 roles), structured specialization tracks (AI/ML, Finance, Creative), and gamified achievement systems. On the backend, built over 25 interconnected Prisma models, RESTful APIs with advanced analytics, OTP-based authentication, Redis caching, Docker deployment, and AWS SES integration. On the frontend, implemented JWT-based workflows, email verification, dynamic dashboards, and an Apple-style UI using Tailwind CSS 4.1.8 and Framer Motion. Delivered a scalable, responsive, and secure platform demonstrating end-to-end expertise in full-stack development, modern DevOps, and design-driven engineering.",
+    features: [
+      "Hierarchical RBAC (5 levels: Grand Pathfinder → Luminary)",
+      "Cohort-based learning with specialization leagues",
+      "Gamified learning with badges, leaderboards, and progress",
+      "Assignment submission, grading, and feedback workflows",
+      "OTP-based email verification and JWT authentication",
+      "Comprehensive admin panel for user, content, and league management",
+      "Responsive Apple-inspired UI with Framer Motion animations",
+      "Real-time progress tracking and analytics dashboards",
+      "Social sharing and GitHub integration for projects",
+      "Redis caching, Docker containerization, and AWS SES email services",
+      "Optimized code splitting, lazy loading, and chunk management (Vite 6.3.5)",
+      "Database migration automation and audit logging",
+      "Production-ready CI/CD pipelines and monitoring tools"
+    ],
+    stacks: ["TypeScript", "Node.js", "Express.js", "Prisma ORM", "PostgreSQL", "Redis", "Docker", "JWT", "AWS", "React.js", "Vite", "Tailwind CSS", "Framer Motion", "Lucide React"],
+    cover: openlearn,
+    isRepo: true,
+    repoUrl: "https://github.com/openlearnnitj",
+    deployedURL: "https://openlearn.org.in",
+    datePublished: "2025-06-15",
+    dateModified: "2025-09-09",
+    isFeatured: true
+  },
   {
     id: createId(),
     title: `Webmark`,

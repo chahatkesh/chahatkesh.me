@@ -32,7 +32,10 @@ import {
   SiJsonwebtokens,
   SiCloudinary,
   SiMongoose,
-  SiAxios
+  SiAxios,
+  SiPrisma,
+  SiRedis,
+  SiLucide,
 } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
@@ -75,6 +78,7 @@ export const FRONTEND_STACKS: stacksProps = {
   "GitHub API": { Icon: FaGithub, className: "text-neutral-300" },
   "Retrieval-Augmented Generation": { Icon: BsRobot, className: "text-rose-500" },
   "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
+  "Lucide React": { Icon: SiLucide, className: "text-rose-500" },
 };
 
 export const BACKEND_DEVOPS: stacksProps = {
@@ -97,6 +101,8 @@ export const BACKEND_DEVOPS: stacksProps = {
   "OpenAI API": { Icon: SiOpenai, className: "text-teal-500" },
   LangChain: { Icon: SiLangchain, className: "text-teal-500" },
   "Vector Databases": { Icon: BsVectorPen, className: "text-purple-500" },
-  "Stripe": { Icon: SiStripe, className: "text-purple-600" },
-  "JWT": { Icon: SiJsonwebtokens, className: "text-pink-500" },
+  Stripe: { Icon: SiStripe, className: "text-purple-600" },
+  JWT: { Icon: SiJsonwebtokens, className: "text-pink-500" },
+  "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
+  Redis: { Icon: SiRedis, className: "text-red-500" },
 };
