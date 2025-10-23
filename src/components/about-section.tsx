@@ -18,28 +18,18 @@ const AboutSection = () => {
           <span className="text-white">
             About Me <br />
           </span>
-          Hello! I'm a developer from India. I enjoy programming and exploring technology.
-          I've participated in{" "}
-          <span className="text-white">
-            <a href="/about">
-              5+ hackathons
-            </a>
-          </span>{" "}
-          & ideathons and won 3 of them.
+          Hello! I'm a developer from India passionate about programming and technology, with multiple wins across hackathons and ideathons.
         </p>
 
         <p className={typo({ variant: "paragraph", font: "sans" })}>
           <span className="text-white">
             What I do? <br />
           </span>{" "}
-          I've delivered 10+ freelance projects, interned at two startups and failed to build my own
-          startup twice. I'm active on X where I share funnies and <span className="text-white">#BuildInPublic</span>.{" "}
+          I've delivered 15+ freelance projects, interned at two startups, and explored building my own startups in the past. I actively share my <a target="_blank" rel="noopener noreferrer" href="https://x.com/chahatkesh" className="text-white">#BuildInPublic</a>{" "} journey on X.
         </p>
 
         <p className={typo({ variant: "paragraph", font: "sans" })}>
-          I'm a <span className="text-white">Chief Pathfinder at Openlearn</span>, aim to build and
-          contribute to open-source projects. When not coding, I read books, go out for a run or
-          binge YouTube.
+          I'm an <span className="text-white">EIR at iHub AWaDH</span>, aiming to build and contribute to impactful open-source projects. When not coding, I read books, go out for a run, or binge YouTube.
         </p>
 
         <p className={typo({ variant: "paragraph", font: "sans" })}></p>
