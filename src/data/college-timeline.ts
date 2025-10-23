@@ -55,10 +55,148 @@ export const collegeTimeline: CollegeYear[] = [
     events: [
       {
         id: createId(),
-        date: "2025-07-15",
-        eventName: "Summer Internship",
-        category: "Internship"
+        date: "2025-07-28",
+        eventName: "The 5th Semester Adventure Begins",
+        category: "Academic"
       },
+      {
+        id: createId(),
+        date: "2025-07-29",
+        eventName: "Deep Dive: A Chat with Dr. OP Verma",
+        category: "Achievement"
+      },
+      {
+        id: createId(),
+        date: "2025-07-31",
+        eventName: "Cohort 1.0 Retreat & Launching OpenLearn’s Accelerate Journey",
+        category: "Workshop"
+      },
+      {
+        id: createId(),
+        date: "2025-08-09",
+        eventName: "Rakshabandhan Roadtrip: Memories in Prayagraj",
+        category: "Trip"
+      },
+      {
+        id: createId(),
+        date: "2025-08-10",
+        eventName: "Lights, Camera, Action: Space Club Documentary Shoot",
+        category: "Other"
+      },
+      {
+        id: createId(),
+        date: "2025-08-14",
+        eventName: "Patriotic Lens: Independence Day Video Shoot",
+        category: "Other"
+      },
+      {
+        id: createId(),
+        date: "2025-08-14",
+        eventName: "Cracking the Expedia Code: Online Assessment",
+        category: "Competition"
+      },
+      {
+        id: createId(),
+        date: "2025-08-15",
+        eventName: "Voices of Cohort 1.0: OpenMic Magic",
+        category: "Workshop"
+      },
+      {
+        id: createId(),
+        date: "2025-08-16",
+        eventName: "ZScaler Challenge: Testing My Skills Online",
+        category: "Competition"
+      },
+      {
+        id: createId(),
+        date: "2025-08-17",
+        eventName: "Movie Escape: Mahavatar Narsimha at PVR",
+        category: "Other"
+      },
+      {
+        id: createId(),
+        date: "2025-08-18",
+        eventName: "Unboxing the Future: Nothing Buds 2 Reveal",
+        category: "Other"
+      },
+      {
+        id: createId(),
+        date: "2025-08-21",
+        eventName: "Meet & Grow: OpenLearn Accelerate Program Connect",
+        category: "Workshop"
+      },
+      {
+        id: createId(),
+        date: "2025-08-23",
+        eventName: "Celebrating Space: National Space Day & Brahmand 2 Launch",
+        category: "Achievement"
+      },
+      {
+        id: createId(),
+        date: "2025-08-30",
+        eventName: "Welcoming the Next Wave: Club Orientation for Juniors",
+        category: "Workshop"
+      },
+      {
+        id: createId(),
+        date: "2025-09-06",
+        eventName: "Hackathon Chronicles: OpenLearn’s First Challenge at Thapar",
+        category: "Hackathon"
+      },
+      {
+        id: createId(),
+        date: "2025-09-18",
+        eventName: "Journey to Knowledge: Visiting IIT Ropar",
+        category: "Trip"
+      },
+      {
+        id: createId(),
+        date: "2025-09-22",
+        eventName: "Mid-Sem Exam Marathon: Testing the Limits",
+        category: "Academic"
+      },
+      {
+        id: createId(),
+        date: "2025-09-27",
+        eventName: "Road to Adventure: First Bike Trip to Jibhi, HP",
+        category: "Trip"
+      },
+      {
+        id: createId(),
+        date: "2025-09-29",
+        eventName: "Back to Campus: Memories from Himachal",
+        category: "Trip"
+      },
+      {
+        id: createId(),
+        date: "2025-10-03",
+        eventName: "Birthday Vibes & Kantara Movie Night with Rishi",
+        category: "Other"
+      },
+      {
+        id: createId(),
+        date: "2025-10-10",
+        eventName: "Minor Project Evaluation: The Review Day",
+        category: "Academic"
+      },
+      {
+        id: createId(),
+        date: "2025-10-11",
+        eventName: "Prepping the Stage: OpenLearn Grand Orientation",
+        category: "Workshop"
+      },
+      {
+        id: createId(),
+        date: "2025-10-13",
+        eventName: "Grand Orientation Day: 400+ Minds Connect",
+        category: "Achievement"
+      },
+      {
+        id: createId(),
+        date: "2025-10-15",
+        eventName: "Recharge Mode: Mid-Sem Break Begins",
+        category: "Academic"
+      }
     ]
   },
   {
