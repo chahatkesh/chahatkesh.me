@@ -2,47 +2,7 @@
 import Image from "next/image";
 import { typo } from "./ui/typograpghy";
 import { cn } from "~/lib/utils";
-
-// Import images
-import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
-import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
-import XceedLogo from "../assets/images/experience/Xceed.png";
-
-type Experience = {
-  employer: string;
-  role: string;
-  start_date: string;
-  end_date: string;
-  description: string;
-  logo: any; // StaticImageData type
-};
-
-const experiences: Experience[] = [
-  {
-    employer: "Annam.ai (IIT Ropar)",
-    role: "Research Intern - AI Systems",
-    start_date: "May 2025",
-    end_date: "Present",
-    description: "Contributed to the development of an internal AI engine with modular pipelines for classification and inference. Built domain-specific classifiers and optimized data modeling strategies to improve AI inference accuracy.",
-    logo: AnnamAILogo
-  },
-  {
-    employer: "Level SuperMind",
-    role: "Fullstack Developer",
-    start_date: "Jan 2025",
-    end_date: "Feb 2025",
-    description: "Developed 15+ reusable UI components and integrated 5+ third-party APIs, resulting in 30% faster load times. Revamped onboarding with optimized API flows, reducing user setup time by 20%. Tech stack: Next.js, TypeScript, Tailwind CSS, ShadCN UI, LiveKit, Framer Motion.",
-    logo: LevelSuperMindLogo
-  },
-  {
-    employer: "Xceed NITJ",
-    role: "Fullstack Developer",
-    start_date: "Nov 2023",
-    end_date: "Jun 2024",
-    description: "Collaborated with a 22-member team to build a Certificate Module for bulk certificate generation and distribution. Designed and shipped a user dashboard, used by 20+ college clubs for streamlined certificate distribution. Tech stack: React.js, Tailwind CSS, Chakra UI, Axios, Framer Motion, html2Canvas.",
-    logo: XceedLogo
-  }
-];
+import { experiences, type Experience } from "~/data/experience";
 
 const ProfessionalExperience = () => {
   return (
