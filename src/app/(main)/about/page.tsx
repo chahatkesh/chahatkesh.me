@@ -3,25 +3,22 @@ import { typo } from "~/components/ui/typograpghy";
 import { cn } from "~/lib/utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import ProfessionalExperience from "~/components/professional-experience";
-import chahat from "~/assets/images/chahat.png";
+import CollegeJourneySection from "~/components/college-journey-section";
+import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import BackButton from "~/components/back-btn";
 import { MotionDiv } from "~/components/motion-wrapper";
 import Link from "next/link";
 import { 
-  FaLaptopCode, 
   FaBook, 
   FaRunning, 
   FaYoutube,
-  FaAward,
-  FaBriefcase,
   FaLaptop,
   FaHeadphones,
   FaMobileAlt,
   FaPenFancy
 } from "react-icons/fa";
 import { SiOpenai } from "react-icons/si";
-import { BiCodeAlt } from "react-icons/bi";
 import { 
   Tooltip,
   TooltipContent,
@@ -40,34 +37,6 @@ export const metadata: Metadata = getSEOTags({
   },
   canonicalUrlRelative: "/about",
 });
-
-// My achievements data
-const achievements = [
-  {
-    title: "Hackathon Winner",
-    description: "Won 3+ hackathons and participated in 5+ hackathons & ideathons",
-    year: "2023-2025",
-    icon: <FaAward className="text-yellow-500" />,
-  },
-  {
-    title: "Freelance Projects",
-    description: "Successfully delivered 10+ freelance projects for clients worldwide",
-    year: "since 2024",
-    icon: <FaBriefcase className="text-blue-400" />,
-  },
-  {
-    title: "Chief Pathfinder",
-    description: "Leading initiatives at Openlearn to build educational tools",
-    year: "2025",
-    icon: <FaLaptopCode className="text-green-500" />,
-  },
-  {
-    title: "Open Source Contributor",
-    description: "Active contributor to several open source projects",
-    year: "2024-2025",
-    icon: <BiCodeAlt className="text-purple-500" />,
-  }
-];
 
 // My current projects/work
 const currentProjects = [
@@ -98,7 +67,7 @@ const hobbies = [
   },
   {
     title: "Content Creation",
-    description: "Producing educational tech content and tutorials for the developer community",
+    description: "Creating fun tech content and tutorials for the developer community",
     icon: <FaYoutube className="text-red-500" />,
   }
 ];
@@ -106,7 +75,7 @@ const hobbies = [
 // My workspace/desk setup
 const deskSetup = [
   { name: "MacBook Pro M3 (2023)", icon: <FaLaptop className="text-gray-300" /> },
-  { name: "Oppo Enco Buds 2", icon: <FaHeadphones className="text-blue-300" /> },
+  { name: "CMF by Nothing Buds 2", icon: <FaHeadphones className="text-blue-300" /> },
   { name: "XP Pen Deco01 V2", icon: <FaPenFancy className="text-orange-400" /> },
   { name: "iPhone 15 Pro", icon: <FaMobileAlt className="text-gray-400" /> },
 ];
@@ -194,32 +163,8 @@ const AboutPage = () => {
               </div>
             </section>
 
-            {/* Achievements Section */}
-            <section className="mt-10 space-y-6" aria-label="Achievements">
-              <h2 className={typo({ variant: "h2" })}>Achievements</h2>
-              
-              <div className="mt-4 grid gap-6 sm:grid-cols-2">
-                {achievements.map((achievement, index) => (
-                  <div 
-                    key={index} 
-                    className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20"
-                  >
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800/50">
-                          {achievement.icon}
-                        </div>
-                        <h3 className="font-ubuntu text-base font-medium text-white">{achievement.title}</h3>
-                      </div>
-                      <span className="inline-flex items-center rounded-full bg-neutral-800 px-2.5 py-0.5 text-xs font-medium text-neutral-300">
-                        {achievement.year}
-                      </span>
-                    </div>
-                    <p className="text-sm text-neutral-400">{achievement.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {/* College Journey Section */}
+            <CollegeJourneySection />
 
             {/* Professional Experience Section */}
             <ProfessionalExperience />
