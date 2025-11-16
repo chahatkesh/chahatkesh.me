@@ -20,8 +20,10 @@ const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean
   };
 
   // Check if we're on a project detail page when the path is /projects
+  // or on an about sub-page when the path is /about
   const isProjectDetailPage = path === "/projects" && pathname.startsWith("/projects/");
-  const isActive = pathname === path || isProjectDetailPage;
+  const isAboutSubPage = path === "/about" && pathname.startsWith("/about/");
+  const isActive = pathname === path || isProjectDetailPage || isAboutSubPage;
   
   return (
     <li

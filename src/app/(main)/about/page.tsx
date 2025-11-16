@@ -3,7 +3,6 @@ import { typo } from "~/components/ui/typograpghy";
 import { cn } from "~/lib/utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import ProfessionalExperience from "~/components/professional-experience";
-import CollegeJourneySection from "~/components/college-journey-section";
 import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import BackButton from "~/components/back-btn";
@@ -99,7 +98,7 @@ const AboutPage = () => {
                 </h1>
 
                 <p className={typo({ variant: "paragraph", font: "sans" })}>
-                  <span className="text-white">Hello there! 👋</span> I'm a passionate developer and engineering student from India, focused on creating beautiful, functional web experiences.
+                  <span className="text-white">Hello there!</span> I'm a passionate developer and engineering student from India, focused on creating beautiful, functional web experiences.
                 </p>
 
                 <p className={typo({ variant: "paragraph", font: "sans" })}>
@@ -107,19 +106,29 @@ const AboutPage = () => {
                 </p>
 
                 <p className={typo({ variant: "paragraph", font: "sans" })}>
-                  Currently, I'm pursuing my engineering degree while working on freelance projects and open-source contributions. I'm passionate about AI integration in web applications and creating intuitive user interfaces.
-                </p>
-
-                <p className={cn(typo({ variant: "paragraph", font: "sans" }), "sm:!mt-4")}>
-                  Check out my <Link 
-                    href="https://drive.google.com/file/d/1ZdX5oQ7PXUymfJ47OFRwR6ijk9D3wzEZ/view?usp=sharing" 
-                    target="_blank" 
+                  Currently, I'm pursuing my engineering degree while working on freelance projects and open-source contributions. If you’d like to know more about the work I do, feel free to browse through my{" "}
+                  <Link
+                    href="https://drive.google.com/file/d/1ZdX5oQ7PXUymfJ47OFRwR6ijk9D3wzEZ/view?usp=sharing"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="el-focus-styles text-ring"
                   >
                     Resume
-                  </Link> for more details about my experience and skills.
+                  </Link>
+                  .
                 </p>
+
+                <p className={cn(typo({ variant: "paragraph", font: "sans" }), "sm:!mt-4")}>
+                  And if you're curious about the moments that shaped me, explore{" "}
+                  <Link
+                    href="/about/journey"
+                    className="el-focus-styles text-ring"
+                  >
+                    My Storyline
+                  </Link>
+                  .
+                </p>
+
               </div>
 
               <div className="relative order-1 block aspect-square sm:order-2">
@@ -162,9 +171,6 @@ const AboutPage = () => {
                 </div>
               </div>
             </section>
-
-            {/* College Journey Section */}
-            <CollegeJourneySection />
 
             {/* Professional Experience Section */}
             <ProfessionalExperience />
