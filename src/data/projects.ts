@@ -7,6 +7,14 @@ import tomato from "~/assets/images/projects/tomato.png";
 import gitroast from "~/assets/images/projects/gitroast.png";
 import blogger from "~/assets/images/projects/blogger.png";
 import openlearn from "~/assets/images/projects/openlearn.png";
+import swasya from "~/assets/images/projects/swasya.png";
+
+export interface Contributor {
+  name: string;
+  role: string;
+  github?: string;
+  linkedin?: string;
+}
 
 export interface Project {
   id: string;
@@ -25,9 +33,63 @@ export interface Project {
   datePublished: string;
   dateModified: string;
   isFeatured: boolean;
+  contributors?: Contributor[];
 }
 
 const projects: Project[] = [
+  {
+    id: createId(),
+    title: "Swasya AI",
+    slug: "swasya-ai",
+    description: "A full-stack AI-powered healthcare assistance system for Indian Primary Healthcare Centers (PHCs) featuring multi-platform interfaces with serverless cloud architecture, real-time speech-to-SOAP transcription, and intelligent document digitization built using React, Flutter, FastAPI, and AWS.",
+    detailedDescription: "Swasya AI is a comprehensive full-stack healthcare intelligence platform designed and developed to revolutionize primary healthcare delivery in India through AI-powered workflow automation, multi-platform interfaces, and hybrid serverless cloud architecture. The platform addresses critical inefficiencies in rural healthcare by streamlining communication between nurses, doctors, and administrators while reducing diagnosis time by 40% through intelligent data processing. The system unites a hybrid serverless architecture combining AWS Lambda functions with EC2 instances, a FastAPI backend with MongoDB and DynamoDB databases, and multi-platform frontends including a React 19 web dashboard for doctors, a Flutter mobile app for nurses, and an admin analytics panel. The backend leverages AWS Serverless Application Model (SAM) for Lambda deployments, featuring 25+ database models across DynamoDB and MongoDB, event-driven S3 triggers for automatic document processing, AWS Transcribe for Hindi/English speech-to-text conversion, AWS Textract for OCR, Google Gemini 2.5 Flash for medical note structuring and SOAP generation, Groq Whisper for real-time audio transcription, and AWS IoT Core (MQTT) for real-time bidirectional communication with sub-100ms latency. The architecture implements automatic queue management workflows, AI-generated medical timelines with RAG (Retrieval Augmented Generation), regional health outbreak visualization using Leaflet maps, and production-grade security with IAM roles, VPC isolation, TLS 1.2 encryption, and AWS Secrets Manager. The frontend implements a responsive React 19 web dashboard with real-time patient queue monitoring, live SOAP note streaming with typing animations, medical history timeline viewers with split document preview, interactive outbreak mapping with Leaflet, and polling-based live updates. The Flutter mobile app provides native nurse workflows with audio recording interfaces, document scanning via camera integration, real-time upload queues with batch processing, and offline-first architecture. Together, Swasya AI represents a production-ready, enterprise-grade healthcare platform deployed on AWS eu-north-1 region, demonstrating expertise in full-stack development, serverless microservices architecture, AI/ML integration, multi-cloud orchestration, real-time communication systems, HIPAA-compliant healthcare workflows, and scalable infrastructure design serving 100+ patients daily across distributed PHC networks.",
+    tagline: "Turning dialogue into data and data into clarity",
+    task: "Architected and developed Swasya AI, a full-stack AI-powered healthcare assistance system for Indian Primary Healthcare Centers. Implemented a hybrid serverless architecture combining AWS Lambda (serverless microservices) with EC2 (FastAPI backend), 4 Lambda functions for event-driven processing, DynamoDB and MongoDB databases with 25+ interconnected models, S3-triggered pipelines for audio transcription (AWS Transcribe + Groq Whisper) and document OCR (AWS Textract), Google Gemini 2.5 Flash for SOAP note generation and medical timeline RAG, and AWS IoT Core MQTT for real-time communication. Built a React 19 web dashboard with live patient queues, SOAP note streaming, medical timeline visualization, and Leaflet-based outbreak mapping. Developed a Flutter mobile app for nurses with audio recording, document scanning, upload queue management, and batch processing workflows. Deployed using AWS SAM (Serverless Application Model), Docker containerization, IAM security policies, VPC isolation, and TLS encryption. Achieved 40% reduction in diagnosis time, sub-100ms real-time updates via MQTT, and production-grade scalability serving 100+ patients daily. Delivered a comprehensive healthcare ecosystem demonstrating end-to-end expertise in serverless architecture, multi-platform development, AI/ML integration, cloud infrastructure orchestration, real-time systems, and healthcare compliance.",
+    features: [
+      "Hybrid serverless architecture (AWS Lambda + EC2 FastAPI backend)",
+      "Multi-platform interfaces (React 19 web + Flutter mobile + Admin panel)",
+      "AWS SAM infrastructure-as-code with 4 Lambda functions (PatientRegistration, PresignedURL, ScribeTask, DigitizeTask)",
+      "Event-driven S3 triggers for automatic audio/document processing pipelines",
+      "AI-powered speech-to-SOAP transcription (AWS Transcribe + Groq Whisper + Gemini 2.5 Flash)",
+      "Intelligent document digitization (AWS Textract + Gemini Vision for prescription OCR)",
+      "Real-time bidirectional communication via AWS IoT Core MQTT (sub-100ms latency)",
+      "Dual database architecture (DynamoDB for serverless NoSQL + MongoDB for complex queries)",
+      "Automated queue management with status workflows (waiting → nurse_completed → ready_for_doctor → in_consultation → completed)",
+      "AI-generated medical timelines with RAG (Retrieval Augmented Generation)",
+      "Live SOAP note streaming with typing animations on doctor dashboard",
+      "Medical history timeline viewer with split document preview",
+      "Regional health outbreak visualization using Leaflet maps with hotspot tracking",
+      "Nurse mobile app with audio recording, document scanning, and batch upload queues",
+      "Presigned S3 URLs for secure direct uploads from mobile devices",
+      "Production-grade security (IAM roles, VPC isolation, TLS 1.2, AWS Secrets Manager)",
+      "DynamoDB Streams for change data capture and automatic timeline updates",
+      "Groq Whisper integration for Hindi/English audio transcription (whisper-large-v3-turbo)",
+      "Gemini 2.5 Flash for medical structuring and medication name correction",
+      "Multi-language support (Hindi, English, Hinglish code-mixed)",
+      "HIPAA-compliant data handling with PII redaction in AWS Transcribe",
+      "CloudWatch monitoring with comprehensive logging and metrics",
+      "Responsive UI with mobile-first design and Tailwind CSS 4.1",
+      "Polling-based live updates with 5-second refresh intervals",
+      "Docker containerization and systemd service management",
+      "Batch document processing with AI-powered timeline generation",
+      "Comprehensive API documentation with OpenAPI/Swagger"
+    ],
+    stacks: ["React.js", "Flutter", "Python", "FastAPI", "AWS Lambda", "AWS S3", "DynamoDB", "MongoDB", "AWS", "Docker", "Tailwind CSS", "TypeScript", "Node.js", "Vite"],
+    cover: swasya,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/swasya-ai",
+    datePublished: "2025-11-09",
+    dateModified: "2025-11-18",
+    isFeatured: false,
+    contributors: [
+    {
+      name: "Rishi Ahuja",
+      role: "Backend Developer",
+      github: "https://github.com/rishiahuja",
+      linkedin: "https://www.linkedin.com/in/rishi-ahuja-b1a224310/"
+    }
+  ]
+  },
   {
     id: createId(),
     title: "OpenLearn",
@@ -61,7 +123,15 @@ const projects: Project[] = [
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
     dateModified: "2025-09-09",
-    isFeatured: true
+    isFeatured: true,
+    contributors: [
+    {
+      name: "Rishi Ahuja",
+      role: "Backend Developer",
+      github: "https://github.com/rishiahuja",
+      linkedin: "https://www.linkedin.com/in/rishi-ahuja-b1a224310/"
+    }
+  ]
   },
   {
     id: createId(),
