@@ -52,7 +52,7 @@ export const timelineEvents: TimelineEvent[] = [
     category: 'work',
     links: [
       { title: 'Visit iHub AwaDH', url: 'https://ihub-awadh.in/', icon: 'website' },
-      { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_im-happy-to-share-that-im-starting-a-new-activity-7382848439652593664-gJYU?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEYS_ZIB5LbJYVWVau1yBowmKAce_JxfWf0', icon: 'linkedin' }
+      { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_im-happy-to-share-that-im-starting-a-new-activity-7382848439652593664-gJYU/', icon: 'linkedin' }
     ],
     location: 'IIT Ropar, Punjab, India',
   },
@@ -67,6 +67,31 @@ export const timelineEvents: TimelineEvent[] = [
       { title: 'View Post', url: 'https://www.instagram.com/p/DOEclMdkzPo/', icon: 'instagram' }
     ],
     location: 'Thapar University, Patiala, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-05-05',
+    endDate: '2025-10-04',
+    title: 'Annam AI Research Intern - IIT Ropar',
+    description: 'AI research internship at IIT Ropar focusing on agricultural technology and machine learning applications.',
+    category: 'work',
+    links: [
+      { title: 'Visit Annam AI', url: 'https://annam.ai/', icon: 'website' },
+      { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_im-happy-to-share-that-im-starting-a-new-activity-7328306685486264320-6L9d/', icon: 'linkedin' }
+    ],
+    location: 'Remote',
+  },
+  {
+    id: createId(),
+    startDate: '2025-06-13',
+    title: 'OpenLearn - Educational Organization',
+    description: 'Co-founded educational organization for teaching via blogs with cohorts, achieved 120+ active users.',
+    category: 'project',
+    links: [
+      { title: 'Website', url: 'https://openlearn.org.in/', icon: 'website' },
+      { title: 'Story Board', url: 'https://www.instagram.com/openlearn.org.in/', icon: 'instagram' }
+    ],
+    location: 'Remote',
   }
 ];
 
