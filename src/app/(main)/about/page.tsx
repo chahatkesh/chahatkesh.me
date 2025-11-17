@@ -225,6 +225,76 @@ const AboutPage = () => {
                 ))}
               </div>
             </section>
+
+            {/* Portfolio Evolution Section */}
+            <section className="mt-10 space-y-6" aria-label="Portfolio Evolution">
+              <h2 className={typo({ variant: "h2" })}>Portfolio Evolution</h2>
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-800 opacity-50" />
+                
+                <div className="space-y-6">
+                  {/* Version 4.0 - Current */}
+                  <div className="group relative flex items-center gap-4">
+                    <div className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-ring border-2 border-neutral-900 shadow-lg shadow-ring/20" />
+                    <div className="flex-1 rounded border border-ring/30 bg-ring/5 px-4 py-3">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-ubuntu text-sm font-medium text-white">v4.0</span>
+                        <span className="text-xs text-ring">Next.js - Current Version</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Version 3.0 */}
+                  <Link 
+                    href="https://v3.chahatkesh.me" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative flex items-center gap-4 transition-all duration-300"
+                  >
+                    <div className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
+                    <div className="flex-1 rounded border border-neutral-800 bg-neutral-900/30 px-4 py-3 group-hover:border-neutral-700 group-hover:bg-neutral-800/50 transition-all">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-ubuntu text-sm font-medium text-white">v3.0</span>
+                        <span className="text-xs text-neutral-400">React + Tailwind - My Minimal Era</span>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Version 2.0 */}
+                  <Link 
+                    href="https://v2.chahatkesh.me" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative flex items-center gap-4 transition-all duration-300"
+                  >
+                    <div className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
+                    <div className="flex-1 rounded border border-neutral-800 bg-neutral-900/30 px-4 py-3 group-hover:border-neutral-700 group-hover:bg-neutral-800/50 transition-all">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-ubuntu text-sm font-medium text-white">v2.0</span>
+                        <span className="text-xs text-neutral-400">Stepping into React</span>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Version 1.0 */}
+                  <Link 
+                    href="https://v1.chahatkesh.me" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group relative flex items-center gap-4 transition-all duration-300"
+                  >
+                    <div className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
+                    <div className="flex-1 rounded border border-neutral-800 bg-neutral-900/30 px-4 py-3 group-hover:border-neutral-700 group-hover:bg-neutral-800/50 transition-all">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-ubuntu text-sm font-medium text-white">v1.0</span>
+                        <span className="text-xs text-neutral-400">HTML/CSS Beginnings</span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </section>
           </div>
         </section>
       </div>
