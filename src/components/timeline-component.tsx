@@ -176,8 +176,8 @@ const EventCard = ({ event, duration }: EventCardProps) => {
 
         {/* Category on the right - hidden on mobile */}
         <span className={`
-          hidden sm:inline-flex text-xs px-2 py-1 rounded border flex-shrink-0
-          ${categoryColors[event.category as keyof typeof categoryColors]}
+          hidden sm:inline-flex text-[10px] uppercase tracking-wider flex-shrink-0
+          ${categoryColors[event.category as keyof typeof categoryColors].split(' ')[1]}
         `}>
           {event.category}
         </span>

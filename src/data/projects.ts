@@ -87,6 +87,12 @@ const projects: Project[] = [
       role: "Backend Developer",
       github: "https://github.com/rishiahuja",
       linkedin: "https://www.linkedin.com/in/rishi-ahuja-b1a224310/"
+    },
+    {
+      name: "Vatsal Khanna",
+      role: "Project Manager",
+      github: "https://github.com/vatsalkhanna5",
+      linkedin: "https://www.linkedin.com/in/vatsalkhanna/"
     }
   ]
   },
@@ -130,6 +136,12 @@ const projects: Project[] = [
       role: "Backend Developer",
       github: "https://github.com/rishiahuja",
       linkedin: "https://www.linkedin.com/in/rishi-ahuja-b1a224310/"
+    },
+    {
+      name: "Vatsal Khanna",
+      role: "Project Manager",
+      github: "https://github.com/vatsalkhanna5",
+      linkedin: "https://www.linkedin.com/in/vatsalkhanna/"
     }
   ]
   },
