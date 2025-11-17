@@ -36,10 +36,15 @@ import {
   SiPrisma,
   SiRedis,
   SiLucide,
+  SiFastapi,
+  SiAwslambda,
+  SiAmazons3,
+  SiAmazondynamodb,
 } from "react-icons/si";
 import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
 import { BsRobot, BsVectorPen } from "react-icons/bs";
+import { FaFlutter } from "react-icons/fa6";
 
 export type stacksProps = Record<
   string,
@@ -79,6 +84,7 @@ export const FRONTEND_STACKS: stacksProps = {
   "Retrieval-Augmented Generation": { Icon: BsRobot, className: "text-rose-500" },
   "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
   "Lucide React": { Icon: SiLucide, className: "text-rose-500" },
+  "Flutter": { Icon: FaFlutter, className: "text-blue-400" },
 };
 
 export const BACKEND_DEVOPS: stacksProps = {
@@ -105,4 +111,8 @@ export const BACKEND_DEVOPS: stacksProps = {
   JWT: { Icon: SiJsonwebtokens, className: "text-pink-500" },
   "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
   Redis: { Icon: SiRedis, className: "text-red-500" },
+  "FastAPI": { Icon: SiFastapi, className: "text-green-500" },
+  "AWS Lambda": { Icon: SiAwslambda, className: "text-orange-400" },
+  "AWS S3": { Icon: SiAmazons3, className: "text-orange-400" },
+  "DynamoDB": { Icon: SiAmazondynamodb, className: "text-blue-400" },
 };
