@@ -20,15 +20,19 @@ import {
   FaGithub,
   FaGlobe,
   FaFileAlt,
-  FaCertificate
+  FaCertificate,
+  FaYoutube,
+  FaLinkedin,
+  FaInstagram
 } from "react-icons/fa";
 import { MotionDiv } from "./motion-wrapper";
+import { SiDevpost } from "react-icons/si";
 
 // Helper function to get link icon
 const getLinkIcon = (iconType?: string) => {
   switch (iconType) {
     case 'github':
-      return <FaGithub size={10} />;
+      return <FaGithub size={14} />;
     case 'website':
     case 'demo':
       return <FaGlobe size={10} />;
@@ -37,6 +41,14 @@ const getLinkIcon = (iconType?: string) => {
       return <FaFileAlt size={10} />;
     case 'certificate':
       return <FaCertificate size={10} />;
+    case 'youtube':
+      return <FaYoutube size={14} />;
+    case 'devfolio':
+      return <SiDevpost size={14} />;
+    case 'linkedin':
+      return <FaLinkedin size={14} />;
+    case 'instagram':
+      return <FaInstagram size={14} />;
     default:
       return <FaExternalLinkAlt size={10} />;
   }
@@ -109,49 +121,37 @@ const EventCard = ({ event, duration }: EventCardProps) => {
 
   return (
     <div className="group relative space-y-3 pb-6 transition-all duration-300 border-b border-neutral-800">
-      {/* Title and Tags */}
+      {/* Title and Metadata on same line */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <h3 className="font-ubuntu text-base font-medium text-white group-hover:text-ring transition-colors">
           {event.title}
         </h3>
         
-        <div className="hidden sm:flex flex-wrap gap-2">
-          {event.tags?.slice(0, 3).map((tag, index) => (
-            <span 
-              key={index}
-              className="text-xs text-neutral-400 bg-neutral-900/50 px-2 py-1 rounded border border-neutral-800"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Date, Duration, and Location */}
-      <div className="flex items-center gap-4 text-sm text-neutral-400 flex-wrap">
-        <div className="flex items-center gap-2">
-          <FaCalendarAlt size={12} />
-          {formatEventDate(event)}
-        </div>
-        
-        {duration !== 'Single day' && (
-          <div className="flex items-center gap-2">
-            <FaClock size={12} />
-            <span>{duration}</span>
+        <div className="flex items-center gap-3 text-xs text-neutral-400 flex-wrap">
+          <div className="flex items-center gap-1.5">
+            <FaCalendarAlt size={11} />
+            {formatEventDate(event)}
           </div>
-        )}
+          
+          {duration !== 'Single day' && (
+            <div className="flex items-center gap-1.5">
+              <FaClock size={11} />
+              <span>{duration}</span>
+            </div>
+          )}
 
-        {event.location && (
-          <div className="flex items-center gap-2">
-            <FaMapMarkerAlt size={12} />
-            <span>{event.location}</span>
-          </div>
-        )}
+          {event.location && (
+            <div className="flex items-center gap-1.5">
+              <FaMapMarkerAlt size={11} />
+              <span>{event.location}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Description */}
       {event.description && (
-        <p className="text-neutral-300 text-sm leading-relaxed">
+        <p className="text-neutral-300 text-sm leading-relaxed text-justify">
           {event.description}
         </p>
       )}
@@ -166,7 +166,7 @@ const EventCard = ({ event, duration }: EventCardProps) => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs text-ring hover:text-ring/80 transition-colors bg-neutral-800/30 hover:bg-neutral-800/50 px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-600"
+              className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-ring/80 transition-colors bg-neutral-800/30 hover:bg-neutral-800/50 px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-600"
             >
               {getLinkIcon(link.icon)}
               <span>{link.title}</span>
@@ -174,9 +174,9 @@ const EventCard = ({ event, duration }: EventCardProps) => {
           ))}
         </div>
 
-        {/* Category on the right */}
+        {/* Category on the right - hidden on mobile */}
         <span className={`
-          text-xs px-2 py-1 rounded border flex-shrink-0
+          hidden sm:inline-flex text-xs px-2 py-1 rounded border flex-shrink-0
           ${categoryColors[event.category as keyof typeof categoryColors]}
         `}>
           {event.category}
