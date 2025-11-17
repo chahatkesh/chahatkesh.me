@@ -13,15 +13,61 @@ export interface TimelineEvent {
   title: string;
   description?: string;
   category: 'project' | 'achievement' | 'learning' | 'work' | 'travel' | 'hackathon' | 'workshop' | 'other';
-  tags?: string[];
   links?: TimelineLink[];
-  image?: string;
   location?: string;
-  status?: 'completed' | 'ongoing' | 'upcoming';
 }
 
 export const timelineEvents: TimelineEvent[] = [
-  
+  {
+    id: createId(),
+    startDate: '2025-11-08',
+    title: 'Participated in HackCBS 8.0',
+    description: 'A 24-hour hackathon organized by the tech community of Saheed Sukhdev College of Business Studies. We built Swasya AI, an AI-powered medical transcription tool that listens, reads, and summarizes, so doctors get the complete patient story before consultation begins.',
+    category: 'hackathon',
+    links: [
+      { title: 'GitHub', url: 'https://github.com/chahatkesh/swasya-ai', icon: 'github' },
+      { title: 'Devfolio', url: 'https://devfolio.co/projects/swasya-ai-bf6e', icon: 'devfolio' },
+      { title: 'Product Demo', url: 'https://youtu.be/eg1DibXqRGc', icon: 'youtube' }
+    ],
+    location: 'Saheed Sukhdev College, Delhi, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-11-03',
+    title: 'Product Presentation to GOI & MeitY Delegation',
+    description: 'Presented our Agri-Tech innovations to a high-level delegation in a 4-hour strategic meeting and luncheon. The audience included the Chief AI Officer (Ministry of Agriculture), the Director of IIT Ropar, officials from the Ministry of Education, and leadership from MeitY.',
+    category: 'achievement',
+    links: [
+      { title: 'View Post (MeitY)', url: 'https://www.linkedin.com/posts/nicmeity_artificialintelligence-agriculture-nicmeity-activity-7391430381838721024-JoFY/', icon: 'linkedin' },
+      { title: 'View Post (Annam AI)', url: 'https://www.linkedin.com/posts/annam-ai_iitropar-annamai-agritech-activity-7391777407919214592-TGyh/', icon: 'linkedin' }
+    ],
+    location: 'IIT Ropar, Punjab, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-10-17',
+    endDate: 'present',
+    title: 'Started Entrepreneur-in-Residence (EIR)',
+    description: 'Began role as an Entrepreneur-in-Residence at iHub AwaDH, IIT Ropar, supporting and mentoring technology startups.',
+    category: 'work',
+    links: [
+      { title: 'Visit iHub AwaDH', url: 'https://ihub-awadh.in/', icon: 'website' },
+      { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_im-happy-to-share-that-im-starting-a-new-activity-7382848439652593664-gJYU?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEYS_ZIB5LbJYVWVau1yBowmKAce_JxfWf0', icon: 'linkedin' }
+    ],
+    location: 'IIT Ropar, Punjab, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-09-06',
+    title: 'Bit N Build, Punjab Round Mentor',
+    description: 'Invited as a mentor for the Bit n Build Punjab Round hackathon at Thapar University, Patiala. Guided and advised over 30 participating teams during the event held on September 6, 2025, which hosted 120+ participants in collaboration with Genesoc Society.',
+    category: 'achievement',
+    links: [
+      { title: 'Event Details', url: 'https://www.openlearn.org.in/events/hackathon-1', icon: 'website' },
+      { title: 'View Post', url: 'https://www.instagram.com/p/DOEclMdkzPo/', icon: 'instagram' }
+    ],
+    location: 'Thapar University, Patiala, India',
+  }
 ];
 
 export const getEventDuration = (startDate: string, endDate?: string): string => {
@@ -52,27 +98,6 @@ export const getEventDuration = (startDate: string, endDate?: string): string =>
   if (diffDays <= 31) return `${Math.ceil(diffDays / 7)} weeks`;
   if (diffDays <= 365) return `${Math.ceil(diffDays / 30)} months`;
   return `${Math.ceil(diffDays / 365)} years`;
-};
-
-export const getEventStatus = (startDate: string, endDate?: string): 'completed' | 'ongoing' | 'upcoming' => {
-  const now = new Date();
-  const start = new Date(startDate);
-  
-  if (!endDate) {
-    if (start > now) return 'upcoming';
-    return 'completed';
-  }
-  
-  if (endDate.toLowerCase() === 'present') {
-    if (start > now) return 'upcoming';
-    return 'ongoing';
-  }
-  
-  const end = new Date(endDate);
-  
-  if (start > now) return 'upcoming';
-  if (end > now) return 'ongoing';
-  return 'completed';
 };
 
 export const formatDateRange = (startDate: string, endDate?: string): string => {
@@ -122,21 +147,6 @@ export const getAllTimelineEvents = (): TimelineEvent[] => {
   return [...timelineEvents].sort((a, b) => 
     new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
   );
-};
-
-export const getEventsByYear = (year: number): TimelineEvent[] => {
-  return timelineEvents.filter(event => 
-    new Date(event.startDate).getFullYear() === year ||
-    (event.endDate && event.endDate !== 'present' && new Date(event.endDate).getFullYear() === year)
-  );
-};
-
-export const getEventsByCategory = (category: string): TimelineEvent[] => {
-  return timelineEvents.filter(event => event.category === category);
-};
-
-export const getOngoingEvents = (): TimelineEvent[] => {
-  return timelineEvents.filter(event => getEventStatus(event.startDate, event.endDate) === 'ongoing');
 };
 
 export const categoryColors = {
