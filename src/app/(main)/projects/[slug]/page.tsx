@@ -112,6 +112,11 @@ export default function ProjectPage({ params }: Props) {
           placeholder="blur"
           sizes="(max-width: 1200px) 100vw"
         />
+        {project.contributors && project.contributors.length > 0 && (
+          <div className="absolute top-6 right-6 z-20 text-[10px] bg-black/75 rounded-sm px-2 py-1 md:text-xs text-ring font-medium tracking-wide">
+            TEAM PROJECT
+          </div>
+        )}
         <div className="absolute bottom-0 left-0 w-full h-[85%] md:h-1/2 bg-gradient-to-t from-black via-black/75 to-transparent z-10" />
         <div className="absolute bottom-0 left-0 z-20 p-6 md:p-8 max-w-3xl">
           <MotionDiv
@@ -175,7 +180,7 @@ export default function ProjectPage({ params }: Props) {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
-          <p className={typo({ variant: "paragraph", size: "lg" })}>
+          <p className={typo({ variant: "paragraph", size: "lg" }) + " text-justify"}>
             {project.task}
           </p>
         </div>
@@ -225,11 +230,56 @@ export default function ProjectPage({ params }: Props) {
         >
           <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
           <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
-            <p className={typo({ variant: "paragraph", size: "lg" })}>
+            <p className={typo({ variant: "paragraph", size: "lg" }) + " text-justify"}>
               {project.detailedDescription}
             </p>
           </div>
         </MotionDiv>
+
+        {project.contributors && project.contributors.length > 0 && (
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="space-y-6"
+          >
+            <h2 className={typo({ variant: "h2" })}>Contributors</h2>
+            <div className="space-y-4">
+              {project.contributors.map((contributor, index) => (
+                <MotionDiv
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.1 * index }}
+                  className="flex items-center justify-between border-b border-neutral-800 pb-4 last:border-b-0 last:pb-0"
+                >
+                  <div className="flex-1">
+                    <h3 className="font-ubuntu text-base text-white">{contributor.name}</h3>
+                    <p className="text-sm text-neutral-400 mt-0.5">{contributor.role}</p>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm">
+                    {contributor.github && (
+                      <SmartLink
+                        href={contributor.github}
+                        className="text-neutral-400 hover:text-white transition-colors"
+                      >
+                        GitHub
+                      </SmartLink>
+                    )}
+                    {contributor.linkedin && (
+                      <SmartLink
+                        href={contributor.linkedin}
+                        className="text-neutral-400 hover:text-ring transition-colors"
+                      >
+                        LinkedIn
+                      </SmartLink>
+                    )}
+                  </div>
+                </MotionDiv>
+              ))}
+            </div>
+          </MotionDiv>
+        )}
 
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
