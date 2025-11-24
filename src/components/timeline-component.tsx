@@ -49,6 +49,8 @@ const getLinkIcon = (iconType?: string) => {
       return <FaLinkedin size={14} />;
     case 'instagram':
       return <FaInstagram size={14} />;
+    case 'document':
+      return <FaFileAlt size={10} />;
     default:
       return <FaExternalLinkAlt size={10} />;
   }
@@ -68,7 +70,7 @@ const TimelineComponent = () => {
             >
               <h1 className={cn(typo({ variant: "h2" }))}>My Journey</h1>
               <p className={cn(typo({ variant: "paragraph" }))}>
-                {allEvents.length} events showcasing my learnings, achievements, and milestones.
+                A timeline showcasing my learnings, achievements, and milestones.
               </p>
       </MotionDiv>
 
@@ -166,10 +168,10 @@ const EventCard = ({ event, duration }: EventCardProps) => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-ring/80 transition-colors bg-neutral-800/30 hover:bg-neutral-800/50 px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-600"
+              className="inline-flex items-center justify-center gap-1.5 text-xs text-neutral-400 hover:text-ring/80 transition-colors bg-neutral-800/30 hover:bg-neutral-800/50 px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-600"
             >
-              {getLinkIcon(link.icon)}
-              <span>{link.title}</span>
+              <span className="flex items-center">{getLinkIcon(link.icon)}</span>
+              <span className="leading-none">{link.title}</span>
             </Link>
           ))}
         </div>
