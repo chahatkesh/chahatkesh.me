@@ -18,16 +18,125 @@ export interface TimelineEvent {
 }
 
 export const timelineEvents: TimelineEvent[] = [
+  // {
+  //   id: createId(),
+  //   startDate: '',
+  //   title: '',
+  //   description: '',
+  //   category: 'other',
+  //   links: [
+  //     { title: '', url: '', icon: '' },
+  //   ],
+  //   location: '',
+  // },
+  {
+    id: createId(),
+    startDate: '2024-11-28',
+    title: 'Built LPG Leakage Detection System',
+    description: 'Worked on an LPG Leakage Detection System using an MQ-2 sensor and Arduino. The system detects gas leaks, triggers an alarm, cuts off the simulated power supply, and activates an exhaust fan to reduce risk. A simple yet effective automation project focused on household safety.',
+    category: 'project',
+    links: [
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/sadgi-saraswat-17637a31a_me-together-with-vanshika-soni-chahat-kesharwani-activity-7277338238179045376-ElSF/', icon: 'linkedin' },
+    ],
+    location: 'NIT Jalandhar, Punjab, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-01-04',
+    endDate: '2025-01-12',
+    title: '9 Days of Exploration – IOTA Community',
+    description: 'Organized the 9 Days of Exploration session series under the IOTA community from January 4–12, 2025. The initiative connected with 300+ first-year students, helping them explore domains like Web, App Dev, UI/UX, ML, DSA, DevOps, Cybersecurity, and more.',
+    category: 'workshop',
+    links: [
+      { title: 'Session Website', url: 'https://iota-sessions.onrender.com/', icon: 'website' },
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_learningandgrowing-iotacommunity-studentcommunity-activity-7284173831433265152-oJ9g/', icon: 'linkedin' }
+    ],
+    location: 'Online',
+  },
+  {
+    id: createId(),
+    startDate: '2025-02-21',
+    title: 'Participated in Code Kshetra 2.0',
+    description: 'Participated in Code Kshetra 2.0, a 36-hour national hackathon where our team built Satark AI, an AI-powered legal assistant designed to simplify legal workflows using GenAI and RAG. We made it to the offline finalist round among thousands of participants, gaining hands-on experience, new connections, and a memorable learning journey.',
+    category: 'hackathon',
+    links: [
+      { title: 'Devfolio', url: 'https://devfolio.co/projects/satark-ai-b0ee', icon: 'devfolio' },
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_codekshetra2-hackathon-learningandgrowth-activity-7299509464628428802-pafE/', icon: 'linkedin' }
+    ],
+    location: 'JIMS Rohini, Delhi, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-02-08',
+    title: 'Participated in HackTU 6.0',
+    description: 'Participated in a 24-hour hackathon at Thapar University, where we built ServoLend, an AI-driven loan origination platform. The project used LangChain, Gemini, ML-based risk assessment, Google Auth, and a dual backend with Node.js and FastAPI. It was a fast-paced experience filled with teamwork, late-night debugging, and rapid problem-solving.',
+    category: 'hackathon',
+    links: [
+      { title: 'Devfolio', url: 'https://devfolio.co/projects/servolend-f1da', icon: 'devfolio' },
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_hackathon-tech-learning-activity-7295183312657031168-Js7C/', icon: 'linkedin' },
+    ],
+    location: 'Thapar University, Patiala, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-01-25',
+    endDate: '2025-02-25',
+    title: 'Frontend Internship at Level SuperMind',
+    description: 'Worked as a Frontend Development Intern at Level SuperMind, building features for a large-scale religious services platform using Next.js. The internship focused on real-world product development, agile workflows, and integrating frontend components into a fast-moving production environment.',
+    category: 'work',
+    links: [
+      { title: 'LOR', url: 'https://drive.google.com/file/d/1pW29WoNlRcr4M387cyPefGBqJ631TgKX/view?usp=sharing', icon: 'document' },
+      { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_hackathon-internship-coding-activity-7290334676211118080-_2de/', icon: 'linkedin' }
+    ],
+    location: 'Remote',
+  },
+  {
+    id: createId(),
+    startDate: '2025-01-19',
+    title: '2nd Place – Level SuperMind National Hackathon',
+    description: 'Won 2nd place at Level SuperMind’s National Hackathon in Mumbai among 23,000+ participants. Our team built SoulBuddy, an AI-powered spiritual guide trained on 30,000+ data points within 15 hours. I contributed to the UI and frontend. The project received strong appreciation from the judging panel for its design, functionality, and real-time chatbot experience.',
+    category: 'hackathon',
+    links: [
+      { title: 'CodeBase', url: 'https://github.com/chahatkesh/soulbuddy.ai', icon: 'github' },
+      { title: 'Demo', url: 'https://youtu.be/AS8gnSInEF4/', icon: 'youtube' },
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_hackathon-coding-innovation-activity-7287731589751455744-kiz5/', icon: 'linkedin' }
+    ],
+    location: 'Schabang Office, Mumbai, India',
+  },
+  {
+    id: createId(),
+    startDate: '2024-11-28',
+    endDate: 'present',
+    title: 'Joined GDGC NITJ as Core Member',
+    description: 'Became a core member of Google Developer Group on Campus NIT Jalandhar, contributing to the UI/UX and Web Development team and supporting design and development initiatives within the community.',
+    category: 'achievement',
+    links: [
+      { title: 'View Post', url: 'https://www.instagram.com/p/DE2w15FhvDn/', icon: 'instagram' },
+      { title: 'Github Organisation', url: 'https://github.com/gdgcnitj/', icon: 'website'}
+    ],
+    location: 'NIT Jalandhar, Punjab, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-11-19',
+    title: 'Automated Refractive Index Measurement System',
+    description: 'Built an automated optical system that measures the refractive index of liquids using a hollow prism and real-time image processing. The setup used an ESP32-CAM to track laser deviation and OpenCV to detect the beam shift, calculate the deviation angle, and compute the refractive index using Snell’s Law.',
+    category: 'project',
+    links: [
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_excited-to-share-a-project-our-team-recently-activity-7398305255446335488-qWGt/', icon: 'linkedin' },
+    ],
+    location: 'NIT Jalandhar, Punjab, India',
+  },
   {
     id: createId(),
     startDate: '2025-11-08',
     title: 'Participated in HackCBS 8.0',
-    description: 'A 24-hour hackathon organized by the tech community of Saheed Sukhdev College of Business Studies. We built Swasya AI, an AI-powered medical transcription tool that listens, reads, and summarizes, so doctors get the complete patient story before consultation begins.',
+    description: 'Participated in a 24-hour hackathon at Saheed Sukhdev College of Business Studies where we built Swasya AI, a tool that listens to patient conversations, extracts key details, and generates quick medical summaries to support doctors before consultations.',
     category: 'hackathon',
     links: [
-      { title: 'GitHub', url: 'https://github.com/chahatkesh/swasya-ai', icon: 'github' },
+      { title: 'CodeBase', url: 'https://github.com/chahatkesh/swasya-ai', icon: 'github' },
       { title: 'Devfolio', url: 'https://devfolio.co/projects/swasya-ai-bf6e', icon: 'devfolio' },
-      { title: 'Product Demo', url: 'https://youtu.be/eg1DibXqRGc', icon: 'youtube' }
+      { title: 'Demo', url: 'https://youtu.be/eg1DibXqRGc/', icon: 'youtube' }
     ],
     location: 'Saheed Sukhdev College, Delhi, India',
   },
@@ -35,7 +144,7 @@ export const timelineEvents: TimelineEvent[] = [
     id: createId(),
     startDate: '2025-11-03',
     title: 'Product Presentation to GOI & MeitY Delegation',
-    description: 'Presented our Agri-Tech innovations to a high-level delegation in a 4-hour strategic meeting and luncheon. The audience included the Chief AI Officer (Ministry of Agriculture), the Director of IIT Ropar, officials from the Ministry of Education, and leadership from MeitY.',
+    description: 'Presented our Agri-Tech work during a strategic meeting with leaders from the Government of India, IIT Ropar, and MeitY. Shared insights, discussed impact, and showcased how our work can support the agriculture ecosystem.',
     category: 'achievement',
     links: [
       { title: 'View Post (MeitY)', url: 'https://www.linkedin.com/posts/nicmeity_artificialintelligence-agriculture-nicmeity-activity-7391430381838721024-JoFY/', icon: 'linkedin' },
@@ -48,7 +157,7 @@ export const timelineEvents: TimelineEvent[] = [
     startDate: '2025-10-17',
     endDate: 'present',
     title: 'Started Entrepreneur-in-Residence (EIR)',
-    description: 'Began role as an Entrepreneur-in-Residence at iHub AwaDH, IIT Ropar, supporting and mentoring technology startups.',
+    description: 'Started my journey as an Entrepreneur-in-Residence at iHub AwaDH IIT Ropar, where I work full-time on a project supported and backed by the iHub AwaDH.',
     category: 'work',
     links: [
       { title: 'Visit iHub AwaDH', url: 'https://ihub-awadh.in/', icon: 'website' },
@@ -59,12 +168,13 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: createId(),
     startDate: '2025-09-06',
-    title: 'Bit N Build, Punjab Round Mentor',
-    description: 'Invited as a mentor for the Bit n Build Punjab Round hackathon at Thapar University, Patiala. Guided and advised over 30 participating teams during the event held on September 6, 2025, which hosted 120+ participants in collaboration with Genesoc Society.',
-    category: 'achievement',
+    title: 'Mentor at Bit N Build Punjab Round',
+    description: 'Invited as a mentor for the Bit N Build Punjab Round at Thapar University. Guided 30+ teams across 120+ participants, helping them refine ideas, improve prototypes, and navigate the hackathon process.',
+    category: 'hackathon',
     links: [
       { title: 'Event Details', url: 'https://www.openlearn.org.in/events/hackathon-1', icon: 'website' },
-      { title: 'View Post', url: 'https://www.instagram.com/p/DOEclMdkzPo/', icon: 'instagram' }
+      { title: 'View Post', url: 'https://www.instagram.com/p/DOEclMdkzPo/', icon: 'instagram' },
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_hackathon-tech-openlearn-activity-7372724850840367104-_gTg/', icon: 'linkedin' }
     ],
     location: 'Thapar University, Patiala, India',
   },
@@ -73,7 +183,7 @@ export const timelineEvents: TimelineEvent[] = [
     startDate: '2025-05-05',
     endDate: '2025-10-04',
     title: 'Annam AI Research Intern - IIT Ropar',
-    description: 'AI research internship at IIT Ropar focusing on agricultural technology and machine learning applications.',
+    description: 'Contributed to the frontend and system architecture of Agri-Tech solutions at Annam AI, working with the IIT Ropar research team on ML-driven agricultural applications.',
     category: 'work',
     links: [
       { title: 'Visit Annam AI', url: 'https://annam.ai/', icon: 'website' },
@@ -85,10 +195,10 @@ export const timelineEvents: TimelineEvent[] = [
     id: createId(),
     startDate: '2025-06-13',
     title: 'OpenLearn - Educational Organization',
-    description: 'Co-founded educational organization for teaching via blogs with cohorts, achieved 120+ active users.',
+    description: 'Co-founded OpenLearn, a student-run community with 400+ learners. It’s a space where students learn together, share knowledge, and grow with a long-term vision of turning what we learn into real, impactful products.',
     category: 'project',
     links: [
-      { title: 'Website', url: 'https://openlearn.org.in/', icon: 'website' },
+      { title: 'Visit OpenLearn', url: 'https://openlearn.org.in/', icon: 'website' },
       { title: 'Story Board', url: 'https://www.instagram.com/openlearn.org.in/', icon: 'instagram' }
     ],
     location: 'Remote',
