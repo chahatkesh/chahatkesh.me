@@ -100,7 +100,7 @@ export default function ProjectPage({ params }: Props) {
         tags={project.stacks}
       />
 
-      <BackButton>Back to Projects</BackButton>
+      <BackButton href="/projects">Back to Projects</BackButton>
 
       <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
         <Image
