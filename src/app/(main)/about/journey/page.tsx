@@ -25,7 +25,7 @@ const JourneyPage = () => {
       ])}
       
       <div className="space-y-8">
-        <BackButton>Back to About</BackButton>
+        <BackButton href="/about">Back to About</BackButton>
         <TimelineComponent />
       </div>
     </MotionDiv>
