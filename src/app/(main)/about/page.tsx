@@ -108,7 +108,7 @@ const AboutPage = () => {
                 <p className={typo({ variant: "paragraph", font: "sans" })}>
                   Currently, I'm pursuing my engineering degree while working on freelance projects and open-source contributions. If you’d like to know more about the work I do, feel free to browse through my{" "}
                   <Link
-                    href="https://drive.google.com/file/d/1ZdX5oQ7PXUymfJ47OFRwR6ijk9D3wzEZ/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1HEdKZYNu8Q_0Cu2zM0BMCR5lf8XpO_gs/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="el-focus-styles text-ring"

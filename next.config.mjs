@@ -20,7 +20,7 @@ const nextConfig = {
       {
         source: "/resume",
         destination:
-          "https://drive.google.com/file/d/1ZdX5oQ7PXUymfJ47OFRwR6ijk9D3wzEZ/view?usp=sharing",
+          "https://drive.google.com/file/d/1HEdKZYNu8Q_0Cu2zM0BMCR5lf8XpO_gs/view?usp=sharing",
         permanent: true,
       },
       {
