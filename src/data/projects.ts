@@ -166,7 +166,7 @@ const projects: Project[] = [
     cover: webmark,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/webmark",
-    deployedURL: "https://webmark.site/",
+    deployedURL: "https://webmark.chahatkesh.me/",
     datePublished: "2024-11-05",
     dateModified: "2025-05-22",
     isFeatured: true,
