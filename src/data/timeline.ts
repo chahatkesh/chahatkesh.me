@@ -31,6 +31,18 @@ export const timelineEvents: TimelineEvent[] = [
   // },
   {
     id: createId(),
+    startDate: '2023-08-16',
+    endDate: 'present',
+    title: 'Started B.Tech at NIT Jalandhar',
+    description: 'Began my undergraduate journey at Dr. B. R. Ambedkar National Institute of Technology, Jalandhar, pursuing a B.Tech degree and stepping into a new phase of learning, growth, and exploration.',
+    category: 'learning',
+    links: [
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_i-am-thrilled-to-announce-that-i-have-been-activity-7103987077058318337-OC_v/', icon: 'linkedin' },
+    ],
+    location: 'NIT Jalandhar, Punjab, India',
+  },
+  {
+    id: createId(),
     startDate: '2024-11-28',
     title: 'Built LPG Leakage Detection System',
     description: 'Worked on an LPG Leakage Detection System using an MQ-2 sensor and Arduino. The system detects gas leaks, triggers an alarm, cuts off the simulated power supply, and activates an exhaust fan to reduce risk. A simple yet effective automation project focused on household safety.',
@@ -163,7 +175,7 @@ export const timelineEvents: TimelineEvent[] = [
       { title: 'Visit iHub AwaDH', url: 'https://ihub-awadh.in/', icon: 'website' },
       { title: 'View Announcement', url: 'https://www.linkedin.com/posts/chahatkesharwani_im-happy-to-share-that-im-starting-a-new-activity-7382848439652593664-gJYU/', icon: 'linkedin' }
     ],
-    location: 'IIT Ropar, Punjab, India',
+    location: 'Hybrid, IIT Ropar',
   },
   {
     id: createId(),
