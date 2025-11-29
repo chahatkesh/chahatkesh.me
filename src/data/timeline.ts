@@ -31,6 +31,41 @@ export const timelineEvents: TimelineEvent[] = [
   // },
   {
     id: createId(),
+    startDate: '2025-06-25',
+    endDate: '2025-06-27',
+    title: 'Visit to Shri Mata Vaishno Devi Temple',
+    description: 'Visited Mata Vaishno Devi Temple in Katra, Jammu with two of the most special people. A peaceful and memorable journey filled with devotion, reflection, and gratitude.',
+    category: 'travel',
+    links: [
+      { title: 'View Story', url: 'https://www.instagram.com/chahat.kesharwanii/', icon: 'instagram' },
+    ],
+    location: 'Katra, Jammu & Kashmir, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-08-28',
+    title: 'Launched OpenLearn V2',
+    description: 'Launched OpenLearn V2 with an improved user experience and several new features, focusing on better usability, smoother learning flows, and a more scalable foundation for the community.',
+    category: 'project',
+    links: [
+      { title: 'Launch Post', url: 'https://x.com/OpenLearn_NITJ/status/1960859569720320340/', icon: 'twitter' },
+      { title: 'Visit Website', url: 'https://openlearn.org.in/', icon: 'website' }
+    ],
+    location: 'Remote',
+  },
+  {
+    id: createId(),
+    startDate: '2025-11-15',
+    title: 'Attended SMX Tour – Seedhe Maut Live',
+    description: 'Attended the Seedhe Maut SMX Tour in Chandigarh and experienced the duo live for the first time. Being in the moshpit and singing along with thousands of fans captured the raw energy and vibe of a live hip-hop concert.',
+    category: 'other',
+    links: [
+      { title: 'View Reel', url: 'https://www.instagram.com/reel/DRmSUqvEluH/', icon: 'instagram' },
+    ],
+    location: 'Chandigarh, India',
+  },
+  {
+    id: createId(),
     startDate: '2023-08-16',
     endDate: 'present',
     title: 'Started B.Tech at NIT Jalandhar',
