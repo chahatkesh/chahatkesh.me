@@ -26,6 +26,7 @@ import {
 import { MotionDiv } from "./motion-wrapper";
 import { SiDevpost } from "react-icons/si";
 import { cn } from "~/lib/utils";
+import { BsTwitterX } from "react-icons/bs";
 
 // Helper function to get link icon
 const getLinkIcon = (iconType?: string) => {
@@ -48,6 +49,8 @@ const getLinkIcon = (iconType?: string) => {
       return <FaLinkedin size={14} />;
     case 'instagram':
       return <FaInstagram size={14} />;
+    case 'twitter':
+      return <BsTwitterX size={10} />;
     case 'document':
       return <FaFileAlt size={10} />;
     default:
