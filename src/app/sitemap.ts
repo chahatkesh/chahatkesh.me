@@ -1,12 +1,13 @@
 import { MetadataRoute } from 'next';
 import config from '~/config';
+import projects from '~/data/projects';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.domainName}`;
   const currentDate = new Date().toISOString();
   
-  // Define all routes for the sitemap
-  return [
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: currentDate,
@@ -18,6 +19,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/about/journey`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/projects`,
@@ -32,4 +39,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+  
+  // Dynamic project pages
+  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: project.dateModified || project.datePublished,
+    changeFrequency: 'monthly' as const,
+    priority: project.isFeatured ? 0.8 : 0.6,
+  }));
+  
+  return [...staticPages, ...projectPages];
 }
