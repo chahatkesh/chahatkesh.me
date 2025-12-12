@@ -60,7 +60,7 @@ export const timelineEvents: TimelineEvent[] = [
     description: 'Attended the Seedhe Maut SMX Tour in Chandigarh and experienced the duo live for the first time. Being in the moshpit and singing along with thousands of fans captured the raw energy and vibe of a live hip-hop concert.',
     category: 'other',
     links: [
-      { title: 'View Reel', url: 'https://www.instagram.com/reel/DRmSUqvEluH/', icon: 'instagram' },
+      { title: 'Highlights', url: 'https://www.instagram.com/reel/DRmSUqvEluH/', icon: 'instagram' },
     ],
     location: 'Chandigarh, India',
   },
@@ -177,13 +177,12 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: createId(),
     startDate: '2025-11-08',
-    title: 'Participated in HackCBS 8.0',
-    description: 'Participated in a 24-hour hackathon at Saheed Sukhdev College of Business Studies where we built Swasya AI, a tool that listens to patient conversations, extracts key details, and generates quick medical summaries to support doctors before consultations.',
+    title: 'Winner – AWS Partner Track at HackCBS 8.0',
+    description: 'Won the AWS Partner Track at HackCBS 8.0 with our project Swasya AI. Participated in the 24-hour hackathon at Saheed Sukhdev College of Business Studies, where we built an AI-powered tool that listens to patient conversations, extracts key details, and generates quick medical summaries to support doctors before consultations. Our team was awarded a $250 cash prize for the win.',
     category: 'hackathon',
     links: [
-      { title: 'CodeBase', url: 'https://github.com/chahatkesh/swasya-ai', icon: 'github' },
       { title: 'Devfolio', url: 'https://devfolio.co/projects/swasya-ai-bf6e', icon: 'devfolio' },
-      { title: 'Demo', url: 'https://youtu.be/eg1DibXqRGc/', icon: 'youtube' }
+      { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_hackcbs-hackathon-activity-7405285073060532224-yNPS/', icon: 'linkedin' },
     ],
     location: 'Saheed Sukhdev College, Delhi, India',
   },
