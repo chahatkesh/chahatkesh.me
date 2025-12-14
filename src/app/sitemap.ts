@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import config from '~/config';
 import projects from '~/data/projects';
+import { experiences } from '~/data/experience';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.domainName}`;
@@ -27,6 +28,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/about/journey/btech`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/about/experience`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/projects`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -48,5 +61,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: project.isFeatured ? 0.8 : 0.6,
   }));
   
-  return [...staticPages, ...projectPages];
+  // Dynamic experience pages
+  const experiencePages: MetadataRoute.Sitemap = experiences.map((experience) => ({
+    url: `${baseUrl}/about/experience/${experience.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+  
+  return [...staticPages, ...projectPages, ...experiencePages];
 }
