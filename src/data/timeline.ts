@@ -73,6 +73,7 @@ export const timelineEvents: TimelineEvent[] = [
     category: 'learning',
     links: [
       { title: 'View Post', url: 'https://www.linkedin.com/posts/chahatkesharwani_i-am-thrilled-to-announce-that-i-have-been-activity-7103987077058318337-OC_v/', icon: 'linkedin' },
+      { title: 'Details', url: '/about/journey/btech', icon: 'blog' }
     ],
     location: 'NIT Jalandhar, Punjab, India',
   },
