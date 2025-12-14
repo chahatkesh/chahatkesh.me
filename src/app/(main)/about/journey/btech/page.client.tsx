@@ -46,24 +46,22 @@ const BtechCoursesClient = () => {
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="flex items-center gap-4 text-sm text-neutral-400">
-            <span>{btechCourses.length} Semesters</span>
-            <span>•</span>
-            <span>{totalCourses} Courses</span>
-            <span>•</span>
-            <span>{totalCredits} Credits</span>
-          </div>
-
-          {/* Search */}
-          <div className="relative max-w-md">
-            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={14} />
+          {/* Stats & Search */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div className="flex items-center gap-4 text-sm text-neutral-400">
+              <span>{btechCourses.length} Semesters</span>
+              <span>•</span>
+              <span>{totalCourses} Courses</span>
+              <span>•</span>
+              <span>{totalCredits} Credits</span>
+            </div>
+            
             <input
               type="text"
-              placeholder="Search courses, codes, or professors..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-neutral-900/50 border border-neutral-800 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-ring/50 transition-colors"
+              className="w-full md:w-48 bg-transparent border-b border-neutral-800 focus:border-ring/50 px-0 py-1.5 text-sm text-neutral-400 placeholder:text-neutral-500 focus:outline-none transition-colors"
             />
           </div>
         </MotionDiv>
