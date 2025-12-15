@@ -1,10 +1,20 @@
 import VisitorCounter from "../visitor-counter";
+import Link from "next/link";
 
 const Footer = () => {
   return (
     <footer className="!mt-auto flex flex-col items-center justify-center py-4">
       <div className="flex w-full flex-wrap items-center justify-center gap-2 text-center sm:justify-between">
-        <span>&copy; {new Date().getFullYear()} Developed with 🩵 by Chahat Kesharwani</span>
+        <span>
+          &copy; {new Date().getFullYear()}{" "}
+          <Link 
+            href="/about/site" 
+            className="hover:text-ring transition-colors underline decoration-neutral-700 hover:decoration-ring underline-offset-2"
+          >
+            Developed
+          </Link>
+          {" "}by Chahat Kesharwani
+        </span>
 
         <div className="flex items-center gap-2">
           <VisitorCounter />
