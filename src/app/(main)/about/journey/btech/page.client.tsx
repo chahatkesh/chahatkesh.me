@@ -6,7 +6,6 @@ import BackButton from "~/components/back-btn";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui/typograpghy";
 import { btechCourses, getTotalCredits, getTotalCourses, type Course, type Semester } from "~/data/btech-courses";
-import { FaSearch } from "react-icons/fa";
 import { SyllabusModal } from "~/components/syllabus-modal";
 
 const BtechCoursesClient = () => {

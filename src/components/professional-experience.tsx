@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { typo } from "./ui/typograpghy";
-import { cn } from "~/lib/utils";
 import { experiences, type Experience } from "~/data/experience";
 
 // Helper function to calculate duration
