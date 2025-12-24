@@ -31,14 +31,29 @@ export const timelineEvents: TimelineEvent[] = [
   // },
   {
     id: createId(),
+    startDate: '2025-09-27',
+    endDate: '2025-09-29',
+    title: 'Bike Trip to Jibhi & Raghupur Fort Trek',
+    description: 'Went on a bike trip from NIT Jalandhar to Jibhi, Himachal Pradesh with three friends. Trekked to Raghupur Fort at around 12,000 ft, experienced local Himachali food, and enjoyed the thrill of riding through mountain roads.',
+    category: 'travel',
+    location: 'Jibhi, Himachal Pradesh, India',
+  },
+  {
+    id: createId(),
+    startDate: '2025-12-20',
+    endDate: '2025-12-23',
+    title: 'Himachal Trip & Paragliding at Bir Billing',
+    description: 'Went on a road trip with three friends exploring Manali, Atal Tunnel, Gramphu, Kasol, Manikaran, Bir, and Billing. Experienced paragliding at Bir Billing, known as the paragliding capital of India, making it a perfect mix of adventure, travel, and unforgettable memories.',
+    category: 'travel',
+    location: 'Himachal Pradesh, India',
+  },
+  {
+    id: createId(),
     startDate: '2025-06-25',
     endDate: '2025-06-27',
     title: 'Visit to Shri Mata Vaishno Devi Temple',
     description: 'Visited Mata Vaishno Devi Temple in Katra, Jammu with two of the most special people. A peaceful and memorable journey filled with devotion, reflection, and gratitude.',
     category: 'travel',
-    links: [
-      { title: 'View Story', url: 'https://www.instagram.com/chahat.kesharwanii/', icon: 'instagram' },
-    ],
     location: 'Katra, Jammu & Kashmir, India',
   },
   {
@@ -272,10 +287,10 @@ export const getEventDuration = (startDate: string, endDate?: string): string =>
   const start = new Date(startDate);
   const end = new Date(endDate);
   const diffTime = Math.abs(end.getTime() - start.getTime());
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to count inclusively
   
-  if (diffDays === 0) return 'Single day';
-  if (diffDays === 1) return '1 day';
+  if (diffDays === 1) return 'Single day';
+  if (diffDays === 2) return '2 days';
   if (diffDays <= 7) return `${diffDays} days`;
   if (diffDays <= 31) return `${Math.ceil(diffDays / 7)} weeks`;
   if (diffDays <= 365) return `${Math.ceil(diffDays / 30)} months`;
