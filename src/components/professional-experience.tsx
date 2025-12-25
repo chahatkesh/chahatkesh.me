@@ -6,8 +6,22 @@ import { experiences, type Experience } from "~/data/experience";
 
 // Helper function to calculate duration
 const calculateDuration = (startDate: string, endDate: string): string => {
-  const start = new Date(startDate + " 01");
-  const end = endDate.toLowerCase() === "present" ? new Date() : new Date(endDate + " 01");
+  // Parse dates in format "MMM YYYY" (e.g., "Oct 2025")
+  const parseDate = (dateStr: string): Date => {
+    if (dateStr.toLowerCase() === "present") {
+      return new Date();
+    }
+    // Format: "Oct 2025" -> "Oct 01 2025"
+    return new Date(`${dateStr} 01`);
+  };
+  
+  const start = parseDate(startDate);
+  const end = parseDate(endDate);
+  
+  // Check if dates are valid
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return "Invalid date";
+  }
   
   const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
   
