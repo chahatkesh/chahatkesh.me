@@ -29,6 +29,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   stacks,
   slug,
   datePublished,
+  dateStarted,
   dateModified,
   metadata = false,
   tagline,
@@ -43,6 +44,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           description={description}
           slug={slug}
           datePublished={datePublished}
+          dateStarted={dateStarted}
           dateModified={dateModified}
           image={`https://${config.domainName}${cover.src}`}
           tags={stacks}
@@ -84,17 +86,17 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           <div className="sm:col-span-3 flex flex-col p-4">
             <div className="flex items-start justify-between">
               <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
-              <div className="flex items-end gap-1 text-[9px] text-neutral-300">
+              <div className="flex items-end gap-2 text-[9px] text-neutral-400">
                 {isFeatured ? (
-                  <span className="text-ring">FEATURED</span>
+                  <span className="text-ring font-medium">FEATURED</span>
                 ) : (
-                <span>
-                  {new Date(datePublished).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
+                  <time dateTime={datePublished} className="font-mono">
+                    {new Date(datePublished).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
                     })}
-                </span>
-               )}
+                  </time>
+                )}
               </div>
             </div>
 

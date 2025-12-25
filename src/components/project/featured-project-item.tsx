@@ -29,6 +29,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
   stacks,
   slug,
   datePublished,
+  dateStarted,
   dateModified,
   metadata = false,
   tagline,
@@ -42,6 +43,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
           description={description}
           slug={slug}
           datePublished={datePublished}
+          dateStarted={dateStarted}
           dateModified={dateModified}
           image={`https://${config.domainName}${cover.src}`}
           tags={stacks}

@@ -8,6 +8,7 @@ import gitroast from "~/assets/images/projects/gitroast.png";
 import blogger from "~/assets/images/projects/blogger.png";
 import openlearn from "~/assets/images/projects/openlearn.png";
 import swasya from "~/assets/images/projects/swasya.png";
+import gwinfra from "~/assets/images/projects/gwinfra.png";
 
 export interface Contributor {
   name: string;
@@ -31,6 +32,7 @@ export interface Project {
   repoUrl?: string;
   deployedURL?: string;
   datePublished: string;
+  dateStarted: string;
   dateModified: string;
   isFeatured: boolean;
   contributors?: Contributor[];
@@ -79,7 +81,8 @@ const projects: Project[] = [
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/swasya-ai",
     datePublished: "2025-11-09",
-    dateModified: "2025-11-18",
+    dateStarted: "2025-11-08",
+    dateModified: "2025-11-17",
     isFeatured: false,
     contributors: [
     {
@@ -95,6 +98,76 @@ const projects: Project[] = [
       linkedin: "https://www.linkedin.com/in/vatsalkhanna/"
     }
   ]
+  },
+  {
+    id: createId(),
+    title: "GW Infra Solutions",
+    slug: "gw-infra-solutions",
+    description:
+      "A comprehensive full-stack solar energy management platform with CMS capabilities, role-based admin control, and dynamic content management built using React 18 and Node.js.",
+    detailedDescription:
+      "GW Infra Solutions is a production-ready, full-stack web platform I architected and developed for a solar energy solutions company, combining a robust content management system with modern web technologies to deliver a seamless user experience and powerful administrative capabilities. The platform serves as a complete digital ecosystem for managing solar installations, events, blogs, and customer engagement. The backend is built with Node.js, Express.js, MongoDB, and Mongoose ODM, implementing a RESTful API architecture that handles complex data relationships across users, blogs, and events. It features JWT-based authentication with secure password hashing using bcrypt, role-based access control for administrative operations, and comprehensive CRUD operations with error handling middleware. The API supports dynamic content creation, image upload handling with Multer, data validation, and population of relational data for enriched responses. Integration with Stripe enables payment processing capabilities, while the modular controller-route architecture ensures scalability and maintainability. The frontend is developed using React 18, Vite, and modern UI libraries including Radix UI and shadcn/ui, delivering a high-performance, responsive single-page application with advanced component architecture. It features a dual-layout system with separate User and Admin interfaces, comprehensive SEO optimization with React Helmet Async for meta management, and form handling using React Hook Form with Zod validation. The UI showcases animated components using Framer Motion, data visualization through Recharts, and an Apple-inspired design system implemented with Tailwind CSS. Key features include a dynamic admin dashboard with analytics, blog and event management systems, contact form with validation, testimonial carousels using Keen Slider, and real-time content updates. The platform implements protected routes with authentication context, skeleton loading states for improved UX, and toast notifications for user feedback. Together, GW Infra Solutions represents an enterprise-grade web application demonstrating expertise in full-stack JavaScript development, RESTful API design, authentication flows, content management systems, responsive UI/UX design, and modern web performance optimization.",
+    tagline: "Powering Sustainable Energy Through Digital Innovation",
+    task:
+      "Architected and developed GW Infra Solutions, a full-stack web platform for solar energy management uniting a Node.js/Express backend with a React 18 frontend. Implemented comprehensive CMS functionality with blog and event management, role-based authentication using JWT and bcrypt, and MongoDB database architecture with Mongoose ODM for data persistence. On the backend, built RESTful APIs with modular controller-route structure, authentication middleware, file upload handling with Multer, and Stripe payment integration. On the frontend, implemented dual-layout architecture (User/Admin), dynamic routing with React Router v6, form validation using React Hook Form and Zod, animated UI components with Framer Motion, and data visualization dashboards using Recharts. Integrated shadcn/ui and Radix UI primitives for accessible component design, comprehensive SEO optimization with React Helmet Async, and responsive styling with Tailwind CSS. Delivered a scalable, production-ready platform with protected routes, context-based authentication, skeleton loading patterns, and toast notifications, demonstrating end-to-end expertise in modern web development, API architecture, and design-driven engineering.",
+    features: [
+      "JWT-based authentication with bcrypt password hashing",
+      "Role-based access control for admin operations",
+      "Dynamic blog management system with author population",
+      "Event management with multi-image gallery support (up to 5 images)",
+      "Comprehensive admin dashboard with analytics and data visualization",
+      "Contact form with React Hook Form and Zod schema validation",
+      "Dual-layout architecture separating user and admin interfaces",
+      "Protected routes with authentication context management",
+      "SEO optimization with dynamic meta tags using React Helmet Async",
+      "Animated UI components using Framer Motion",
+      "Responsive Apple-inspired design system with Tailwind CSS",
+      "Data visualization dashboards using Recharts",
+      "File upload handling with Multer middleware",
+      "Real-time content updates with skeleton loading states",
+      "Toast notifications for user feedback and error handling",
+      "Event status automation based on date (upcoming/ongoing/completed)",
+      "Pagination support for blogs and events",
+      "Image gallery with validation constraints",
+      "RESTful API with modular controller-route architecture",
+      "Error handling middleware for graceful failure management",
+      "Stripe payment integration for transaction processing",
+      "Testimonial carousel with Keen Slider autoplay",
+      "Navigation menu with smooth animations and mobile responsiveness",
+      "shadcn/ui and Radix UI primitives for accessible components"
+    ],
+    stacks: [
+      "JavaScript",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Mongoose",
+      "JWT",
+      "Stripe",
+      "React.js",
+      "Vite",
+      "Tailwind CSS",
+      "Radix UI",
+      "Framer Motion",
+      "Lucide React",
+      "Axios",
+    ],
+    cover: gwinfra,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/gwinfra",
+    deployedURL: "https://gwinfrasolutions.com",
+    datePublished: "2024-11-15",
+    dateStarted: "2024-08-18",
+    dateModified: "2025-12-23",
+    isFeatured: false,
+    contributors: [
+      {
+        name: "Bhavesh Singh",
+        role: "Full Stack Developer",
+        github: "https://github.com/Bhaveshs1212",
+        linkedin: "https://www.linkedin.com/in/bhavesh-singh12/"
+      }
+    ]
   },
   {
     id: createId(),
@@ -128,6 +201,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/openlearnnitj",
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
+    dateStarted: "2025-04-01",
     dateModified: "2025-09-09",
     isFeatured: true,
     contributors: [
@@ -168,7 +242,8 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/webmark",
     deployedURL: "https://webmark.chahatkesh.me/",
     datePublished: "2024-11-05",
-    dateModified: "2025-05-22",
+    dateStarted: "2024-07-09",
+    dateModified: "2025-11-26",
     isFeatured: true,
   },
   {
@@ -197,6 +272,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/food-delivery-app",
     deployedURL: "https://tomato.chahatkesh.me/",
     datePublished: "2024-07-07",
+    dateStarted: "2024-07-03",
     dateModified: "2025-07-09",
     isFeatured: false,
   },
@@ -228,6 +304,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/blog-app",
     deployedURL: "https://blogger.chahatkesh.me",
     datePublished: "2024-07-03",
+    dateStarted: "2024-06-28",
     dateModified: "2025-07-11",
     isFeatured: false,
 },
@@ -264,6 +341,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/gitroast",
     deployedURL: "https://gitroast.chahatkesh.me/",
     datePublished: "2025-05-15",
+    dateStarted: "2025-05-14",
     dateModified: "2025-07-09",
     isFeatured: false,
   },
