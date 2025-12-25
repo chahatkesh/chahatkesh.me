@@ -5,6 +5,7 @@ interface ProjectJsonLdProps {
   title: string;
   description: string;
   datePublished: string;
+  dateStarted?: string;
   dateModified?: string;
   slug: string;
   image?: string;
@@ -15,6 +16,7 @@ export function ProjectJsonLd({
   title,
   description,
   datePublished,
+  dateStarted,
   dateModified,
   slug,
   image,
@@ -39,7 +41,7 @@ export function ProjectJsonLd({
             url: `https://${config.domainName}`,
           },
           datePublished,
-          dateModified: dateModified || datePublished,
+          dateModified: dateModified || dateStarted || datePublished,
           codeRepository: projectUrl,
           url: projectUrl,
           ...(image && { image }),
