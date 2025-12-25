@@ -20,7 +20,10 @@ const SpotifyNowPlaying = () => {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const response = await fetch('/api/spotify/now-playing');
+        // Add timestamp to prevent caching
+        const response = await fetch(`/api/spotify/now-playing?t=${Date.now()}`, {
+          cache: 'no-store',
+        });
         const result = await response.json();
         setData(result);
       } catch (error) {
