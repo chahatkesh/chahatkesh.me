@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "upgrade:latest": "npm upgrade-interactive --latest",
-    "format": "prettier --write \"**/*.{ts,tsx,json,css}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json,css}\"",
+    "update-project-dates": "node scripts/update-project-dates.mjs"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",

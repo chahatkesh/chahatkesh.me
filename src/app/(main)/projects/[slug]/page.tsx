@@ -73,11 +73,11 @@ export default function ProjectPage({ params }: Props) {
     notFound();
   }
 
-  const formattedDate = new Date(project.dateModified).toLocaleDateString(
+  const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString(
     "en-US",
     {
       year: "numeric",
-      month: "long",
+      month: "short",
       day: "numeric"
     }
   );
@@ -95,6 +95,7 @@ export default function ProjectPage({ params }: Props) {
         description={project.description}
         slug={project.slug}
         datePublished={project.datePublished}
+        dateStarted={project.dateStarted}
         dateModified={project.dateModified}
         image={`https://${config.domainName}${project.cover.src}`}
         tags={project.stacks}
@@ -127,21 +128,9 @@ export default function ProjectPage({ params }: Props) {
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
               {project.title}
             </h1>
-            <p className="hidden md:block text-lg md:text-xl text-primary mb-2 font-medium">
+            <p className="text-lg md:text-xl text-primary font-medium">
               {project.tagline}
             </p>
-            <div className="flex gap-4">
-              <p className="text-sm text-neutral-300">
-                Published on: {new Date(project.datePublished).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric"
-                })}
-              </p>
-              <p className="hidden md:block text-sm text-neutral-300">
-                Last updated: {formattedDate}
-              </p>
-            </div>
           </MotionDiv>
         </div>
       </div>
@@ -220,12 +209,65 @@ export default function ProjectPage({ params }: Props) {
   </div>
 </MotionDiv>
 
-
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.22 }}
+          className="space-y-6"
+        >
+          <h2 className={typo({ variant: "h2" })}>Project Timeline</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                <div className="text-sm text-neutral-400 mb-2">Started Development</div>
+                <time dateTime={project.dateStarted} className="text-2xl font-bold text-white block">
+                  {new Date(project.dateStarted).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                  })}
+                </time>
+                <div className="text-xs text-neutral-500 mt-2">First commit</div>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative p-6 rounded-lg border border-primary/50 bg-neutral-900/50 backdrop-blur-sm">
+                <div className="text-sm text-primary/80 mb-2">Published</div>
+                <time dateTime={project.datePublished} className="text-2xl font-bold text-primary block">
+                  {new Date(project.datePublished).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                  })}
+                </time>
+                <div className="text-xs text-neutral-500 mt-2">Official launch</div>
+              </div>
+            </div>
+            
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
+                <div className="text-sm text-neutral-400 mb-2">Last Updated</div>
+                <time dateTime={project.dateModified} className="text-2xl font-bold text-white block">
+                  {new Date(project.dateModified).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                  })}
+                </time>
+                <div className="text-xs text-neutral-500 mt-2">Latest commit</div>
+              </div>
+            </div>
+          </div>
+        </MotionDiv>
 
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.24 }}
           className="space-y-6"
         >
           <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
@@ -240,7 +282,7 @@ export default function ProjectPage({ params }: Props) {
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
+            transition={{ duration: 0.5, delay: 0.26 }}
             className="space-y-6"
           >
             <h2 className={typo({ variant: "h2" })}>Contributors</h2>
@@ -284,7 +326,7 @@ export default function ProjectPage({ params }: Props) {
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.28 }}
           className="space-y-6"
         >
           <h2 className={typo({ variant: "h2" })}>Key Features</h2>
