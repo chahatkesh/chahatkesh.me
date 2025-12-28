@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
+import { formatDate } from "~/lib/date-utils";
 
 // Function to dynamically import image based on title
 async function getImageByTitle(title: string) {
@@ -38,15 +39,25 @@ function useGalleryImage(title: string) {
 }
 
 // Component for individual gallery image
-function GalleryImage({ title, alt, priority, className }: { 
-  title: string; 
+function GalleryImage({ 
+  title, 
+  src,
+  alt, 
+  priority, 
+  className 
+}: { 
+  title: string;
+  src?: string; // Optional src for remote images from Cloudinary
   alt: string; 
   priority?: boolean; 
   className?: string;
 }) {
   const { imageSrc, isLoading } = useGalleryImage(title);
 
-  if (isLoading) {
+  // Use provided src (from Cloudinary) or dynamically loaded local image
+  const finalSrc = src || imageSrc;
+
+  if (!src && isLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-neutral-800">
         <div className="text-neutral-400 text-sm">Loading...</div>
@@ -54,7 +65,7 @@ function GalleryImage({ title, alt, priority, className }: {
     );
   }
 
-  if (!imageSrc) {
+  if (!finalSrc) {
     // Creative SVG placeholder when image is not available
     return (
       <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900">
@@ -113,7 +124,7 @@ function GalleryImage({ title, alt, priority, className }: {
 
   return (
     <Image
-      src={imageSrc}
+      src={finalSrc}
       alt={alt}
       fill
       priority={priority}
@@ -128,6 +139,7 @@ export type GalleryItem = {
   title: string;
   location: string;
   date: string;
+  src?: string; // Optional for remote images (Cloudinary URLs)
   className?: string;
   aspectRatio?: "portrait" | "landscape" | "square" | "big-square";
   isFeatured?: boolean;
@@ -167,6 +179,7 @@ export function GalleryGrid({ items }: BentoGridProps) {
           <div className="relative h-full w-full overflow-hidden">
             <GalleryImage
               title={item.title}
+              src={item.src}
               alt={item.title}
               priority={i < 3} // First 3 items get priority loading
               className="object-cover transition-all duration-500 group-hover:scale-105"
@@ -179,7 +192,7 @@ export function GalleryGrid({ items }: BentoGridProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
               <h3 className="text-base font-medium text-white">{item.title},{" "}{item.location}</h3>
-              <p className="mt-1 text-sm text-neutral-300">{item.date}</p>
+              <p className="mt-1 text-sm text-neutral-300">{formatDate(item.date)}</p>
             </div>
           </div>
         </MotionDiv>

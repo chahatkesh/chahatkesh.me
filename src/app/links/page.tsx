@@ -12,8 +12,7 @@ import chahat from "~/assets/images/chahat.jpeg";
 import { Card } from "~/components/ui";
 import { LinkStats } from "~/components/features";
 import { links, LinkItem } from "~/data/links";
-import { FeaturedCarousel } from "~/components/features/gallery";
-import { galleryItems } from "~/data/gallery";
+import { LinksFeaturedGallery } from "~/components/features/gallery";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
@@ -118,7 +117,6 @@ const LinksPage = () => {
   const primaryLinks = links.filter(link => link.type === "primary");
   const socialLinks = links.filter(link => link.type === "social");
   const supportLinks = links.filter(link => link.type === "support");
-  const featuredImages = galleryItems.filter(item => item.isFeatured);
 
   return (
     <>
@@ -194,26 +192,24 @@ const LinksPage = () => {
         </div>
 
         {/* Gallery Carousel */}
-        {featuredImages.length > 0 && (
-          <div className="mb-8">
-            <MotionDiv
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.3 }}
-            >
-              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-                Moments
-              </h2>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <FeaturedCarousel items={featuredImages} showTitle={false} />
-            </MotionDiv>
-          </div>
-        )}
+        <div className="mb-8">
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+              Moments
+            </h2>
+          </MotionDiv>
+          <MotionDiv
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <LinksFeaturedGallery />
+          </MotionDiv>
+        </div>
 
         {/* Support */}
         <div className="mb-8">

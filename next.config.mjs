@@ -23,6 +23,12 @@ const nextConfig = {
         port: '',
         pathname: '/image/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   // Ensure API routes are not cached by default
