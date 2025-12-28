@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode } from "react";
-import { Button } from "./ui/button";
+import { Button } from "~/components/ui";
 import { MoveLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 

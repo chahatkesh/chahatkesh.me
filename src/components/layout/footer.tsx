@@ -1,4 +1,4 @@
-import VisitorCounter from "../visitor-counter";
+import { VisitorCounter } from "~/components/features";
 import Link from "next/link";
 
 const Footer = () => {

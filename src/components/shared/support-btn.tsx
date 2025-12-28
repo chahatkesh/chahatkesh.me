@@ -1,6 +1,6 @@
 import React from "react";
 import config from "~/config";
-import { Button } from "./ui/button";
+import { Button } from "~/components/ui";
 import { MdOutlineSupportAgent } from "react-icons/md";
 import Link from "next/link";
 import { AiFillHome } from "react-icons/ai";

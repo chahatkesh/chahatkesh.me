@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import { ProjectList, projects } from "~/components/project";
+import { ProjectList, projects } from "~/components/features/project";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import BackButton from "~/components/back-btn";
-import { typo } from "~/components/ui/typograpghy";
+import { BackButton } from "~/components/shared";
+import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import config from "~/config";
 

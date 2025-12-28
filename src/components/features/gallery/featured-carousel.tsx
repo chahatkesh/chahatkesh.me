@@ -2,10 +2,10 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { MotionDiv } from "~/components/motion-wrapper";
+import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { GalleryItem } from "./gallery-grid";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 
 // Function to dynamically import image based on title
 async function getImageByTitle(title: string) {

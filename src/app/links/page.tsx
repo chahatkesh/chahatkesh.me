@@ -6,10 +6,11 @@ import { SiBuymeacoffee } from "react-icons/si";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { MotionDiv } from "~/components/motion-wrapper";
+import { MotionDiv } from "~/components/shared";
 import chahat from "~/assets/images/chahat.jpeg";
-import { Card } from "~/components/ui/card";
-import LinkStats from "~/components/link-stats";
+import { Card } from "~/components/ui";
+import { LinkStats } from "~/components/features";
+import { links, LinkItem } from "~/data/links";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
@@ -21,121 +22,25 @@ export const metadata: Metadata = getSEOTags({
   canonicalUrlRelative: "/links",
 });
 
-interface LinkItem {
-  id: number;
-  title: string;
-  description: string;
-  href: string;
-  icon: React.ReactNode;
-  type: "primary" | "social" | "support";
-  gradient?: string;
-  hoverColor?: string;
-}
-
-const links: LinkItem[] = [
-  // Primary Links
-  {
-    id: 1,
-    title: "Resume",
-    description: "Download my CV / Resume",
-    href: "/resume",
-    icon: <FileText className="size-6" />,
-    type: "primary",
-    hoverColor: "hover:border-emerald-500/50 hover:bg-emerald-500/5",
-  },
-  {
-    id: 2,
-    title: "Projects",
-    description: "Explore my work & case studies",
-    href: "/projects",
-    icon: <FolderGit2 className="size-6" />,
-    type: "primary",
-    hoverColor: "hover:border-blue-500/50 hover:bg-blue-500/5",
-  },
-  {
-    id: 3,
-    title: "Portfolio",
-    description: "Check out my work & projects",
-    href: "/",
-    icon: <Home className="size-6" />,
-    type: "primary",
-    hoverColor: "hover:border-purple-500/50 hover:bg-purple-500/5",
-  },
-  {
-    id: 4,
-    title: "GitHub",
-    description: "Explore my open source contributions",
-    href: config.social.github,
-    icon: <FaGithub className="size-6" />,
-    type: "primary",
-    hoverColor: "hover:border-gray-400/50 hover:bg-gray-400/5",
-  },
-  {
-    id: 5,
-    title: "LinkedIn",
-    description: "Let's connect professionally",
-    href: config.social.linkedin,
-    icon: <Linkedin className="size-6" />,
-    type: "primary",
-    hoverColor: "hover:border-blue-500/50 hover:bg-blue-500/5",
-  },
-  
-  // Social Links
-  {
-    id: 6,
-    title: "Instagram",
-    description: "Follow my journey",
-    href: config.social.instagram,
-    icon: <FaInstagram className="size-5" />,
-    type: "social",
-    hoverColor: "hover:border-pink-500/50 hover:bg-pink-500/5",
-  },
-  {
-    id: 7,
-    title: "Twitter / X",
-    description: "Thoughts & updates",
-    href: config.social.twitter,
-    icon: <FaXTwitter className="size-5" />,
-    type: "social",
-    hoverColor: "hover:border-sky-500/50 hover:bg-sky-500/5",
-  },
-  {
-    id: 8,
-    title: "YouTube",
-    description: "Watch my content",
-    href: config.social.youtube,
-    icon: <FaYoutube className="size-5" />,
-    type: "social",
-    hoverColor: "hover:border-red-500/50 hover:bg-red-500/5",
-  },
-  
-  // Contact
-  {
-    id: 9,
-    title: "Email Me",
-    description: config.social.email,
-    href: `mailto:${config.social.email}`,
-    icon: <Mail className="size-5" />,
-    type: "social",
-    hoverColor: "hover:border-emerald-500/50 hover:bg-emerald-500/5",
-  },
-  
-  // Support
-  {
-    id: 10,
-    title: "Buy Me a Coffee",
-    description: "Support my work ☕",
-    href: config.social.buymeacoffee,
-    icon: <SiBuymeacoffee className="size-5" />,
-    type: "support",
-    hoverColor: "hover:border-yellow-500/50 hover:bg-yellow-500/5",
-  },
-];
+// Icon mapping
+const iconMap: Record<string, React.ReactNode> = {
+  FileText: <FileText className="size-6" />,
+  FolderGit2: <FolderGit2 className="size-6" />,
+  Home: <Home className="size-6" />,
+  FaGithub: <FaGithub className="size-6" />,
+  Linkedin: <Linkedin className="size-6" />,
+  FaInstagram: <FaInstagram className="size-5" />,
+  FaXTwitter: <FaXTwitter className="size-5" />,
+  FaYoutube: <FaYoutube className="size-5" />,
+  Mail: <Mail className="size-5" />,
+  SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
+};
 
 // LinkCard Component - Mobile-optimized with large touch targets
 const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
   const isPrimary = link.type === "primary";
   const isSupport = link.type === "support";
+  const icon = iconMap[link.icon];
   
   return (
     <MotionDiv
@@ -174,7 +79,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
               <div className={cn(
                 link.gradient && `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`
               )}>
-                {link.icon}
+                {icon}
               </div>
             </div>
             

@@ -2,7 +2,7 @@
 
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { typo } from "./ui/typograpghy";
+import { typo } from "~/components/ui";
 import Image from "next/image";
 import chahat from "~/assets/images/chahat.png";
 

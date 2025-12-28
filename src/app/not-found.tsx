@@ -1,4 +1,4 @@
-import SupportButton from "~/components/support-btn";
+import { SupportButton } from "~/components/shared";
 
 export default function Custom404() {
   return (
