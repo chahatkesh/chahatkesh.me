@@ -21,7 +21,7 @@ export async function verifySession(token: string) {
   try {
     const verified = await jwtVerify(token, JWT_SECRET);
     return verified.payload as { userId: string };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

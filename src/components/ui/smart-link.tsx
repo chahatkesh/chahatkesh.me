@@ -33,7 +33,7 @@ const SmartLink = ({ href, children, className, ...props }: SmartLinkProps) => {
     <a 
       href={href}
       target="_blank" 
-      rel="external" 
+      rel="noopener noreferrer" 
       className={linkVariant} 
       {...props}
     >

@@ -15,7 +15,6 @@ interface ConnectionCache {
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var mongoose: ConnectionCache | undefined;
 }
 
