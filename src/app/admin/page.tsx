@@ -10,38 +10,81 @@ import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
-
 export default function AdminPage() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     // Check if already authenticated
-    const auth = sessionStorage.getItem("admin_authenticated");
-    if (auth === "true") {
-      setIsAuthenticated(true);
-    }
+    checkSession();
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      sessionStorage.setItem("admin_authenticated", "true");
-      setIsAuthenticated(true);
-      setError("");
-    } else {
-      setError("Incorrect password");
+  const checkSession = async () => {
+    try {
+      const response = await fetch("/api/auth/session");
+      const data = await response.json();
+      
+      if (data.authenticated) {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Session check failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("admin_authenticated");
-    setIsAuthenticated(false);
-    setPassword("");
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsAuthenticated(true);
+        setError("");
+      } else {
+        setError(data.error || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      setIsAuthenticated(false);
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[80vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-800 dark:border-neutral-200"></div>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -56,11 +99,24 @@ export default function AdminPage() {
             <CardHeader>
               <CardTitle className="text-2xl text-center">Admin Access</CardTitle>
               <CardDescription className="text-center">
-                Enter password to access admin panel
+                Enter credentials to access admin panel
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter username"
+                    className="bg-neutral-900 border-neutral-800"
+                    required
+                    disabled={isSubmitting}
+                  />
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
                   <Input
@@ -68,16 +124,43 @@ export default function AdminPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter admin password"
+                    placeholder="Enter password"
                     className="bg-neutral-900 border-neutral-800"
                     required
+                    disabled={isSubmitting}
                   />
                   {error && (
                     <p className="text-sm text-red-500">{error}</p>
                   )}
                 </div>
-                <Button type="submit" className="w-full">
-                  Login
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Logging in...
+                    </>
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               </form>
             </CardContent>
