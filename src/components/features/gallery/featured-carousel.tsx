@@ -8,62 +8,13 @@ import { GalleryItem } from "./gallery-grid";
 import { typo } from "~/components/ui";
 import { formatDate } from "~/lib/date-utils";
 
-// Function to dynamically import image based on title
-async function getImageByTitle(title: string) {
-  try {
-    const filename = title
-      .replace(/[^a-zA-Z0-9\s]/g, '') 
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join('');
-
-    const imageModule = await import(`~/assets/images/gallery/${filename}.jpeg`);
-    return imageModule.default;
-  } catch {
-    console.warn(`Image not found for title: ${title}, expected filename: ${title.replace(/[^a-zA-Z0-9\s]/g, '').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join('')}.jpeg`);
-    return null;
-  }
-}
-
-// Hook to load image dynamically
-function useGalleryImage(title: string) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    getImageByTitle(title).then((src) => {
-      setImageSrc(src);
-      setIsLoading(false);
-    });
-  }, [title]);
-
-  return { imageSrc, isLoading };
-}
-
 // Featured Image Component
 function FeaturedImage({ item, priority, className }: { 
   item: GalleryItem; 
   priority?: boolean; 
   className?: string;
 }) {
-  const { imageSrc, isLoading } = useGalleryImage(item.title);
-
-  // Use provided src (from Cloudinary) or dynamically loaded local image
-  const finalSrc = item.src || imageSrc;
-
-  if (!item.src && isLoading) {
-    return (
-      <div className={cn(
-        "relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 animate-pulse",
-        "aspect-[3/4]",
-        className
-      )}>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-      </div>
-    );
-  }
-
-  if (!finalSrc) {
+  if (!item.src) {
     return null;
   }
 
@@ -74,7 +25,7 @@ function FeaturedImage({ item, priority, className }: {
       className
     )}>
       <Image
-        src={finalSrc}
+        src={item.src}
         alt={item.title}
         fill
         priority={priority}
