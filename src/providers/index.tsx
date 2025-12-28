@@ -1,9 +1,10 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 import { ScrollProgress } from "~/components/shared";
 import { TooltipProvider, TopLoader, Toaster } from "~/components/ui";
 import ReactQueryProvider from "./react-query";
+import { PageTrackingWrapper } from "~/hooks";
 
 const RootProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -11,7 +12,9 @@ const RootProviders = ({ children }: { children: ReactNode }) => {
       <TooltipProvider>
         <ScrollProgress />
         <TopLoader />
-        {children}
+        <Suspense fallback={null}>
+          <PageTrackingWrapper>{children}</PageTrackingWrapper>
+        </Suspense>
         <Toaster />
       </TooltipProvider>
     </ReactQueryProvider>
