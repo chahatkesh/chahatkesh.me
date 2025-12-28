@@ -17,10 +17,11 @@ export const metadata: Metadata = getSEOTags({
   },
 });
 
-const ProjectsPage = ({ searchParams }: { searchParams: { search: string | undefined } }) => {
+const ProjectsPage = async ({ searchParams }: { searchParams: Promise<{ search?: string }> }) => {
+  const params = await searchParams;
   const filteredProjects = projects
     .filter((project) =>
-      project.title.toLowerCase().includes(decodeURIComponent(searchParams.search || "").toLowerCase())
+      project.title.toLowerCase().includes(decodeURIComponent(params.search || "").toLowerCase())
     )
     .sort((a, b) => {
       // First, sort by featured status (featured projects on top)

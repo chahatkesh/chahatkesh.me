@@ -6,7 +6,7 @@ import { experiences } from "~/data/experience";
 import ExperienceDetailClient from "./page.client";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -16,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const experience = experiences.find((exp) => exp.slug === params.slug);
+  const { slug } = await params;
+  const experience = experiences.find((exp) => exp.slug === slug);
 
   if (!experience) {
     return getSEOTags({
@@ -36,8 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-const ExperienceDetailPage = ({ params }: Props) => {
-  const experience = experiences.find((exp) => exp.slug === params.slug);
+const ExperienceDetailPage = async ({ params }: Props) => {
+  const { slug } = await params;
+  const experience = experiences.find((exp) => exp.slug === slug);
 
   if (!experience) {
     notFound();

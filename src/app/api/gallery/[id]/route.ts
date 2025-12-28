@@ -11,17 +11,18 @@ cloudinary.config({
 });
 
 type Params = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 // GET - Fetch single gallery image
 export async function GET(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
+    const { id } = await params;
     
-    const image = await GalleryImage.findById(params.id).lean();
+    const image = await GalleryImage.findById(id).lean();
 
     if (!image) {
       return NextResponse.json(
@@ -47,12 +48,13 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
+    const { id } = await params;
     
     const body = await request.json();
     const { title, location, date, aspectRatio, isFeatured, order } = body;
 
     const updatedImage = await GalleryImage.findByIdAndUpdate(
-      params.id,
+      id,
       {
         ...(title && { title }),
         ...(location && { location }),
@@ -88,8 +90,9 @@ export async function PUT(request: NextRequest, { params }: Params) {
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
+    const { id } = await params;
     
-    const image = await GalleryImage.findById(params.id);
+    const image = await GalleryImage.findById(id);
 
     if (!image) {
       return NextResponse.json(
@@ -107,7 +110,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     }
 
     // Delete from database
-    await GalleryImage.findByIdAndDelete(params.id);
+    await GalleryImage.findByIdAndDelete(id);
 
     return NextResponse.json({
       success: true,
