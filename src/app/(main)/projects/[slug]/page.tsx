@@ -72,7 +72,7 @@ export default function ProjectPage({ params }: Props) {
     notFound();
   }
 
-  const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString(
+  const _formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString(
     "en-US",
     {
       year: "numeric",
