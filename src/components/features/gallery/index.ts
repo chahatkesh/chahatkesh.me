@@ -2,5 +2,5 @@ import { GalleryGrid } from "./gallery-grid";
 import { FeaturedCarousel } from "./featured-carousel";
 import type { GalleryItem } from "./gallery-grid";
 
-export { GalleryGrid, FeaturedCarousel };
+export { GalleryGrid, FeaturedCarousel, type GalleryItem };
 export type { GalleryItem };

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { typo } from "./ui/typograpghy";
+import { typo } from "~/components/ui";
 import { experiences, type Experience } from "~/data/experience";
 
 // Helper function to calculate duration

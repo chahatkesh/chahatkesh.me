@@ -1,6 +1,6 @@
 "use client";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "~/components/ui";
 import NavList from "./nav-list";
 import { useState } from "react";
 

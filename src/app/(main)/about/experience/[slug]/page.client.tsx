@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MotionDiv } from "~/components/motion-wrapper";
-import BackButton from "~/components/back-btn";
-import { ExperienceCarousel } from "~/components/experience-carousel";
+import { MotionDiv } from "~/components/shared";
+import { BackButton } from "~/components/shared";
+import { ExperienceCarousel } from "~/components/features/experience";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 import { type Experience } from "~/data/experience";
 import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
 

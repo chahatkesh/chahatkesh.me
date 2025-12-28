@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import { GalleryGrid, FeaturedCarousel } from "~/components/gallery";
-import { MotionDiv } from "~/components/motion-wrapper";
-import { typo } from "~/components/ui/typograpghy";
+import { GalleryGrid, FeaturedCarousel } from "~/components/features/gallery";
+import { MotionDiv } from "~/components/shared";
+import { typo } from "~/components/ui";
 import { galleryItems } from "~/data/gallery";
-import BackButton from "~/components/back-btn";
+import { BackButton } from "~/components/shared";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";

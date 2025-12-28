@@ -4,12 +4,12 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
-import { typo } from "../ui/typograpghy";
+import { typo } from "~/components/ui";
 import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
 import { Project } from "~/data/projects";
 import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
-import { MotionDiv } from "../motion-wrapper";
+import { MotionDiv } from "~/components/shared";
 
 type ProjectItemProps = {
   metadata?: boolean;

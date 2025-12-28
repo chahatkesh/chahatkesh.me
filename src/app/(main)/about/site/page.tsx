@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
-import { MotionDiv } from "~/components/motion-wrapper";
-import BackButton from "~/components/back-btn";
+import { MotionDiv } from "~/components/shared";
+import { BackButton } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 import Link from "next/link";
 import { 
   SiNextdotjs, 

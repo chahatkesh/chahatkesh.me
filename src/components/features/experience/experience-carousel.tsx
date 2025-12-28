@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { MotionDiv } from "./motion-wrapper";
+import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 
 type ExperienceCarouselProps = {

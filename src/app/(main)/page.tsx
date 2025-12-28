@@ -1,13 +1,11 @@
 import { Metadata } from "next";
-import AboutSection from "~/components/about-section";
-import { ProjectList, projects } from "~/components/project";
-import Skills from "~/components/skills";
-import ContactUs from "../../components/contact-us";
-import GitHubContributions from "~/components/github-contributions";
-import ProfessionalExperience from "~/components/professional-experience";
+import { AboutSection, Skills, ProfessionalExperience } from "~/components/sections";
+import { ProjectList, projects } from "~/components/features/project";
+import { ContactUs } from "~/components/sections";
+import { GitHubContributions } from "~/components/features";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
-import { HomeJsonLd } from "~/components/home-jsonld";
+import { HomeJsonLd } from "~/components/seo";
 
 export const metadata: Metadata = getSEOTags({
   title: "Home",

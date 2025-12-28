@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { MotionDiv } from "~/components/motion-wrapper";
-import BackButton from "~/components/back-btn";
+import { MotionDiv } from "~/components/shared";
+import { BackButton } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 import { btechCourses, getTotalCredits, getTotalCourses, type Course, type Semester } from "~/data/btech-courses";
-import { SyllabusModal } from "~/components/syllabus-modal";
+import { SyllabusModal } from "~/components/shared";
 
 const BtechCoursesClient = () => {
   const [searchQuery, setSearchQuery] = useState("");

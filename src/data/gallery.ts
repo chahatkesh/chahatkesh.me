@@ -1,4 +1,4 @@
-import { GalleryItem } from "~/components/gallery";
+import { GalleryItem } from "~/components/features/gallery";
 
 const unsortedGalleryItems: GalleryItem[] = [
   {
