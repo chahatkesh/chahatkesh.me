@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { Linkedin, Mail, FileText, FolderGit2, Home, ChevronRight } from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter, FaGithub } from "react-icons/fa6";
+import { GiJourney } from "react-icons/gi";
 import { SiBuymeacoffee } from "react-icons/si";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
@@ -34,6 +35,7 @@ const iconMap: Record<string, React.ReactNode> = {
   FaYoutube: <FaYoutube className="size-5" />,
   Mail: <Mail className="size-5" />,
   SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
+  Journey: <GiJourney className="size-6" />,
 };
 
 // LinkCard Component - Mobile-optimized with large touch targets

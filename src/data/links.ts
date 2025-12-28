@@ -46,6 +46,16 @@ export const links: LinkItem[] = [
   },
   {
     id: 4,
+    title: "Journey",
+    description: "My journey so far",
+    href: "/about/journey",
+    icon: "Journey",
+    iconSize: "md",
+    type: "primary",
+    hoverColor: "hover:border-cyan-500/50 hover:bg-cyan-500/5",
+  },
+  {
+    id: 5,
     title: "GitHub",
     description: "Explore my open source contributions",
     href: config.social.github,
@@ -55,7 +65,7 @@ export const links: LinkItem[] = [
     hoverColor: "hover:border-gray-400/50 hover:bg-gray-400/5",
   },
   {
-    id: 5,
+    id: 6,
     title: "LinkedIn",
     description: "Let's connect professionally",
     href: config.social.linkedin,
@@ -67,7 +77,7 @@ export const links: LinkItem[] = [
   
   // Social Links
   {
-    id: 6,
+    id: 7,
     title: "Instagram",
     description: "Follow my journey",
     href: config.social.instagram,
@@ -77,7 +87,7 @@ export const links: LinkItem[] = [
     hoverColor: "hover:border-pink-500/50 hover:bg-pink-500/5",
   },
   {
-    id: 7,
+    id: 8,
     title: "Twitter / X",
     description: "Thoughts & updates",
     href: config.social.twitter,
@@ -87,7 +97,7 @@ export const links: LinkItem[] = [
     hoverColor: "hover:border-sky-500/50 hover:bg-sky-500/5",
   },
   {
-    id: 8,
+    id: 9,
     title: "YouTube",
     description: "Watch my content",
     href: config.social.youtube,
@@ -99,7 +109,7 @@ export const links: LinkItem[] = [
   
   // Contact
   {
-    id: 9,
+    id: 10,
     title: "Email Me",
     description: config.social.email,
     href: `mailto:${config.social.email}`,
@@ -111,7 +121,7 @@ export const links: LinkItem[] = [
   
   // Support
   {
-    id: 10,
+    id: 11,
     title: "Buy Me a Coffee",
     description: "Support my work ☕",
     href: config.social.buymeacoffee,
