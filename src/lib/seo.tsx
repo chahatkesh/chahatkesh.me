@@ -9,6 +9,7 @@ export const getSEOTags = ({
   openGraph,
   extraTags,
   noIndex = false,
+  canonicalUrlRelative,
 }: Metadata & {
   canonicalUrlRelative?: string;
   extraTags?: Record<string, unknown>;
@@ -20,15 +21,21 @@ export const getSEOTags = ({
 
   const finalDescription = description || config.seo.defaultDescription;
   const finalKeywords = keywords || config.seo.defaultKeywords;
+  const canonicalUrl = canonicalUrlRelative
+    ? `https://${config.domainName}${canonicalUrlRelative}`
+    : `https://${config.domainName}/`;
 
   return {
     title: finalTitle,
     description: finalDescription,
     keywords: finalKeywords,
-    applicationName: config.appName,
+    applicationName: config.seo.siteName,
     authors: [{ name: config.appName, url: `https://${config.domainName}` }],
     creator: config.appName,
     publisher: config.appName,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     formatDetection: {
       telephone: true,
       date: true,
@@ -58,9 +65,9 @@ export const getSEOTags = ({
     openGraph: {
       title: openGraph?.title || finalTitle,
       description: openGraph?.description || finalDescription,
-      url: openGraph?.url || `https://${config.domainName}/`,
-      siteName: config.appName,
-      locale: config.seo.language,
+      url: canonicalUrl,
+      siteName: config.seo.siteName,
+      locale: config.seo.locale,
       type: "website",
       images: [
         {
@@ -81,7 +88,7 @@ export const getSEOTags = ({
       images: [`https://${config.domainName}/twitter-image`],
     },
 
-    // Additional meta tags for better social media support
+    // Additional meta tags for better social media support and SEO
     other: {
       // WhatsApp and Telegram
       "og:image:width": "1200",
@@ -97,6 +104,10 @@ export const getSEOTags = ({
 
       // General social media
       "og:updated_time": new Date().toISOString(),
+      
+      // Additional SEO
+      "google-site-verification": process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+      "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
       ...extraTags,
     },
   };
@@ -125,6 +136,7 @@ export const renderSchemaTags = () => {
           mainEntity: {
             "@type": "Person",
             name: config.appName,
+            alternateName: "chahatkesh",
             jobTitle: config.appDesignation,
             description: config.seo.defaultDescription,
             url: `https://${config.domainName}/`,
@@ -140,33 +152,41 @@ export const renderSchemaTags = () => {
             telephone: config.social.phone,
             address: {
               "@type": "PostalAddress",
-              addressCountry: "India",
+              addressCountry: "IN",
+              addressRegion: "India",
             },
-            alumniOf: [
-              {
-                "@type": "EducationalOrganization",
-                name: "Your University Name",
-                url: "https://university-url.edu",
-              },
-            ],
+            nationality: {
+              "@type": "Country",
+              name: "India",
+            },
             knowsAbout: [
               "Web Development",
+              "Full Stack Development",
+              "Frontend Development",
+              "Backend Development",
               "UI/UX Design",
               "Product Design",
-              "Visual Design",
-              "Graphic Design",
-              "Software Development",
-              "Full Stack Development",
-              "Backend Development",
-              "Frontend Development",
+              "Software Engineering",
               "React",
               "Next.js",
               "TypeScript",
               "JavaScript",
-              "Frontend Development",
-              "Software Engineering",
-              "Product Management",
+              "Node.js",
+              "MongoDB",
+              "Tailwind CSS",
+              "API Development",
+              "Responsive Web Design",
+              "Software Architecture",
             ],
+            hasOccupation: {
+              "@type": "Occupation",
+              name: "Full Stack Developer",
+              occupationLocation: {
+                "@type": "Country",
+                name: "India",
+              },
+              skills: "React, Next.js, TypeScript, Node.js, MongoDB, UI/UX Design",
+            },
           },
 
           applicationCategory: "ProfilePage",

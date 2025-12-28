@@ -1,6 +1,29 @@
 {
-  "name": "personal-website",
-  "version": "0.1.0",
+  "name": "chahatkesh-portfolio",
+  "version": "2.0.0",
+  "description": "Personal portfolio website showcasing projects, skills, and professional experience of Chahat Kesharwani - Full Stack Developer & UI/UX Enthusiast",
+  "author": {
+    "name": "Chahat Kesharwani",
+    "email": "ckesharwani4@gmail.com",
+    "url": "https://chahatkesh.me"
+  },
+  "homepage": "https://chahatkesh.me",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chahatkesh/chahatkesh.me"
+  },
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "full-stack",
+    "web-developer",
+    "personal-website",
+    "developer-portfolio"
+  ],
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
