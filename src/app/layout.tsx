@@ -3,6 +3,9 @@ import { getSEOTags, renderSchemaTags, renderOrganizationSchema } from "~/lib/se
 import { cn } from "~/lib/utils";
 import RootProviders from "~/providers";
 import "~/styles/globals.css";
+import { GoogleAnalytics, MicrosoftClarity } from "~/components/analytics";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const viewport = {
   viewportFit: "cover",
@@ -32,8 +35,13 @@ export default function RootLayout({
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         {renderSchemaTags()}
         {renderOrganizationSchema()}
+        <GoogleAnalytics />
+        <MicrosoftClarity />
 
         <RootProviders>{children}</RootProviders>
+        
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
