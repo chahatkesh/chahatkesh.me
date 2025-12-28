@@ -93,9 +93,17 @@ function FeaturedImage({ item, priority, className }: {
 
 type FeaturedCarouselProps = {
   items: GalleryItem[];
+  title?: string;
+  subtitle?: string;
+  showTitle?: boolean;
 };
 
-export function FeaturedCarousel({ items }: FeaturedCarouselProps) {
+export function FeaturedCarousel({ 
+  items, 
+  title = "Featured Moments",
+  subtitle = "Highlights from my journey and experiences",
+  showTitle = true 
+}: FeaturedCarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -143,16 +151,17 @@ export function FeaturedCarousel({ items }: FeaturedCarouselProps) {
       transition={{ duration: 0.6, delay: 0.2 }}
       className="space-y-6"
     >
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className={cn(typo({ variant: "h2" }))}>Featured Moments</h2>
-          <p className={cn(typo({ variant: "paragraph" }), "hidden md:block")}>
-            Highlights from my journey and experiences
-          </p>
-        </div>
-        
-        {/* Navigation Buttons */}
-        <div className="flex gap-2">
+      {showTitle && (
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className={cn(typo({ variant: "h2" }))}>{ title}</h2>
+            <p className={cn(typo({ variant: "paragraph" }), "hidden md:block")}>
+              {subtitle}
+            </p>
+          </div>
+          
+          {/* Navigation Buttons */}
+          <div className="flex gap-2">
           <button
             onClick={() => scroll('left')}
             disabled={!canScrollLeft}
@@ -206,7 +215,8 @@ export function FeaturedCarousel({ items }: FeaturedCarouselProps) {
             </svg>
           </button>
         </div>
-      </div>
+        </div>
+      )}
 
       {/* Carousel Container */}
       <div className="relative">
