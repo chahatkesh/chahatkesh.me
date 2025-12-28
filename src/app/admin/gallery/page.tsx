@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
-import { CldUploadWidget } from "next-cloudinary";
+import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import { Button } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { Label } from "~/components/ui";
@@ -60,12 +60,14 @@ function AdminGalleryContent() {
   const [originalEditData, setOriginalEditData] = useState<GalleryImage | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  const handleUploadSuccess = (result: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      imageUrl: result.info.secure_url,
-      publicId: result.info.public_id,
-    }));
+  const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
+    if (result.info && typeof result.info !== 'string') {
+      setFormData((prev) => ({
+        ...prev,
+        imageUrl: result.info && typeof result.info !== 'string' ? result.info.secure_url : '',
+        publicId: result.info && typeof result.info !== 'string' ? result.info.public_id : '',
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -184,18 +186,6 @@ function AdminGalleryContent() {
     }
   };
 
-  const handleCancel = () => {
-    setFormData({
-      title: "",
-      location: "",
-      date: new Date().toISOString().split("T")[0],
-      aspectRatio: "square",
-      isFeatured: false,
-      imageUrl: "",
-      publicId: "",
-    });
-    setEditingId(null);
-  };
 
   if (isLoading) {
     return (
@@ -299,6 +289,7 @@ function AdminGalleryContent() {
                       </Button>
                       {formData.imageUrl && (
                         <div className="relative group">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={formData.imageUrl}
                             alt="Preview"
@@ -385,7 +376,7 @@ function AdminGalleryContent() {
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => setFormData((prev) => ({ ...prev, aspectRatio: option.value as any }))}
+                      onClick={() => setFormData((prev) => ({ ...prev, aspectRatio: option.value as "square" | "portrait" | "landscape" | "big-square" }))}
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         formData.aspectRatio === option.value
@@ -518,6 +509,7 @@ function AdminGalleryContent() {
                 )}
               >
                 <div className="relative h-full w-full overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={image.imageUrl}
                     alt={image.title}
@@ -630,6 +622,7 @@ function AdminGalleryContent() {
               <div className="space-y-3">
                 <Label className="text-sm font-medium">Current Image</Label>
                 <div className="relative group">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={editFormData.imageUrl}
                     alt="Preview"
@@ -708,7 +701,7 @@ function AdminGalleryContent() {
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => setEditFormData((prev) => ({ ...prev, aspectRatio: option.value as any }))}
+                      onClick={() => setEditFormData((prev) => ({ ...prev, aspectRatio: option.value as "square" | "portrait" | "landscape" | "big-square" }))}
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         editFormData.aspectRatio === option.value

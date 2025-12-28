@@ -75,7 +75,7 @@ const Socials = () => {
                 )}
                 aria-label={social.label}
                 target="_blank"
-                rel="external"
+                rel="noopener noreferrer"
               >
                 {social.icon}
               </a>
