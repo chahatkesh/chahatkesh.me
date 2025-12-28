@@ -6,13 +6,30 @@ export interface ConfigProps {
   appDesignation: string;
   domainName: string;
 
+  author: {
+    name: string;
+    email: string;
+    url: string;
+    github: string;
+    twitter: string;
+  };
+
   seo: {
     titleTemplate: string;
     defaultTitle: string;
     defaultDescription: string;
     defaultKeywords: string[];
     language: string;
+    locale: string;
     siteCreationDate: string;
+    siteName: string;
+    siteType: string;
+  };
+
+  location: {
+    city: string;
+    country: string;
+    countryCode: string;
   };
 
   social: {
@@ -30,9 +47,5 @@ export interface ConfigProps {
   colors: {
     theme: Theme;
     main: string;
-  };
-  auth: {
-    loginUrl: string;
-    callbackUrl: string;
   };
 }

@@ -23,8 +23,8 @@ const LinkStats = () => {
         const contributionsData = await contributionsResponse.json();
         
         // Calculate total lifetime contributions by summing all years
-        const totalContributions = Object.values(contributionsData.total || {}).reduce(
-          (sum: number, yearContributions: number) => sum + (yearContributions || 0),
+        const totalContributions = Object.values<number>(contributionsData.total || {}).reduce(
+          (sum, yearContributions) => sum + (yearContributions || 0),
           0
         );
         
