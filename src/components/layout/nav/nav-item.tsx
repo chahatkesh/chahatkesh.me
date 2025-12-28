@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { NavType } from "./_nav-mock";
 import { usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
-import { MotionSpan } from "~/components/motion-wrapper";
+import { MotionSpan } from "~/components/shared";
 
 const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean>> }> = ({
   label,

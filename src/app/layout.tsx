@@ -1,4 +1,4 @@
-import { fontSans } from "~/components/ui/fonts";
+import { fontSans } from "~/components/ui";
 import { getSEOTags, renderSchemaTags, renderOrganizationSchema } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 import RootProviders from "~/providers";

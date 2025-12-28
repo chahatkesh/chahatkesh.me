@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { MotionDiv } from "~/components/motion-wrapper";
-import BackButton from "~/components/back-btn";
-import TimelineComponent from "~/components/timeline-component";
+import { MotionDiv } from "~/components/shared";
+import { BackButton } from "~/components/shared";
+import { TimelineComponent } from "~/components/shared";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
   title: "Journey Timeline",

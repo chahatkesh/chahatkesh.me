@@ -6,7 +6,7 @@ import { TbBrandDiscord } from "react-icons/tb";
 import { SiBuymeacoffee } from "react-icons/si";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui";
 
 const socialsIcons = [
   {

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
-import { MotionDiv } from "~/components/motion-wrapper";
-import BackButton from "~/components/back-btn";
-import ExperienceTimeline from "~/components/experience-timeline";
+import { MotionDiv } from "~/components/shared";
+import { BackButton } from "~/components/shared";
+import { ExperienceTimeline } from "~/components/features/experience";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
   title: "Professional Experience",

@@ -1,7 +1,6 @@
 "use client";
 
-import ContentNotFound from "../ui/content-not-found";
-import { typo } from "../ui/typograpghy";
+import { ContentNotFound, typo } from "~/components/ui";
 import { Project } from "~/data/projects";
 import ProjectItem from "./project-item";
 import FeaturedProjectItem from "./featured-project-item";

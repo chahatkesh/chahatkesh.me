@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { typo } from "~/components/ui/typograpghy";
+import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import ProfessionalExperience from "~/components/professional-experience";
+import { ProfessionalExperience } from "~/components/sections";
 import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
-import BackButton from "~/components/back-btn";
-import { MotionDiv } from "~/components/motion-wrapper";
+import { BackButton } from "~/components/shared";
+import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
 import { 
   FaBook, 
@@ -23,7 +23,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
-} from "~/components/ui/tooltip";
+} from "~/components/ui";
 import { Metadata } from "next";
 import config from "~/config";
 

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Footer from "~/components/layout/footer";
 import Navbar from "~/components/layout/nav";
-import SkipContent from "~/components/ui/skip-content";
+import { SkipContent } from "~/components/ui";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

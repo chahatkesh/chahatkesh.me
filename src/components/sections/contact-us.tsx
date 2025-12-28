@@ -1,9 +1,9 @@
 "use client";
 import config from "~/config";
-import Socials from "./socials";
-import { typo } from "./ui/typograpghy";
-import SmartLink from "~/components/ui/smart-link";
-import SpotifyNowPlaying from "./spotify-now-playing";
+import { Socials } from "~/components/shared";
+import { typo } from "~/components/ui";
+import { SmartLink } from "~/components/ui";
+import { SpotifyNowPlaying } from "~/components/features";
 import { cn } from "~/lib/utils";
 
 const ContactUs = () => {

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { experiences } from "~/data/experience";
-import { MotionDiv } from "./motion-wrapper";
+import { MotionDiv } from "~/components/shared";
 import { FaMapMarkerAlt, FaBriefcase, FaClock } from "react-icons/fa";
 
 // Helper function to calculate duration
