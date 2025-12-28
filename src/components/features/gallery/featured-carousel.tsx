@@ -6,6 +6,7 @@ import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { GalleryItem } from "./gallery-grid";
 import { typo } from "~/components/ui";
+import { formatDate } from "~/lib/date-utils";
 
 // Function to dynamically import image based on title
 async function getImageByTitle(title: string) {
@@ -47,7 +48,10 @@ function FeaturedImage({ item, priority, className }: {
 }) {
   const { imageSrc, isLoading } = useGalleryImage(item.title);
 
-  if (isLoading) {
+  // Use provided src (from Cloudinary) or dynamically loaded local image
+  const finalSrc = item.src || imageSrc;
+
+  if (!item.src && isLoading) {
     return (
       <div className={cn(
         "relative overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 animate-pulse",
@@ -59,7 +63,7 @@ function FeaturedImage({ item, priority, className }: {
     );
   }
 
-  if (!imageSrc) {
+  if (!finalSrc) {
     return null;
   }
 
@@ -70,7 +74,7 @@ function FeaturedImage({ item, priority, className }: {
       className
     )}>
       <Image
-        src={imageSrc}
+        src={finalSrc}
         alt={item.title}
         fill
         priority={priority}
@@ -85,7 +89,7 @@ function FeaturedImage({ item, priority, className }: {
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
       <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
         <h3 className="text-base font-medium text-white">{item.title},{" "}{item.location}</h3>
-        <p className="mt-1 text-sm text-neutral-300">{item.date}</p>
+        <p className="mt-1 text-sm text-neutral-300">{formatDate(item.date)}</p>
       </div>
     </div>
   );
