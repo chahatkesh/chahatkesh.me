@@ -31,10 +31,6 @@ const nextConfig = {
       },
     ],
   },
-  // Ensure API routes are not cached by default
-  serverRuntimeConfig: {
-    disableRouteCache: true,
-  },
   redirects: async () => {
     return [
       {
