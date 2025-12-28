@@ -9,14 +9,26 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const auth = sessionStorage.getItem("admin_authenticated");
-    if (auth === "true") {
-      setIsAuthenticated(true);
-    } else {
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    try {
+      const response = await fetch("/api/auth/session");
+      const data = await response.json();
+
+      if (!data.authenticated) {
+        router.push("/admin");
+      } else {
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Session check failed:", error);
       router.push("/admin");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-  }, [router]);
+  };
 
   if (isLoading) {
     return (
