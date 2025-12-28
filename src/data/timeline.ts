@@ -48,7 +48,7 @@ export const timelineEvents: TimelineEvent[] = [
     endDate: '2025-04-05',
     title: 'Attended Startup Mahakumbh at Bharat Mandapam',
     description: 'Visited Bharat Mandapam, Delhi with Davinder and Vatsal to attend Startup Mahakumbh. Witnessed an ocean of startups, innovative ideas, and emerging technologies, making it an inspiring exposure to India’s growing startup ecosystem.',
-    category: 'learning',
+    category: 'workshop',
     links: [
       { title: 'View Post', url: 'https://www.instagram.com/p/DIqQLLPTvRJ/', icon: 'instagram' },
     ],
