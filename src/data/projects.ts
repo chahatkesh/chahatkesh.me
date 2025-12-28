@@ -198,11 +198,11 @@ const projects: Project[] = [
     stacks: ["TypeScript", "Node.js", "Express.js", "Prisma ORM", "PostgreSQL", "Redis", "Docker", "JWT", "AWS", "React.js", "Vite", "Tailwind CSS", "Framer Motion", "Lucide React"],
     cover: openlearn,
     isRepo: true,
-    repoUrl: "https://github.com/openlearnnitj",
+    repoUrl: "https://github.com/chahatkesh/openlearn-frontend",
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
-    dateStarted: "2025-04-01",
-    dateModified: "2025-09-09",
+    dateStarted: "2025-06-09",
+    dateModified: "2025-11-28",
     isFeatured: true,
     contributors: [
     {

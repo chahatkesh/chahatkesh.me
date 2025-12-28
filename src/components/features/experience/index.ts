@@ -1,2 +1,2 @@
 export { ExperienceCarousel } from "./experience-carousel";
-export { ExperienceTimeline } from "./experience-timeline";
+export { default as ExperienceTimeline } from "./experience-timeline";
