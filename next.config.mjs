@@ -79,6 +79,11 @@ const nextConfig = {
         destination: "https://discord.com/users/chahatkesh",
         permanent: true,
       },
+      {
+        source: "/cal",
+        destination: "https://cal.com/chahatkesh/",
+        permanent: true,
+      },
     ];
   },
 };
