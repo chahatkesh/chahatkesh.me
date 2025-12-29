@@ -11,8 +11,40 @@ const calculateDuration = (startDate: string, endDate: string): string => {
     if (dateStr.toLowerCase() === "present") {
       return new Date();
     }
-    // Format: "Oct 2025" -> "Oct 01 2025"
-    return new Date(`${dateStr} 01`);
+
+    // Split the date string into month and year
+    const parts = dateStr.trim().split(" ");
+    if (parts.length !== 2) {
+      return new Date(""); // Invalid date
+    }
+
+    const [monthStr, yearStr] = parts;
+    const year = parseInt(yearStr, 10);
+
+    // Map month abbreviations to month indices (0-11)
+    const monthMap: Record<string, number> = {
+      jan: 0,
+      feb: 1,
+      mar: 2,
+      apr: 3,
+      may: 4,
+      jun: 5,
+      jul: 6,
+      aug: 7,
+      sep: 8,
+      oct: 9,
+      nov: 10,
+      dec: 11,
+    };
+
+    const month = monthMap[monthStr.toLowerCase()];
+
+    if (month === undefined || isNaN(year)) {
+      return new Date(""); // Invalid date
+    }
+
+    // Create date object using year, month, and day (1)
+    return new Date(year, month, 1);
   };
 
   const start = parseDate(startDate);
