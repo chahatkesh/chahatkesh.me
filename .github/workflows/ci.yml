@@ -49,6 +49,8 @@ jobs:
         run: pnpm build
         env:
           SKIP_ENV_VALIDATION: true
+          MONGODB_URI: mongodb://localhost:27017/dummy
+          NEXTAUTH_SECRET: dummy-secret-for-build
 
       - name: Summary
         if: always()

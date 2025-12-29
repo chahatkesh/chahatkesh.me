@@ -2,8 +2,16 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable");
+// Only throw error if not in build time
+if (!MONGODB_URI && process.env.NODE_ENV !== "production") {
+  console.warn(
+    "Warning: MONGODB_URI environment variable is not defined. Database features will be disabled.",
+  );
+} else if (!MONGODB_URI && typeof window === "undefined") {
+  // During build or in production server without MONGODB_URI
+  console.warn(
+    "MongoDB URI not configured. Database features will be disabled.",
+  );
 }
 
 // Global is used here to maintain a cached connection across hot reloads
@@ -25,6 +33,11 @@ if (!cached) {
 }
 
 async function dbConnect() {
+  // Return null if no MongoDB URI is configured
+  if (!MONGODB_URI) {
+    return null;
+  }
+
   if (cached.conn) {
     return cached.conn;
   }
