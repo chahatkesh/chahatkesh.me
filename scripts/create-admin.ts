@@ -1,9 +1,9 @@
 /**
  * Admin Setup Script
- * 
+ *
  * This script creates an admin user in the database with a hashed password.
  * Run this once to set up your admin account.
- * 
+ *
  * Usage: pnpm create-admin
  */
 
@@ -47,10 +47,11 @@ const AdminSchema = new mongoose.Schema<IAdmin>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Admin = mongoose.models.Admin || mongoose.model<IAdmin>("Admin", AdminSchema);
+const Admin =
+  mongoose.models.Admin || mongoose.model<IAdmin>("Admin", AdminSchema);
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -85,7 +86,7 @@ async function createAdmin() {
     const existingAdmin = await Admin.findOne({ username: username.trim() });
     if (existingAdmin) {
       const overwrite = await question(
-        `⚠️  User "${username}" already exists. Overwrite? (yes/no): `
+        `⚠️  User "${username}" already exists. Overwrite? (yes/no): `,
       );
       if (overwrite.toLowerCase() !== "yes") {
         console.log("❌ Operation cancelled");
@@ -117,7 +118,7 @@ async function createAdmin() {
     if (existingAdmin) {
       await Admin.updateOne(
         { username: username.trim() },
-        { password: hashedPassword }
+        { password: hashedPassword },
       );
       console.log(`✅ Admin user "${username}" password updated successfully!`);
     } else {
@@ -131,7 +132,6 @@ async function createAdmin() {
     console.log("\n📝 You can now login with these credentials at /admin");
     console.log(`   Username: ${username}`);
     console.log("   Password: [hidden]\n");
-
   } catch (error) {
     console.error("❌ Error creating admin:", error);
     process.exit(1);

@@ -120,7 +120,7 @@ const shadcnPlugin = plugin(
         },
       },
     },
-  }
+  },
 );
 
 const shadcnPreset = {

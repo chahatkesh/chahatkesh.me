@@ -74,7 +74,7 @@ export const links: LinkItem[] = [
     type: "primary",
     hoverColor: "hover:border-blue-500/50 hover:bg-blue-500/5",
   },
-  
+
   // Social Links
   {
     id: 7,
@@ -106,7 +106,7 @@ export const links: LinkItem[] = [
     type: "social",
     hoverColor: "hover:border-red-500/50 hover:bg-red-500/5",
   },
-  
+
   // Contact
   {
     id: 10,
@@ -118,7 +118,7 @@ export const links: LinkItem[] = [
     type: "social",
     hoverColor: "hover:border-emerald-500/50 hover:bg-emerald-500/5",
   },
-  
+
   // Support
   {
     id: 11,
@@ -130,7 +130,7 @@ export const links: LinkItem[] = [
     type: "support",
     hoverColor: "hover:border-yellow-500/50 hover:bg-yellow-500/5",
   },
-  
+
   // Action Links
   {
     id: 12,

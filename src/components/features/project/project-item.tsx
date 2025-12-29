@@ -13,7 +13,7 @@ import { MotionDiv } from "~/components/shared";
 
 // Helper function to get image src
 const getImageSrc = (cover: string | StaticImageData): string => {
-  return typeof cover === 'string' ? cover : cover.src;
+  return typeof cover === "string" ? cover : cover.src;
 };
 
 type ProjectItemProps = {
@@ -24,7 +24,7 @@ type ProjectItemProps = {
 const ALL_STACKS = {
   ...FRONTEND_STACKS,
   ...BACKEND_DEVOPS,
-  ...LANGUAGES_TOOLS
+  ...LANGUAGES_TOOLS,
 };
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
@@ -56,7 +56,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
         />
       )}
       <Link href={`/projects/${slug}`}>
-        <MotionDiv 
+        <MotionDiv
           className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
           transition={{ duration: 0.3 }}
         >
@@ -75,22 +75,24 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 className="w-full h-full object-cover object-center"
                 fill
               />
-              
+
               {/* Tagline overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent z-20 p-6 pt-16">
                 <p className="text-sm text-neutral-200">{tagline}</p>
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-8 -left-8 w-16 h-16 bg-blue-500 opacity-10 rounded-full blur-xl"></div>
               <div className="absolute -bottom-8 -right-8 w-16 h-16 bg-purple-500 opacity-10 rounded-full blur-xl"></div>
             </MotionDiv>
           </div>
-          
+
           {/* Right side with content - takes 3/5 of the width */}
           <div className="sm:col-span-3 flex flex-col p-4">
             <div className="flex items-start justify-between">
-              <h2 className="font-ubuntu text-base font-semibold mb-2">{title}</h2>
+              <h2 className="font-ubuntu text-base font-semibold mb-2">
+                {title}
+              </h2>
               <div className="flex items-end gap-2 text-[9px] text-neutral-400">
                 {isFeatured ? (
                   <span className="text-ring font-medium">FEATURED</span>
@@ -105,15 +107,22 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
               </div>
             </div>
 
-            <p className={cn(typo({ variant: "paragraph", size: "sm" }), "mb-3 line-clamp-2")}>
+            <p
+              className={cn(
+                typo({ variant: "paragraph", size: "sm" }),
+                "mb-3 line-clamp-2",
+              )}
+            >
               {description}
             </p>
-            
-            
+
             {features && features.length > 0 && (
               <ul className="mb-4 space-y-1">
                 {features.slice(0, 5).map((feature, index) => (
-                  <li key={index} className="text-xs text-neutral-400 flex items-start">
+                  <li
+                    key={index}
+                    className="text-xs text-neutral-400 flex items-start"
+                  >
                     <span className="mr-1 text-primary">•</span>
                     <span className="line-clamp-1">{feature}</span>
                   </li>
@@ -126,14 +135,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 )}
               </ul>
             )}
-            
+
             <div className="mt-auto">
               <div className="flex flex-wrap gap-1.5">
                 {stacks.slice(0, 5).map((stack, index) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
-                  
+
                   return (
                     <MotionDiv
                       key={index}
@@ -141,14 +150,22 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                       whileHover={{ y: -1 }}
                       transition={{ duration: 0.2 }}
                     >
-                      {Icon && <Icon className={className} size={12} aria-label={stack} />}
+                      {Icon && (
+                        <Icon
+                          className={className}
+                          size={12}
+                          aria-label={stack}
+                        />
+                      )}
                       <span className="whitespace-nowrap">{stack}</span>
                     </MotionDiv>
                   );
                 })}
                 {stacks.length > 5 && (
                   <div className="flex items-center px-3 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-xs text-neutral-400">
-                    <span className="whitespace-nowrap">+{stacks.length - 5}</span>
+                    <span className="whitespace-nowrap">
+                      +{stacks.length - 5}
+                    </span>
                   </div>
                 )}
               </div>

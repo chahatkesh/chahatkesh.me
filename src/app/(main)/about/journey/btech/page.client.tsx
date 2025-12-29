@@ -5,23 +5,32 @@ import { MotionDiv } from "~/components/shared";
 import { BackButton } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
-import { btechCourses, getTotalCredits, getTotalCourses, type Course, type Semester } from "~/data/btech-courses";
+import {
+  btechCourses,
+  getTotalCredits,
+  getTotalCourses,
+  type Course,
+  type Semester,
+} from "~/data/btech-courses";
 import { SyllabusModal } from "~/components/shared";
 
 const BtechCoursesClient = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filter courses based on search query and sort alphabetically by name
-  const filteredSemesters = btechCourses.map(semester => ({
-    ...semester,
-    courses: semester.courses
-      .filter(course => 
-        course.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        course.professor.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      .sort((a, b) => a.name.localeCompare(b.name))
-  })).filter(semester => semester.courses.length > 0);
+  const filteredSemesters = btechCourses
+    .map((semester) => ({
+      ...semester,
+      courses: semester.courses
+        .filter(
+          (course) =>
+            course.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            course.professor.toLowerCase().includes(searchQuery.toLowerCase()),
+        )
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    }))
+    .filter((semester) => semester.courses.length > 0);
 
   const totalCourses = getTotalCourses();
   const totalCredits = getTotalCredits();
@@ -30,9 +39,9 @@ const BtechCoursesClient = () => {
     <MotionDiv>
       <div className="space-y-8">
         <BackButton href="/about/journey">Back to Journey</BackButton>
-        
+
         {/* Header */}
-        <MotionDiv 
+        <MotionDiv
           className="space-y-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,7 +50,8 @@ const BtechCoursesClient = () => {
           <div className="space-y-1">
             <h1 className={cn(typo({ variant: "h2" }))}>BTech Journey</h1>
             <p className={cn(typo({ variant: "paragraph" }))}>
-              A comprehensive overview of courses throughout my undergraduate degree.
+              A comprehensive overview of courses throughout my undergraduate
+              degree.
             </p>
           </div>
 
@@ -54,7 +64,7 @@ const BtechCoursesClient = () => {
               <span>•</span>
               <span>{totalCredits} Credits</span>
             </div>
-            
+
             <input
               type="text"
               placeholder="Search..."
@@ -73,9 +83,9 @@ const BtechCoursesClient = () => {
         ) : (
           <div className="space-y-12">
             {filteredSemesters.map((semester, index) => (
-              <SemesterSection 
-                key={semester.id} 
-                semester={semester} 
+              <SemesterSection
+                key={semester.id}
+                semester={semester}
                 index={index}
               />
             ))}
@@ -93,7 +103,10 @@ interface SemesterSectionProps {
 }
 
 const SemesterSection = ({ semester, index }: SemesterSectionProps) => {
-  const totalCredits = semester.courses.reduce((sum, course) => sum + course.credits, 0);
+  const totalCredits = semester.courses.reduce(
+    (sum, course) => sum + course.credits,
+    0,
+  );
 
   return (
     <MotionDiv
@@ -124,8 +137,8 @@ const SemesterSection = ({ semester, index }: SemesterSectionProps) => {
       {/* Course Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {semester.courses.map((course, courseIndex) => (
-          <CourseCard 
-            key={`${semester.id}-${course.code}`} 
+          <CourseCard
+            key={`${semester.id}-${course.code}`}
             course={course}
             index={courseIndex}
           />
@@ -143,7 +156,7 @@ interface CourseCardProps {
 
 const CourseCard = ({ course, index }: CourseCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const typeColors = {
     Theory: "text-blue-400 border-blue-400/30 bg-blue-400/10",
     Lab: "text-green-400 border-green-400/30 bg-green-400/10",
@@ -161,7 +174,7 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
         transition={{ duration: 0.2, delay: Math.min(index * 0.03, 0.3) }}
         className={cn(
           "bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700 transition-all duration-200 rounded-lg p-4 group",
-          hasSyllabus && "cursor-pointer hover:border-ring/50"
+          hasSyllabus && "cursor-pointer hover:border-ring/50",
         )}
         onClick={() => hasSyllabus && setIsModalOpen(true)}
       >
@@ -171,10 +184,12 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
             <span className="text-sm font-medium text-ring group-hover:text-ring/80 transition-colors">
               {course.code}
             </span>
-            <span className={cn(
-              "text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border flex-shrink-0",
-              typeColors[course.type]
-            )}>
+            <span
+              className={cn(
+                "text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border flex-shrink-0",
+                typeColors[course.type],
+              )}
+            >
               {course.type}
             </span>
           </div>
@@ -192,12 +207,12 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
           </div>
         </div>
       </MotionDiv>
-      
+
       {/* Syllabus Modal */}
-      <SyllabusModal 
-        course={course} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <SyllabusModal
+        course={course}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </>
   );

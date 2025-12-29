@@ -1,10 +1,10 @@
 import { IconType } from "react-icons/lib";
 import { FaGithub, FaAws, FaDocker, FaGit } from "react-icons/fa";
 import { VscCode } from "react-icons/vsc";
-import { 
+import {
   SiCplusplus,
   SiRadixui,
-  SiC, 
+  SiC,
   SiPython,
   SiJavascript,
   SiTypescript,
@@ -69,11 +69,11 @@ export const LANGUAGES_TOOLS: stacksProps = {
 };
 
 export const FRONTEND_STACKS: stacksProps = {
-  "HTML5": { Icon: SiHtml5, className: "text-orange-500" },
-  "CSS3": { Icon: SiCss3, className: "text-blue-500" },
+  HTML5: { Icon: SiHtml5, className: "text-orange-500" },
+  CSS3: { Icon: SiCss3, className: "text-blue-500" },
   "React.js": { Icon: SiReact, className: "text-sky-500" },
   "Next.js": { Icon: SiNextdotjs, className: "text-neutral-400" },
-  "Vite": { Icon: SiVite, className: "text-purple-500" },
+  Vite: { Icon: SiVite, className: "text-purple-500" },
   "Tailwind CSS": { Icon: SiTailwindcss, className: "text-cyan-300" },
   "Chakra UI": { Icon: SiChakraui, className: "text-teal-500" },
   "Shadcn UI": { Icon: SiNextdotjs, className: "text-neutral-200" },
@@ -81,10 +81,13 @@ export const FRONTEND_STACKS: stacksProps = {
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
   "React Toastify": { Icon: SiReact, className: "text-yellow-400" },
   "GitHub API": { Icon: FaGithub, className: "text-neutral-300" },
-  "Retrieval-Augmented Generation": { Icon: BsRobot, className: "text-rose-500" },
+  "Retrieval-Augmented Generation": {
+    Icon: BsRobot,
+    className: "text-rose-500",
+  },
   "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
   "Lucide React": { Icon: SiLucide, className: "text-rose-500" },
-  "Flutter": { Icon: FaFlutter, className: "text-blue-400" },
+  Flutter: { Icon: FaFlutter, className: "text-blue-400" },
 };
 
 export const BACKEND_DEVOPS: stacksProps = {
@@ -102,7 +105,7 @@ export const BACKEND_DEVOPS: stacksProps = {
   AWS: { Icon: FaAws, className: "text-orange-400" },
   GCP: { Icon: SiGooglecloud, className: "text-red-400" },
   "Third-Party Integrations": { Icon: TbApi, className: "text-rose-400" },
-    SQL: { Icon: DiDatabase, className: "text-blue-400" },
+  SQL: { Icon: DiDatabase, className: "text-blue-400" },
   "RESTful APIs": { Icon: TbApi, className: "text-blue-400" },
   "OpenAI API": { Icon: SiOpenai, className: "text-teal-500" },
   LangChain: { Icon: SiLangchain, className: "text-teal-500" },
@@ -111,8 +114,8 @@ export const BACKEND_DEVOPS: stacksProps = {
   JWT: { Icon: SiJsonwebtokens, className: "text-pink-500" },
   "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
   Redis: { Icon: SiRedis, className: "text-red-500" },
-  "FastAPI": { Icon: SiFastapi, className: "text-green-500" },
+  FastAPI: { Icon: SiFastapi, className: "text-green-500" },
   "AWS Lambda": { Icon: SiAwslambda, className: "text-orange-400" },
   "AWS S3": { Icon: SiAmazons3, className: "text-orange-400" },
-  "DynamoDB": { Icon: SiAmazondynamodb, className: "text-blue-400" },
+  DynamoDB: { Icon: SiAmazondynamodb, className: "text-blue-400" },
 };

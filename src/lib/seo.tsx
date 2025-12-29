@@ -47,7 +47,7 @@ export const getSEOTags = ({
     metadataBase: new URL(
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000/"
-        : `https://${config.domainName}/`
+        : `https://${config.domainName}/`,
     ),
 
     ...(noIndex && {
@@ -104,10 +104,11 @@ export const getSEOTags = ({
 
       // General social media
       "og:updated_time": new Date().toISOString(),
-      
+
       // Additional SEO
-      "google-site-verification": process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
-      "viewport": "width=device-width, initial-scale=1, maximum-scale=5",
+      "google-site-verification":
+        process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+      viewport: "width=device-width, initial-scale=1, maximum-scale=5",
       ...extraTags,
     },
   };
@@ -185,7 +186,8 @@ export const renderSchemaTags = () => {
                 "@type": "Country",
                 name: "India",
               },
-              skills: "React, Next.js, TypeScript, Node.js, MongoDB, UI/UX Design",
+              skills:
+                "React, Next.js, TypeScript, Node.js, MongoDB, UI/UX Design",
             },
           },
 
@@ -228,7 +230,9 @@ export const renderOrganizationSchema = () => {
   );
 };
 
-export const renderBreadcrumbSchema = (items: { name: string; url: string }[]) => {
+export const renderBreadcrumbSchema = (
+  items: { name: string; url: string }[],
+) => {
   return (
     <Script
       id="breadcrumbSchema"

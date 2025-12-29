@@ -11,10 +11,10 @@ export function usePageTracking() {
   useEffect(() => {
     if (pathname) {
       try {
-        const url = searchParams?.toString() 
+        const url = searchParams?.toString()
           ? `${pathname}?${searchParams.toString()}`
           : pathname;
-        
+
         trackPageView(url);
       } catch {
         // Fallback to pathname only if searchParams fails
@@ -25,7 +25,11 @@ export function usePageTracking() {
 }
 
 // Create a wrapper component for Suspense boundary
-export function PageTrackingWrapper({ children }: { children: React.ReactNode }) {
+export function PageTrackingWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   usePageTracking();
   return <>{children}</>;
 }

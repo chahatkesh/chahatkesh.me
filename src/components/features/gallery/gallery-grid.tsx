@@ -7,15 +7,15 @@ import { cn } from "~/lib/utils";
 import { formatDate } from "~/lib/date-utils";
 
 // Component for individual gallery image
-function GalleryImage({ 
+function GalleryImage({
   src,
-  alt, 
-  priority, 
-  className 
-}: { 
+  alt,
+  priority,
+  className,
+}: {
   src: string;
-  alt: string; 
-  priority?: boolean; 
+  alt: string;
+  priority?: boolean;
   className?: string;
 }) {
   if (!src) {
@@ -36,29 +36,55 @@ function GalleryImage({
                 <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.6" />
               </linearGradient>
             </defs>
-            
-            <path d="M10 70 L30 45 L50 55 L70 35 L90 50 L90 80 L10 80 Z" fill="url(#grad1)" opacity="0.3" />
-            <path d="M20 75 L40 50 L60 60 L80 40 L90 55 L90 80 L20 80 Z" fill="url(#grad1)" opacity="0.5" />
-            
+
+            <path
+              d="M10 70 L30 45 L50 55 L70 35 L90 50 L90 80 L10 80 Z"
+              fill="url(#grad1)"
+              opacity="0.3"
+            />
+            <path
+              d="M20 75 L40 50 L60 60 L80 40 L90 55 L90 80 L20 80 Z"
+              fill="url(#grad1)"
+              opacity="0.5"
+            />
+
             <circle cx="75" cy="25" r="8" fill="#fbbf24" opacity="0.7" />
-            
-            <rect x="25" y="35" width="50" height="35" rx="5" fill="#374151" stroke="#6b7280" strokeWidth="2" />
-            
-            <circle cx="50" cy="52" r="12" fill="#1f2937" stroke="#6b7280" strokeWidth="2" />
+
+            <rect
+              x="25"
+              y="35"
+              width="50"
+              height="35"
+              rx="5"
+              fill="#374151"
+              stroke="#6b7280"
+              strokeWidth="2"
+            />
+
+            <circle
+              cx="50"
+              cy="52"
+              r="12"
+              fill="#1f2937"
+              stroke="#6b7280"
+              strokeWidth="2"
+            />
             <circle cx="50" cy="52" r="8" fill="#111827" />
             <circle cx="50" cy="52" r="4" fill="#374151" />
             <circle cx="52" cy="50" r="1.5" fill="#9ca3af" />
-            
+
             <rect x="60" y="38" width="8" height="4" rx="2" fill="#ef4444" />
-            
+
             <rect x="35" y="30" width="8" height="4" rx="2" fill="#6b7280" />
-            
+
             <circle cx="20" cy="20" r="2" fill="#6366f1" opacity="0.4" />
             <circle cx="85" cy="75" r="1.5" fill="#8b5cf6" opacity="0.6" />
             <circle cx="15" cy="85" r="1" fill="#06b6d4" opacity="0.5" />
           </svg>
-          
-          <p className="text-sm text-neutral-400 font-medium">Image not available</p>
+
+          <p className="text-sm text-neutral-400 font-medium">
+            Image not available
+          </p>
         </div>
       </div>
     );
@@ -95,8 +121,8 @@ export function GalleryGrid({ items }: BentoGridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="grid w-full auto-rows-[200px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4"
     >
       {items.map((item, i) => (
@@ -114,8 +140,9 @@ export function GalleryGrid({ items }: BentoGridProps) {
               "md:col-span-2": item.aspectRatio === "landscape",
               "row-span-2": item.aspectRatio === "portrait",
               "md:col-span-2 row-span-2": item.aspectRatio === "big-square",
-              "col-span-1 row-span-1": item.aspectRatio === "square" || !item.aspectRatio,
-            }
+              "col-span-1 row-span-1":
+                item.aspectRatio === "square" || !item.aspectRatio,
+            },
           )}
         >
           <div className="relative h-full w-full overflow-hidden">
@@ -132,8 +159,12 @@ export function GalleryGrid({ items }: BentoGridProps) {
             {/* Default gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
-              <h3 className="text-base font-medium text-white">{item.title},{" "}{item.location}</h3>
-              <p className="mt-1 text-sm text-neutral-300">{formatDate(item.date)}</p>
+              <h3 className="text-base font-medium text-white">
+                {item.title}, {item.location}
+              </h3>
+              <p className="mt-1 text-sm text-neutral-300">
+                {formatDate(item.date)}
+              </p>
             </div>
           </div>
         </MotionDiv>

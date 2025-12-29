@@ -6,11 +6,9 @@ import { usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
 import { MotionSpan } from "~/components/shared";
 
-const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean>> }> = ({
-  label,
-  path,
-  setOpen,
-}) => {
+const NavItem: React.FC<
+  NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean>> }
+> = ({ label, path, setOpen }) => {
   const pathname = usePathname();
 
   const onClickHandler = () => {
@@ -21,10 +19,11 @@ const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean
 
   // Check if we're on a project detail page when the path is /projects
   // or on an about sub-page when the path is /about
-  const isProjectDetailPage = path === "/projects" && pathname.startsWith("/projects/");
+  const isProjectDetailPage =
+    path === "/projects" && pathname.startsWith("/projects/");
   const isAboutSubPage = path === "/about" && pathname.startsWith("/about/");
   const isActive = pathname === path || isProjectDetailPage || isAboutSubPage;
-  
+
   return (
     <li
       role="listitem"
@@ -32,7 +31,7 @@ const NavItem: React.FC<NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean
         "relative flex h-7 items-center rounded-md px-2 font-medium transition-colors duration-300 sm:px-0",
         {
           "bg-ring sm:bg-transparent sm:text-ring": isActive,
-        }
+        },
       )}
       onClick={onClickHandler}
     >

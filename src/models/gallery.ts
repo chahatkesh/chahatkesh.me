@@ -53,7 +53,7 @@ const GalleryImageSchema = new mongoose.Schema<IGalleryImage>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Create index for efficient queries

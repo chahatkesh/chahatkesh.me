@@ -9,9 +9,13 @@ import { typo } from "~/components/ui";
 import { formatDate } from "~/lib/date-utils";
 
 // Featured Image Component
-function FeaturedImage({ item, priority, className }: { 
-  item: GalleryItem; 
-  priority?: boolean; 
+function FeaturedImage({
+  item,
+  priority,
+  className,
+}: {
+  item: GalleryItem;
+  priority?: boolean;
   className?: string;
 }) {
   if (!item.src) {
@@ -19,11 +23,13 @@ function FeaturedImage({ item, priority, className }: {
   }
 
   return (
-    <div className={cn(
-      "relative overflow-hidden rounded-xl group cursor-pointer",
-      "aspect-[3/4] flex-shrink-0",
-      className
-    )}>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-xl group cursor-pointer",
+        "aspect-[3/4] flex-shrink-0",
+        className,
+      )}
+    >
       <Image
         src={item.src}
         alt={item.title}
@@ -39,7 +45,9 @@ function FeaturedImage({ item, priority, className }: {
       {/* Default gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
       <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
-        <h3 className="text-base font-medium text-white">{item.title},{" "}{item.location}</h3>
+        <h3 className="text-base font-medium text-white">
+          {item.title}, {item.location}
+        </h3>
         <p className="mt-1 text-sm text-neutral-300">{formatDate(item.date)}</p>
       </div>
     </div>
@@ -53,11 +61,11 @@ type FeaturedCarouselProps = {
   showTitle?: boolean;
 };
 
-export function FeaturedCarousel({ 
-  items, 
+export function FeaturedCarousel({
+  items,
   title = "Featured Moments",
   subtitle = "Highlights from my journey and experiences",
-  showTitle = true 
+  showTitle = true,
 }: FeaturedCarouselProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -65,7 +73,8 @@ export function FeaturedCarousel({
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
     }
@@ -75,22 +84,24 @@ export function FeaturedCarousel({
     checkScrollButtons();
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', checkScrollButtons);
-      return () => scrollContainer.removeEventListener('scroll', checkScrollButtons);
+      scrollContainer.addEventListener("scroll", checkScrollButtons);
+      return () =>
+        scrollContainer.removeEventListener("scroll", checkScrollButtons);
     }
   }, []);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const scrollAmount = 340; // Width of one card plus gap
       const currentScroll = scrollContainerRef.current.scrollLeft;
-      const targetScroll = direction === 'left' 
-        ? currentScroll - scrollAmount 
-        : currentScroll + scrollAmount;
-      
+      const targetScroll =
+        direction === "left"
+          ? currentScroll - scrollAmount
+          : currentScroll + scrollAmount;
+
       scrollContainerRef.current.scrollTo({
         left: targetScroll,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -109,67 +120,69 @@ export function FeaturedCarousel({
       {showTitle && (
         <div className="flex items-center justify-between">
           <div>
-            <h2 className={cn(typo({ variant: "h2" }))}>{ title}</h2>
-            <p className={cn(typo({ variant: "paragraph" }), "hidden md:block")}>
+            <h2 className={cn(typo({ variant: "h2" }))}>{title}</h2>
+            <p
+              className={cn(typo({ variant: "paragraph" }), "hidden md:block")}
+            >
               {subtitle}
             </p>
           </div>
-          
+
           {/* Navigation Buttons */}
           <div className="flex gap-2">
-          <button
-            onClick={() => scroll('left')}
-            disabled={!canScrollLeft}
-            className={cn(
-              "p-2 rounded-full border transition-all duration-200",
-              "bg-neutral-900 border-neutral-700 text-white",
-              "hover:bg-neutral-800 hover:border-neutral-600",
-              "disabled:opacity-40 disabled:cursor-not-allowed",
-              canScrollLeft ? "hover:scale-105" : ""
-            )}
-            aria-label="Scroll left"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <button
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+              className={cn(
+                "p-2 rounded-full border transition-all duration-200",
+                "bg-neutral-900 border-neutral-700 text-white",
+                "hover:bg-neutral-800 hover:border-neutral-600",
+                "disabled:opacity-40 disabled:cursor-not-allowed",
+                canScrollLeft ? "hover:scale-105" : "",
+              )}
+              aria-label="Scroll left"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <button
-            onClick={() => scroll('right')}
-            disabled={!canScrollRight}
-            className={cn(
-              "p-2 rounded-full border transition-all duration-200",
-              "bg-neutral-900 border-neutral-700 text-white",
-              "hover:bg-neutral-800 hover:border-neutral-600",
-              "disabled:opacity-40 disabled:cursor-not-allowed",
-              canScrollRight ? "hover:scale-105" : ""
-            )}
-            aria-label="Scroll right"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+              className={cn(
+                "p-2 rounded-full border transition-all duration-200",
+                "bg-neutral-900 border-neutral-700 text-white",
+                "hover:bg-neutral-800 hover:border-neutral-600",
+                "disabled:opacity-40 disabled:cursor-not-allowed",
+                canScrollRight ? "hover:scale-105" : "",
+              )}
+              aria-label="Scroll right"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
 
@@ -180,11 +193,11 @@ export function FeaturedCarousel({
           className={cn(
             "flex gap-4 overflow-x-auto scrollbar-hide",
             "pb-4 -mb-4", // Add padding bottom and negative margin to hide scrollbar
-            "scroll-smooth"
+            "scroll-smooth",
           )}
           style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
           }}
         >
           {items.map((item, index) => (
