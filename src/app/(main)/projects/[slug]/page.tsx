@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { notFound } from "next/navigation";
 import { BackButton } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
@@ -11,6 +11,11 @@ import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
 import { ProjectJsonLd } from "~/components/features/project/project-jsonld";
 import { MotionDiv } from "~/components/shared";
+
+// Helper function to get image src
+const getImageSrc = (cover: string | StaticImageData): string => {
+  return typeof cover === 'string' ? cover : cover.src;
+};
 import {
   FRONTEND_STACKS,
   BACKEND_DEVOPS,
@@ -44,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.description,
       images: [
         {
-          url: `https://${config.domainName}${project.cover.src}`,
+          url: `https://${config.domainName}${getImageSrc(project.cover)}`,
           width: 1200,
           height: 630,
           alt: project.title
@@ -98,7 +103,7 @@ export default async function ProjectPage({ params }: Props) {
         datePublished={project.datePublished}
         dateStarted={project.dateStarted}
         dateModified={project.dateModified}
-        image={`https://${config.domainName}${project.cover.src}`}
+        image={`https://${config.domainName}${getImageSrc(project.cover)}`}
         tags={project.stacks}
       />
 
