@@ -10,6 +10,8 @@ import {
   SiTypescript,
   SiReact,
   SiNextdotjs,
+  SiShadcnui,
+  SiVercel,
   SiHtml5,
   SiCss3,
   SiTailwindcss,
@@ -76,7 +78,7 @@ export const FRONTEND_STACKS: stacksProps = {
   Vite: { Icon: SiVite, className: "text-purple-500" },
   "Tailwind CSS": { Icon: SiTailwindcss, className: "text-cyan-300" },
   "Chakra UI": { Icon: SiChakraui, className: "text-teal-500" },
-  "Shadcn UI": { Icon: SiNextdotjs, className: "text-neutral-200" },
+  "Shadcn UI": { Icon: SiShadcnui, className: "text-neutral-200" },
   "Aceternity UI": { Icon: SiFramer, className: "text-purple-400" },
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
   "React Toastify": { Icon: SiReact, className: "text-yellow-400" },
@@ -118,4 +120,5 @@ export const BACKEND_DEVOPS: stacksProps = {
   "AWS Lambda": { Icon: SiAwslambda, className: "text-orange-400" },
   "AWS S3": { Icon: SiAmazons3, className: "text-orange-400" },
   DynamoDB: { Icon: SiAmazondynamodb, className: "text-blue-400" },
+  Vercel: { Icon: SiVercel, className: "text-white" },
 };

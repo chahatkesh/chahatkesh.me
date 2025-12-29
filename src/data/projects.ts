@@ -9,6 +9,7 @@ import blogger from "~/assets/images/projects/blogger.png";
 import openlearn from "~/assets/images/projects/openlearn.png";
 import swasya from "~/assets/images/projects/swasya.png";
 import gwinfra from "~/assets/images/projects/gwinfra.png";
+import portfolio from "~/assets/images/projects/portfolio.png";
 
 export interface Contributor {
   name: string;
@@ -39,6 +40,61 @@ export interface Project {
 }
 
 const projects: Project[] = [
+  {
+    id: createId(),
+    title: "Portfolio Website",
+    slug: "portfolio-website",
+    description:
+      "A modern, feature-rich personal portfolio website built with Next.js 15, showcasing projects, experience, and technical expertise with comprehensive analytics and SEO optimization.",
+    detailedDescription:
+      "This portfolio website represents a sophisticated full-stack web application built with Next.js 15, React 19, and TypeScript, designed to showcase my professional journey, technical projects, and skills in an engaging and performant manner. The platform features a comprehensive project showcase with detailed case studies, an interactive experience timeline, a gallery system with admin controls, and real-time visitor analytics. The architecture implements MongoDB for data persistence, NextAuth.js for secure authentication, and integrations with GitHub and Spotify APIs for dynamic content. The frontend leverages shadcn/ui components, Framer Motion animations, and Tailwind CSS 4 for a polished, responsive design inspired by modern web aesthetics. Key technical implementations include server-side rendering for optimal SEO, image optimization with Next.js Image component, comprehensive meta tag management for social sharing, and analytics integration with Google Analytics and Microsoft Clarity. The admin panel provides full content management capabilities including gallery uploads, project management, and visitor statistics. The website demonstrates expertise in modern web development, performance optimization, responsive design, API integrations, and production deployment on Vercel with custom domain configuration.",
+    tagline: "Showcasing Innovation Through Code",
+    task: "Architected and developed a comprehensive personal portfolio website using Next.js 15, React 19, and TypeScript. Implemented a full-stack architecture with MongoDB integration for data persistence, NextAuth.js authentication for admin controls, and dynamic content management. Built features including an interactive project showcase, experience timeline with visual components, admin-controlled gallery system, real-time visitor counter, GitHub contribution graph integration, and Spotify Now Playing widget. Developed responsive UI with shadcn/ui components, Framer Motion animations, and Tailwind CSS 4. Implemented comprehensive SEO optimization with dynamic meta tags, JSON-LD structured data, sitemap generation, and Open Graph images. Integrated analytics services (Google Analytics, Microsoft Clarity) for visitor tracking. Deployed on Vercel with custom domain and optimized for performance with Next.js 15 features including server components, image optimization, and edge runtime capabilities.",
+    features: [
+      "Next.js 15 App Router with server and client components",
+      "MongoDB integration for data persistence and visitor tracking",
+      "NextAuth.js authentication for secure admin access",
+      "Dynamic project showcase with detailed case studies",
+      "Interactive experience timeline with visual components",
+      "Admin-controlled gallery system with image uploads",
+      "Real-time visitor counter with location tracking",
+      "GitHub contribution graph integration",
+      "Spotify Now Playing widget with API integration",
+      "Comprehensive SEO optimization with meta tags and JSON-LD",
+      "Automatic sitemap and robots.txt generation",
+      "Open Graph and Twitter Card image generation",
+      "Responsive design with mobile-first approach",
+      "shadcn/ui component library integration",
+      "Framer Motion animations and transitions",
+      "Tailwind CSS 4 for modern styling",
+      "Google Analytics and Microsoft Clarity integration",
+      "Link tracking with custom short links",
+      "Contact form with validation",
+      "Skills section with tech stack visualization",
+      "Performance optimizations with Next.js Image",
+      "Custom 404 and error pages",
+    ],
+    stacks: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "MongoDB",
+      "Tailwind CSS",
+      "NextAuth.js",
+      "Framer Motion",
+      "Radix UI",
+      "Node.js",
+      "Vercel",
+    ],
+    cover: portfolio,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/chahatkesh.me",
+    deployedURL: "https://chahatkesh.me",
+    datePublished: "2025-04-21",
+    dateStarted: "2025-03-27",
+    dateModified: "2025-12-29",
+    isFeatured: false,
+  },
   {
     id: createId(),
     title: "Swasya AI",
