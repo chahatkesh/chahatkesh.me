@@ -25,20 +25,20 @@ const JourneyPage = () => {
         { name: "About Me", url: "/about" },
         { name: "Journey", url: "/about/journey" },
       ])}
-      
+
       <div className="space-y-8">
         <BackButton href="/about">Back to About</BackButton>
-        <MotionDiv 
-                className="space-y-1"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h1 className={cn(typo({ variant: "h2" }))}>My Journey</h1>
-                <p className={cn(typo({ variant: "paragraph" }))}>
-                  A timeline showcasing my learnings, achievements, and milestones.
-                </p>
-              </MotionDiv>
+        <MotionDiv
+          className="space-y-1"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className={cn(typo({ variant: "h2" }))}>My Journey</h1>
+          <p className={cn(typo({ variant: "paragraph" }))}>
+            A timeline showcasing my learnings, achievements, and milestones.
+          </p>
+        </MotionDiv>
         <TimelineComponent />
       </div>
     </MotionDiv>

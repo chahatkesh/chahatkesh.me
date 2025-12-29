@@ -9,7 +9,7 @@ export async function GET() {
     if (!session) {
       return NextResponse.json(
         { success: false, authenticated: false },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -21,7 +21,7 @@ export async function GET() {
     console.error("Session check error:", error);
     return NextResponse.json(
       { success: false, authenticated: false },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

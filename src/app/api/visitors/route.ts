@@ -3,39 +3,49 @@ import dbConnect from "~/lib/mongodb";
 import { Visitor } from "~/models/visitor";
 
 // This ensures the route is not statically optimized
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
     if (!process.env.MONGODB_URI) {
-      console.error('MONGODB_URI environment variable is not defined');
-      return NextResponse.json({ count: 0, error: 'Database configuration error' }, { status: 200 });
+      console.error("MONGODB_URI environment variable is not defined");
+      return NextResponse.json(
+        { count: 0, error: "Database configuration error" },
+        { status: 200 },
+      );
     }
-    
+
     await dbConnect();
-    
+
     // Find the visitor document, or create one if it doesn't exist
     const visitorData = await Visitor.findOne({});
-    
+
     if (visitorData) {
-      return NextResponse.json({ count: visitorData.count }, { 
-        status: 200,
-        headers: {
-          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
-        }
-      });
+      return NextResponse.json(
+        { count: visitorData.count },
+        {
+          status: 200,
+          headers: {
+            "Cache-Control":
+              "no-store, no-cache, must-revalidate, proxy-revalidate",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+        },
+      );
     } else {
       // Create a new document with initial count of 0
       const newVisitor = await Visitor.create({
         count: 0,
-        lastUpdated: new Date()
+        lastUpdated: new Date(),
       });
       return NextResponse.json({ count: newVisitor.count }, { status: 200 });
     }
   } catch (error) {
-    console.error('Error getting visitor count:', error);
-    return NextResponse.json({ count: 0, error: 'Failed to get visitor count' }, { status: 200 });
+    console.error("Error getting visitor count:", error);
+    return NextResponse.json(
+      { count: 0, error: "Failed to get visitor count" },
+      { status: 200 },
+    );
   }
 }

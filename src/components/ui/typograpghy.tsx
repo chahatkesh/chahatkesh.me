@@ -4,7 +4,8 @@ const typography = cva(["font-bold inline-block font-ubuntu"], {
   variants: {
     variant: {
       h2: "text-lg decoration-ring inline-block",
-      paragraph: "text-muted-foreground font-normal block text-base font-ubuntu",
+      paragraph:
+        "text-muted-foreground font-normal block text-base font-ubuntu",
     },
     size: {
       sm: "text-sm",

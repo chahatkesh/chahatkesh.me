@@ -25,7 +25,7 @@ export default function GalleryPage() {
         { name: "Gallery", url: "/gallery" },
       ])}
       <BackButton>Back</BackButton>
-      <MotionDiv 
+      <MotionDiv
         className="space-y-1"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,9 @@ export default function GalleryPage() {
       >
         <h1 className={cn(typo({ variant: "h2" }))}>Gallery</h1>
         <p className={cn(typo({ variant: "paragraph" }))}>
-          This gallery shows moments, projects, and memories that matter to me. Each picture shares a small part of my story, how I see, feel, and create.
+          This gallery shows moments, projects, and memories that matter to me.
+          Each picture shares a small part of my story, how I see, feel, and
+          create.
         </p>
       </MotionDiv>
 

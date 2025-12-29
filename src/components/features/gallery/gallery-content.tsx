@@ -32,24 +32,23 @@ interface GalleryItem {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function GalleryContent() {
-  const { data, error, isLoading, mutate } = useSWR<{ success: boolean; data: GalleryImage[] }>(
-    "/api/gallery",
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: true,
-      revalidateOnMount: true,
-      dedupingInterval: 10000, // Dedupe requests within 10s
-      errorRetryCount: 3,
-      errorRetryInterval: 5000,
-      onSuccess: (data) => {
-        console.log(`✓ Loaded ${data?.data?.length || 0} gallery images`);
-      },
-      onError: (err) => {
-        console.error('Failed to load gallery:', err);
-      },
-    }
-  );
+  const { data, error, isLoading, mutate } = useSWR<{
+    success: boolean;
+    data: GalleryImage[];
+  }>("/api/gallery", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    revalidateOnMount: true,
+    dedupingInterval: 10000, // Dedupe requests within 10s
+    errorRetryCount: 3,
+    errorRetryInterval: 5000,
+    onSuccess: (data) => {
+      console.log(`✓ Loaded ${data?.data?.length || 0} gallery images`);
+    },
+    onError: (err) => {
+      console.error("Failed to load gallery:", err);
+    },
+  });
 
   // Transform API data to match component props
   const galleryItems: GalleryItem[] =
@@ -119,7 +118,8 @@ export function GalleryContent() {
         </svg>
         <h3 className="text-lg font-semibold">Failed to load gallery</h3>
         <p className="text-muted-foreground text-center max-w-md">
-          Unable to fetch gallery images. Please check your connection and try again.
+          Unable to fetch gallery images. Please check your connection and try
+          again.
         </p>
         <Button onClick={() => mutate()} variant="outline">
           <svg

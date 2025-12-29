@@ -5,7 +5,9 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  cloud_name:
+    process.env.CLOUDINARY_CLOUD_NAME ||
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
@@ -21,13 +23,13 @@ export async function GET(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
     const { id } = await params;
-    
+
     const image = await GalleryImage.findById(id).lean();
 
     if (!image) {
       return NextResponse.json(
         { success: false, error: "Image not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -39,7 +41,7 @@ export async function GET(request: NextRequest, { params }: Params) {
     console.error("Error fetching gallery image:", error);
     return NextResponse.json(
       { success: false, error: "Failed to fetch image" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -49,7 +51,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
     const { id } = await params;
-    
+
     const body = await request.json();
     const { title, location, date, aspectRatio, isFeatured, order } = body;
 
@@ -63,13 +65,13 @@ export async function PUT(request: NextRequest, { params }: Params) {
         ...(typeof isFeatured === "boolean" && { isFeatured }),
         ...(typeof order === "number" && { order }),
       },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedImage) {
       return NextResponse.json(
         { success: false, error: "Image not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -81,7 +83,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     console.error("Error updating gallery image:", error);
     return NextResponse.json(
       { success: false, error: "Failed to update image" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -91,13 +93,13 @@ export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     await connectDB();
     const { id } = await params;
-    
+
     const image = await GalleryImage.findById(id);
 
     if (!image) {
       return NextResponse.json(
         { success: false, error: "Image not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -120,7 +122,7 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     console.error("Error deleting gallery image:", error);
     return NextResponse.json(
       { success: false, error: "Failed to delete image" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

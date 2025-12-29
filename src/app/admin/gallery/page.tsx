@@ -2,12 +2,27 @@
 
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
+import {
+  CldUploadWidget,
+  CloudinaryUploadWidgetResults,
+} from "next-cloudinary";
 import { Button } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { Label } from "~/components/ui";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "~/components/ui/sheet";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "~/components/ui/sheet";
 import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
@@ -30,10 +45,10 @@ interface GalleryImage {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function AdminGalleryContent() {
-  const { data, error, isLoading } = useSWR<{ success: boolean; data: GalleryImage[] }>(
-    "/api/gallery",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<{
+    success: boolean;
+    data: GalleryImage[];
+  }>("/api/gallery", fetcher);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -57,15 +72,23 @@ function AdminGalleryContent() {
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [originalEditData, setOriginalEditData] = useState<GalleryImage | null>(null);
+  const [originalEditData, setOriginalEditData] = useState<GalleryImage | null>(
+    null,
+  );
   const [uploading, setUploading] = useState(false);
 
   const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
-    if (result.info && typeof result.info !== 'string') {
+    if (result.info && typeof result.info !== "string") {
       setFormData((prev) => ({
         ...prev,
-        imageUrl: result.info && typeof result.info !== 'string' ? result.info.secure_url : '',
-        publicId: result.info && typeof result.info !== 'string' ? result.info.public_id : '',
+        imageUrl:
+          result.info && typeof result.info !== "string"
+            ? result.info.secure_url
+            : "",
+        publicId:
+          result.info && typeof result.info !== "string"
+            ? result.info.public_id
+            : "",
       }));
     }
   };
@@ -96,7 +119,7 @@ function AdminGalleryContent() {
           publicId: "",
         });
         setEditingId(null);
-        
+
         // Revalidate SWR cache
         mutate("/api/gallery");
       }
@@ -186,7 +209,6 @@ function AdminGalleryContent() {
     }
   };
 
-
   if (isLoading) {
     return (
       <div className="space-y-8">
@@ -203,7 +225,9 @@ function AdminGalleryContent() {
       <div className="space-y-8">
         <BackButton>Back</BackButton>
         <div className="flex items-center justify-center min-h-[400px]">
-          <p className="text-red-600 dark:text-red-400">Error loading gallery. Please try again.</p>
+          <p className="text-red-600 dark:text-red-400">
+            Error loading gallery. Please try again.
+          </p>
         </div>
       </div>
     );
@@ -212,15 +236,17 @@ function AdminGalleryContent() {
   return (
     <div className="space-y-8">
       <BackButton>Back</BackButton>
-      
+
       {/* Page Header */}
-      <MotionDiv 
+      <MotionDiv
         className="space-y-1"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className={cn(typo({ variant: "h2" }), "text-3xl")}>Gallery Management</h1>
+        <h1 className={cn(typo({ variant: "h2" }), "text-3xl")}>
+          Gallery Management
+        </h1>
         <p className={cn(typo({ variant: "paragraph" }))}>
           Upload, edit, and manage your gallery images
         </p>
@@ -247,11 +273,16 @@ function AdminGalleryContent() {
                   Image *
                 </Label>
                 <CldUploadWidget
-                  uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "portfolio_gallery"}
+                  uploadPreset={
+                    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ||
+                    "portfolio_gallery"
+                  }
                   onSuccess={handleUploadSuccess}
                   onError={(error) => {
                     console.error("Upload error:", error);
-                    alert("Failed to upload image. Please check your Cloudinary settings.");
+                    alert(
+                      "Failed to upload image. Please check your Cloudinary settings.",
+                    );
                   }}
                   options={{
                     folder: "portfolio/gallery",
@@ -296,7 +327,9 @@ function AdminGalleryContent() {
                             className="w-full h-64 object-cover rounded-lg border border-neutral-800"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <p className="text-white text-sm">Click 'Change Image' to replace</p>
+                            <p className="text-white text-sm">
+                              Click 'Change Image' to replace
+                            </p>
                           </div>
                         </div>
                       )}
@@ -316,7 +349,10 @@ function AdminGalleryContent() {
                     placeholder="e.g., Sunset at the Beach"
                     value={formData.title}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, title: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        title: e.target.value,
+                      }))
                     }
                     required
                     className="bg-neutral-900 border-neutral-800"
@@ -333,7 +369,10 @@ function AdminGalleryContent() {
                     placeholder="e.g., Goa, India"
                     value={formData.location}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, location: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        location: e.target.value,
+                      }))
                     }
                     required
                     className="bg-neutral-900 border-neutral-800"
@@ -351,21 +390,21 @@ function AdminGalleryContent() {
                       type="date"
                       value={formData.date}
                       onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, date: e.target.value }))
+                        setFormData((prev) => ({
+                          ...prev,
+                          date: e.target.value,
+                        }))
                       }
                       required
                       className="bg-neutral-900 border-neutral-800 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                     />
                   </div>
                 </div>
-
               </div>
 
               {/* Aspect Ratio */}
               <div className="space-y-2">
-                <Label className="text-sm font-medium">
-                  Aspect Ratio *
-                </Label>
+                <Label className="text-sm font-medium">Aspect Ratio *</Label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { value: "square", label: "Square" },
@@ -376,12 +415,21 @@ function AdminGalleryContent() {
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => setFormData((prev) => ({ ...prev, aspectRatio: option.value as "square" | "portrait" | "landscape" | "big-square" }))}
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          aspectRatio: option.value as
+                            | "square"
+                            | "portrait"
+                            | "landscape"
+                            | "big-square",
+                        }))
+                      }
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         formData.aspectRatio === option.value
                           ? "border-neutral-400 bg-neutral-900 text-white"
-                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300"
+                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300",
                       )}
                     >
                       {option.label}
@@ -397,12 +445,18 @@ function AdminGalleryContent() {
                   type="checkbox"
                   checked={formData.isFeatured}
                   onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, isFeatured: e.target.checked }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      isFeatured: e.target.checked,
+                    }))
                   }
                   className="w-4 h-4 rounded border-neutral-700 bg-neutral-800 text-neutral-100 focus:ring-2 focus:ring-neutral-600"
                 />
                 <div>
-                  <Label htmlFor="isFeatured" className="text-sm font-medium cursor-pointer">
+                  <Label
+                    htmlFor="isFeatured"
+                    className="text-sm font-medium cursor-pointer"
+                  >
                     Featured Image
                   </Label>
                 </div>
@@ -410,8 +464,8 @@ function AdminGalleryContent() {
 
               {/* Actions */}
               <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={uploading || !formData.imageUrl}
                   className="w-full"
                 >
@@ -464,7 +518,7 @@ function AdminGalleryContent() {
             Manage your existing gallery collection
           </p>
         </div>
-        
+
         {data?.data && data.data.length === 0 ? (
           <Card className="border-neutral-800 bg-neutral-950">
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
@@ -503,9 +557,10 @@ function AdminGalleryContent() {
                   {
                     "md:col-span-2": image.aspectRatio === "landscape",
                     "row-span-2": image.aspectRatio === "portrait",
-                    "md:col-span-2 row-span-2": image.aspectRatio === "big-square",
+                    "md:col-span-2 row-span-2":
+                      image.aspectRatio === "big-square",
                     "col-span-1 row-span-1": image.aspectRatio === "square",
-                  }
+                  },
                 )}
               >
                 <div className="relative h-full w-full overflow-hidden">
@@ -521,7 +576,7 @@ function AdminGalleryContent() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent opacity-100 transition-opacity duration-300" />
                   {/* Default gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  
+
                   {/* Featured Badge */}
                   {image.isFeatured && (
                     <div className="absolute top-3 right-3 z-20">
@@ -608,14 +663,17 @@ function AdminGalleryContent() {
 
       {/* Edit Modal */}
       <Sheet open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+        <SheetContent
+          side="right"
+          className="w-full sm:max-w-lg overflow-y-auto"
+        >
           <SheetHeader>
             <SheetTitle>Edit Image</SheetTitle>
             <SheetDescription>
               Update the details of your gallery image
             </SheetDescription>
           </SheetHeader>
-          
+
           <form onSubmit={handleEditSubmit} className="space-y-6 mt-6">
             {/* Image Preview */}
             {editFormData.imageUrl && (
@@ -643,7 +701,10 @@ function AdminGalleryContent() {
                   placeholder="e.g., Sunset at the Beach"
                   value={editFormData.title}
                   onChange={(e) =>
-                    setEditFormData((prev) => ({ ...prev, title: e.target.value }))
+                    setEditFormData((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }))
                   }
                   required
                   className="bg-neutral-900 border-neutral-800"
@@ -660,7 +721,10 @@ function AdminGalleryContent() {
                   placeholder="e.g., Goa, India"
                   value={editFormData.location}
                   onChange={(e) =>
-                    setEditFormData((prev) => ({ ...prev, location: e.target.value }))
+                    setEditFormData((prev) => ({
+                      ...prev,
+                      location: e.target.value,
+                    }))
                   }
                   required
                   className="bg-neutral-900 border-neutral-800"
@@ -678,7 +742,10 @@ function AdminGalleryContent() {
                     type="date"
                     value={editFormData.date}
                     onChange={(e) =>
-                      setEditFormData((prev) => ({ ...prev, date: e.target.value }))
+                      setEditFormData((prev) => ({
+                        ...prev,
+                        date: e.target.value,
+                      }))
                     }
                     required
                     className="bg-neutral-900 border-neutral-800 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
@@ -688,9 +755,7 @@ function AdminGalleryContent() {
 
               {/* Aspect Ratio */}
               <div className="space-y-2">
-                <Label className="text-sm font-medium">
-                  Aspect Ratio *
-                </Label>
+                <Label className="text-sm font-medium">Aspect Ratio *</Label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                   {[
                     { value: "square", label: "Square" },
@@ -701,12 +766,21 @@ function AdminGalleryContent() {
                     <button
                       key={option.value}
                       type="button"
-                      onClick={() => setEditFormData((prev) => ({ ...prev, aspectRatio: option.value as "square" | "portrait" | "landscape" | "big-square" }))}
+                      onClick={() =>
+                        setEditFormData((prev) => ({
+                          ...prev,
+                          aspectRatio: option.value as
+                            | "square"
+                            | "portrait"
+                            | "landscape"
+                            | "big-square",
+                        }))
+                      }
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         editFormData.aspectRatio === option.value
                           ? "border-neutral-400 bg-neutral-900 text-white"
-                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300"
+                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300",
                       )}
                     >
                       {option.label}
@@ -722,12 +796,18 @@ function AdminGalleryContent() {
                   type="checkbox"
                   checked={editFormData.isFeatured}
                   onChange={(e) =>
-                    setEditFormData((prev) => ({ ...prev, isFeatured: e.target.checked }))
+                    setEditFormData((prev) => ({
+                      ...prev,
+                      isFeatured: e.target.checked,
+                    }))
                   }
                   className="w-4 h-4 rounded border-neutral-700 bg-neutral-800 text-neutral-100 focus:ring-2 focus:ring-neutral-600"
                 />
                 <div>
-                  <Label htmlFor="edit-isFeatured" className="text-sm font-medium cursor-pointer">
+                  <Label
+                    htmlFor="edit-isFeatured"
+                    className="text-sm font-medium cursor-pointer"
+                  >
                     Featured Image
                   </Label>
                 </div>
@@ -736,16 +816,16 @@ function AdminGalleryContent() {
 
             {/* Actions */}
             <div className="flex gap-3 pt-4">
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={handleCloseEditModal}
                 className="flex-1"
               >
                 Cancel
               </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={uploading || !hasChanges}
                 className="flex-1"
               >

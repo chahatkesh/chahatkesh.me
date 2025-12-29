@@ -14,7 +14,9 @@ interface ExperienceDetailClientProps {
   experience: Experience;
 }
 
-const ExperienceDetailClient = ({ experience }: ExperienceDetailClientProps) => {
+const ExperienceDetailClient = ({
+  experience,
+}: ExperienceDetailClientProps) => {
   return (
     <MotionDiv>
       <div className="space-y-8">
@@ -39,20 +41,25 @@ const ExperienceDetailClient = ({ experience }: ExperienceDetailClientProps) => 
                 priority
               />
             </div>
-            
+
             <div className="flex-1 space-y-2">
-              <h1 className={cn(typo({ variant: "h2" }))}>
-                {experience.role}
-              </h1>
+              <h1 className={cn(typo({ variant: "h2" }))}>{experience.role}</h1>
               <p className="text-lg text-neutral-300">{experience.employer}</p>
               <div className="flex items-center gap-2 text-sm text-neutral-400">
-                <span>{experience.start_date} - {experience.end_date}</span>
+                <span>
+                  {experience.start_date} - {experience.end_date}
+                </span>
               </div>
             </div>
           </div>
 
           {/* Tagline */}
-          <p className={cn(typo({ variant: "paragraph" }), "text-neutral-300 text-lg")}>
+          <p
+            className={cn(
+              typo({ variant: "paragraph" }),
+              "text-neutral-300 text-lg",
+            )}
+          >
             {experience.tagline}
           </p>
         </MotionDiv>
@@ -65,7 +72,12 @@ const ExperienceDetailClient = ({ experience }: ExperienceDetailClientProps) => 
               <h2 className="font-ubuntu text-xl font-medium text-white">
                 About {experience.employer}
               </h2>
-              <p className={cn(typo({ variant: "paragraph", size: "sm" }), "text-neutral-300 text-justify")}>
+              <p
+                className={cn(
+                  typo({ variant: "paragraph", size: "sm" }),
+                  "text-neutral-300 text-justify",
+                )}
+              >
                 {experience.about}
               </p>
             </section>
@@ -73,16 +85,23 @@ const ExperienceDetailClient = ({ experience }: ExperienceDetailClientProps) => 
 
           {/* Full Description */}
           <section className="space-y-3">
-            <h2 className="font-ubuntu text-xl font-medium text-white">Overview</h2>
-            <p className={cn(typo({ variant: "paragraph", size: "sm" }), "text-neutral-300 text-justify")}>
+            <h2 className="font-ubuntu text-xl font-medium text-white">
+              Overview
+            </h2>
+            <p
+              className={cn(
+                typo({ variant: "paragraph", size: "sm" }),
+                "text-neutral-300 text-justify",
+              )}
+            >
               {experience.description}
             </p>
           </section>
 
           {/* Gallery Carousel */}
           {experience.gallery && experience.gallery.length > 0 && (
-            <ExperienceCarousel 
-              images={experience.gallery} 
+            <ExperienceCarousel
+              images={experience.gallery}
               experienceName={experience.employer}
             />
           )}
@@ -161,7 +180,11 @@ const ExperienceDetailClient = ({ experience }: ExperienceDetailClientProps) => 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-300 hover:text-white"
                   >
-                    {link.icon === 'website' ? <FaGlobe size={14} /> : <FaExternalLinkAlt size={12} />}
+                    {link.icon === "website" ? (
+                      <FaGlobe size={14} />
+                    ) : (
+                      <FaExternalLinkAlt size={12} />
+                    )}
                     <span>{link.title}</span>
                   </Link>
                 ))}

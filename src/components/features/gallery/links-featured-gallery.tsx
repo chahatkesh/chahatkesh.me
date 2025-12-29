@@ -34,7 +34,7 @@ export function LinksFeaturedGallery() {
     {
       revalidateOnFocus: false,
       dedupingInterval: 10000,
-    }
+    },
   );
 
   const galleryItems: GalleryItem[] =

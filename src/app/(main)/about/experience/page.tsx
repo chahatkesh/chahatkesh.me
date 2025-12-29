@@ -25,20 +25,23 @@ const ExperiencePage = () => {
         { name: "About", url: "/about" },
         { name: "Experience", url: "/about/experience" },
       ])}
-      
+
       <MotionDiv>
         <div className="space-y-8">
           <BackButton href="/about">Back to About</BackButton>
-          
-          <MotionDiv 
+
+          <MotionDiv
             className="space-y-1"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className={cn(typo({ variant: "h2" }))}>Professional Experience</h1>
+            <h1 className={cn(typo({ variant: "h2" }))}>
+              Professional Experience
+            </h1>
             <p className={cn(typo({ variant: "paragraph" }))}>
-              A comprehensive overview of my professional journey, roles, and contributions.
+              A comprehensive overview of my professional journey, roles, and
+              contributions.
             </p>
           </MotionDiv>
 
