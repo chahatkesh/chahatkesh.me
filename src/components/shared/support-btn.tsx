@@ -11,7 +11,12 @@ const SupportButton = ({ onReset }: { onReset?: () => void }) => {
     <div className="flex flex-wrap justify-center gap-4">
       {typeof onReset === "undefined" && (
         <Button asChild variant="outline">
-          <Link href="/" className="flex items-center gap-2" replace aria-label="Home">
+          <Link
+            href="/"
+            className="flex items-center gap-2"
+            replace
+            aria-label="Home"
+          >
             <span className="text-base">
               <AiFillHome />
             </span>

@@ -4,4 +4,10 @@ import { GalleryContent } from "./gallery-content";
 import { LinksFeaturedGallery } from "./links-featured-gallery";
 import type { GalleryItem } from "./gallery-grid";
 
-export { GalleryGrid, FeaturedCarousel, GalleryContent, LinksFeaturedGallery, type GalleryItem };
+export {
+  GalleryGrid,
+  FeaturedCarousel,
+  GalleryContent,
+  LinksFeaturedGallery,
+  type GalleryItem,
+};

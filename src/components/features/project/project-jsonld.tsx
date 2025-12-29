@@ -1,5 +1,5 @@
-import Script from 'next/script';
-import config from '~/config';
+import Script from "next/script";
+import config from "~/config";
 
 interface ProjectJsonLdProps {
   title: string;
@@ -23,7 +23,7 @@ export function ProjectJsonLd({
   tags = [],
 }: ProjectJsonLdProps) {
   const projectUrl = `https://${config.domainName}/projects/${slug}`;
-  
+
   return (
     <Script
       id={`project-jsonld-${slug}`}
@@ -31,12 +31,12 @@ export function ProjectJsonLd({
       strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'SoftwareSourceCode',
+          "@context": "https://schema.org",
+          "@type": "SoftwareSourceCode",
           name: title,
           description: description,
           author: {
-            '@type': 'Person',
+            "@type": "Person",
             name: config.appName,
             url: `https://${config.domainName}`,
           },
@@ -45,9 +45,9 @@ export function ProjectJsonLd({
           codeRepository: projectUrl,
           url: projectUrl,
           ...(image && { image }),
-          ...(tags.length > 0 && { keywords: tags.join(', ') }),
-          programmingLanguage: tags.filter(tag => 
-            ['JavaScript', 'TypeScript', 'Python', 'HTML', 'CSS'].includes(tag)
+          ...(tags.length > 0 && { keywords: tags.join(", ") }),
+          programmingLanguage: tags.filter((tag) =>
+            ["JavaScript", "TypeScript", "Python", "HTML", "CSS"].includes(tag),
           ),
         }),
       }}

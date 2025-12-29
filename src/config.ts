@@ -15,8 +15,10 @@ export const config = {
 
   seo: {
     titleTemplate: "%s | Chahat Kesharwani",
-    defaultTitle: "Chahat Kesharwani - Full Stack Developer & UI/UX Enthusiast Portfolio",
-    defaultDescription: "Full Stack Developer & UI/UX Enthusiast specializing in modern web development with React, Next.js, TypeScript, and Node.js. Explore my projects, skills, professional experience, and journey in software engineering.",
+    defaultTitle:
+      "Chahat Kesharwani - Full Stack Developer & UI/UX Enthusiast Portfolio",
+    defaultDescription:
+      "Full Stack Developer & UI/UX Enthusiast specializing in modern web development with React, Next.js, TypeScript, and Node.js. Explore my projects, skills, professional experience, and journey in software engineering.",
     defaultKeywords: [
       "Chahat Kesharwani",
       "chahatkesh",
@@ -68,7 +70,6 @@ export const config = {
     twitter: "https://x.com/chahatkesh",
     buymeacoffee: "https://buymeacoffee.com/chahatkesh",
   },
-
 } as ConfigProps;
 
 export default config;

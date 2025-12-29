@@ -4,7 +4,10 @@ import { ClassValue } from "clsx";
 import { cn } from "~/lib/utils";
 import { buttonVariants } from "../ui/button";
 
-interface SmartLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> {
+interface SmartLinkProps extends Omit<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  "className"
+> {
   href: string;
   children: ReactNode;
   className?: ClassValue;
@@ -17,7 +20,7 @@ const SmartLink = ({ href, children, className, ...props }: SmartLinkProps) => {
     variant: "link",
     className: cn(
       "!p-0 h-full !inline-block !whitespace-normal !text-base !text-ring",
-      className
+      className,
     ),
   });
 
@@ -30,11 +33,11 @@ const SmartLink = ({ href, children, className, ...props }: SmartLinkProps) => {
   }
 
   return (
-    <a 
+    <a
       href={href}
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className={linkVariant} 
+      target="_blank"
+      rel="noopener noreferrer"
+      className={linkVariant}
       {...props}
     >
       {children}

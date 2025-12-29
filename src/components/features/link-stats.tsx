@@ -18,21 +18,20 @@ const LinkStats = () => {
       try {
         // Fetch all-time contribution data
         const contributionsResponse = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/chahatkesh`
+          `https://github-contributions-api.jogruber.de/v4/chahatkesh`,
         );
         const contributionsData = await contributionsResponse.json();
-        
+
         // Calculate total lifetime contributions by summing all years
-        const totalContributions = Object.values<number>(contributionsData.total || {}).reduce(
-          (sum, yearContributions) => sum + (yearContributions || 0),
-          0
-        );
-        
+        const totalContributions = Object.values<number>(
+          contributionsData.total || {},
+        ).reduce((sum, yearContributions) => sum + (yearContributions || 0), 0);
+
         setStats({
           totalContributions,
         });
       } catch (error) {
-        console.error('Error fetching GitHub stats:', error);
+        console.error("Error fetching GitHub stats:", error);
       } finally {
         setLoading(false);
       }
@@ -55,7 +54,9 @@ const LinkStats = () => {
   return (
     <div className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
       <GitCommit className="size-4" />
-      <span className="font-semibold">{stats.totalContributions.toLocaleString()}</span>
+      <span className="font-semibold">
+        {stats.totalContributions.toLocaleString()}
+      </span>
       <span>Contributions</span>
     </div>
   );

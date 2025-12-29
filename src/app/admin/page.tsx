@@ -28,7 +28,7 @@ export default function AdminPage() {
     try {
       const response = await fetch("/api/auth/session");
       const data = await response.json();
-      
+
       if (data.authenticated) {
         setIsAuthenticated(true);
       }
@@ -96,8 +96,15 @@ export default function AdminPage() {
           className="w-full max-w-md"
         >
           <div className="mb-8 text-center space-y-2">
-            <h1 className={cn(typo({ variant: "h2" }), "text-2xl font-bold")}>Admin Access</h1>
-            <p className={cn(typo({ variant: "paragraph" }), "text-muted-foreground text-sm")}>
+            <h1 className={cn(typo({ variant: "h2" }), "text-2xl font-bold")}>
+              Admin Access
+            </h1>
+            <p
+              className={cn(
+                typo({ variant: "paragraph" }),
+                "text-muted-foreground text-sm",
+              )}
+            >
               Sign in to manage your portfolio
             </p>
           </div>
@@ -106,7 +113,9 @@ export default function AdminPage() {
             <CardContent className="pt-6">
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-sm font-medium">Username</Label>
+                  <Label htmlFor="username" className="text-sm font-medium">
+                    Username
+                  </Label>
                   <Input
                     id="username"
                     type="text"
@@ -120,7 +129,9 @@ export default function AdminPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                  <Label htmlFor="password" className="text-sm font-medium">
+                    Password
+                  </Label>
                   <Input
                     id="password"
                     type="password"
@@ -133,7 +144,7 @@ export default function AdminPage() {
                     autoComplete="current-password"
                   />
                 </div>
-                
+
                 {error && (
                   <MotionDiv
                     initial={{ opacity: 0, height: 0 }}
@@ -160,9 +171,9 @@ export default function AdminPage() {
                   </MotionDiv>
                 )}
 
-                <Button 
-                  type="submit" 
-                  className="w-full h-11 font-medium" 
+                <Button
+                  type="submit"
+                  className="w-full h-11 font-medium"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -221,7 +232,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-[80vh] px-4 py-8">
-      <MotionDiv 
+      <MotionDiv
         className="max-w-4xl mx-auto space-y-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -230,16 +241,19 @@ export default function AdminPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 className={cn(typo({ variant: "h2" }), "text-3xl font-bold")}>Dashboard</h1>
-            <p className={cn(typo({ variant: "paragraph" }), "text-muted-foreground")}>
+            <h1 className={cn(typo({ variant: "h2" }), "text-3xl font-bold")}>
+              Dashboard
+            </h1>
+            <p
+              className={cn(
+                typo({ variant: "paragraph" }),
+                "text-muted-foreground",
+              )}
+            >
               Manage your portfolio content
             </p>
           </div>
-          <Button 
-            variant="outline" 
-            onClick={handleLogout}
-            className="gap-2"
-          >
+          <Button variant="outline" onClick={handleLogout} className="gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -262,7 +276,7 @@ export default function AdminPage() {
         {/* Content Management Grid */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Gallery Card */}
-          <Card 
+          <Card
             className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm hover:border-neutral-700 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
             onClick={() => router.push("/admin/gallery")}
           >
@@ -307,18 +321,19 @@ export default function AdminPage() {
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold">Gallery</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Upload, organize, and manage your image gallery with Cloudinary integration
+                  Upload, organize, and manage your image gallery with
+                  Cloudinary integration
                 </p>
               </div>
             </CardContent>
           </Card>
 
           {/* Projects Card - Coming Soon */}
-          <Card 
-            className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden"
-          >
+          <Card className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden">
             <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-neutral-800/80 backdrop-blur-sm">
-              <span className="text-xs font-medium text-neutral-400">Coming Soon</span>
+              <span className="text-xs font-medium text-neutral-400">
+                Coming Soon
+              </span>
             </div>
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
@@ -350,11 +365,11 @@ export default function AdminPage() {
           </Card>
 
           {/* Experience Card - Coming Soon */}
-          <Card 
-            className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden"
-          >
+          <Card className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden">
             <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-neutral-800/80 backdrop-blur-sm">
-              <span className="text-xs font-medium text-neutral-400">Coming Soon</span>
+              <span className="text-xs font-medium text-neutral-400">
+                Coming Soon
+              </span>
             </div>
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">
@@ -386,11 +401,11 @@ export default function AdminPage() {
           </Card>
 
           {/* Settings Card - Coming Soon */}
-          <Card 
-            className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden"
-          >
+          <Card className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden">
             <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-neutral-800/80 backdrop-blur-sm">
-              <span className="text-xs font-medium text-neutral-400">Coming Soon</span>
+              <span className="text-xs font-medium text-neutral-400">
+                Coming Soon
+              </span>
             </div>
             <CardContent className="p-6">
               <div className="flex items-start justify-between mb-4">

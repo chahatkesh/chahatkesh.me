@@ -1,5 +1,9 @@
 import { Metadata } from "next";
-import { AboutSection, Skills, ProfessionalExperience } from "~/components/sections";
+import {
+  AboutSection,
+  Skills,
+  ProfessionalExperience,
+} from "~/components/sections";
 import { ProjectList, projects } from "~/components/features/project";
 import { ContactUs } from "~/components/sections";
 import { GitHubContributions } from "~/components/features";
@@ -20,16 +24,16 @@ const HomePage = () => {
   return (
     <>
       <HomeJsonLd />
-      {renderBreadcrumbSchema([
-        { name: "Home", url: "/" },
-      ])}
+      {renderBreadcrumbSchema([{ name: "Home", url: "/" }])}
       <div className="!mt-8 space-y-14">
         <AboutSection />
         <GitHubContributions />
         <Skills />
-        <ProjectList 
-          projects={projects.filter(project => project.isFeatured).slice(0, 4)} 
-          metadata 
+        <ProjectList
+          projects={projects
+            .filter((project) => project.isFeatured)
+            .slice(0, 4)}
+          metadata
           showFeatured={true}
         />
         <ProfessionalExperience />

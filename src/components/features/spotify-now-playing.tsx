@@ -21,13 +21,16 @@ const SpotifyNowPlaying = () => {
     const fetchNowPlaying = async () => {
       try {
         // Add timestamp to prevent caching
-        const response = await fetch(`/api/spotify/now-playing?t=${Date.now()}`, {
-          cache: 'no-store',
-        });
+        const response = await fetch(
+          `/api/spotify/now-playing?t=${Date.now()}`,
+          {
+            cache: "no-store",
+          },
+        );
         const result = await response.json();
         setData(result);
       } catch (error) {
-        console.error('Error fetching Spotify data:', error);
+        console.error("Error fetching Spotify data:", error);
       } finally {
         setLoading(false);
       }
@@ -73,14 +76,14 @@ const SpotifyNowPlaying = () => {
         {data.albumImageUrl && (
           <Image
             src={data.albumImageUrl}
-            alt={data.album || 'Album cover'}
+            alt={data.album || "Album cover"}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="64px"
           />
         )}
       </div>
-      
+
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-white truncate group-hover:text-ring transition-colors">
           {data.title}

@@ -7,13 +7,13 @@ const Footer = () => {
       <div className="flex w-full flex-wrap items-center justify-center gap-2 text-center sm:justify-between">
         <span>
           &copy; {new Date().getFullYear()}{" "}
-          <Link 
-            href="/about/site" 
+          <Link
+            href="/about/site"
             className="hover:text-ring transition-colors underline decoration-neutral-700 hover:decoration-ring underline-offset-2"
           >
             Developed
-          </Link>
-          {" "}by Chahat Kesharwani
+          </Link>{" "}
+          by Chahat Kesharwani
         </span>
 
         <div className="flex items-center gap-2">

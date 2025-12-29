@@ -22,10 +22,11 @@ const AdminSchema = new mongoose.Schema<IAdmin>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Prevent model recompilation in development
-const Admin = mongoose.models.Admin || mongoose.model<IAdmin>("Admin", AdminSchema);
+const Admin =
+  mongoose.models.Admin || mongoose.model<IAdmin>("Admin", AdminSchema);
 
 export default Admin;

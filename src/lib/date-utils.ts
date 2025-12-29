@@ -10,11 +10,11 @@ export function formatDate(dateString: string): string {
 
   // If in ISO format (YYYY-MM-DD), convert to readable format
   try {
-    const date = new Date(dateString + 'T00:00:00'); // Add time to avoid timezone shift
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone shift
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   } catch {
     return dateString; // Return original if parsing fails

@@ -5,7 +5,7 @@ import { BackButton } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
 import projects from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { FiGlobe} from	"react-icons/fi";
+import { FiGlobe } from "react-icons/fi";
 import { TbBrandGithub } from "react-icons/tb";
 import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
@@ -14,13 +14,9 @@ import { MotionDiv } from "~/components/shared";
 
 // Helper function to get image src
 const getImageSrc = (cover: string | StaticImageData): string => {
-  return typeof cover === 'string' ? cover : cover.src;
+  return typeof cover === "string" ? cover : cover.src;
 };
-import {
-  FRONTEND_STACKS,
-  BACKEND_DEVOPS,
-  LANGUAGES_TOOLS
-} from "~/data/stack";
+import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
 
 type Props = {
   params: Promise<{
@@ -35,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return getSEOTags({
       title: "Project Not Found",
-      description: "The requested project could not be found."
+      description: "The requested project could not be found.",
     });
   }
 
@@ -52,23 +48,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: `https://${config.domainName}${getImageSrc(project.cover)}`,
           width: 1200,
           height: 630,
-          alt: project.title
-        }
-      ]
-    }
+          alt: project.title,
+        },
+      ],
+    },
   });
 }
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
-    slug: project.slug
+    slug: project.slug,
   }));
 }
 
 const ALL_STACKS = {
   ...FRONTEND_STACKS,
   ...BACKEND_DEVOPS,
-  ...LANGUAGES_TOOLS
+  ...LANGUAGES_TOOLS,
 };
 
 export default async function ProjectPage({ params }: Props) {
@@ -79,21 +75,19 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
-  const _formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString(
-    "en-US",
-    {
+  const _formatDate = (dateStr: string) =>
+    new Date(dateStr).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
-      day: "numeric"
-    }
-  );
+      day: "numeric",
+    });
 
   return (
     <div className="space-y-8">
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "Projects", url: "/projects" },
-        { name: project.title, url: `/projects/${project.slug}` }
+        { name: project.title, url: `/projects/${project.slug}` },
       ])}
 
       <ProjectJsonLd
@@ -175,45 +169,49 @@ export default async function ProjectPage({ params }: Props) {
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
-          <p className={typo({ variant: "paragraph", size: "lg" }) + " text-justify"}>
+          <p
+            className={
+              typo({ variant: "paragraph", size: "lg" }) + " text-justify"
+            }
+          >
             {project.task}
           </p>
         </div>
       </MotionDiv>
 
       <div className="space-y-12">
-      <MotionDiv
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: 0.15 }}
-  className="space-y-5"
->
-  <div className="flex gap-8">
-    {project.deployedURL && (
-      <SmartLink
-        href={project.deployedURL}
-        className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
-      >
-        <div className="flex items-center gap-2">
-  <span className="leading-none">View Live Site</span>
-  <FiGlobe className="w-4 h-4 relative" />
-</div>
-      </SmartLink>
-    )}
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="space-y-5"
+        >
+          <div className="flex gap-8">
+            {project.deployedURL && (
+              <SmartLink
+                href={project.deployedURL}
+                className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="leading-none">View Live Site</span>
+                  <FiGlobe className="w-4 h-4 relative" />
+                </div>
+              </SmartLink>
+            )}
 
-    {project.isRepo && project.repoUrl && (
-      <SmartLink
-        href={project.repoUrl}
-        className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
-      >
-        <div className="flex items-center gap-2">
-          <span className="leading-none">View Source Code</span>
-          <TbBrandGithub className="w-4 h-4 relative" />
-        </div>
-      </SmartLink>
-    )}
-  </div>
-</MotionDiv>
+            {project.isRepo && project.repoUrl && (
+              <SmartLink
+                href={project.repoUrl}
+                className="text-ring font-bold transition-transform duration-300 hover:text-ring/80 hover:scale-[1.15]"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="leading-none">View Source Code</span>
+                  <TbBrandGithub className="w-4 h-4 relative" />
+                </div>
+              </SmartLink>
+            )}
+          </div>
+        </MotionDiv>
 
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -226,45 +224,64 @@ export default async function ProjectPage({ params }: Props) {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
-                <div className="text-sm text-neutral-400 mb-2">Started Development</div>
-                <time dateTime={project.dateStarted} className="text-2xl font-bold text-white block">
+                <div className="text-sm text-neutral-400 mb-2">
+                  Started Development
+                </div>
+                <time
+                  dateTime={project.dateStarted}
+                  className="text-2xl font-bold text-white block"
+                >
                   {new Date(project.dateStarted).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
                   })}
                 </time>
-                <div className="text-xs text-neutral-500 mt-2">First commit</div>
+                <div className="text-xs text-neutral-500 mt-2">
+                  First commit
+                </div>
               </div>
             </div>
-            
+
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative p-6 rounded-lg border border-primary/50 bg-neutral-900/50 backdrop-blur-sm">
                 <div className="text-sm text-primary/80 mb-2">Published</div>
-                <time dateTime={project.datePublished} className="text-2xl font-bold text-primary block">
+                <time
+                  dateTime={project.datePublished}
+                  className="text-2xl font-bold text-primary block"
+                >
                   {new Date(project.datePublished).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
                   })}
                 </time>
-                <div className="text-xs text-neutral-500 mt-2">Official launch</div>
+                <div className="text-xs text-neutral-500 mt-2">
+                  Official launch
+                </div>
               </div>
             </div>
-            
+
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
-                <div className="text-sm text-neutral-400 mb-2">Last Updated</div>
-                <time dateTime={project.dateModified} className="text-2xl font-bold text-white block">
+                <div className="text-sm text-neutral-400 mb-2">
+                  Last Updated
+                </div>
+                <time
+                  dateTime={project.dateModified}
+                  className="text-2xl font-bold text-white block"
+                >
                   {new Date(project.dateModified).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
                   })}
                 </time>
-                <div className="text-xs text-neutral-500 mt-2">Latest commit</div>
+                <div className="text-xs text-neutral-500 mt-2">
+                  Latest commit
+                </div>
               </div>
             </div>
           </div>
@@ -278,7 +295,11 @@ export default async function ProjectPage({ params }: Props) {
         >
           <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
           <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
-            <p className={typo({ variant: "paragraph", size: "lg" }) + " text-justify"}>
+            <p
+              className={
+                typo({ variant: "paragraph", size: "lg" }) + " text-justify"
+              }
+            >
               {project.detailedDescription}
             </p>
           </div>
@@ -302,8 +323,12 @@ export default async function ProjectPage({ params }: Props) {
                   className="flex items-center justify-between border-b border-neutral-800 pb-4 last:border-b-0 last:pb-0"
                 >
                   <div className="flex-1">
-                    <h3 className="font-ubuntu text-base text-white">{contributor.name}</h3>
-                    <p className="text-sm text-neutral-400 mt-0.5">{contributor.role}</p>
+                    <h3 className="font-ubuntu text-base text-white">
+                      {contributor.name}
+                    </h3>
+                    <p className="text-sm text-neutral-400 mt-0.5">
+                      {contributor.role}
+                    </p>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
                     {contributor.github && (
@@ -392,9 +417,11 @@ export default async function ProjectPage({ params }: Props) {
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                       <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-md px-2 z-20">
                         <span className="text-xs text-neutral-300">
-                          {new Date(relatedProject.datePublished).toLocaleDateString("en-US", {
+                          {new Date(
+                            relatedProject.datePublished,
+                          ).toLocaleDateString("en-US", {
                             year: "numeric",
-                            month: "short"
+                            month: "short",
                           })}
                         </span>
                       </div>

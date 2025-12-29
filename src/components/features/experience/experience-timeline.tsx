@@ -16,31 +16,33 @@ const calculateDuration = (startDate: string, endDate: string): string => {
     // Format: "Oct 2025" -> "Oct 01 2025"
     return new Date(`${dateStr} 01`);
   };
-  
+
   const start = parseDate(startDate);
   const end = parseDate(endDate);
-  
+
   // Check if dates are valid
   if (isNaN(start.getTime()) || isNaN(end.getTime())) {
     return "Invalid date";
   }
-  
-  const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-  
+
+  const months =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth());
+
   if (months < 1) return "< 1 month";
   if (months === 1) return "1 month";
   if (months < 12) return `${months} months`;
-  
+
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
-  
+
   if (remainingMonths === 0) return years === 1 ? "1 year" : `${years} years`;
   return `${years} ${years === 1 ? "year" : "years"} ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`;
 };
 
 const ExperienceTimeline = () => {
   return (
-    <MotionDiv 
+    <MotionDiv
       className="space-y-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -49,7 +51,7 @@ const ExperienceTimeline = () => {
       <div className="relative space-y-8">
         {/* Vertical timeline line */}
         <div className="absolute left-[15px] top-4 bottom-4 w-[2px] bg-neutral-800" />
-        
+
         {experiences.map((experience, index) => (
           <MotionDiv
             key={experience.slug}
@@ -72,7 +74,7 @@ const ExperienceTimeline = () => {
             </div>
 
             {/* Content */}
-            <Link 
+            <Link
               href={`/about/experience/${experience.slug}`}
               className="block group"
             >
@@ -83,7 +85,9 @@ const ExperienceTimeline = () => {
                     <h3 className="font-ubuntu text-lg font-medium text-white group-hover:text-ring transition-colors">
                       {experience.role}
                     </h3>
-                    <p className="text-sm text-neutral-400 mt-0.5">{experience.employer}</p>
+                    <p className="text-sm text-neutral-400 mt-0.5">
+                      {experience.employer}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-neutral-500">
                     <span>{experience.start_date}</span>
@@ -104,7 +108,12 @@ const ExperienceTimeline = () => {
                   </span>
                   <span className="inline-flex items-center gap-1.5">
                     <FaClock size={12} />
-                    <span>{calculateDuration(experience.start_date, experience.end_date)}</span>
+                    <span>
+                      {calculateDuration(
+                        experience.start_date,
+                        experience.end_date,
+                      )}
+                    </span>
                   </span>
                 </div>
               </div>

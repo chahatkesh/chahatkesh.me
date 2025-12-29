@@ -1,6 +1,14 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { Linkedin, Mail, FileText, FolderGit2, Home, ChevronRight, Calendar } from "lucide-react";
+import {
+  Linkedin,
+  Mail,
+  FileText,
+  FolderGit2,
+  Home,
+  ChevronRight,
+  Calendar,
+} from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { GiJourney } from "react-icons/gi";
 import { SiBuymeacoffee } from "react-icons/si";
@@ -45,7 +53,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
   const isPrimary = link.type === "primary";
   const isSupport = link.type === "support";
   const icon = iconMap[link.icon];
-  
+
   return (
     <MotionDiv
       initial={{ opacity: 0, y: 20 }}
@@ -58,7 +66,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
         rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}
         className={cn(
           "group block",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg"
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg",
         )}
       >
         <Card
@@ -68,7 +76,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
             link.hoverColor,
             isPrimary && "min-h-[72px] p-5",
             !isPrimary && "min-h-[64px] p-4",
-            isSupport && "border-yellow-500/30 bg-yellow-500/5"
+            isSupport && "border-yellow-500/30 bg-yellow-500/5",
           )}
         >
           <div className="flex items-center gap-4">
@@ -77,23 +85,26 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
               className={cn(
                 "flex-shrink-0 flex items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110",
                 isPrimary && "size-12 bg-primary/10",
-                !isPrimary && "size-10 bg-primary/5"
+                !isPrimary && "size-10 bg-primary/5",
               )}
             >
-              <div className={cn(
-                link.gradient && `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`
-              )}>
+              <div
+                className={cn(
+                  link.gradient &&
+                    `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
+                )}
+              >
                 {icon}
               </div>
             </div>
-            
+
             {/* Content */}
             <div className="flex-1 min-w-0">
               <h3
                 className={cn(
                   "font-semibold tracking-tight transition-colors",
                   isPrimary && "text-lg",
-                  !isPrimary && "text-base"
+                  !isPrimary && "text-base",
                 )}
               >
                 {link.title}
@@ -102,7 +113,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
                 {link.description}
               </p>
             </div>
-            
+
             {/* Arrow indicator */}
             <div className="flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
               <ChevronRight className="size-5" />
@@ -115,10 +126,10 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
 };
 
 const LinksPage = () => {
-  const primaryLinks = links.filter(link => link.type === "primary");
-  const socialLinks = links.filter(link => link.type === "social");
-  const supportLinks = links.filter(link => link.type === "support");
-  const actionLinks = links.filter(link => link.type === "action");
+  const primaryLinks = links.filter((link) => link.type === "primary");
+  const socialLinks = links.filter((link) => link.type === "social");
+  const supportLinks = links.filter((link) => link.type === "support");
+  const actionLinks = links.filter((link) => link.type === "action");
 
   return (
     <>
@@ -126,7 +137,7 @@ const LinksPage = () => {
         { name: "Home", url: "/" },
         { name: "Links", url: "/links" },
       ])}
-      
+
       <div className="max-w-2xl mx-auto px-4 py-16 md:py-20">
         {/* Hero Section */}
         <MotionDiv
@@ -147,7 +158,7 @@ const LinksPage = () => {
                 priority
               />
             </div>
-            
+
             {/* Right - Name & Tagline */}
             <div className="flex-1 min-w-0 space-y-3">
               <div>
@@ -161,7 +172,7 @@ const LinksPage = () => {
                   {config.appDescription}
                 </p>
               </div>
-              
+
               {/* Stats */}
               <LinkStats />
             </div>
@@ -188,10 +199,10 @@ const LinksPage = () => {
           </MotionDiv>
           <div className="space-y-3">
             {actionLinks.map((link, index) => (
-              <LinkCard 
-                key={link.id} 
-                link={link} 
-                index={index + primaryLinks.length} 
+              <LinkCard
+                key={link.id}
+                link={link}
+                index={index + primaryLinks.length}
               />
             ))}
           </div>
@@ -230,10 +241,10 @@ const LinksPage = () => {
           </MotionDiv>
           <div className="space-y-3">
             {socialLinks.map((link, index) => (
-              <LinkCard 
-                key={link.id} 
-                link={link} 
-                index={index + primaryLinks.length + actionLinks.length} 
+              <LinkCard
+                key={link.id}
+                link={link}
+                index={index + primaryLinks.length + actionLinks.length}
               />
             ))}
           </div>
@@ -252,10 +263,15 @@ const LinksPage = () => {
           </MotionDiv>
           <div className="space-y-3">
             {supportLinks.map((link, index) => (
-              <LinkCard 
-                key={link.id} 
-                link={link} 
-                index={index + primaryLinks.length + actionLinks.length + socialLinks.length} 
+              <LinkCard
+                key={link.id}
+                link={link}
+                index={
+                  index +
+                  primaryLinks.length +
+                  actionLinks.length +
+                  socialLinks.length
+                }
               />
             ))}
           </div>
