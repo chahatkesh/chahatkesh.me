@@ -15,17 +15,17 @@ The repository is public for:
 
 ## What You Can Do
 
-✅ **Open issues** - Bug reports, questions, and suggestions are welcome  
-✅ **Fork and learn** - Feel free to fork this repository and use it as a learning resource  
-✅ **Build your own** - Use this as inspiration for your own portfolio project  
-✅ **Share feedback** - Feedback via issues or email is appreciated
+**Open issues** - Bug reports, questions, and suggestions are welcome  
+**Fork and learn** - Feel free to fork this repository and use it as a learning resource  
+**Build your own** - Use this as inspiration for your own portfolio project  
+**Share feedback** - Feedback via issues or email is appreciated
 
 ## What This Repo Doesn't Accept
 
-❌ **Pull requests** - Will be politely closed (I prefer to implement fixes myself)  
-⚠️ **Feature requests** - May be considered but this is tailored to my personal needs  
-✅ **Bug reports** - Yes! Please report bugs via issues  
-✅ **Questions** - Technical questions about implementation are welcome
+**Pull requests** - Will be politely closed (I prefer to implement fixes myself)  
+**Feature requests** - May be considered but this is tailored to my personal needs  
+**Bug reports** - Yes! Please report bugs via issues  
+**Questions** - Technical questions about implementation are welcome
 
 ## How to Report Issues
 
@@ -50,4 +50,4 @@ For any questions about the implementation or technical choices, feel free to re
 
 ---
 
-Thank you for understanding! 🙏
+Thank you for understanding!

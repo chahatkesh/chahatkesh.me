@@ -1,4 +1,4 @@
-## Thank you for your interest! 🙏
+## Thank you for your interest!
 
 This is a personal portfolio project and **pull requests are not accepted**.
 
