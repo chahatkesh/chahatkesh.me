@@ -159,16 +159,16 @@ This is a personal portfolio project and is **not open for direct code contribut
 
 Feel free to:
 
-- ✅ View and learn from the code
-- ✅ Fork for your own personal use (respecting the MIT License)
-- ✅ Use as reference for your own projects
-- ✅ **Open issues** for bugs, questions, or suggestions
+- View and learn from the code
+- Fork for your own personal use (respecting the MIT License)
+- Use as reference for your own projects
+- **Open issues** for bugs, questions, or suggestions
 
 Please note:
 
-- ❌ Pull requests will not be accepted
-- ✅ Issues are welcome - I'll review and fix them myself
-- ❌ Feature requests may be closed if not aligned with my vision
+- Pull requests will not be accepted
+- Issues are welcome - I'll review and fix them myself
+- Feature requests may be closed if not aligned with my vision
 
 If you find a bug or have a suggestion, feel free to open an issue and I'll address it!
 
