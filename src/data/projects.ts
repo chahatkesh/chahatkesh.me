@@ -27,7 +27,7 @@ export interface Project {
   task: string;
   features: string[];
   stacks: string[];
-  cover: StaticImageData;
+  cover: StaticImageData | string;
   isRepo: boolean;
   repoUrl?: string;
   deployedURL?: string;
