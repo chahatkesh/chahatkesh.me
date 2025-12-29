@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 
 type ExperienceCarouselProps = {
-  images: string[];
+  images: (string | StaticImageData)[];
   experienceName: string;
 };
 

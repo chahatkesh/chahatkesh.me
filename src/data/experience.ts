@@ -16,13 +16,13 @@ export type Experience = {
   end_date: string;
   tagline: string; // Brief one-liner for card
   description: string; // Full description for detail page
-  logo: StaticImageData;
+  logo: StaticImageData | string;
   about?: string; // About the organization
   contributions?: string[]; // Key contributions/responsibilities
   techStack?: string[]; // Technologies used
   achievements?: string[]; // Measurable achievements
   links?: { title: string; url: string; icon?: string }[];
-  gallery?: string[]; // Image URLs
+  gallery?: (string | StaticImageData)[]; // Image URLs or StaticImageData
 };
 
 export const experiences: Experience[] = [

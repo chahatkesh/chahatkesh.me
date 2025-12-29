@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
@@ -10,6 +10,11 @@ import config from "~/config";
 import { Project } from "~/data/projects";
 import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
 import { MotionDiv } from "~/components/shared";
+
+// Helper function to get image src
+const getImageSrc = (cover: string | StaticImageData): string => {
+  return typeof cover === 'string' ? cover : cover.src;
+};
 
 type FeaturedProjectItemProps = {
   metadata?: boolean;
@@ -45,7 +50,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
           datePublished={datePublished}
           dateStarted={dateStarted}
           dateModified={dateModified}
-          image={`https://${config.domainName}${cover.src}`}
+          image={`https://${config.domainName}${getImageSrc(cover)}`}
           tags={stacks}
         />
       )}
