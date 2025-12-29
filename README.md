@@ -153,9 +153,30 @@ Edit `src/config.ts` to customize site metadata:
 - Mobile browsers (iOS Safari, Chrome Mobile)
 - Progressive enhancement approach
 
+## Contributing
+
+This is a personal portfolio project and is **not open for direct code contributions**. However, the repository is public for educational purposes and transparency.
+
+Feel free to:
+
+- ✅ View and learn from the code
+- ✅ Fork for your own personal use (respecting the MIT License)
+- ✅ Use as reference for your own projects
+- ✅ **Open issues** for bugs, questions, or suggestions
+
+Please note:
+
+- ❌ Pull requests will not be accepted
+- ✅ Issues are welcome - I'll review and fix them myself
+- ❌ Feature requests may be closed if not aligned with my vision
+
+If you find a bug or have a suggestion, feel free to open an issue and I'll address it!
+
 ## License
 
 MIT License - See LICENSE file for details
+
+**Note:** While this project is licensed under MIT (allowing you to fork and modify for personal use), this repository itself does not accept external contributions.
 
 ## Author
 
