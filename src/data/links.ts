@@ -7,7 +7,7 @@ export interface LinkItem {
   href: string;
   icon: string; // Icon identifier
   iconSize?: "sm" | "md"; // Optional size
-  type: "primary" | "social" | "support";
+  type: "primary" | "social" | "support" | "action";
   gradient?: string;
   hoverColor?: string;
 }
@@ -129,5 +129,17 @@ export const links: LinkItem[] = [
     iconSize: "sm",
     type: "support",
     hoverColor: "hover:border-yellow-500/50 hover:bg-yellow-500/5",
+  },
+  
+  // Action Links
+  {
+    id: 12,
+    title: "Book a Call",
+    description: "Schedule a 1:1 meeting with me",
+    href: "https://cal.com/chahatkesh/",
+    icon: "Calendar",
+    iconSize: "md",
+    type: "action",
+    hoverColor: "hover:border-indigo-500/50 hover:bg-indigo-500/5",
   },
 ];

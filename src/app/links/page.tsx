@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { Linkedin, Mail, FileText, FolderGit2, Home, ChevronRight } from "lucide-react";
+import { Linkedin, Mail, FileText, FolderGit2, Home, ChevronRight, Calendar } from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { GiJourney } from "react-icons/gi";
 import { SiBuymeacoffee } from "react-icons/si";
@@ -37,6 +37,7 @@ const iconMap: Record<string, React.ReactNode> = {
   Mail: <Mail className="size-5" />,
   SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
   Journey: <GiJourney className="size-6" />,
+  Calendar: <Calendar className="size-6" />,
 };
 
 // LinkCard Component - Mobile-optimized with large touch targets
@@ -117,6 +118,7 @@ const LinksPage = () => {
   const primaryLinks = links.filter(link => link.type === "primary");
   const socialLinks = links.filter(link => link.type === "social");
   const supportLinks = links.filter(link => link.type === "support");
+  const actionLinks = links.filter(link => link.type === "action");
 
   return (
     <>
@@ -173,7 +175,7 @@ const LinksPage = () => {
           ))}
         </div>
 
-        {/* Social Links */}
+        {/* Let's Connect - Book a Call */}
         <div className="mb-6">
           <MotionDiv
             initial={{ opacity: 0 }}
@@ -181,18 +183,22 @@ const LinksPage = () => {
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-              Social
+              Let&apos;s Connect
             </h2>
           </MotionDiv>
           <div className="space-y-3">
-            {socialLinks.map((link, index) => (
-              <LinkCard key={link.id} link={link} index={index + primaryLinks.length} />
+            {actionLinks.map((link, index) => (
+              <LinkCard 
+                key={link.id} 
+                link={link} 
+                index={index + primaryLinks.length} 
+              />
             ))}
           </div>
         </div>
 
-        {/* Gallery Carousel */}
-        <div className="mb-8">
+        {/* Gallery Carousel - Moments */}
+        <div className="mb-6">
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -205,10 +211,32 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.35 }}
           >
             <LinksFeaturedGallery />
           </MotionDiv>
+        </div>
+
+        {/* Social Links */}
+        <div className="mb-6">
+          <MotionDiv
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
+            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+              Social
+            </h2>
+          </MotionDiv>
+          <div className="space-y-3">
+            {socialLinks.map((link, index) => (
+              <LinkCard 
+                key={link.id} 
+                link={link} 
+                index={index + primaryLinks.length + actionLinks.length} 
+              />
+            ))}
+          </div>
         </div>
 
         {/* Support */}
@@ -216,7 +244,7 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.45 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Support
@@ -227,7 +255,7 @@ const LinksPage = () => {
               <LinkCard 
                 key={link.id} 
                 link={link} 
-                index={index + primaryLinks.length + socialLinks.length} 
+                index={index + primaryLinks.length + actionLinks.length + socialLinks.length} 
               />
             ))}
           </div>
