@@ -30,8 +30,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "npx eslint src",
-    "upgrade:latest": "npm upgrade-interactive --latest",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,json,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,css}\"",
+    "validate": "pnpm lint && pnpm type-check && pnpm format:check",
+    "prepare": "husky",
+    "upgrade:latest": "npm upgrade-interactive --latest",
     "update-project-dates": "node scripts/update-project-dates.mjs",
     "create-admin": "tsx scripts/create-admin.ts"
   },
@@ -91,6 +95,8 @@
     "eslint-config-next": "16.1.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "postcss": "^8.5.6",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -100,5 +106,14 @@
   },
   "resolutions": {
     "esbuild": "0.24.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css}": [
+      "prettier --write"
+    ]
   }
 }
