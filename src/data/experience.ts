@@ -63,6 +63,8 @@ export const experiences: Experience[] = [
       "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img1.png",
       "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img2.png",
       "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img3.png",
+      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img4.png",
+      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img5.png",
     ],
   },
   {
