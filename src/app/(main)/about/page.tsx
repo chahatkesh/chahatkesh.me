@@ -17,7 +17,7 @@ import {
   FaMobileAlt,
   FaPenFancy,
 } from "react-icons/fa";
-import { SiOpenai } from "react-icons/si";
+import { ChevronRight } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -40,11 +40,10 @@ export const metadata: Metadata = getSEOTags({
 // My current projects/work
 const currentProjects = [
   {
-    title: "Agricultural AI Chat System",
+    title: "Ninja: Stop Dialing. Stop Chasing. Let AI Book Meetings for You.",
     description:
-      "A sophisticated three-level AI chat system designed for agricultural knowledge management, featuring intelligent query classification, cache management, and AI-generated responses.",
-    url: "https://github.com/chahatkesh",
-    icon: <SiOpenai className="text-teal-500" />,
+      "Transform real estate agents into high performers with AI co-pilots. Autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management. Integrates WhatsApp Business, Vonage voice, Cal.com scheduling.",
+    url: "https://staging.silentninja.tech/",
   },
 ];
 
@@ -226,14 +225,9 @@ const AboutPage = () => {
                           className="block"
                         >
                           <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20">
-                            <div className="mb-3 flex items-center gap-3">
-                              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800/50">
-                                {project.icon}
-                              </div>
-                              <h3 className="font-ubuntu text-base font-medium text-white">
-                                {project.title}
-                              </h3>
-                            </div>
+                            <h3 className="font-ubuntu text-base font-medium text-white mb-3">
+                              {project.title}
+                            </h3>
                             <p className="text-sm text-neutral-400">
                               {project.description}
                             </p>
@@ -241,11 +235,60 @@ const AboutPage = () => {
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Click to view project</p>
+                        <p>Click to view</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 ))}
+              </div>
+            </section>
+
+            {/* Let's Connect Section */}
+            <section className="mt-10 space-y-6" aria-label="Let's Connect">
+              <h2 className={typo({ variant: "h2" })}>Let's Connect</h2>
+              <div className="mt-4 grid gap-6 sm:grid-cols-2">
+                {/* Book a Call CTA */}
+                <Link
+                  href="https://cal.com/chahatkesh/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+                >
+                  <div className="h-full rounded-lg border-2 border-ring/30 bg-ring/5 p-6 transition-all duration-300 hover:border-ring/50 hover:bg-ring/10">
+                    <div className="mb-3 flex items-center gap-3">
+                      <h3 className="font-ubuntu text-base font-medium text-white">
+                        Book a Call
+                      </h3>
+                    </div>
+                    <p className="text-sm text-neutral-400 mb-3">
+                      Schedule a 30-minute 1:1 meeting to discuss your project,
+                      ideas, or just chat about tech.
+                    </p>
+                    <div className="flex items-center gap-2 text-ring text-sm font-medium">
+                      <span>Schedule Now</span>
+                      <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
+
+                {/* All Links CTA */}
+                <Link href="/links" className="group block">
+                  <div className="h-full rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:bg-neutral-800/50 hover:shadow-lg hover:shadow-neutral-900/20">
+                    <div className="mb-3 flex items-center gap-3">
+                      <h3 className="font-ubuntu text-base font-medium text-white">
+                        All My Links
+                      </h3>
+                    </div>
+                    <p className="text-sm text-neutral-400 mb-3">
+                      Find all my social profiles, projects, and ways to connect
+                      with me in one place.
+                    </p>
+                    <div className="flex items-center gap-2 text-ring text-sm font-medium">
+                      <span>View Links</span>
+                      <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
               </div>
             </section>
 
@@ -259,7 +302,7 @@ const AboutPage = () => {
                     className="group rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20"
                   >
                     <div className="mb-3 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800/50 transition-transform duration-300 group-hover:scale-110">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800/50 transition-transform duration-300 group-hover:rotate-6">
                         {hobby.icon}
                       </div>
                       <h3 className="font-ubuntu text-base font-medium text-white">

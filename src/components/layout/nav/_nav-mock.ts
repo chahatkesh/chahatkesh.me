@@ -18,6 +18,11 @@ export const navData = [
   },
   {
     id: createId(),
+    label: "Links",
+    path: "/links",
+  },
+  {
+    id: createId(),
     label: "About",
     path: "/about",
   },
