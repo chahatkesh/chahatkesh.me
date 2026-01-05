@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
@@ -24,7 +24,12 @@ export default function GalleryPage() {
         { name: "Home", url: "/" },
         { name: "Gallery", url: "/gallery" },
       ])}
-      <BackButton>Back</BackButton>
+      <Breadcrumb
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Gallery", url: "/gallery" },
+        ]}
+      />
       <MotionDiv
         className="space-y-1"
         initial={{ opacity: 0, y: 20 }}

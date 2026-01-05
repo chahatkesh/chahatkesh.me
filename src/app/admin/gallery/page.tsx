@@ -23,10 +23,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "~/components/ui/sheet";
-import { MotionDiv } from "~/components/shared";
+import { MotionDiv, Breadcrumb } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
-import { BackButton } from "~/components/shared";
 import { ProtectedRoute } from "~/components/admin/protected-route";
 import { formatDate } from "~/lib/date-utils";
 
@@ -212,7 +211,12 @@ function AdminGalleryContent() {
   if (isLoading) {
     return (
       <div className="space-y-8">
-        <BackButton>Back</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Admin", url: "/admin" },
+            { name: "Gallery", url: "/admin/gallery" },
+          ]}
+        />
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-800 dark:border-neutral-200"></div>
         </div>
@@ -223,7 +227,12 @@ function AdminGalleryContent() {
   if (error) {
     return (
       <div className="space-y-8">
-        <BackButton>Back</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Admin", url: "/admin" },
+            { name: "Gallery", url: "/admin/gallery" },
+          ]}
+        />
         <div className="flex items-center justify-center min-h-[400px]">
           <p className="text-red-600 dark:text-red-400">
             Error loading gallery. Please try again.
@@ -235,7 +244,12 @@ function AdminGalleryContent() {
 
   return (
     <div className="space-y-8">
-      <BackButton>Back</BackButton>
+      <Breadcrumb
+        items={[
+          { name: "Admin", url: "/admin" },
+          { name: "Gallery", url: "/admin/gallery" },
+        ]}
+      />
 
       {/* Page Header */}
       <MotionDiv

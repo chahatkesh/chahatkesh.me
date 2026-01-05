@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { MotionDiv } from "~/components/shared";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { TimelineComponent } from "~/components/shared";
 import config from "~/config";
 import { cn } from "~/lib/utils";
@@ -27,7 +27,13 @@ const JourneyPage = () => {
       ])}
 
       <div className="space-y-8">
-        <BackButton href="/about">Back to About</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Home", url: "/" },
+            { name: "About Me", url: "/about" },
+            { name: "Journey", url: "/about/journey" },
+          ]}
+        />
         <MotionDiv
           className="space-y-1"
           initial={{ opacity: 0, y: 20 }}
