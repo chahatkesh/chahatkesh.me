@@ -21,7 +21,10 @@ const NavItem: React.FC<
   // or on an about sub-page when the path is /about
   const isProjectDetailPage =
     path === "/projects" && pathname.startsWith("/projects/");
-  const isAboutSubPage = path === "/about" && pathname.startsWith("/about/");
+  const isAboutSubPage =
+    path === "/about" &&
+    pathname.startsWith("/about/") &&
+    !pathname.startsWith("/about/journey");
   const isActive = pathname === path || isProjectDetailPage || isAboutSubPage;
 
   return (
