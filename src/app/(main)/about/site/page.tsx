@@ -245,7 +245,7 @@ const SitePage = async () => {
           {/* Color Palette */}
           <section className="space-y-4">
             <h2 className={cn(typo({ variant: "h2" }))}>Color Palette</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               {[
                 {
                   name: "Background",
@@ -357,7 +357,7 @@ const SitePage = async () => {
           {/* Responsive Design */}
           <section className="space-y-4">
             <h2 className={cn(typo({ variant: "h2" }))}>Responsive Design</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               {[
                 {
                   name: "Mobile",
@@ -396,20 +396,11 @@ const SitePage = async () => {
                   whileHover={{ scale: 1.05, y: -4 }}
                   className="border border-neutral-800 rounded-lg p-4 space-y-2 hover:border-neutral-700 transition-all cursor-pointer"
                 >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={cn(
-                        device.width,
-                        device.height,
-                        "border-2 border-neutral-600 rounded hover:border-ring transition-colors",
-                      )}
-                    />
-                    <div>
-                      <p className="text-sm font-medium text-neutral-300">
-                        {device.name}
-                      </p>
-                      <p className="text-xs text-neutral-500">{device.size}</p>
-                    </div>
+                  <div>
+                    <p className="text-sm font-medium text-neutral-300">
+                      {device.name}
+                    </p>
+                    <p className="text-xs text-neutral-500">{device.size}</p>
                   </div>
                   <p className="text-xs text-neutral-600">
                     {device.breakpoint} breakpoint
@@ -574,7 +565,7 @@ const SitePage = async () => {
                   Version v4.0
                 </h3>
                 <p className="text-xs text-neutral-500 mt-1">
-                  Last updated: December 2025
+                  Last updated: {latestCommits[0]?.date || "recently"}
                 </p>
               </MotionDiv>
 
