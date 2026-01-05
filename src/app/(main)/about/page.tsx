@@ -5,7 +5,7 @@ import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { ProfessionalExperience } from "~/components/sections";
 import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
 import {
@@ -100,7 +100,12 @@ const AboutPage = () => {
         { name: "About Me", url: "/about" },
       ])}
       <div className="space-y-12">
-        <BackButton>Back</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Home", url: "/" },
+            { name: "About Me", url: "/about" },
+          ]}
+        />
         <section className="space-y-4">
           {/* Hero Section */}
           <div className="!mt-8 space-y-14">

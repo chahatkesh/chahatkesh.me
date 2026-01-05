@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { MotionDiv } from "~/components/shared";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { ExperienceTimeline } from "~/components/features/experience";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
@@ -28,7 +28,13 @@ const ExperiencePage = () => {
 
       <MotionDiv>
         <div className="space-y-8">
-          <BackButton href="/about">Back to About</BackButton>
+          <Breadcrumb
+            items={[
+              { name: "Home", url: "/" },
+              { name: "About", url: "/about" },
+              { name: "Experience", url: "/about/experience" },
+            ]}
+          />
 
           <MotionDiv
             className="space-y-1"

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MotionDiv } from "~/components/shared";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import {
@@ -38,7 +38,14 @@ const BtechCoursesClient = () => {
   return (
     <MotionDiv>
       <div className="space-y-8">
-        <BackButton href="/about/journey">Back to Journey</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Home", url: "/" },
+            { name: "About Me", url: "/about" },
+            { name: "Journey", url: "/about/journey" },
+            { name: "BTech Courses", url: "/about/journey/btech" },
+          ]}
+        />
 
         {/* Header */}
         <MotionDiv

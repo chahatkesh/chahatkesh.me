@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image, { StaticImageData } from "next/image";
 import { notFound } from "next/navigation";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
 import projects from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -101,7 +101,13 @@ export default async function ProjectPage({ params }: Props) {
         tags={project.stacks}
       />
 
-      <BackButton href="/projects">Back to Projects</BackButton>
+      <Breadcrumb
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Projects", url: "/projects" },
+          { name: project.title, url: `/projects/${project.slug}` },
+        ]}
+      />
 
       <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
         <Image
