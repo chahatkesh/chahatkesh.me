@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { ProjectList, projects } from "~/components/features/project";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import config from "~/config";
@@ -55,7 +55,12 @@ const ProjectsPage = async ({
         { name: "Home", url: "/" },
         { name: "Projects", url: "/projects" },
       ])}
-      <BackButton>Back</BackButton>
+      <Breadcrumb
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Projects", url: "/projects" },
+        ]}
+      />
       <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row sm:items-center mt-4">
         <h1 className={cn(typo({ variant: "h2" }))}>All Projects</h1>
       </div>

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { MotionDiv } from "~/components/shared";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import Link from "next/link";
@@ -11,7 +11,6 @@ import {
   SiReact,
   SiTypescript,
   SiTailwindcss,
-  SiFramer,
   SiMongodb,
   SiVercel,
 } from "react-icons/si";
@@ -55,12 +54,6 @@ const SitePage = async () => {
       version: "3.4.1",
       icon: SiTailwindcss,
       color: "text-cyan-300",
-    },
-    {
-      name: "Framer Motion",
-      version: "12.23.26",
-      icon: SiFramer,
-      color: "text-purple-400",
     },
     {
       name: "MongoDB",
@@ -147,7 +140,13 @@ const SitePage = async () => {
 
       <MotionDiv>
         <div className="space-y-8">
-          <BackButton href="/about">Back to About</BackButton>
+          <Breadcrumb
+            items={[
+              { name: "Home", url: "/" },
+              { name: "About", url: "/about" },
+              { name: "About This Site", url: "/about/site" },
+            ]}
+          />
 
           <MotionDiv
             className="space-y-2"

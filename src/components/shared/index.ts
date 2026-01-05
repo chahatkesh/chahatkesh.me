@@ -1,5 +1,6 @@
 // Shared Components
-export { default as BackButton } from "./back-btn";
+export { default as Breadcrumb } from "./breadcrumb";
+export type { BreadcrumbItem } from "./breadcrumb";
 export { default as SearchInput } from "./search-input";
 export { default as ScrollProgress } from "./scroll-progress";
 export { default as Socials } from "./socials";

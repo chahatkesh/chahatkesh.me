@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MotionDiv } from "~/components/shared";
-import { BackButton } from "~/components/shared";
+import { Breadcrumb } from "~/components/shared";
 import { ExperienceCarousel } from "~/components/features/experience";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
@@ -20,7 +20,17 @@ const ExperienceDetailClient = ({
   return (
     <MotionDiv>
       <div className="space-y-8">
-        <BackButton href="/about/experience">Back to Experience</BackButton>
+        <Breadcrumb
+          items={[
+            { name: "Home", url: "/" },
+            { name: "About", url: "/about" },
+            { name: "Experience", url: "/about/experience" },
+            {
+              name: experience.role,
+              url: `/about/experience/${experience.slug}`,
+            },
+          ]}
+        />
 
         {/* Hero Section */}
         <MotionDiv
