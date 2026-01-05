@@ -39,6 +39,16 @@ export const timelineEvents: TimelineEvent[] = [
   // },
   {
     id: createId(),
+    startDate: "2025-12-14",
+    endDate: "present",
+    title: "Founding Engineer at Zenbase",
+    description:
+      "Joined Zenbase as a Founding Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",
+    category: "work",
+    location: "Remote (Singapore)",
+  },
+  {
+    id: createId(),
     startDate: "2025-04-10",
     endDate: "2025-04-12",
     title: "Volunteer at Hackmol 6.0",
