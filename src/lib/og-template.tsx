@@ -45,8 +45,9 @@ export function generateOGImageResponse({
         <div
           style={{
             display: "flex",
-            backgroundColor: accentColor,
-            color: "#000",
+            alignSelf: "flex-end",
+            backgroundColor: "transparent",
+            color: accentColor,
             padding: "8px 20px",
             borderRadius: "6px",
             fontSize: 18,
@@ -55,7 +56,7 @@ export function generateOGImageResponse({
             letterSpacing: "1px",
           }}
         >
-          {badge}
+          {badge.toUpperCase()}
         </div>
       )}
 
