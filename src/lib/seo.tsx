@@ -69,14 +69,9 @@ export const getSEOTags = ({
       siteName: config.seo.siteName,
       locale: config.seo.locale,
       type: "website",
-      images: [
-        {
-          url: `https://${config.domainName}/opengraph-image`,
-          width: 1200,
-          height: 630,
-          alt: `${config.appName} - ${config.appDesignation}`,
-        },
-      ],
+      // Images are automatically handled by opengraph-image.tsx in each route
+      // Only include images if explicitly passed in openGraph config
+      ...(openGraph?.images && { images: openGraph.images }),
     },
 
     twitter: {
@@ -85,7 +80,9 @@ export const getSEOTags = ({
       card: "summary_large_image",
       site: "@chahatkesh",
       creator: "@chahatkesh",
-      images: [`https://${config.domainName}/twitter-image`],
+      // Twitter images are automatically handled by twitter-image.tsx or opengraph-image.tsx
+      // Only include if explicitly passed
+      ...(openGraph?.images && { images: openGraph.images }),
     },
 
     // Additional meta tags for better social media support and SEO
