@@ -7,7 +7,7 @@ export interface LinkItem {
   href: string;
   icon: string; // Icon identifier
   iconSize?: "sm" | "md"; // Optional size
-  type: "primary" | "social" | "support" | "action";
+  type: "primary" | "social" | "support" | "action" | "current";
   gradient?: string;
   hoverColor?: string;
 }
@@ -22,7 +22,7 @@ export const links: LinkItem[] = [
     icon: "FileText",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-emerald-500/50 hover:bg-emerald-500/5",
+    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ export const links: LinkItem[] = [
     icon: "FolderGit2",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-blue-500/50 hover:bg-blue-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ export const links: LinkItem[] = [
     icon: "Home",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-purple-500/50 hover:bg-purple-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 4,
@@ -52,7 +52,7 @@ export const links: LinkItem[] = [
     icon: "Journey",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-cyan-500/50 hover:bg-cyan-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ export const links: LinkItem[] = [
     icon: "FaGithub",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-gray-400/50 hover:bg-gray-400/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 6,
@@ -72,7 +72,7 @@ export const links: LinkItem[] = [
     icon: "Linkedin",
     iconSize: "md",
     type: "primary",
-    hoverColor: "hover:border-blue-500/50 hover:bg-blue-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
 
   // Social Links
@@ -84,7 +84,7 @@ export const links: LinkItem[] = [
     icon: "FaInstagram",
     iconSize: "sm",
     type: "social",
-    hoverColor: "hover:border-pink-500/50 hover:bg-pink-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 8,
@@ -94,7 +94,7 @@ export const links: LinkItem[] = [
     icon: "FaXTwitter",
     iconSize: "sm",
     type: "social",
-    hoverColor: "hover:border-sky-500/50 hover:bg-sky-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
   {
     id: 9,
@@ -104,7 +104,7 @@ export const links: LinkItem[] = [
     icon: "FaYoutube",
     iconSize: "sm",
     type: "social",
-    hoverColor: "hover:border-red-500/50 hover:bg-red-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
 
   // Contact
@@ -116,7 +116,7 @@ export const links: LinkItem[] = [
     icon: "Mail",
     iconSize: "sm",
     type: "social",
-    hoverColor: "hover:border-emerald-500/50 hover:bg-emerald-500/5",
+    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
   },
 
   // Support
@@ -140,6 +140,6 @@ export const links: LinkItem[] = [
     icon: "Calendar",
     iconSize: "md",
     type: "action",
-    hoverColor: "hover:border-indigo-500/50 hover:bg-indigo-500/5",
+    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
   },
 ];
