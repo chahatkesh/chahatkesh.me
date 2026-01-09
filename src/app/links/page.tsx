@@ -8,6 +8,7 @@ import {
   Home,
   ChevronRight,
   Calendar,
+  Briefcase,
 } from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { GiJourney } from "react-icons/gi";
@@ -21,6 +22,7 @@ import { Card } from "~/components/ui";
 import { LinkStats } from "~/components/features";
 import { links, LinkItem } from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
+import { experiences } from "~/data/experience";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
@@ -46,6 +48,7 @@ const iconMap: Record<string, React.ReactNode> = {
   SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
   Journey: <GiJourney className="size-6" />,
   Calendar: <Calendar className="size-6" />,
+  Briefcase: <Briefcase className="size-6" />,
 };
 
 // LinkCard Component - Mobile-optimized with large touch targets
@@ -71,12 +74,13 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
       >
         <Card
           className={cn(
-            "transition-all duration-300 border-2",
+            "transition-all duration-300 border border-neutral-800 hover:border-neutral-700",
             "active:scale-[0.98]",
             link.hoverColor,
             isPrimary && "min-h-[72px] p-5",
             !isPrimary && "min-h-[64px] p-4",
-            isSupport && "border-yellow-500/30 bg-yellow-500/5",
+            isSupport &&
+              "border-yellow-500/30 bg-yellow-500/5 hover:border-yellow-500/50",
           )}
         >
           <div className="flex items-center gap-4">
@@ -130,6 +134,22 @@ const LinksPage = () => {
   const socialLinks = links.filter((link) => link.type === "social");
   const supportLinks = links.filter((link) => link.type === "support");
   const actionLinks = links.filter((link) => link.type === "action");
+
+  // Dynamically create current work links from experiences with end_date as "present"
+  const currentExperiences = experiences.filter(
+    (exp) => exp.end_date.toLowerCase() === "present",
+  );
+
+  const currentLinks: LinkItem[] = currentExperiences.map((exp, index) => ({
+    id: 1000 + index, // Use high IDs to avoid conflicts
+    title: exp.role,
+    description: `${exp.employer} • ${exp.type}`,
+    href: `/about/experience/${exp.slug}`,
+    icon: "Briefcase",
+    iconSize: "md" as const,
+    type: "current" as const,
+    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
+  }));
 
   return (
     <>
@@ -191,7 +211,7 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.15 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Let&apos;s Connect
@@ -213,7 +233,7 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Moments
@@ -222,18 +242,42 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
           >
             <LinksFeaturedGallery />
           </MotionDiv>
         </div>
+
+        {/* Current Work */}
+        {currentLinks.length > 0 && (
+          <div className="mb-6">
+            <MotionDiv
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+            >
+              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+                Current Work
+              </h2>
+            </MotionDiv>
+            <div className="space-y-3">
+              {currentLinks.map((link, index) => (
+                <LinkCard
+                  key={link.id}
+                  link={link}
+                  index={index + primaryLinks.length + actionLinks.length}
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Social Links */}
         <div className="mb-6">
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.35 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Social
@@ -244,7 +288,12 @@ const LinksPage = () => {
               <LinkCard
                 key={link.id}
                 link={link}
-                index={index + primaryLinks.length + actionLinks.length}
+                index={
+                  index +
+                  primaryLinks.length +
+                  actionLinks.length +
+                  currentLinks.length
+                }
               />
             ))}
           </div>
@@ -255,7 +304,7 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.45 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Support
@@ -270,6 +319,7 @@ const LinksPage = () => {
                   index +
                   primaryLinks.length +
                   actionLinks.length +
+                  currentLinks.length +
                   socialLinks.length
                 }
               />
