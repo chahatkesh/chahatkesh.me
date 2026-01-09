@@ -47,15 +47,21 @@ const ExperienceDetailClient = ({
                 alt={`${experience.employer} logo`}
                 fill
                 sizes="80px"
-                className="object-contain p-3"
+                className="object-contain p-2"
                 priority
               />
             </div>
 
             <div className="flex-1 space-y-2">
-              <h1 className={cn(typo({ variant: "h2" }))}>{experience.role}</h1>
-              <p className="text-lg text-neutral-300">{experience.employer}</p>
-              <div className="flex items-center gap-2 text-sm text-neutral-400">
+              <div>
+                <h1 className={cn(typo({ variant: "h2" }))}>
+                  {experience.role}
+                </h1>
+                <p className="text-md text-neutral-400">
+                  {experience.employer}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-neutral-500">
                 <span>
                   {experience.start_date} - {experience.end_date}
                 </span>
@@ -129,7 +135,7 @@ const ExperienceDetailClient = ({
                     className="flex items-start gap-3 text-sm text-neutral-300"
                   >
                     <span className="text-ring mt-0.5">•</span>
-                    <span>{contribution}</span>
+                    <span className="text-justify">{contribution}</span>
                   </li>
                 ))}
               </ul>
@@ -168,7 +174,7 @@ const ExperienceDetailClient = ({
                     className="flex items-start gap-3 text-sm text-neutral-300"
                   >
                     <span className="text-ring mt-0.5">✓</span>
-                    <span>{achievement}</span>
+                    <span className="text-justify">{achievement}</span>
                   </li>
                 ))}
               </ul>

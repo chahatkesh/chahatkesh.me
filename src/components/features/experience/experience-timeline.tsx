@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { experiences } from "~/data/experience";
 import { MotionDiv } from "~/components/shared";
-import { FaMapMarkerAlt, FaBriefcase, FaClock } from "react-icons/fa";
 
 // Helper function to calculate duration
 const calculateDuration = (startDate: string, endDate: string): string => {
@@ -129,23 +128,16 @@ const ExperienceTimeline = () => {
                 </div>
 
                 {/* Details */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-neutral-400">
-                  <span className="inline-flex items-center gap-1.5">
-                    <FaBriefcase size={12} />
-                    <span>{experience.type}</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <FaMapMarkerAlt size={12} />
-                    <span>{experience.location}</span>
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <FaClock size={12} />
-                    <span>
-                      {calculateDuration(
-                        experience.start_date,
-                        experience.end_date,
-                      )}
-                    </span>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-neutral-400">
+                  <span>{experience.type}</span>
+                  <span>•</span>
+                  <span>{experience.location}</span>
+                  <span>•</span>
+                  <span>
+                    {calculateDuration(
+                      experience.start_date,
+                      experience.end_date,
+                    )}
                   </span>
                 </div>
               </div>
