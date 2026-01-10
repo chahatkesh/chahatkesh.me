@@ -43,7 +43,7 @@ const currentProjects = [
     title: "Ninja: Stop Dialing. Stop Chasing. Let AI Book Meetings for You.",
     description:
       "Transform real estate agents into high performers with AI co-pilots. Autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management. Integrates WhatsApp Business, Vonage voice, Cal.com scheduling.",
-    url: "https://staging.silentninja.tech/",
+    url: "https://silentninja.tech/",
   },
 ];
 
