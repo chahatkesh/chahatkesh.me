@@ -74,7 +74,7 @@ export const experiences: Experience[] = [
     links: [
       {
         title: "Product Overview",
-        url: "https://staging.silentninja.tech/",
+        url: "https://silentninja.tech/",
         icon: "website",
       },
     ],
