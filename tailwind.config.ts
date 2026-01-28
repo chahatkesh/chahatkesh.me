@@ -113,10 +113,26 @@ const shadcnPlugin = plugin(
             from: { height: "var(--radix-accordion-content-height)" },
             to: { height: "0" },
           },
+          "fade-in": {
+            from: { opacity: "0" },
+            to: { opacity: "1" },
+          },
+          "fade-up": {
+            from: { opacity: "0", transform: "translateY(20px)" },
+            to: { opacity: "1", transform: "translateY(0)" },
+          },
         },
         animation: {
           "accordion-down": "accordion-down 0.2s ease-out",
           "accordion-up": "accordion-up 0.2s ease-out",
+          "fade-in": "fade-in 0.5s ease-out",
+          "fade-up": "fade-up 0.6s ease-out",
+        },
+        transitionTimingFunction: {
+          smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
+          "smooth-in": "cubic-bezier(0.4, 0, 1, 1)",
+          "smooth-out": "cubic-bezier(0, 0, 0.2, 1)",
+          "smooth-in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
         },
       },
     },

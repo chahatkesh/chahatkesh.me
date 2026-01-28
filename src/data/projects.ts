@@ -92,7 +92,7 @@ const projects: Project[] = [
     deployedURL: "https://chahatkesh.me",
     datePublished: "2025-04-21",
     dateStarted: "2025-03-27",
-    dateModified: "2025-12-29",
+    dateModified: "2026-01-10",
     isFeatured: false,
   },
   {
@@ -155,7 +155,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/swasya-ai",
     datePublished: "2025-11-09",
     dateStarted: "2025-11-08",
-    dateModified: "2025-11-17",
+    dateModified: "2026-01-17",
     isFeatured: false,
     contributors: [
       {
@@ -288,7 +288,7 @@ const projects: Project[] = [
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
     dateStarted: "2025-06-09",
-    dateModified: "2025-11-28",
+    dateModified: "2026-01-07",
     isFeatured: true,
     contributors: [
       {
@@ -409,7 +409,7 @@ const projects: Project[] = [
     deployedURL: "https://blogger.chahatkesh.me",
     datePublished: "2024-07-03",
     dateStarted: "2024-06-28",
-    dateModified: "2025-07-11",
+    dateModified: "2025-12-29",
     isFeatured: false,
   },
   {
@@ -448,7 +448,7 @@ const projects: Project[] = [
     deployedURL: "https://gitroast.chahatkesh.me/",
     datePublished: "2025-05-15",
     dateStarted: "2025-05-14",
-    dateModified: "2025-07-09",
+    dateModified: "2025-12-29",
     isFeatured: false,
   },
 ];
