@@ -37,6 +37,9 @@
     "prepare": "husky",
     "upgrade:latest": "npm upgrade-interactive --latest",
     "update-project-dates": "node scripts/update-project-dates.mjs",
+    "update-metrics": "node scripts/update-codebase-metrics.mjs",
+    "update-tech-versions": "node scripts/update-tech-versions.mjs",
+    "update-all": "npm run update-metrics && npm run update-tech-versions",
     "create-admin": "tsx scripts/create-admin.ts"
   },
   "dependencies": {

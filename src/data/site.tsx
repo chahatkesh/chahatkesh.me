@@ -24,6 +24,7 @@ export interface TechItem {
   color: string;
   description: string;
   category: "core" | "ui" | "data" | "infra";
+  priority?: number; // 1-3, where 1 is highest priority
 }
 
 export interface ArchitectureLayer {
@@ -46,6 +47,7 @@ export interface PerformanceMetric {
   label: string;
   value: string;
   description: string;
+  impact?: number; // 1-100 score for chart visualization
 }
 
 export interface ColorToken {
@@ -94,11 +96,12 @@ export interface CodebaseMetric {
 export const techStack: TechItem[] = [
   {
     name: "Next.js",
-    version: "16.1.1",
+    version: "16.1",
     icon: SiNextdotjs,
     color: "text-neutral-400",
     description: "App Router, RSC, ISR, Edge Runtime",
     category: "core",
+    priority: 1,
   },
   {
     name: "React",
@@ -107,6 +110,7 @@ export const techStack: TechItem[] = [
     color: "text-sky-500",
     description: "Server Components, Suspense, use() hook",
     category: "core",
+    priority: 1,
   },
   {
     name: "TypeScript",
@@ -115,6 +119,7 @@ export const techStack: TechItem[] = [
     color: "text-blue-400",
     description: "Strict mode, path aliases, declaration files",
     category: "core",
+    priority: 1,
   },
   {
     name: "Tailwind CSS",
@@ -142,7 +147,7 @@ export const techStack: TechItem[] = [
   },
   {
     name: "MongoDB",
-    version: "9.0",
+    version: "9.1",
     icon: SiMongodb,
     color: "text-green-500",
     description: "Mongoose ODM, connection pooling, indexed queries",
@@ -158,7 +163,7 @@ export const techStack: TechItem[] = [
   },
   {
     name: "Cloudinary",
-    version: "2.8",
+    version: "2.9",
     icon: SiCloudinary,
     color: "text-blue-300",
     description: "Image CDN, transformations, upload API",
@@ -335,36 +340,42 @@ export const performanceStrategies: PerformanceMetric[] = [
     value: "~80%",
     description:
       "Most pages are fully server-rendered with zero client JS. Only interactive widgets (carousels, search, Spotify player) use 'use client' boundaries.",
+    impact: 95,
   },
   {
     label: "Image Optimization",
     value: "AVIF + WebP",
     description:
       "Next.js Image with responsive srcset, AVIF/WebP format negotiation, Cloudinary CDN transforms, and sharp for OG image generation.",
+    impact: 85,
   },
   {
     label: "Code Splitting",
     value: "Route-based",
     description:
       "Next.js automatic code splitting per route. Heavy dependencies (react-icons, framer-motion) only load on pages that use them.",
+    impact: 80,
   },
   {
     label: "Data Fetching",
     value: "Stale-While-Revalidate",
     description:
       "React Query with configurable staleTime (5min for link stats), SWR deduplication (10s), and polling intervals (30s for Spotify).",
+    impact: 70,
   },
   {
     label: "Smooth Scrolling",
     value: "RAF-based",
     description:
       "Lenis smooth scroll runs on requestAnimationFrame with proper cleanup via cancelAnimationFrame. Custom easeOutExpo easing curve.",
+    impact: 65,
   },
   {
     label: "Bundle Hygiene",
     value: "Lean deps",
     description:
       "Removed unused packages (e.g. @paralleldrive/cuid2), stable deterministic IDs, tree-shakeable barrel exports.",
+    impact: 75,
   },
 ];
 
@@ -583,12 +594,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "13,300+",
+    value: "14,107+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "51",
+    value: "56",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -613,7 +624,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Data Modules",
-    value: "7",
+    value: "8",
     description: "Projects, experience, timeline, stack, courses, links, about",
   },
   {
