@@ -1,2 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged on staged files
 pnpm exec lint-staged
-pnpm type-check
+
+# Type check only if TypeScript files are staged
+if git diff --cached --name-only | grep -q '\.tsx\?$'; then
+  echo "TypeScript files detected, running type check..."
+  pnpm type-check
+fi

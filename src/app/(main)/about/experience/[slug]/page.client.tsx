@@ -129,9 +129,9 @@ const ExperienceDetailClient = ({
                 Key Contributions
               </h2>
               <ul className="space-y-2">
-                {experience.contributions.map((contribution, index) => (
+                {experience.contributions.map((contribution) => (
                   <li
-                    key={index}
+                    key={contribution}
                     className="flex items-start gap-3 text-sm text-neutral-300"
                   >
                     <span className="text-ring mt-0.5">•</span>
@@ -149,9 +149,9 @@ const ExperienceDetailClient = ({
                 Technologies Used
               </h2>
               <div className="flex flex-wrap gap-2">
-                {experience.techStack.map((tech, index) => (
+                {experience.techStack.map((tech) => (
                   <span
-                    key={index}
+                    key={tech}
                     className="inline-flex items-center px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/50 text-xs text-neutral-300"
                   >
                     {tech}
@@ -168,9 +168,9 @@ const ExperienceDetailClient = ({
                 Impact & Achievements
               </h2>
               <ul className="space-y-2">
-                {experience.achievements.map((achievement, index) => (
+                {experience.achievements.map((achievement) => (
                   <li
-                    key={index}
+                    key={achievement}
                     className="flex items-start gap-3 text-sm text-neutral-300"
                   >
                     <span className="text-ring mt-0.5">✓</span>
@@ -188,9 +188,9 @@ const ExperienceDetailClient = ({
                 Related Links
               </h2>
               <div className="flex flex-wrap gap-3">
-                {experience.links.map((link, index) => (
+                {experience.links.map((link) => (
                   <Link
-                    key={index}
+                    key={link.url}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"

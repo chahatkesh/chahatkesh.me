@@ -1,3 +1,5 @@
+import config from "~/config";
+
 /**
  * Format date string to human-readable format
  * Handles both "Month DD, YYYY" and "YYYY-MM-DD" formats
@@ -11,7 +13,7 @@ export function formatDate(dateString: string): string {
   // If in ISO format (YYYY-MM-DD), convert to readable format
   try {
     const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone shift
-    return date.toLocaleDateString("en-US", {
+    return date.toLocaleDateString(config.seo.language, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -19,4 +21,66 @@ export function formatDate(dateString: string): string {
   } catch {
     return dateString; // Return original if parsing fails
   }
+}
+
+/**
+ * Parse a date string in "MMM YYYY" format (e.g., "Oct 2025") to a Date object.
+ * Also handles "present" as the current date.
+ */
+const MONTH_MAP: Record<string, number> = {
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
+};
+
+function parseMonthYear(dateStr: string): Date {
+  if (dateStr.toLowerCase() === "present") {
+    return new Date();
+  }
+
+  const parts = dateStr.trim().split(" ");
+  if (parts.length !== 2) return new Date("");
+
+  const [monthStr, yearStr] = parts;
+  const year = parseInt(yearStr, 10);
+  const month = MONTH_MAP[monthStr.toLowerCase()];
+
+  if (month === undefined || isNaN(year)) return new Date("");
+  return new Date(year, month, 1);
+}
+
+/**
+ * Calculate human-readable duration between two "MMM YYYY" dates.
+ * Example: "Oct 2025" to "present" → "4 months"
+ */
+export function calculateDuration(startDate: string, endDate: string): string {
+  const start = parseMonthYear(startDate);
+  const end = parseMonthYear(endDate);
+
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+    return "Invalid date";
+  }
+
+  const months =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth());
+
+  if (months < 1) return "< 1 month";
+  if (months === 1) return "1 month";
+  if (months < 12) return `${months} months`;
+
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  if (remainingMonths === 0) return years === 1 ? "1 year" : `${years} years`;
+  return `${years} ${years === 1 ? "year" : "years"} ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`;
 }

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
@@ -11,12 +11,12 @@ import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
 import { ProjectJsonLd } from "~/components/features/project/project-jsonld";
 import { MotionDiv } from "~/components/shared";
-
-// Helper function to get image src
-const getImageSrc = (cover: string | StaticImageData): string => {
-  return typeof cover === "string" ? cover : cover.src;
-};
-import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
+import { getImageSrc } from "~/lib/project-utils";
+import {
+  TechStackBadges,
+  RelatedProjects,
+  ProjectTimeline,
+} from "~/components/features/project";
 
 type Props = {
   params: Promise<{
@@ -53,12 +53,6 @@ export async function generateStaticParams() {
   }));
 }
 
-const ALL_STACKS = {
-  ...FRONTEND_STACKS,
-  ...BACKEND_DEVOPS,
-  ...LANGUAGES_TOOLS,
-};
-
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
@@ -66,13 +60,6 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) {
     notFound();
   }
-
-  const _formatDate = (dateStr: string) =>
-    new Date(dateStr).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
 
   return (
     <div className="space-y-8">
@@ -138,27 +125,7 @@ export default async function ProjectPage({ params }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <div className="flex flex-wrap gap-2">
-          {project.stacks.map((stack, index) => {
-            const techInfo = ALL_STACKS[stack];
-            const Icon = techInfo?.Icon;
-            const className = techInfo?.className || "text-neutral-400";
-
-            return (
-              <MotionDiv
-                key={index}
-                className="flex items-center h-6 md:h-8 gap-1.5 px-3 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
-              >
-                {Icon && (
-                  <Icon className={className} size={14} aria-label={stack} />
-                )}
-                <span className="whitespace-nowrap">{stack}</span>
-              </MotionDiv>
-            );
-          })}
-        </div>
+        <TechStackBadges stacks={project.stacks} />
       </MotionDiv>
 
       <MotionDiv
@@ -211,79 +178,11 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         </MotionDiv>
 
-        <MotionDiv
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.22 }}
-          className="space-y-6"
-        >
-          <h2 className={typo({ variant: "h2" })}>Project Timeline</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
-                <div className="text-sm text-neutral-400 mb-2">
-                  Started Development
-                </div>
-                <time
-                  dateTime={project.dateStarted}
-                  className="text-2xl font-bold text-white block"
-                >
-                  {new Date(project.dateStarted).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-                <div className="text-xs text-neutral-500 mt-2">
-                  First commit
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative p-6 rounded-lg border border-primary/50 bg-neutral-900/50 backdrop-blur-sm">
-                <div className="text-sm text-primary/80 mb-2">Published</div>
-                <time
-                  dateTime={project.datePublished}
-                  className="text-2xl font-bold text-primary block"
-                >
-                  {new Date(project.datePublished).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-                <div className="text-xs text-neutral-500 mt-2">
-                  Official launch
-                </div>
-              </div>
-            </div>
-
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative p-6 rounded-lg border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm">
-                <div className="text-sm text-neutral-400 mb-2">
-                  Last Updated
-                </div>
-                <time
-                  dateTime={project.dateModified}
-                  className="text-2xl font-bold text-white block"
-                >
-                  {new Date(project.dateModified).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </time>
-                <div className="text-xs text-neutral-500 mt-2">
-                  Latest commit
-                </div>
-              </div>
-            </div>
-          </div>
-        </MotionDiv>
+        <ProjectTimeline
+          dateStarted={project.dateStarted}
+          datePublished={project.datePublished}
+          dateModified={project.dateModified}
+        />
 
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
@@ -314,7 +213,7 @@ export default async function ProjectPage({ params }: Props) {
             <div className="space-y-4">
               {project.contributors.map((contributor, index) => (
                 <MotionDiv
-                  key={index}
+                  key={contributor.name}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 * index }}
@@ -362,7 +261,7 @@ export default async function ProjectPage({ params }: Props) {
           <ul className="grid grid-cols-1 gap-5">
             {project.features.map((feature, index) => (
               <MotionDiv
-                key={index}
+                key={feature}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 * index }}
@@ -379,83 +278,7 @@ export default async function ProjectPage({ params }: Props) {
         </MotionDiv>
       </div>
 
-      <MotionDiv
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="mt-16 pt-16 border-t border-neutral-800"
-      >
-        <h2 className={typo({ variant: "h2" })}>More Projects</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          {projects
-            .filter((p) => p.id !== project.id)
-            .slice(0, 3)
-            .map((relatedProject, index) => (
-              <MotionDiv
-                key={relatedProject.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 * index }}
-                className="group"
-              >
-                <SmartLink
-                  href={`/projects/${relatedProject.slug}`}
-                  className="block w-full h-full"
-                >
-                  <div className="rounded-xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
-                    <div className="relative w-full aspect-video overflow-hidden">
-                      <Image
-                        src={relatedProject.cover}
-                        alt={relatedProject.title}
-                        fill
-                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                      <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-md px-2 z-20">
-                        <span className="text-xs text-neutral-300">
-                          {new Date(
-                            relatedProject.datePublished,
-                          ).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                          })}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-5 flex-1 flex flex-col">
-                      <h3 className="text-lg font-semibold mb-2 line-clamp-2">
-                        {relatedProject.title}
-                      </h3>
-                      <p className="text-sm text-neutral-400 line-clamp-3 mb-4 flex-1">
-                        {relatedProject.tagline}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {relatedProject.stacks.slice(0, 3).map((stack, i) => {
-                          const techInfo = ALL_STACKS[stack];
-                          const Icon = techInfo?.Icon;
-
-                          return Icon ? (
-                            <span key={i} className="text-neutral-400">
-                              <Icon size={16} aria-label={stack} />
-                            </span>
-                          ) : null;
-                        })}
-                        {relatedProject.stacks.length > 3 && (
-                          <span className="text-xs text-neutral-500">
-                            +{relatedProject.stacks.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </SmartLink>
-              </MotionDiv>
-            ))}
-        </div>
-      </MotionDiv>
+      <RelatedProjects projects={projects.filter((p) => p.id !== project.id)} />
     </div>
   );
 }

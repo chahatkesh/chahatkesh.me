@@ -278,9 +278,9 @@ const EventCard = ({ event, duration }: EventCardProps) => {
         <div className="flex flex-wrap gap-2">
           {event.links &&
             event.links.length > 0 &&
-            event.links.map((link, index) => (
+            event.links.map((link) => (
               <Link
-                key={index}
+                key={link.url}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"

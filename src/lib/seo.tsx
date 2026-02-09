@@ -78,8 +78,8 @@ export const getSEOTags = ({
       title: openGraph?.title || finalTitle,
       description: openGraph?.description || finalDescription,
       card: "summary_large_image",
-      site: "@chahatkesh",
-      creator: "@chahatkesh",
+      site: config.author.twitter,
+      creator: config.author.twitter,
       // Twitter images are automatically handled by twitter-image.tsx or opengraph-image.tsx
       // Only include if explicitly passed
       ...(openGraph?.images && { images: openGraph.images }),
@@ -97,7 +97,7 @@ export const getSEOTags = ({
       "article:author": config.appName,
 
       // Discord
-      "theme-color": "#000000",
+      "theme-color": config.colors.main,
 
       // General social media
       "og:updated_time": new Date().toISOString(),
@@ -121,7 +121,7 @@ export const renderSchemaTags = () => {
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
-          "@context": "http://schema.org",
+          "@context": "https://schema.org",
           "@type": "ProfilePage",
           name: config.appName,
           description: config.seo.defaultDescription,

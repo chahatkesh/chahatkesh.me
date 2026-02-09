@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { ProjectList, projects } from "~/components/features/project";
+import { ProjectList } from "~/components/features/project";
+import projects from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { Breadcrumb } from "~/components/shared";
 import { typo } from "~/components/ui";

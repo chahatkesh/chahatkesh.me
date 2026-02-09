@@ -28,26 +28,16 @@ import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { ProtectedRoute } from "~/components/admin/protected-route";
 import { formatDate } from "~/lib/date-utils";
-
-interface GalleryImage {
-  _id: string;
-  title: string;
-  location: string;
-  date: string;
-  aspectRatio: "square" | "portrait" | "landscape" | "big-square";
-  imageUrl: string;
-  publicId: string;
-  isFeatured: boolean;
-  order: number;
-}
+import type { GalleryImage, GalleryApiResponse } from "~/types/gallery";
+import { API_ROUTES } from "~/constants";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function AdminGalleryContent() {
-  const { data, error, isLoading } = useSWR<{
-    success: boolean;
-    data: GalleryImage[];
-  }>("/api/gallery", fetcher);
+  const { data, error, isLoading } = useSWR<GalleryApiResponse>(
+    API_ROUTES.GALLERY,
+    fetcher,
+  );
 
   const [formData, setFormData] = useState({
     title: "",
