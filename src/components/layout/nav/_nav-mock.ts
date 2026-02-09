@@ -1,28 +1,26 @@
-import { createId } from "@paralleldrive/cuid2";
-
 export const navData = [
   {
-    id: createId(),
+    id: "nav-home",
     label: "Home",
     path: "/",
   },
   {
-    id: createId(),
+    id: "nav-projects",
     label: "Projects",
     path: "/projects",
   },
   {
-    id: createId(),
+    id: "nav-gallery",
     label: "Gallery",
     path: "/gallery",
   },
   {
-    id: createId(),
+    id: "nav-journey",
     label: "Journey",
     path: "/about/journey",
   },
   {
-    id: createId(),
+    id: "nav-about",
     label: "About",
     path: "/about",
   },

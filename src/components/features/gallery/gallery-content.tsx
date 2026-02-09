@@ -6,61 +6,33 @@ import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui";
-
-interface GalleryImage {
-  _id: string;
-  title: string;
-  location: string;
-  date: string;
-  aspectRatio: "square" | "portrait" | "landscape" | "big-square";
-  imageUrl: string;
-  publicId: string;
-  isFeatured: boolean;
-  order: number;
-}
-
-interface GalleryItem {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  aspectRatio: "square" | "portrait" | "landscape" | "big-square";
-  src: string;
-  isFeatured: boolean;
-}
+import {
+  API_ROUTES,
+  SWR_DEDUPING_INTERVAL_MS,
+  SWR_ERROR_RETRY_COUNT,
+  SWR_ERROR_RETRY_INTERVAL_MS,
+} from "~/constants";
+import type { GalleryApiResponse, GalleryItem } from "~/types/gallery";
+import { toGalleryItem } from "~/types/gallery";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function GalleryContent() {
-  const { data, error, isLoading, mutate } = useSWR<{
-    success: boolean;
-    data: GalleryImage[];
-  }>("/api/gallery", fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: true,
-    revalidateOnMount: true,
-    dedupingInterval: 10000, // Dedupe requests within 10s
-    errorRetryCount: 3,
-    errorRetryInterval: 5000,
-    onSuccess: (data) => {
-      console.log(`✓ Loaded ${data?.data?.length || 0} gallery images`);
+  const { data, error, isLoading, mutate } = useSWR<GalleryApiResponse>(
+    API_ROUTES.GALLERY,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: true,
+      revalidateOnMount: true,
+      dedupingInterval: SWR_DEDUPING_INTERVAL_MS,
+      errorRetryCount: SWR_ERROR_RETRY_COUNT,
+      errorRetryInterval: SWR_ERROR_RETRY_INTERVAL_MS,
     },
-    onError: (err) => {
-      console.error("Failed to load gallery:", err);
-    },
-  });
+  );
 
   // Transform API data to match component props
-  const galleryItems: GalleryItem[] =
-    data?.data?.map((item) => ({
-      id: item._id,
-      title: item.title,
-      location: item.location,
-      date: item.date,
-      aspectRatio: item.aspectRatio,
-      src: item.imageUrl,
-      isFeatured: item.isFeatured,
-    })) || [];
+  const galleryItems: GalleryItem[] = data?.data?.map(toGalleryItem) || [];
 
   // Filter featured items for the carousel
   const featuredItems = galleryItems.filter((item) => item.isFeatured);

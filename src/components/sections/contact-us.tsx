@@ -1,8 +1,6 @@
-"use client";
 import config from "~/config";
 import { Socials } from "~/components/shared";
-import { typo } from "~/components/ui";
-import { SmartLink } from "~/components/ui";
+import { typo, SmartLink } from "~/components/ui";
 import { SpotifyNowPlaying } from "~/components/features";
 import { cn } from "~/lib/utils";
 
