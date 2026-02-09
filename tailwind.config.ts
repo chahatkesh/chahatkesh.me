@@ -70,6 +70,9 @@ const shadcnPlugin = plugin(
           ring: "hsl(var(--ring))",
           background: "hsl(var(--background))",
           foreground: "hsl(var(--foreground))",
+          brand: {
+            DEFAULT: "hsl(var(--ring))",
+          },
           primary: {
             DEFAULT: "hsl(var(--primary))",
             foreground: "hsl(var(--primary-foreground))",

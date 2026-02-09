@@ -94,3 +94,159 @@ function formatRelativeTime(dateString: string): string {
 
   return "just now";
 }
+
+// ---------------------------------------------------------------------------
+// Repository stats
+// ---------------------------------------------------------------------------
+
+export interface RepoStats {
+  stars: number;
+  forks: number;
+  openIssues: number;
+  size: number; // KB
+  defaultBranch: string;
+  createdAt: string;
+  updatedAt: string;
+  language: string;
+  topics: string[];
+  license: string | null;
+}
+
+/**
+ * Fetch repository metadata from GitHub API
+ */
+export async function getRepoStats(): Promise<RepoStats> {
+  try {
+    const response = await fetch(
+      `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}`,
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          ...(process.env.GITHUB_TOKEN && {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          }),
+        },
+        next: { revalidate: 3600 },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status}`);
+    }
+
+    const repo = await response.json();
+
+    return {
+      stars: repo.stargazers_count ?? 0,
+      forks: repo.forks_count ?? 0,
+      openIssues: repo.open_issues_count ?? 0,
+      size: repo.size ?? 0,
+      defaultBranch: repo.default_branch ?? "main",
+      createdAt: repo.created_at ?? "",
+      updatedAt: repo.updated_at ?? "",
+      language: repo.language ?? "TypeScript",
+      topics: repo.topics ?? [],
+      license: repo.license?.spdx_id ?? null,
+    };
+  } catch (error) {
+    console.error("Error fetching repo stats:", error);
+    return {
+      stars: 0,
+      forks: 0,
+      openIssues: 0,
+      size: 0,
+      defaultBranch: "main",
+      createdAt: "2025-03-27T00:00:00Z",
+      updatedAt: "",
+      language: "TypeScript",
+      topics: [],
+      license: "MIT",
+    };
+  }
+}
+
+/**
+ * Fetch language breakdown for the repository
+ */
+export async function getRepoLanguages(): Promise<
+  { name: string; percentage: number; color: string }[]
+> {
+  const LANGUAGE_COLORS: Record<string, string> = {
+    TypeScript: "#3178c6",
+    JavaScript: "#f1e05a",
+    CSS: "#563d7c",
+    HTML: "#e34c26",
+    MDX: "#083fa1",
+    Shell: "#89e051",
+  };
+
+  try {
+    const response = await fetch(
+      `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/languages`,
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          ...(process.env.GITHUB_TOKEN && {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          }),
+        },
+        next: { revalidate: 3600 },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status}`);
+    }
+
+    const languages: Record<string, number> = await response.json();
+    const total = Object.values(languages).reduce((a, b) => a + b, 0);
+
+    return Object.entries(languages)
+      .map(([name, bytes]) => ({
+        name,
+        percentage: Math.round((bytes / total) * 1000) / 10,
+        color: LANGUAGE_COLORS[name] ?? "#6e7681",
+      }))
+      .sort((a, b) => b.percentage - a.percentage);
+  } catch (error) {
+    console.error("Error fetching repo languages:", error);
+    return [
+      { name: "TypeScript", percentage: 95, color: "#3178c6" },
+      { name: "CSS", percentage: 3, color: "#563d7c" },
+      { name: "JavaScript", percentage: 2, color: "#f1e05a" },
+    ];
+  }
+}
+
+/**
+ * Fetch total commit count for the repository
+ */
+export async function getCommitCount(): Promise<number> {
+  try {
+    // Use the contributors endpoint to get total commit count
+    const response = await fetch(
+      `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contributors?per_page=1`,
+      {
+        headers: {
+          Accept: "application/vnd.github.v3+json",
+          ...(process.env.GITHUB_TOKEN && {
+            Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          }),
+        },
+        next: { revalidate: 3600 },
+      },
+    );
+
+    if (!response.ok) return 0;
+
+    const contributors = await response.json();
+    // Sum up contributions from all contributors
+    return contributors.reduce(
+      (sum: number, c: { contributions: number }) =>
+        sum + (c.contributions ?? 0),
+      0,
+    );
+  } catch {
+    return 0;
+  }
+}

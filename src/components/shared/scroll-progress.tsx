@@ -2,25 +2,19 @@
 import React, { useEffect, useState } from "react";
 import { useSpring } from "framer-motion";
 import { MotionDiv } from "./motion-wrapper";
+import { SCROLL_SPRING_CONFIG } from "~/constants";
 
 const ScrollProgress = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Add spring physics for ultra-smooth animation
-  const scaleX = useSpring(scrollProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const scaleX = useSpring(scrollProgress, SCROLL_SPRING_CONFIG);
 
   useEffect(() => {
-    // Listen to Lenis scroll events for more accurate progress
     const handleScroll = () => {
-      const lenis = (window as any).lenis;
+      const lenis = window.lenis;
       if (lenis) {
         setScrollProgress(lenis.progress);
       } else {
-        // Fallback to regular scroll calculation
         const scrollTop = window.scrollY;
         const docHeight =
           document.documentElement.scrollHeight - window.innerHeight;

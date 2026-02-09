@@ -12,7 +12,7 @@ export function useLenis() {
 
   useEffect(() => {
     const checkLenis = () => {
-      const lenisInstance = (window as any).lenis;
+      const lenisInstance = window.lenis;
       if (lenisInstance) {
         setLenis(lenisInstance);
       }

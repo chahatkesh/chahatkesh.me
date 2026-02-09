@@ -1,5 +1,3 @@
-"use client";
-
 import config from "~/config";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
@@ -11,7 +9,7 @@ const AboutSection = () => {
     <section className="grid gap-8 sm:gap-4 md:grid-cols-3" aria-label="About">
       <div className="order-2 space-y-3 sm:order-1 md:col-span-2">
         <h1 className="font-ubuntu text-lg font-semibold sm:text-xl">
-          Chahat Kesharwani
+          {config.appName}
         </h1>
 
         <p className={typo({ variant: "paragraph", font: "sans" })}>
@@ -31,8 +29,9 @@ const AboutSection = () => {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://x.com/chahatkesh"
+            href={config.social.twitter}
             className="text-white"
+            aria-label="BuildInPublic on X"
           >
             #BuildInPublic
           </a>{" "}
@@ -44,8 +43,6 @@ const AboutSection = () => {
           to build and contribute to impactful open-source projects. When not
           coding, I read books, go out for a run, or binge YouTube.
         </p>
-
-        <p className={typo({ variant: "paragraph", font: "sans" })}></p>
 
         <p
           className={cn(
@@ -66,9 +63,9 @@ const AboutSection = () => {
       </div>
 
       <div className="relative order-1 block aspect-square sm:order-2 sm:hidden md:block">
-        <div className="absolute inset-0 -z-10 size-full rounded-md bg-[#00adb5]"></div>
+        <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
         <Image
-          alt="Speaking on stage at for a hackathon presentation"
+          alt="Speaking on stage at a hackathon presentation"
           src={chahat}
           placeholder="blur"
           className="size-full -rotate-3 transform rounded-md shadow-md"

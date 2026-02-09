@@ -2,51 +2,19 @@
 
 import useSWR from "swr";
 import { FeaturedCarousel } from "./featured-carousel";
-
-interface GalleryImage {
-  _id: string;
-  title: string;
-  location: string;
-  date: string;
-  aspectRatio: "square" | "portrait" | "landscape" | "big-square";
-  imageUrl: string;
-  publicId: string;
-  isFeatured: boolean;
-  order: number;
-}
-
-interface GalleryItem {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  aspectRatio: "square" | "portrait" | "landscape" | "big-square";
-  src: string;
-  isFeatured: boolean;
-}
+import { API_ROUTES, SWR_DEDUPING_INTERVAL_MS } from "~/constants";
+import type { GalleryApiResponse, GalleryItem } from "~/types/gallery";
+import { toGalleryItem } from "~/types/gallery";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function LinksFeaturedGallery() {
-  const { data } = useSWR<{ success: boolean; data: GalleryImage[] }>(
-    "/api/gallery",
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 10000,
-    },
-  );
+  const { data } = useSWR<GalleryApiResponse>(API_ROUTES.GALLERY, fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: SWR_DEDUPING_INTERVAL_MS,
+  });
 
-  const galleryItems: GalleryItem[] =
-    data?.data?.map((item) => ({
-      id: item._id,
-      title: item.title,
-      location: item.location,
-      date: item.date,
-      aspectRatio: item.aspectRatio,
-      src: item.imageUrl,
-      isFeatured: item.isFeatured,
-    })) || [];
+  const galleryItems: GalleryItem[] = data?.data?.map(toGalleryItem) || [];
 
   const featuredImages = galleryItems.filter((item) => item.isFeatured);
 

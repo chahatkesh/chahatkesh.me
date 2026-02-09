@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { easeOutExpo, LENIS_CONFIG } from "~/constants";
 
 interface SmoothScrollProviderProps {
   children: ReactNode;
@@ -13,39 +14,37 @@ export default function SmoothScrollProvider({
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Initialize Lenis for ultra-smooth scrolling
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+      duration: LENIS_CONFIG.duration,
+      easing: easeOutExpo,
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: LENIS_CONFIG.wheelMultiplier,
+      touchMultiplier: LENIS_CONFIG.touchMultiplier,
       infinite: false,
       autoResize: true,
     });
 
     lenisRef.current = lenis;
 
-    // Animation frame loop
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
+    rafId = requestAnimationFrame(raf);
 
-    requestAnimationFrame(raf);
-
-    // Expose to window for debugging (optional)
+    // Expose to window for cross-component access
     if (typeof window !== "undefined") {
-      (window as any).lenis = lenis;
+      window.lenis = lenis;
     }
 
-    // Cleanup
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       if (typeof window !== "undefined") {
-        delete (window as any).lenis;
+        delete window.lenis;
       }
     };
   }, []);

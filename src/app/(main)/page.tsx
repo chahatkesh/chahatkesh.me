@@ -4,7 +4,8 @@ import {
   Skills,
   ProfessionalExperience,
 } from "~/components/sections";
-import { ProjectList, projects } from "~/components/features/project";
+import { ProjectList } from "~/components/features/project";
+import projects from "~/data/projects";
 import { ContactUs } from "~/components/sections";
 import { GitHubContributions } from "~/components/features";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";

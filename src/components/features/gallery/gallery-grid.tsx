@@ -5,6 +5,7 @@ import Image from "next/image";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { formatDate } from "~/lib/date-utils";
+import type { GalleryItem } from "~/types/gallery";
 
 // Component for individual gallery image
 function GalleryImage({
@@ -102,16 +103,7 @@ function GalleryImage({
   );
 }
 
-export type GalleryItem = {
-  id: string;
-  title: string;
-  location: string;
-  date: string;
-  src: string; // Cloudinary URL
-  className?: string;
-  aspectRatio?: "portrait" | "landscape" | "square" | "big-square";
-  isFeatured?: boolean;
-};
+export type { GalleryItem } from "~/types/gallery";
 
 type BentoGridProps = {
   items: GalleryItem[];

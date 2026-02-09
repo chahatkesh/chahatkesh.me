@@ -1,20 +1,42 @@
+# =============================================================================
+# CI/CD Pipeline — chahatkesh.me
+# =============================================================================
+#
+# Branch strategy:
+#   develop  push/PR  ->  lint, type-check, build
+#   main     push/PR  ->  lint, type-check, build, deploy to Vercel
+#
+# Required GitHub Secrets:
+#   VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+# =============================================================================
+
 name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, master, dev, develop]
+    branches: [main, develop]
   pull_request:
-    branches: [main, master, dev, develop]
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+
+env:
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
 
 jobs:
-  quality-check:
-    name: Code Quality & Build Check
+  # ---------------------------------------------------------------------------
+  # Quality Gate — runs on all pushes and PRs to develop and main
+  # ---------------------------------------------------------------------------
+  quality:
+    name: Quality Gate
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,42 +44,85 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: ${{ env.PNPM_VERSION }}
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run ESLint
+      - name: Lint
         run: pnpm lint
-        continue-on-error: false
 
-      - name: Check TypeScript
-        run: pnpm tsc --noEmit
-        continue-on-error: false
+      - name: Type check
+        run: pnpm type-check
 
-      - name: Check code formatting
-        run: pnpm prettier --check "**/*.{ts,tsx,json,css}"
-        continue-on-error: true
+      - name: Format check
+        run: pnpm format:check
 
-      - name: Build application
+      - name: Build
         run: pnpm build
         env:
           SKIP_ENV_VALIDATION: true
           MONGODB_URI: mongodb://localhost:27017/dummy
           NEXTAUTH_SECRET: dummy-secret-for-build
 
-      - name: Summary
-        if: always()
+      - name: Security audit
+        if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
+        run: pnpm audit --prod --audit-level=high
+        continue-on-error: true
+
+  # ---------------------------------------------------------------------------
+  # Deploy — runs on pushes and PRs targeting main, after quality passes
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy to Vercel
+    needs: quality
+    if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Vercel CLI
+        run: pnpm add -g vercel@latest
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build with Vercel
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy to Vercel Production
+        id: deploy
         run: |
-          echo "### CI/CD Pipeline Results 🚀" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Code quality checks completed" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Build successful" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Deployment will be handled automatically by Vercel" >> $GITHUB_STEP_SUMMARY
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "### Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "**URL:** $DEPLOY_URL" >> $GITHUB_STEP_SUMMARY
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

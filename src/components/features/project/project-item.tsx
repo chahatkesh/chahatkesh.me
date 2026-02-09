@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
@@ -8,24 +8,12 @@ import { typo } from "~/components/ui";
 import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
 import { Project } from "~/data/projects";
-import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
+import { getImageSrc, ALL_STACKS } from "~/lib/project-utils";
 import { MotionDiv } from "~/components/shared";
-
-// Helper function to get image src
-const getImageSrc = (cover: string | StaticImageData): string => {
-  return typeof cover === "string" ? cover : cover.src;
-};
 
 type ProjectItemProps = {
   metadata?: boolean;
 } & Project;
-
-// Combine all tech stacks for icon lookup
-const ALL_STACKS = {
-  ...FRONTEND_STACKS,
-  ...BACKEND_DEVOPS,
-  ...LANGUAGES_TOOLS,
-};
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
   title,
@@ -118,19 +106,19 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 
             {features && features.length > 0 && (
               <ul className="mb-4 space-y-1">
-                {features.slice(0, 5).map((feature, index) => (
+                {features.slice(0, 5).map((feature) => (
                   <li
-                    key={index}
+                    key={feature}
                     className="text-xs text-neutral-400 flex items-start"
                   >
                     <span className="mr-1 text-primary">•</span>
                     <span className="line-clamp-1">{feature}</span>
                   </li>
                 ))}
-                {features.length > 4 && (
+                {features.length > 5 && (
                   <li className="text-xs text-neutral-500 flex items-start">
                     <span className="mr-1">•</span>
-                    <span>+{features.length - 4} more features</span>
+                    <span>+{features.length - 5} more features</span>
                   </li>
                 )}
               </ul>
@@ -138,14 +126,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 
             <div className="mt-auto">
               <div className="flex flex-wrap gap-1.5">
-                {stacks.slice(0, 5).map((stack, index) => {
+                {stacks.slice(0, 5).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
 
                   return (
                     <MotionDiv
-                      key={index}
+                      key={stack}
                       className="flex items-center gap-1 px-2 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[10px]"
                       whileHover={{ y: -1 }}
                       transition={{ duration: 0.2 }}

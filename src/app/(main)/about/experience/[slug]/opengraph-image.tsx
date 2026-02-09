@@ -1,6 +1,7 @@
 import { experiences } from "~/data/experience";
 import { generateOGImageResponse, OG_IMAGE_SIZE } from "~/lib/og-template";
 import { notFound } from "next/navigation";
+import { BRAND_ACCENT_HEX } from "~/constants";
 
 export const size = OG_IMAGE_SIZE;
 export const contentType = "image/png";
@@ -25,7 +26,7 @@ export default async function Image({ params }: Props) {
     description: experience.tagline,
     badge: experience.type,
     tags: experience.techStack?.slice(0, 5) || [],
-    accentColor: "#00adb5",
+    accentColor: BRAND_ACCENT_HEX,
   });
 }
 
