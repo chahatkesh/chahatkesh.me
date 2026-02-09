@@ -1,5 +1,6 @@
 import { VisitorCounter } from "~/components/features";
 import Link from "next/link";
+import config from "~/config";
 
 const Footer = () => {
   return (
@@ -13,7 +14,7 @@ const Footer = () => {
           >
             Developed
           </Link>{" "}
-          by Chahat Kesharwani
+          by {config.appName}
         </span>
 
         <div className="flex items-center gap-2">

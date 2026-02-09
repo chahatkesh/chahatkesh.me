@@ -1,46 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { GitCommit } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import config from "~/config";
+import { EXTERNAL_APIS } from "~/constants";
+import { fetcher } from "~/lib/fetcher";
 
-interface GitHubStats {
-  totalContributions: number;
-}
+type ContributionsResponse = {
+  total: Record<string, number>;
+};
 
 const LinkStats = () => {
-  const [stats, setStats] = useState<GitHubStats>({
-    totalContributions: 0,
+  const { data: totalContributions = 0, isLoading } = useQuery({
+    queryKey: ["github-contributions", config.author.github],
+    queryFn: async () => {
+      const data = await fetcher<ContributionsResponse>(
+        EXTERNAL_APIS.GITHUB_CONTRIBUTIONS(config.author.github),
+      );
+      return Object.values(data.total || {}).reduce(
+        (sum, yearContributions) => sum + (yearContributions || 0),
+        0,
+      );
+    },
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchGitHubStats = async () => {
-      try {
-        // Fetch all-time contribution data
-        const contributionsResponse = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/chahatkesh`,
-        );
-        const contributionsData = await contributionsResponse.json();
-
-        // Calculate total lifetime contributions by summing all years
-        const totalContributions = Object.values<number>(
-          contributionsData.total || {},
-        ).reduce((sum, yearContributions) => sum + (yearContributions || 0), 0);
-
-        setStats({
-          totalContributions,
-        });
-      } catch (error) {
-        console.error("Error fetching GitHub stats:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGitHubStats();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex gap-4 animate-pulse">
         <div className="flex items-center gap-1.5">
@@ -55,7 +40,7 @@ const LinkStats = () => {
     <div className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
       <GitCommit className="size-4" />
       <span className="font-semibold">
-        {stats.totalContributions.toLocaleString()}
+        {totalContributions.toLocaleString()}
       </span>
       <span>Contributions</span>
     </div>

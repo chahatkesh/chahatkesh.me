@@ -8,15 +8,6 @@ import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import { Breadcrumb } from "~/components/shared";
 import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
-import {
-  FaBook,
-  FaRunning,
-  FaYoutube,
-  FaLaptop,
-  FaHeadphones,
-  FaMobileAlt,
-  FaPenFancy,
-} from "react-icons/fa";
 import { ChevronRight } from "lucide-react";
 import {
   Tooltip,
@@ -26,6 +17,12 @@ import {
 } from "~/components/ui";
 import { Metadata } from "next";
 import config from "~/config";
+import {
+  currentProjects,
+  hobbies,
+  deskSetup,
+  portfolioVersions,
+} from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
   title: "About Me",
@@ -36,61 +33,6 @@ export const metadata: Metadata = getSEOTags({
   },
   canonicalUrlRelative: "/about",
 });
-
-// My current projects/work
-const currentProjects = [
-  {
-    title: "Ninja: Stop Dialing. Stop Chasing. Let AI Book Meetings for You.",
-    description:
-      "Transform real estate agents into high performers with AI co-pilots. Autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management. Integrates WhatsApp Business, Vonage voice, Cal.com scheduling.",
-    url: "https://silentninja.tech/",
-  },
-];
-
-// My hobbies
-const hobbies = [
-  {
-    title: "Reading",
-    description:
-      "I enjoy reading non-fiction books on technology, psychology, and personal growth",
-    icon: <FaBook className="text-amber-500" />,
-  },
-  {
-    title: "Gym",
-    description:
-      "Regular workout sessions to stay fit and maintain a healthy work-life balance",
-    icon: <FaRunning className="text-green-400" />,
-  },
-  {
-    title: "Designing",
-    description:
-      "Creating visually appealing UI/UX designs and digital artwork in my free time",
-    icon: <FaPenFancy className="text-blue-300" />,
-  },
-  {
-    title: "Content Creation",
-    description:
-      "Creating fun tech content and tutorials for the developer community",
-    icon: <FaYoutube className="text-red-500" />,
-  },
-];
-
-// My workspace/desk setup
-const deskSetup = [
-  {
-    name: "MacBook Pro M3 (2023)",
-    icon: <FaLaptop className="text-gray-300" />,
-  },
-  {
-    name: "CMF by Nothing Buds 2",
-    icon: <FaHeadphones className="text-blue-300" />,
-  },
-  {
-    name: "XP Pen Deco01 V2",
-    icon: <FaPenFancy className="text-orange-400" />,
-  },
-  { name: "iPhone 15 Pro", icon: <FaMobileAlt className="text-gray-400" /> },
-];
 
 const AboutPage = () => {
   return (
@@ -166,7 +108,7 @@ const AboutPage = () => {
               </div>
 
               <div className="relative order-1 block aspect-square sm:order-2">
-                <div className="absolute inset-0 -z-10 size-full rounded-md bg-[#00adb5]"></div>
+                <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
                 <Image
                   alt="Chahat Kesharwani profile picture"
                   src={chahat}
@@ -196,9 +138,9 @@ const AboutPage = () => {
 
                 {/* Setup list below in smaller format */}
                 <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
-                  {deskSetup.map((item, index) => (
+                  {deskSetup.map((item) => (
                     <div
-                      key={index}
+                      key={item.name}
                       className="flex items-center gap-2 text-neutral-300 transition-transform duration-300 hover:scale-105 hover:text-white"
                     >
                       <span className="text-lg">{item.icon}</span>
@@ -219,8 +161,8 @@ const AboutPage = () => {
               </h2>
 
               <div className="mt-4 grid gap-6 sm:grid-cols-1">
-                {currentProjects.map((project, index) => (
-                  <TooltipProvider key={index}>
+                {currentProjects.map((project) => (
+                  <TooltipProvider key={project.title}>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Link
@@ -301,9 +243,9 @@ const AboutPage = () => {
             <section className="mt-10 space-y-6" aria-label="Beyond Code">
               <h2 className={typo({ variant: "h2" })}>Beyond Code</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-2">
-                {hobbies.map((hobby, index) => (
+                {hobbies.map((hobby) => (
                   <div
-                    key={index}
+                    key={hobby.title}
                     className="group rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20"
                   >
                     <div className="mb-3 flex items-center gap-3">
@@ -332,73 +274,71 @@ const AboutPage = () => {
                 {/* Timeline line - vertical on mobile, horizontal on desktop */}
                 <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-800 opacity-50 md:left-0 md:right-0 md:top-2 md:bottom-auto md:h-0.5 md:w-auto md:bg-gradient-to-r" />
 
-                <div className="space-y-6 md:grid md:grid-cols-4 md:gap-6 md:space-y-0">
-                  {/* Version 4.0 - Current */}
-                  <div className="group relative flex items-center gap-4 md:flex-col md:items-start md:space-y-3">
-                    <div className="relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-ring border-2 border-neutral-900 shadow-lg shadow-ring/20" />
-                    <div className="flex-1 md:space-y-1">
-                      <span className="block font-ubuntu text-sm font-medium text-white">
-                        v4.0
-                      </span>
-                      <span className="block text-xs text-ring">
-                        Next.js - Current Version
-                      </span>
-                    </div>
-                  </div>
+                <div
+                  className="space-y-6 md:gap-6 md:space-y-0 md:grid"
+                  style={{
+                    gridTemplateColumns: `repeat(${portfolioVersions.length}, minmax(0, 1fr))`,
+                  }}
+                >
+                  {portfolioVersions.map((v) => {
+                    const inner = (
+                      <>
+                        <div
+                          className={cn(
+                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-neutral-900",
+                            v.isCurrent
+                              ? "bg-ring shadow-lg shadow-ring/20"
+                              : "bg-neutral-800 group-hover:bg-neutral-700 transition-colors",
+                          )}
+                        />
+                        <div className="flex-1 md:space-y-1">
+                          <span
+                            className={cn(
+                              "block font-ubuntu text-sm font-medium",
+                              v.isCurrent
+                                ? "text-white"
+                                : "text-white group-hover:text-ring transition-colors",
+                            )}
+                          >
+                            {v.version}
+                          </span>
+                          <span
+                            className={cn(
+                              "block text-xs",
+                              v.isCurrent
+                                ? "text-ring"
+                                : "text-neutral-400 group-hover:text-neutral-300 transition-colors",
+                            )}
+                          >
+                            {v.label}
+                          </span>
+                        </div>
+                      </>
+                    );
 
-                  {/* Version 3.0 */}
-                  <Link
-                    href="https://v3.chahatkesh.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
-                  >
-                    <div className="relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
-                    <div className="flex-1 md:space-y-1">
-                      <span className="block font-ubuntu text-sm font-medium text-white group-hover:text-ring transition-colors">
-                        v3.0
-                      </span>
-                      <span className="block text-xs text-neutral-400 group-hover:text-neutral-300 transition-colors">
-                        React + Tailwind - My Minimal Era
-                      </span>
-                    </div>
-                  </Link>
+                    if (v.url) {
+                      return (
+                        <Link
+                          key={v.version}
+                          href={v.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
+                        >
+                          {inner}
+                        </Link>
+                      );
+                    }
 
-                  {/* Version 2.0 */}
-                  <Link
-                    href="https://v2.chahatkesh.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
-                  >
-                    <div className="relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
-                    <div className="flex-1 md:space-y-1">
-                      <span className="block font-ubuntu text-sm font-medium text-white group-hover:text-ring transition-colors">
-                        v2.0
-                      </span>
-                      <span className="block text-xs text-neutral-400 group-hover:text-neutral-300 transition-colors">
-                        Stepping into React
-                      </span>
-                    </div>
-                  </Link>
-
-                  {/* Version 1.0 */}
-                  <Link
-                    href="https://v1.chahatkesh.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
-                  >
-                    <div className="relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-neutral-800 border-2 border-neutral-900 group-hover:bg-neutral-700 transition-colors" />
-                    <div className="flex-1 md:space-y-1">
-                      <span className="block font-ubuntu text-sm font-medium text-white group-hover:text-ring transition-colors">
-                        v1.0
-                      </span>
-                      <span className="block text-xs text-neutral-400 group-hover:text-neutral-300 transition-colors">
-                        HTML/CSS Beginnings
-                      </span>
-                    </div>
-                  </Link>
+                    return (
+                      <div
+                        key={v.version}
+                        className="group relative flex items-center gap-4 md:flex-col md:items-start md:space-y-3"
+                      >
+                        {inner}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </section>

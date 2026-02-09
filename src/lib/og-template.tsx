@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import config from "~/config";
+import { BRAND_ACCENT_HEX, BACKGROUND_HEX } from "~/constants";
 
 export const OG_IMAGE_SIZE = {
   width: 1200,
@@ -20,7 +22,7 @@ export function generateOGImageResponse({
   description,
   badge,
   tags,
-  accentColor = "#00adb5",
+  accentColor = BRAND_ACCENT_HEX,
 }: OGTemplateProps) {
   return new ImageResponse(
     <div
@@ -31,7 +33,7 @@ export function generateOGImageResponse({
         flexDirection: "column",
         alignItems: "flex-start",
         justifyContent: "space-between",
-        backgroundColor: "#000000",
+        backgroundColor: BACKGROUND_HEX,
         color: "#fff",
         fontFamily: "system-ui, -apple-system, sans-serif",
         padding: "80px",
@@ -128,9 +130,9 @@ export function generateOGImageResponse({
               marginTop: "20px",
             }}
           >
-            {tags.slice(0, 5).map((tag, index) => (
+            {tags.slice(0, 5).map((tag) => (
               <div
-                key={index}
+                key={tag}
                 style={{
                   backgroundColor: "rgba(255, 255, 255, 0.1)",
                   color: "#fff",
@@ -165,7 +167,7 @@ export function generateOGImageResponse({
             color: "#fff",
           }}
         >
-          Chahat Kesharwani
+          {config.appName}
         </div>
         <div
           style={{
@@ -173,7 +175,7 @@ export function generateOGImageResponse({
             color: "#888",
           }}
         >
-          chahatkesh.me
+          {config.domainName}
         </div>
       </div>
     </div>,

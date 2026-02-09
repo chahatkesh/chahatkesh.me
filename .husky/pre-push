@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running pre-push checks..."
+
+# Run full type check
+echo "📝 Type checking..."
+pnpm type-check || {
+  echo "❌ Type check failed!"
+  exit 1
+}
+
+# Run linting
+echo "🔍 Linting..."
+pnpm lint || {
+  echo "❌ Linting failed!"
+  exit 1
+}
+
+# Check code formatting
+echo "🎨 Checking code format..."
+pnpm format:check || {
+  echo "❌ Code formatting check failed! Run 'pnpm format' to fix."
+  exit 1
+}
+
+echo "✅ All pre-push checks passed!"

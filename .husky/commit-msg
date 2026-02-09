@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Commit message format validation (conventional commits)
+commit_msg=$(cat "$1")
+
+# Skip validation for merge commits, reverts, and special commits
+if echo "$commit_msg" | grep -qE "^(Merge|Revert|Initial commit)"; then
+  exit 0
+fi
+
+# Pattern: type(optional scope): description
+# Examples: feat: add new feature, fix(api): resolve bug, docs: update readme
+pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .{1,}"
+
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+  echo "⚠️  Invalid commit message format!"
+  echo ""
+  echo "Commit message should follow conventional commits format:"
+  echo "  type(optional-scope): description"
+  echo ""
+  echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+  echo ""
+  echo "Examples:"
+  echo "  feat: add user authentication"
+  echo "  fix(api): resolve CORS issue"
+  echo "  docs: update README"
+  echo ""
+  echo "ℹ️  You can skip this check with: git commit --no-verify"
+  echo ""
+  exit 1
+fi

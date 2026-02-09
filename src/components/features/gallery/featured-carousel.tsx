@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { MotionDiv } from "~/components/shared";
+import { MotionDiv, ScrollButtons } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { GalleryItem } from "./gallery-grid";
+import type { GalleryItem } from "~/types/gallery";
 import { typo } from "~/components/ui";
 import { formatDate } from "~/lib/date-utils";
+import { useHorizontalScroll } from "~/hooks/use-horizontal-scroll";
 
 // Featured Image Component
 function FeaturedImage({
@@ -67,44 +67,13 @@ export function FeaturedCarousel({
   subtitle = "Highlights from my journey and experiences",
   showTitle = true,
 }: FeaturedCarouselProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScrollButtons = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } =
-        scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  useEffect(() => {
-    checkScrollButtons();
-    const scrollContainer = scrollContainerRef.current;
-    if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", checkScrollButtons);
-      return () =>
-        scrollContainer.removeEventListener("scroll", checkScrollButtons);
-    }
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 340; // Width of one card plus gap
-      const currentScroll = scrollContainerRef.current.scrollLeft;
-      const targetScroll =
-        direction === "left"
-          ? currentScroll - scrollAmount
-          : currentScroll + scrollAmount;
-
-      scrollContainerRef.current.scrollTo({
-        left: targetScroll,
-        behavior: "smooth",
-      });
-    }
-  };
+  const {
+    scrollContainerRef,
+    canScrollLeft,
+    canScrollRight,
+    scrollLeft,
+    scrollRight,
+  } = useHorizontalScroll();
 
   if (items.length === 0) {
     return null;
@@ -128,61 +97,12 @@ export function FeaturedCarousel({
             </p>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              className={cn(
-                "p-2 rounded-full border transition-all duration-200",
-                "bg-neutral-900 border-neutral-700 text-white",
-                "hover:bg-neutral-800 hover:border-neutral-600",
-                "disabled:opacity-40 disabled:cursor-not-allowed",
-                canScrollLeft ? "hover:scale-105" : "",
-              )}
-              aria-label="Scroll left"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              className={cn(
-                "p-2 rounded-full border transition-all duration-200",
-                "bg-neutral-900 border-neutral-700 text-white",
-                "hover:bg-neutral-800 hover:border-neutral-600",
-                "disabled:opacity-40 disabled:cursor-not-allowed",
-                canScrollRight ? "hover:scale-105" : "",
-              )}
-              aria-label="Scroll right"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </div>
+          <ScrollButtons
+            canScrollLeft={canScrollLeft}
+            canScrollRight={canScrollRight}
+            onScrollLeft={scrollLeft}
+            onScrollRight={scrollRight}
+          />
         </div>
       )}
 
@@ -192,7 +112,7 @@ export function FeaturedCarousel({
           ref={scrollContainerRef}
           className={cn(
             "flex gap-4 overflow-x-auto scrollbar-hide",
-            "pb-4 -mb-4", // Add padding bottom and negative margin to hide scrollbar
+            "pb-4 -mb-4",
             "scroll-smooth",
           )}
           style={{

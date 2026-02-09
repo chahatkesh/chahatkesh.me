@@ -1,4 +1,3 @@
-import { createId } from "@paralleldrive/cuid2";
 import { StaticImageData } from "next/image";
 
 // Project cover images
@@ -41,7 +40,7 @@ export interface Project {
 
 const projects: Project[] = [
   {
-    id: createId(),
+    id: "project-portfolio-website",
     title: "Portfolio Website",
     slug: "portfolio-website",
     description:
@@ -92,11 +91,11 @@ const projects: Project[] = [
     deployedURL: "https://chahatkesh.me",
     datePublished: "2025-04-21",
     dateStarted: "2025-03-27",
-    dateModified: "2025-12-29",
+    dateModified: "2026-01-10",
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-swasya-ai",
     title: "Swasya AI",
     slug: "swasya-ai",
     description:
@@ -155,7 +154,7 @@ const projects: Project[] = [
     repoUrl: "https://github.com/chahatkesh/swasya-ai",
     datePublished: "2025-11-09",
     dateStarted: "2025-11-08",
-    dateModified: "2025-11-17",
+    dateModified: "2026-01-17",
     isFeatured: false,
     contributors: [
       {
@@ -173,7 +172,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-gw-infra-solutions",
     title: "GW Infra Solutions",
     slug: "gw-infra-solutions",
     description:
@@ -242,7 +241,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-openlearn",
     title: "OpenLearn",
     slug: "openlearn",
     description:
@@ -288,7 +287,7 @@ const projects: Project[] = [
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
     dateStarted: "2025-06-09",
-    dateModified: "2025-11-28",
+    dateModified: "2026-01-07",
     isFeatured: true,
     contributors: [
       {
@@ -306,7 +305,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-webmark",
     title: `Webmark`,
     slug: "webmark",
     description:
@@ -333,7 +332,7 @@ const projects: Project[] = [
     isFeatured: true,
   },
   {
-    id: createId(),
+    id: "project-tomato-food-delivery",
     title: `Tomato`,
     slug: "tomato-food-delivery",
     description:
@@ -372,7 +371,7 @@ const projects: Project[] = [
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-blogger",
     title: `Blogger`,
     slug: "blogger",
     description:
@@ -409,11 +408,11 @@ const projects: Project[] = [
     deployedURL: "https://blogger.chahatkesh.me",
     datePublished: "2024-07-03",
     dateStarted: "2024-06-28",
-    dateModified: "2025-07-11",
+    dateModified: "2025-12-29",
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-gitroast-github-profile-roaster",
     title: "GitRoast",
     slug: "gitroast-github-profile-roaster",
     description:
@@ -448,7 +447,7 @@ const projects: Project[] = [
     deployedURL: "https://gitroast.chahatkesh.me/",
     datePublished: "2025-05-15",
     dateStarted: "2025-05-14",
-    dateModified: "2025-07-09",
+    dateModified: "2025-12-29",
     isFeatured: false,
   },
 ];
