@@ -11,3 +11,5 @@ export { SyllabusModal } from "./syllabus-modal";
 export { default as TimelineComponent } from "./timeline-component";
 export { MotionDiv, MotionSpan } from "./motion-wrapper";
 export { PageTableOfContents } from "./page-toc";
+export { TabGroup } from "./tab-group";
+export { AccordionSection } from "./accordion-section";

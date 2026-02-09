@@ -3,6 +3,24 @@
 
 echo "Running pre-push checks..."
 
+# Update codebase metrics and tech versions
+echo "📊 Updating codebase metrics..."
+npm run update-metrics || {
+  echo "⚠️  Failed to update metrics, continuing anyway..."
+}
+
+echo "📦 Updating tech versions..."
+npm run update-tech-versions || {
+  echo "⚠️  Failed to update tech versions, continuing anyway..."
+}
+
+# Check if there are uncommitted changes from updates
+if ! git diff --quiet src/data/site.tsx; then
+  echo "⚠️  Metrics or versions were updated in src/data/site.tsx"
+  echo "   Please review, commit the changes, and push again."
+  exit 1
+fi
+
 # Run full type check
 echo "📝 Type checking..."
 pnpm type-check || {
@@ -25,3 +43,4 @@ pnpm format:check || {
 }
 
 echo "✅ All pre-push checks passed!"
+
