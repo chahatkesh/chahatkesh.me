@@ -3,3 +3,5 @@ export { default as useIsomorphicLayoutEffect } from "./use-isomorphic";
 export { default as useIsClient } from "./use-client";
 export { usePageTracking, PageTrackingWrapper } from "./use-page-tracking";
 export { useLenis, useScrollTo } from "./use-lenis";
+export { useHorizontalScroll } from "./use-horizontal-scroll";
+export { useDebouncedValue } from "./use-debounced-value";

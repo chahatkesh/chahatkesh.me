@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
@@ -8,24 +8,12 @@ import { typo } from "~/components/ui";
 import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
 import { Project } from "~/data/projects";
-import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
+import { getImageSrc, ALL_STACKS } from "~/lib/project-utils";
 import { MotionDiv } from "~/components/shared";
-
-// Helper function to get image src
-const getImageSrc = (cover: string | StaticImageData): string => {
-  return typeof cover === "string" ? cover : cover.src;
-};
 
 type FeaturedProjectItemProps = {
   metadata?: boolean;
 } & Project;
-
-// Combine all tech stacks for icon lookup
-const ALL_STACKS = {
-  ...FRONTEND_STACKS,
-  ...BACKEND_DEVOPS,
-  ...LANGUAGES_TOOLS,
-};
 
 const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
   title,
@@ -102,9 +90,9 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
               Key Features
             </h3>
             <ul className="mb-6 space-y-1">
-              {features.slice(0, 3).map((feature, index) => (
+              {features.slice(0, 3).map((feature) => (
                 <li
-                  key={index}
+                  key={feature}
                   className="text-sm text-neutral-400 flex items-start"
                 >
                   <span className="mr-2 text-primary">•</span>
@@ -126,14 +114,14 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-2">
-                {stacks.slice(0, 3).map((stack, index) => {
+                {stacks.slice(0, 3).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
 
                   return (
                     <MotionDiv
-                      key={index}
+                      key={stack}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
                       whileHover={{ y: -2 }}
                       transition={{ duration: 0.2 }}

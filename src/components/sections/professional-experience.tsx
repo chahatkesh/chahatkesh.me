@@ -1,74 +1,10 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { typo } from "~/components/ui";
 import { experiences, type Experience } from "~/data/experience";
+import { calculateDuration } from "~/lib/date-utils";
 
-// Helper function to calculate duration
-const calculateDuration = (startDate: string, endDate: string): string => {
-  // Parse dates in format "MMM YYYY" (e.g., "Oct 2025")
-  const parseDate = (dateStr: string): Date => {
-    if (dateStr.toLowerCase() === "present") {
-      return new Date();
-    }
-
-    // Split the date string into month and year
-    const parts = dateStr.trim().split(" ");
-    if (parts.length !== 2) {
-      return new Date(""); // Invalid date
-    }
-
-    const [monthStr, yearStr] = parts;
-    const year = parseInt(yearStr, 10);
-
-    // Map month abbreviations to month indices (0-11)
-    const monthMap: Record<string, number> = {
-      jan: 0,
-      feb: 1,
-      mar: 2,
-      apr: 3,
-      may: 4,
-      jun: 5,
-      jul: 6,
-      aug: 7,
-      sep: 8,
-      oct: 9,
-      nov: 10,
-      dec: 11,
-    };
-
-    const month = monthMap[monthStr.toLowerCase()];
-
-    if (month === undefined || isNaN(year)) {
-      return new Date(""); // Invalid date
-    }
-
-    // Create date object using year, month, and day (1)
-    return new Date(year, month, 1);
-  };
-
-  const start = parseDate(startDate);
-  const end = parseDate(endDate);
-
-  // Check if dates are valid
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-    return "Invalid date";
-  }
-
-  const months =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    (end.getMonth() - start.getMonth());
-
-  if (months < 1) return "< 1 month";
-  if (months === 1) return "1 month";
-  if (months < 12) return `${months} months`;
-
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-
-  if (remainingMonths === 0) return years === 1 ? "1 year" : `${years} years`;
-  return `${years} ${years === 1 ? "year" : "years"} ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`;
-};
+const MAX_DISPLAYED_EXPERIENCES = 4;
 
 const ProfessionalExperience = () => {
   return (
@@ -79,12 +15,12 @@ const ProfessionalExperience = () => {
     >
       <h2 className={typo({ variant: "h2" })}>Professional Experience</h2>
       <div className="!mt-8">
-        <ol className="grid gap-3 md:gap-4" role="list">
-          {experiences.slice(0, 4).map((exp, index) => (
-            <ExperienceCard key={index} experience={exp} index={index} />
+        <ol className="grid gap-3 md:gap-4">
+          {experiences.slice(0, MAX_DISPLAYED_EXPERIENCES).map((exp) => (
+            <ExperienceCard key={exp.slug} experience={exp} />
           ))}
         </ol>
-        {experiences.length > 4 && (
+        {experiences.length > MAX_DISPLAYED_EXPERIENCES && (
           <div className="flex justify-end mt-4">
             <Link
               href="/about/experience"
@@ -111,35 +47,19 @@ const ProfessionalExperience = () => {
   );
 };
 
-const ExperienceCard = ({
-  experience,
-}: {
-  experience: Experience;
-  index: number;
-}) => {
+const ExperienceCard = ({ experience }: { experience: Experience }) => {
   const duration = calculateDuration(
     experience.start_date,
     experience.end_date,
   );
 
-  // Design system constants
-  const SPACING = {
-    cardPadding: "p-4",
-    logoGap: "gap-4",
-    titleToCompany: "mt-0.5",
-    companyToMeta: "mt-2.5",
-    dateToMin: "mt-0.5",
-  };
-
   return (
-    <li role="listitem" className="transition-all duration-300">
+    <li className="transition-all duration-300">
       <Link
         href={`/about/experience/${experience.slug}`}
         className="block group"
       >
-        <div
-          className={`flex gap-3 md:${SPACING.logoGap} border border-neutral-800 hover:border-neutral-700 rounded-lg p-3 md:${SPACING.cardPadding} transition-colors`}
-        >
+        <div className="flex gap-3 md:gap-4 border border-neutral-800 hover:border-neutral-700 rounded-lg p-3 md:p-4 transition-colors">
           {/* Logo Column - Fixed Width */}
           <div className="flex-shrink-0">
             <div className="relative h-[60px] w-[60px] md:h-[72px] md:w-[72px] overflow-hidden rounded-md border border-neutral-800 bg-neutral-800/50">
@@ -161,14 +81,10 @@ const ExperienceCard = ({
               <h3 className="font-ubuntu text-base md:text-lg font-medium text-white group-hover:text-ring transition-colors leading-tight">
                 {experience.role}
               </h3>
-              <p
-                className={`text-sm text-neutral-400 ${SPACING.titleToCompany} leading-tight`}
-              >
+              <p className="text-sm text-neutral-400 mt-0.5 leading-tight">
                 {experience.employer}
               </p>
-              <div
-                className={`flex flex-wrap items-center gap-1.5 md:gap-2 text-[11px] md:text-xs text-neutral-400 ${SPACING.companyToMeta} leading-tight`}
-              >
+              <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-[11px] md:text-xs text-neutral-400 mt-2.5 leading-tight">
                 <span>{experience.type}</span>
                 <span>•</span>
                 <span>{experience.location}</span>

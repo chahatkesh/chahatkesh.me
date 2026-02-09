@@ -1,4 +1,3 @@
-import { createId } from "@paralleldrive/cuid2";
 import { StaticImageData } from "next/image";
 
 // Project cover images
@@ -41,7 +40,7 @@ export interface Project {
 
 const projects: Project[] = [
   {
-    id: createId(),
+    id: "project-portfolio-website",
     title: "Portfolio Website",
     slug: "portfolio-website",
     description:
@@ -96,7 +95,7 @@ const projects: Project[] = [
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-swasya-ai",
     title: "Swasya AI",
     slug: "swasya-ai",
     description:
@@ -173,7 +172,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-gw-infra-solutions",
     title: "GW Infra Solutions",
     slug: "gw-infra-solutions",
     description:
@@ -242,7 +241,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-openlearn",
     title: "OpenLearn",
     slug: "openlearn",
     description:
@@ -306,7 +305,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: createId(),
+    id: "project-webmark",
     title: `Webmark`,
     slug: "webmark",
     description:
@@ -333,7 +332,7 @@ const projects: Project[] = [
     isFeatured: true,
   },
   {
-    id: createId(),
+    id: "project-tomato-food-delivery",
     title: `Tomato`,
     slug: "tomato-food-delivery",
     description:
@@ -372,7 +371,7 @@ const projects: Project[] = [
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-blogger",
     title: `Blogger`,
     slug: "blogger",
     description:
@@ -413,7 +412,7 @@ const projects: Project[] = [
     isFeatured: false,
   },
   {
-    id: createId(),
+    id: "project-gitroast-github-profile-roaster",
     title: "GitRoast",
     slug: "gitroast-github-profile-roaster",
     description:
