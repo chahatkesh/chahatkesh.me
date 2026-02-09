@@ -5,7 +5,7 @@ import { Visitor } from "~/models/visitor";
 // This ensures the route is not statically optimized
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function POST() {
   try {
     if (!process.env.MONGODB_URI) {
       console.error("MONGODB_URI environment variable is not defined");
