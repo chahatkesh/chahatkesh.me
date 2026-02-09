@@ -1,17 +1,23 @@
 "use client";
 
 import { GitHubCalendar } from "react-github-calendar";
+import config from "~/config";
+import {
+  GITHUB_CONTRIBUTION_COLORS,
+  GITHUB_CALENDAR_FONT_SIZE,
+  GITHUB_CALENDAR_BLOCK_SIZE,
+} from "~/constants";
 
 const GitHubContributions = () => {
   return (
-    <div className="w-full">
+    <div className="w-full" aria-label="GitHub contribution graph">
       <GitHubCalendar
-        username="chahatkesh"
+        username={config.author.github}
         colorScheme="dark"
-        fontSize={12}
-        blockSize={12}
+        fontSize={GITHUB_CALENDAR_FONT_SIZE}
+        blockSize={GITHUB_CALENDAR_BLOCK_SIZE}
         theme={{
-          dark: ["#1b1b1b", "#006064", "#00838f", "#0097a7", "#00adb5"],
+          dark: [...GITHUB_CONTRIBUTION_COLORS],
         }}
       />
     </div>

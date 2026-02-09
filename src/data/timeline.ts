@@ -1,5 +1,3 @@
-import { createId } from "@paralleldrive/cuid2";
-
 export interface TimelineLink {
   title: string;
   url: string;
@@ -27,7 +25,7 @@ export interface TimelineEvent {
 
 export const timelineEvents: TimelineEvent[] = [
   // {
-  //   id: createId(),
+  //   id: "timeline--",
   //   startDate: '',
   //   title: '',
   //   description: '',
@@ -38,7 +36,7 @@ export const timelineEvents: TimelineEvent[] = [
   //   location: '',
   // },
   {
-    id: createId(),
+    id: "timeline-2025-12-14-founding-engineer-at-zenbase",
     startDate: "2025-12-14",
     endDate: "present",
     title: "Founding Engineer at Zenbase",
@@ -48,7 +46,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Remote (Singapore)",
   },
   {
-    id: createId(),
+    id: "timeline-2025-04-10-volunteer-at-hackmol-6-0",
     startDate: "2025-04-10",
     endDate: "2025-04-12",
     title: "Volunteer at Hackmol 6.0",
@@ -66,7 +64,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "",
   },
   {
-    id: createId(),
+    id: "timeline-2025-04-03-attended-startup-mahakumbh-at-bharat-mandapam",
     startDate: "2025-04-03",
     endDate: "2025-04-05",
     title: "Attended Startup Mahakumbh at Bharat Mandapam",
@@ -83,7 +81,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Bharat Mandapam, New Delhi, India",
   },
   {
-    id: createId(),
+    id: "timeline-2024-10-11-spiritual-trip-to-mathura-vrindavan",
     startDate: "2024-10-11",
     endDate: "2024-10-14",
     title: "Spiritual Trip to Mathura & Vrindavan",
@@ -93,7 +91,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Vrindavan, Uttar Pradesh, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-09-27-bike-trip-to-jibhi-raghupur-fort-trek",
     startDate: "2025-09-27",
     endDate: "2025-09-29",
     title: "Bike Trip to Jibhi & Raghupur Fort Trek",
@@ -103,7 +101,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Jibhi, Himachal Pradesh, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-12-20-himachal-trip-paragliding-at-bir-billing",
     startDate: "2025-12-20",
     endDate: "2025-12-23",
     title: "Himachal Trip & Paragliding at Bir Billing",
@@ -113,7 +111,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Himachal Pradesh, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-06-25-visit-to-shri-mata-vaishno-devi-temple",
     startDate: "2025-06-25",
     endDate: "2025-06-27",
     title: "Visit to Shri Mata Vaishno Devi Temple",
@@ -123,7 +121,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Katra, Jammu & Kashmir, India",
   },
   {
-    id: createId(),
+    id: "timeline-2024-02-17-visit-to-shri-mata-vaishno-devi-temple",
     startDate: "2024-02-17",
     endDate: "2024-02-18",
     title: "Visit to Shri Mata Vaishno Devi Temple",
@@ -133,7 +131,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Katra, Jammu & Kashmir, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-08-28-launched-openlearn-v2",
     startDate: "2025-08-28",
     title: "Launched OpenLearn V2",
     description:
@@ -154,7 +152,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Remote",
   },
   {
-    id: createId(),
+    id: "timeline-2025-11-15-attended-smx-tour-seedhe-maut-live",
     startDate: "2025-11-15",
     title: "Attended SMX Tour – Seedhe Maut Live",
     description:
@@ -170,7 +168,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Chandigarh, India",
   },
   {
-    id: createId(),
+    id: "timeline-2023-08-16-started-b-tech-at-nit-jalandhar",
     startDate: "2023-08-16",
     endDate: "present",
     title: "Started B.Tech at NIT Jalandhar",
@@ -188,7 +186,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "NIT Jalandhar, Punjab, India",
   },
   {
-    id: createId(),
+    id: "timeline-2024-11-28-built-lpg-leakage-detection-system",
     startDate: "2024-11-28",
     title: "Built LPG Leakage Detection System",
     description:
@@ -204,7 +202,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "NIT Jalandhar, Punjab, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-01-04-9-days-of-exploration-iota-community",
     startDate: "2025-01-04",
     endDate: "2025-01-12",
     title: "9 Days of Exploration – IOTA Community",
@@ -226,7 +224,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Online",
   },
   {
-    id: createId(),
+    id: "timeline-2025-02-21-participated-in-code-kshetra-2-0",
     startDate: "2025-02-21",
     title: "Participated in Code Kshetra 2.0",
     description:
@@ -247,7 +245,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "JIMS Rohini, Delhi, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-02-08-participated-in-hacktu-6-0",
     startDate: "2025-02-08",
     title: "Participated in HackTU 6.0",
     description:
@@ -268,7 +266,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Thapar University, Patiala, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-01-25-frontend-internship-at-level-supermind",
     startDate: "2025-01-25",
     endDate: "2025-02-25",
     title: "Frontend Internship at Level SuperMind",
@@ -290,7 +288,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Remote",
   },
   {
-    id: createId(),
+    id: "timeline-2025-01-19-2nd-place-level-supermind-national-hackathon",
     startDate: "2025-01-19",
     title: "2nd Place – Level SuperMind National Hackathon",
     description:
@@ -312,7 +310,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Schabang Office, Mumbai, India",
   },
   {
-    id: createId(),
+    id: "timeline-2024-11-28-joined-gdgc-nitj-as-core-member",
     startDate: "2024-11-28",
     endDate: "present",
     title: "Joined GDGC NITJ as Core Member",
@@ -334,7 +332,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "NIT Jalandhar, Punjab, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-11-19-automated-refractive-index-measurement-system",
     startDate: "2025-11-19",
     title: "Automated Refractive Index Measurement System",
     description:
@@ -350,7 +348,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "NIT Jalandhar, Punjab, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-11-08-winner-aws-partner-track-at-hackcbs-8-0",
     startDate: "2025-11-08",
     title: "Winner – AWS Partner Track at HackCBS 8.0",
     description:
@@ -371,7 +369,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Saheed Sukhdev College, Delhi, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-11-03-product-presentation-to-goi-meity-delegation",
     startDate: "2025-11-03",
     title: "Product Presentation to GOI & MeitY Delegation",
     description:
@@ -392,7 +390,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "IIT Ropar, Punjab, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-10-17-started-entrepreneur-in-residence-eir",
     startDate: "2025-10-17",
     endDate: "present",
     title: "Started Entrepreneur-in-Residence (EIR)",
@@ -414,7 +412,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Hybrid, IIT Ropar",
   },
   {
-    id: createId(),
+    id: "timeline-2025-09-06-mentor-at-bit-n-build-punjab-round",
     startDate: "2025-09-06",
     title: "Mentor at Bit N Build Punjab Round",
     description:
@@ -440,7 +438,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Thapar University, Patiala, India",
   },
   {
-    id: createId(),
+    id: "timeline-2025-05-05-annam-ai-research-intern-iit-ropar",
     startDate: "2025-05-05",
     endDate: "2025-10-04",
     title: "Annam AI Research Intern - IIT Ropar",
@@ -458,7 +456,7 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Remote",
   },
   {
-    id: createId(),
+    id: "timeline-2025-06-13-openlearn-educational-organization",
     startDate: "2025-06-13",
     title: "OpenLearn - Educational Organization",
     description:

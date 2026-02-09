@@ -4,72 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { experiences } from "~/data/experience";
 import { MotionDiv } from "~/components/shared";
-
-// Helper function to calculate duration
-const calculateDuration = (startDate: string, endDate: string): string => {
-  // Parse dates in format "MMM YYYY" (e.g., "Oct 2025")
-  const parseDate = (dateStr: string): Date => {
-    if (dateStr.toLowerCase() === "present") {
-      return new Date();
-    }
-
-    // Split the date string into month and year
-    const parts = dateStr.trim().split(" ");
-    if (parts.length !== 2) {
-      return new Date(""); // Invalid date
-    }
-
-    const [monthStr, yearStr] = parts;
-    const year = parseInt(yearStr, 10);
-
-    // Map month abbreviations to month indices (0-11)
-    const monthMap: Record<string, number> = {
-      jan: 0,
-      feb: 1,
-      mar: 2,
-      apr: 3,
-      may: 4,
-      jun: 5,
-      jul: 6,
-      aug: 7,
-      sep: 8,
-      oct: 9,
-      nov: 10,
-      dec: 11,
-    };
-
-    const month = monthMap[monthStr.toLowerCase()];
-
-    if (month === undefined || isNaN(year)) {
-      return new Date(""); // Invalid date
-    }
-
-    // Create date object using year, month, and day (1)
-    return new Date(year, month, 1);
-  };
-
-  const start = parseDate(startDate);
-  const end = parseDate(endDate);
-
-  // Check if dates are valid
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-    return "Invalid date";
-  }
-
-  const months =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    (end.getMonth() - start.getMonth());
-
-  if (months < 1) return "< 1 month";
-  if (months === 1) return "1 month";
-  if (months < 12) return `${months} months`;
-
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-
-  if (remainingMonths === 0) return years === 1 ? "1 year" : `${years} years`;
-  return `${years} ${years === 1 ? "year" : "years"} ${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`;
-};
+import { calculateDuration } from "~/lib/date-utils";
 
 const ExperienceTimeline = () => {
   return (

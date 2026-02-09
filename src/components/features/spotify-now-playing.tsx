@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { SiSpotify } from "react-icons/si";
+import { useQuery } from "@tanstack/react-query";
+import { API_ROUTES, SPOTIFY_POLL_INTERVAL_MS } from "~/constants";
+import { fetcher } from "~/lib/fetcher";
 
 type SpotifyData = {
   isPlaying: boolean;
@@ -14,35 +16,15 @@ type SpotifyData = {
 };
 
 const SpotifyNowPlaying = () => {
-  const [data, setData] = useState<SpotifyData>({ isPlaying: false });
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading } = useQuery<SpotifyData>({
+    queryKey: ["spotify-now-playing"],
+    queryFn: () =>
+      fetcher<SpotifyData>(`${API_ROUTES.SPOTIFY_NOW_PLAYING}?t=${Date.now()}`),
+    refetchInterval: SPOTIFY_POLL_INTERVAL_MS,
+    placeholderData: { isPlaying: false },
+  });
 
-  useEffect(() => {
-    const fetchNowPlaying = async () => {
-      try {
-        // Add timestamp to prevent caching
-        const response = await fetch(
-          `/api/spotify/now-playing?t=${Date.now()}`,
-          {
-            cache: "no-store",
-          },
-        );
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching Spotify data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNowPlaying();
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchNowPlaying, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex gap-3 animate-pulse">
         <div className="w-16 h-16 bg-neutral-800 rounded" />
@@ -54,7 +36,7 @@ const SpotifyNowPlaying = () => {
     );
   }
 
-  if (!data.isPlaying) {
+  if (!data?.isPlaying) {
     return (
       <div className="flex items-center gap-3 text-neutral-500">
         <div className="w-16 h-16 bg-neutral-800 rounded flex items-center justify-center">
