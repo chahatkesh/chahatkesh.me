@@ -91,7 +91,7 @@ const projects: Project[] = [
     deployedURL: "https://chahatkesh.me",
     datePublished: "2025-04-21",
     dateStarted: "2025-03-27",
-    dateModified: "2026-01-10",
+    dateModified: "2026-02-09",
     isFeatured: false,
   },
   {
@@ -287,7 +287,7 @@ const projects: Project[] = [
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
     dateStarted: "2025-06-09",
-    dateModified: "2026-01-07",
+    dateModified: "2026-02-04",
     isFeatured: true,
     contributors: [
       {

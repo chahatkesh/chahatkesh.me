@@ -15,6 +15,7 @@ interface FormattedCommit {
   date: string;
   sha: string;
   url: string;
+  author: string;
 }
 
 const GITHUB_API = "https://api.github.com";
@@ -49,9 +50,10 @@ export async function getLatestCommits(
 
     return commits.map((commit) => ({
       message: commit.commit.message.split("\n")[0], // Get first line only
-      date: formatRelativeTime(commit.commit.author.date),
-      sha: commit.sha.substring(0, 7), // Short SHA
+      date: commit.commit.author.date, // Return raw ISO date string
+      sha: commit.sha,
       url: commit.html_url,
+      author: commit.commit.author.name,
     }));
   } catch (error) {
     console.error("Error fetching GitHub commits:", error);
@@ -60,39 +62,13 @@ export async function getLatestCommits(
       {
         message:
           "feat: improve date parsing logic in calculateDuration function",
-        date: "recently",
-        sha: "ec9bfe0",
+        date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+        sha: "ec9bfe04a2b8c9d1e4f5a6b7c8d9e0f1a2b3c4d5",
         url: `https://github.com/${REPO_OWNER}/${REPO_NAME}/commits/main`,
+        author: "Chahat Kesharwani",
       },
     ];
   }
-}
-
-/**
- * Format date to relative time (e.g., "2 hours ago")
- */
-function formatRelativeTime(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-
-  const intervals: { [key: string]: number } = {
-    year: 31536000,
-    month: 2592000,
-    week: 604800,
-    day: 86400,
-    hour: 3600,
-    minute: 60,
-  };
-
-  for (const [unit, secondsInUnit] of Object.entries(intervals)) {
-    const interval = Math.floor(seconds / secondsInUnit);
-    if (interval >= 1) {
-      return interval === 1 ? `1 ${unit} ago` : `${interval} ${unit}s ago`;
-    }
-  }
-
-  return "just now";
 }
 
 // ---------------------------------------------------------------------------
