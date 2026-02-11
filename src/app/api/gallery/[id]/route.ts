@@ -1,16 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import connectDB from "~/lib/mongodb";
+import { type NextRequest, NextResponse } from "next/server";
+import dbConnect from "~/lib/mongodb";
 import GalleryImage from "~/models/gallery";
-import { v2 as cloudinary } from "cloudinary";
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name:
-    process.env.CLOUDINARY_CLOUD_NAME ||
-    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { cloudinary } from "~/lib/cloudinary";
+import { requireAuth } from "~/lib/auth";
+import { updateGalleryImageSchema } from "~/lib/validations";
 
 type Params = {
   params: Promise<{
@@ -18,10 +11,10 @@ type Params = {
   }>;
 };
 
-// GET - Fetch single gallery image
+// GET - Fetch single gallery image (public)
 export async function GET(request: NextRequest, { params }: Params) {
   try {
-    await connectDB();
+    await dbConnect();
     const { id } = await params;
 
     const image = await GalleryImage.findById(id).lean();
@@ -46,27 +39,32 @@ export async function GET(request: NextRequest, { params }: Params) {
   }
 }
 
-// PUT - Update gallery image
+// PUT - Update gallery image (protected)
 export async function PUT(request: NextRequest, { params }: Params) {
+  const auth = await requireAuth();
+  if (!auth.authenticated) return auth.response;
+
   try {
-    await connectDB();
+    await dbConnect();
     const { id } = await params;
 
     const body = await request.json();
-    const { title, location, date, aspectRatio, isFeatured, order } = body;
+    const parsed = updateGalleryImageSchema.safeParse(body);
 
-    const updatedImage = await GalleryImage.findByIdAndUpdate(
-      id,
-      {
-        ...(title && { title }),
-        ...(location && { location }),
-        ...(date && { date }),
-        ...(aspectRatio && { aspectRatio }),
-        ...(typeof isFeatured === "boolean" && { isFeatured }),
-        ...(typeof order === "number" && { order }),
-      },
-      { new: true, runValidators: true },
-    );
+    if (!parsed.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: parsed.error.issues[0]?.message ?? "Invalid input",
+        },
+        { status: 400 },
+      );
+    }
+
+    const updatedImage = await GalleryImage.findByIdAndUpdate(id, parsed.data, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!updatedImage) {
       return NextResponse.json(
@@ -88,10 +86,13 @@ export async function PUT(request: NextRequest, { params }: Params) {
   }
 }
 
-// DELETE - Delete gallery image
+// DELETE - Delete gallery image (protected)
 export async function DELETE(request: NextRequest, { params }: Params) {
+  const auth = await requireAuth();
+  if (!auth.authenticated) return auth.response;
+
   try {
-    await connectDB();
+    await dbConnect();
     const { id } = await params;
 
     const image = await GalleryImage.findById(id);
