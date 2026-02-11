@@ -4,7 +4,7 @@ import { useState } from "react";
 import useSWR, { mutate } from "swr";
 import {
   CldUploadWidget,
-  CloudinaryUploadWidgetResults,
+  type CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
 import { Button } from "~/components/ui";
 import { Input } from "~/components/ui";

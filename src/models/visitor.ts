@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
-const VisitorSchema = new mongoose.Schema({
+export interface IVisitor {
+  count: number;
+  lastUpdated: Date;
+}
+
+const VisitorSchema = new mongoose.Schema<IVisitor>({
   count: {
     type: Number,
     default: 0,
@@ -13,4 +18,4 @@ const VisitorSchema = new mongoose.Schema({
 
 // Use 'visitors' as the collection name
 export const Visitor =
-  mongoose.models.Visitor || mongoose.model("Visitor", VisitorSchema);
+  mongoose.models.Visitor || mongoose.model<IVisitor>("Visitor", VisitorSchema);

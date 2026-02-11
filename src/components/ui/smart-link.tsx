@@ -1,8 +1,12 @@
-import React, { AnchorHTMLAttributes, ReactNode, forwardRef } from "react";
+import React, {
+  type AnchorHTMLAttributes,
+  type ReactNode,
+  forwardRef,
+} from "react";
 import Link from "next/link";
-import { ClassValue } from "clsx";
+import { type ClassValue } from "clsx";
 import { cn } from "~/lib/utils";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "./button";
 
 interface SmartLinkProps extends Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,

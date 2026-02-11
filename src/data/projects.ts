@@ -1,4 +1,4 @@
-import { StaticImageData } from "next/image";
+import { type StaticImageData } from "next/image";
 
 // Project cover images
 import webmark from "~/assets/images/projects/webmark.png";
@@ -452,4 +452,4 @@ const projects: Project[] = [
   },
 ];
 
-export default projects;
+export { projects };
