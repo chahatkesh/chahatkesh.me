@@ -1,24 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
-import connectDB from "~/lib/mongodb";
+import { type NextRequest, NextResponse } from "next/server";
+import dbConnect from "~/lib/mongodb";
 import GalleryImage from "~/models/gallery";
+import { requireAuth } from "~/lib/auth";
+import { createGalleryImageSchema } from "~/lib/validations";
 
-// GET - Fetch all gallery images
+// GET - Fetch all gallery images (public)
 export async function GET() {
   try {
-    await connectDB();
+    await dbConnect();
 
-    const images = await GalleryImage.find({}).sort({ createdAt: -1 }).lean();
-
-    // Sort by date in descending order (newest first) on the server
-    const sortedImages = images.sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime();
-    });
+    const images = await GalleryImage.find({})
+      .sort({ date: -1, createdAt: -1 })
+      .lean();
 
     return NextResponse.json({
       success: true,
-      data: sortedImages,
+      data: images,
     });
   } catch (error) {
     console.error("Error fetching gallery images:", error);
@@ -29,46 +26,34 @@ export async function GET() {
   }
 }
 
-// POST - Create new gallery image
+// POST - Create new gallery image (protected)
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth();
+  if (!auth.authenticated) return auth.response;
+
   try {
-    await connectDB();
+    await dbConnect();
 
     const body = await request.json();
-    const {
-      title,
-      location,
-      date,
-      aspectRatio,
-      imageUrl,
-      publicId,
-      isFeatured,
-    } = body;
+    const parsed = createGalleryImageSchema.safeParse(body);
 
-    // Validation
-    if (!title || !location || !date || !imageUrl || !publicId) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { success: false, error: "Missing required fields" },
+        {
+          success: false,
+          error: parsed.error.issues[0]?.message ?? "Invalid input",
+        },
         { status: 400 },
       );
     }
 
     const newImage = await GalleryImage.create({
-      title,
-      location,
-      date,
-      aspectRatio: aspectRatio || "square",
-      imageUrl,
-      publicId,
-      isFeatured: isFeatured || false,
+      ...parsed.data,
       order: 0,
     });
 
     return NextResponse.json(
-      {
-        success: true,
-        data: newImage,
-      },
+      { success: true, data: newImage },
       { status: 201 },
     );
   } catch (error) {
