@@ -1,4 +1,4 @@
-import { ConfigProps } from "./types/config";
+import { type ConfigProps } from "./types/config";
 
 export const config = {
   appName: "Chahat Kesharwani",

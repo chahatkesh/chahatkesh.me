@@ -1,4 +1,4 @@
-import { IconType } from "react-icons/lib";
+import { type IconType } from "react-icons/lib";
 import { FaGithub, FaAws, FaDocker, FaGit } from "react-icons/fa";
 import { VscCode } from "react-icons/vsc";
 import {

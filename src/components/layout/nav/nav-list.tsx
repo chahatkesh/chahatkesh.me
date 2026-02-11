@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { navData } from "./_nav-mock";
 import NavItem from "./nav-item";
 

@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  TimelineEvent,
+  type TimelineEvent,
   getAllTimelineEvents,
   categoryColors,
   getEventDuration,
   formatDateRange,
   formatOngoingDate,
 } from "~/data/timeline";
+import { TIMELINE_SCROLL_AMOUNT } from "~/constants";
 import {
   FaExternalLinkAlt,
   FaCalendarAlt,
@@ -152,7 +153,10 @@ const TimelineComponent = () => {
             onClick={() => {
               const container = document.getElementById("category-scroll");
               if (container) {
-                container.scrollBy({ left: 150, behavior: "smooth" });
+                container.scrollBy({
+                  left: TIMELINE_SCROLL_AMOUNT,
+                  behavior: "smooth",
+                });
               }
             }}
             className="text-neutral-400 p-1 flex-shrink-0"

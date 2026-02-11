@@ -1,4 +1,4 @@
-import { ClassValue } from "clsx";
+import { type ClassValue } from "clsx";
 import { Linkedin } from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter } from "react-icons/fa6";
 import { FiGithub } from "react-icons/fi";

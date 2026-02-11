@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import React, { Dispatch, SetStateAction } from "react";
-import { NavType } from "./_nav-mock";
+import React, { type Dispatch, type SetStateAction } from "react";
+import { type NavType } from "./_nav-mock";
 import { usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
 import { MotionSpan } from "~/components/shared";

@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { MotionDiv, ScrollButtons } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { useHorizontalScroll } from "~/hooks/use-horizontal-scroll";
