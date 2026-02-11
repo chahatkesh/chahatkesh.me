@@ -1,29 +1,28 @@
-import { NextRequest, NextResponse } from "next/server";
-import { v2 as cloudinary } from "cloudinary";
-
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name:
-    process.env.CLOUDINARY_CLOUD_NAME ||
-    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { type NextRequest, NextResponse } from "next/server";
+import { cloudinary } from "~/lib/cloudinary";
+import { requireAuth } from "~/lib/auth";
+import { uploadFileSchema } from "~/lib/validations";
 
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth();
+  if (!auth.authenticated) return auth.response;
+
   try {
     const body = await request.json();
-    const { file } = body;
+    const parsed = uploadFileSchema.safeParse(body);
 
-    if (!file) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { success: false, error: "No file provided" },
+        {
+          success: false,
+          error: parsed.error.issues[0]?.message ?? "Invalid input",
+        },
         { status: 400 },
       );
     }
 
     // Upload to Cloudinary
-    const uploadResponse = await cloudinary.uploader.upload(file, {
+    const uploadResponse = await cloudinary.uploader.upload(parsed.data.file, {
       folder: "portfolio/gallery",
       resource_type: "auto",
       transformation: [

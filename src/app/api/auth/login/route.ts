@@ -1,22 +1,29 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import connectDB from "~/lib/mongodb";
+import dbConnect from "~/lib/mongodb";
 import Admin from "~/models/admin";
 import { createSession, setSessionCookie } from "~/lib/auth";
+import { loginSchema } from "~/lib/validations";
 
 // POST - Login
 export async function POST(request: NextRequest) {
   try {
-    await connectDB();
+    await dbConnect();
 
-    const { username, password } = await request.json();
+    const body = await request.json();
+    const parsed = loginSchema.safeParse(body);
 
-    if (!username || !password) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { success: false, error: "Username and password are required" },
+        {
+          success: false,
+          error: parsed.error.issues[0]?.message ?? "Invalid input",
+        },
         { status: 400 },
       );
     }
+
+    const { username, password } = parsed.data;
 
     // Find admin user
     const admin = await Admin.findOne({ username });
