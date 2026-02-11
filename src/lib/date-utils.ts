@@ -42,7 +42,7 @@ const MONTH_MAP: Record<string, number> = {
   dec: 11,
 };
 
-function parseMonthYear(dateStr: string): Date {
+export function parseMonthYear(dateStr: string): Date {
   if (dateStr.toLowerCase() === "present") {
     return new Date();
   }
@@ -62,6 +62,27 @@ function parseMonthYear(dateStr: string): Date {
  * Calculate human-readable duration between two "MMM YYYY" dates.
  * Example: "Oct 2025" to "present" → "4 months"
  */
+/**
+ * Format a date into a relative time string (e.g., "5m ago", "3h ago").
+ * Falls back to "Mon DD" format for dates older than 7 days.
+ */
+export function formatRelativeDate(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
 export function calculateDuration(startDate: string, endDate: string): string {
   const start = parseMonthYear(startDate);
   const end = parseMonthYear(endDate);
