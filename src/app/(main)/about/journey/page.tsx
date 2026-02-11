@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { MotionDiv } from "~/components/shared";
 import { Breadcrumb } from "~/components/shared";

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import Image from "next/image";
 import {
   Linkedin,
@@ -20,7 +20,7 @@ import { MotionDiv } from "~/components/shared";
 import chahat from "~/assets/images/chahat.jpeg";
 import { Card } from "~/components/ui";
 import { LinkStats } from "~/components/features";
-import { links, LinkItem } from "~/data/links";
+import { links, type LinkItem } from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
 import { experiences } from "~/data/experience";
 

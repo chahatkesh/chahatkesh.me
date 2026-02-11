@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { easeOutExpo, LENIS_CONFIG } from "~/constants";
 

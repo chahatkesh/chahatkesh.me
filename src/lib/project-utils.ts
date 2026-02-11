@@ -3,7 +3,7 @@
  * Centralizes helpers that were duplicated across project components.
  */
 
-import { StaticImageData } from "next/image";
+import { type StaticImageData } from "next/image";
 import { FRONTEND_STACKS, BACKEND_DEVOPS, LANGUAGES_TOOLS } from "~/data/stack";
 
 /** Resolve a cover image to its string src, whether it's a URL string or StaticImageData */

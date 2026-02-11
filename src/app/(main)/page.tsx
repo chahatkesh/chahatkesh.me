@@ -1,16 +1,17 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import {
   AboutSection,
   Skills,
   ProfessionalExperience,
 } from "~/components/sections";
 import { ProjectList } from "~/components/features/project";
-import projects from "~/data/projects";
+import { projects } from "~/data/projects";
 import { ContactUs } from "~/components/sections";
 import { GitHubContributions } from "~/components/features";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { HomeJsonLd } from "~/components/seo";
+import { MAX_FEATURED_PROJECTS } from "~/constants";
 
 export const metadata: Metadata = getSEOTags({
   title: "Home",
@@ -33,7 +34,7 @@ const HomePage = () => {
         <ProjectList
           projects={projects
             .filter((project) => project.isFeatured)
-            .slice(0, 4)}
+            .slice(0, MAX_FEATURED_PROJECTS)}
           metadata
           showFeatured={true}
         />

@@ -1,11 +1,11 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { Breadcrumb } from "~/components/shared";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { GalleryContent } from "~/components/features/gallery/gallery-content";
+import { GalleryContent } from "~/components/features/gallery";
 
 export const metadata: Metadata = getSEOTags({
   title: "Gallery",

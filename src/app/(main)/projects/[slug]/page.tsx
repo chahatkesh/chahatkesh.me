@@ -1,15 +1,15 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumb } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
-import projects from "~/data/projects";
+import { projects } from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { FiGlobe } from "react-icons/fi";
 import { TbBrandGithub } from "react-icons/tb";
 import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
-import { ProjectJsonLd } from "~/components/features/project/project-jsonld";
+import { ProjectJsonLd } from "~/components/features/project";
 import { MotionDiv } from "~/components/shared";
 import { getImageSrc } from "~/lib/project-utils";
 import {

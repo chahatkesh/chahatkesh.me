@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FiGitCommit } from "react-icons/fi";
 import { cn } from "~/lib/utils";
+import { formatRelativeDate } from "~/lib/date-utils";
 
 interface Commit {
   sha: string;
@@ -25,23 +26,6 @@ export function CommitActivity({ commits, className }: CommitActivityProps) {
     const now = new Date();
     const hoursDiff = (now.getTime() - commitDate.getTime()) / (1000 * 60 * 60);
     return hoursDiff < 24;
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-    if (diffMins < 60) return `${diffMins}m ago`;
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffDays < 7) return `${diffDays}d ago`;
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
   };
 
   return (
@@ -85,7 +69,7 @@ export function CommitActivity({ commits, className }: CommitActivityProps) {
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-400">
                   <span>{commit.author}</span>
                   <span>•</span>
-                  <span>{formatDate(commit.date)}</span>
+                  <span>{formatRelativeDate(commit.date)}</span>
                   <span>•</span>
                   <code
                     className={cn(
