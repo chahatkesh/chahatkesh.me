@@ -23,6 +23,7 @@ export const SWR_ERROR_RETRY_INTERVAL_MS = 5_000;
 
 // Carousel scroll
 export const CAROUSEL_SCROLL_AMOUNT = 340;
+export const TIMELINE_SCROLL_AMOUNT = 150;
 
 // OG Image
 export const OG_DESCRIPTION_MAX_LENGTH = 150;
