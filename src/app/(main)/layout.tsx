@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Footer from "~/components/layout/footer";
 import Navbar from "~/components/layout/nav";
 import { SkipContent } from "~/components/ui";

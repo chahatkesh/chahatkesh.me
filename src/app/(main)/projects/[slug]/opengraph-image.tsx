@@ -1,4 +1,4 @@
-import projects from "~/data/projects";
+import { projects } from "~/data/projects";
 import { generateOGImageResponse, OG_IMAGE_SIZE } from "~/lib/og-template";
 import { notFound } from "next/navigation";
 

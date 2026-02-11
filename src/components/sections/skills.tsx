@@ -4,7 +4,7 @@ import {
   BACKEND_DEVOPS,
   FRONTEND_STACKS,
   LANGUAGES_TOOLS,
-  stacksProps,
+  type stacksProps,
 } from "~/data/stack";
 import { typo } from "~/components/ui";
 

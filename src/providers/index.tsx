@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, Suspense } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { ScrollProgress } from "~/components/shared";
 import SmoothScrollProvider from "~/components/shared/smooth-scroll-provider";

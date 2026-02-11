@@ -7,7 +7,7 @@ import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { ProjectJsonLd } from "./project-jsonld";
 import config from "~/config";
-import { Project } from "~/data/projects";
+import { type Project } from "~/data/projects";
 import { getImageSrc, ALL_STACKS } from "~/lib/project-utils";
 import { MotionDiv } from "~/components/shared";
 
