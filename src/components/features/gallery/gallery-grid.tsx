@@ -103,8 +103,6 @@ function GalleryImage({
   );
 }
 
-export type { GalleryItem } from "~/types/gallery";
-
 type BentoGridProps = {
   items: GalleryItem[];
 };
