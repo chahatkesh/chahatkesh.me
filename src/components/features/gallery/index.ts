@@ -1,13 +1,13 @@
-import { GalleryGrid } from "./gallery-grid";
-import { FeaturedCarousel } from "./featured-carousel";
-import { GalleryContent } from "./gallery-content";
-import { LinksFeaturedGallery } from "./links-featured-gallery";
-import type { GalleryItem } from "./gallery-grid";
+export { GalleryGrid } from "./gallery-grid";
+export { FeaturedCarousel } from "./featured-carousel";
+export { GalleryContent } from "./gallery-content";
+export { LinksFeaturedGallery } from "./links-featured-gallery";
 
-export {
-  GalleryGrid,
-  FeaturedCarousel,
-  GalleryContent,
-  LinksFeaturedGallery,
-  type GalleryItem,
-};
+// Re-export gallery types from the canonical source
+export type {
+  GalleryItem,
+  GalleryImage,
+  GalleryAspectRatio,
+  GalleryApiResponse,
+} from "~/types/gallery";
+export { toGalleryItem } from "~/types/gallery";
