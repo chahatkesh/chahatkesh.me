@@ -1,3 +1,5 @@
+import { config } from "~/config";
+
 interface GitHubCommit {
   sha: string;
   commit: {
@@ -19,8 +21,8 @@ interface FormattedCommit {
 }
 
 const GITHUB_API = "https://api.github.com";
-const REPO_OWNER = "chahatkesh";
-const REPO_NAME = "chahatkesh.me";
+const REPO_OWNER = config.author.github;
+const REPO_NAME = config.domainName;
 
 /**
  * Fetch latest commits from GitHub repository

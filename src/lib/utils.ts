@@ -16,8 +16,5 @@ export function formatDate(input: string | number): string {
   });
 }
 
-/** @deprecated Use `getBasePath` instead */
-export const BasePath = (path: string) => `https://${config.domainName}${path}`;
-
 export const getBasePath = (path: string) =>
   `https://${config.domainName}${path}`;
