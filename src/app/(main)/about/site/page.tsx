@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import {
@@ -7,16 +7,11 @@ import {
   TabGroup,
   AccordionSection,
 } from "~/components/shared";
-import { MetricsChart, CommitActivity } from "~/components/features";
+import { MetricsChart } from "~/components/features";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import Link from "next/link";
-import {
-  getLatestCommits,
-  getRepoStats,
-  getRepoLanguages,
-  getCommitCount,
-} from "~/lib/github";
+import { getCommitCount } from "~/lib/github";
 import {
   techStack,
   architectureLayers,
@@ -30,16 +25,12 @@ import {
 } from "~/data/site";
 import {
   FiGitCommit,
-  FiStar,
-  FiGitBranch,
-  FiAlertCircle,
-  FiExternalLink,
-  FiCode,
   FiLayers,
   FiZap,
   FiLayout,
   FiDatabase,
   FiCpu,
+  FiCode,
 } from "react-icons/fi";
 
 export const metadata: Metadata = getSEOTags({
@@ -62,36 +53,7 @@ const LAYER_ICONS: Record<string, typeof FiLayers> = {
 };
 
 const SitePage = async () => {
-  const [latestCommits, repoStats, repoLanguages, commitCount] =
-    await Promise.all([
-      getLatestCommits(6),
-      getRepoStats(),
-      getRepoLanguages(),
-      getCommitCount(),
-    ]);
-
-  const repoAge = repoStats.createdAt
-    ? (() => {
-        const created = new Date(repoStats.createdAt);
-        const now = new Date();
-        const months =
-          (now.getFullYear() - created.getFullYear()) * 12 +
-          (now.getMonth() - created.getMonth());
-        if (months >= 12) {
-          const years = Math.floor(months / 12);
-          const rem = months % 12;
-          return rem > 0 ? `${years}y ${rem}mo` : `${years}y`;
-        }
-        return `${months}mo`;
-      })()
-    : "—";
-
-  // Prepare data for charts
-  const languageChartData = repoLanguages.map((lang) => ({
-    language: lang.name,
-    percentage: lang.percentage,
-    color: lang.color,
-  }));
+  const commitCount = await getCommitCount();
 
   // Featured tech stack items (priority 1)
   const featuredTech = techStack.filter((t) => t.priority === 1);
@@ -115,24 +77,6 @@ const SitePage = async () => {
       color: "hsl(182.7, 100%, 35.5%)",
     };
   });
-
-  // Performance chart with impact scores
-  const performanceChartData = performanceStrategies.map((strategy) => ({
-    label: strategy.label,
-    value: strategy.impact || 50,
-    max: 100,
-    color: "hsl(182.7, 100%, 35.5%)",
-    unit: "",
-  }));
-
-  // Format commits for timeline
-  const formattedCommits = latestCommits.map((commit) => ({
-    sha: commit.sha,
-    message: commit.message,
-    author: commit.author,
-    date: commit.date,
-    url: commit.url,
-  }));
 
   return (
     <>
@@ -171,7 +115,7 @@ const SitePage = async () => {
                       "mt-3 max-w-2xl text-neutral-400",
                     )}
                   >
-                    A deep technical breakdown of how this portfolio is built —
+                    A deep technical breakdown of how this portfolio is built,
                     architecture decisions, design patterns, performance
                     strategies, and the engineering philosophy behind every line
                     of code.
@@ -185,118 +129,18 @@ const SitePage = async () => {
             </MotionDiv>
           </div>
 
-          {/* Hero Section: Repository Overview */}
+          {/* Repository Summary */}
           <section className="space-y-6">
-            <h2 className={cn(typo({ variant: "h2" }))}>Repository Overview</h2>
-
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
-              {/* Metrics Grid */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {[
-                    {
-                      icon: FiGitCommit,
-                      label: "Commits",
-                      value:
-                        commitCount > 0 ? commitCount.toLocaleString() : "100+",
-                    },
-                    {
-                      icon: FiStar,
-                      label: "Stars",
-                      value: repoStats.stars.toString(),
-                    },
-                    {
-                      icon: FiGitBranch,
-                      label: "Forks",
-                      value: repoStats.forks.toString(),
-                    },
-                    {
-                      icon: FiAlertCircle,
-                      label: "Issues",
-                      value: repoStats.openIssues.toString(),
-                    },
-                    {
-                      icon: FiCode,
-                      label: "Language",
-                      value: repoStats.language,
-                    },
-                    {
-                      icon: FiExternalLink,
-                      label: "License",
-                      value: repoStats.license ?? "MIT",
-                    },
-                  ].map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4 hover:border-neutral-700 transition-colors"
-                    >
-                      <stat.icon className="mb-2 text-lg text-neutral-400" />
-                      <p className="font-mono text-xl font-semibold text-white">
-                        {stat.value}
-                      </p>
-                      <p className="mt-1 text-xs text-neutral-500">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4 rounded-lg bg-neutral-900/30 p-4 text-xs text-neutral-500">
-                  <span>
-                    Age:{" "}
-                    <span className="font-mono text-neutral-300">
-                      {repoAge}
-                    </span>
-                  </span>
-                  <span>•</span>
-                  <span>
-                    Branch:{" "}
-                    <span className="font-mono text-neutral-300">
-                      {repoStats.defaultBranch}
-                    </span>
-                  </span>
-                  <span>•</span>
-                  <span>
-                    Updated:{" "}
-                    <span className="text-neutral-300">
-                      {repoStats.updatedAt
-                        ? new Date(repoStats.updatedAt).toLocaleDateString(
-                            "en-US",
-                            { month: "short", day: "numeric", year: "numeric" },
-                          )
-                        : "recently"}
-                    </span>
-                  </span>
-                </div>
-              </div>
-
-              {/* Language Breakdown */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-medium text-neutral-300">
-                  Language Breakdown
-                </h3>
-                <div className="space-y-3">
-                  {languageChartData.map((lang) => (
-                    <div key={lang.language} className="space-y-2">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-neutral-300">
-                          {lang.language}
-                        </span>
-                        <span className="font-mono text-xs text-neutral-500">
-                          {lang.percentage}%
-                        </span>
-                      </div>
-                      <div className="h-2 overflow-hidden rounded-full bg-neutral-900">
-                        <div
-                          className="h-full rounded-full transition-all"
-                          style={{
-                            width: `${lang.percentage}%`,
-                            backgroundColor: lang.color,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+            <div className="rounded-lg border border-neutral-800 bg-neutral-950/50 p-6">
+              <div className="flex items-center gap-4">
+                <FiGitCommit className="text-2xl text-cyan-400" />
+                <div>
+                  <p className="font-mono text-3xl font-semibold text-white">
+                    {commitCount > 0 ? commitCount.toLocaleString() : "100+"}
+                  </p>
+                  <p className="mt-1 text-sm text-neutral-400">
+                    Total commits in this repository
+                  </p>
                 </div>
               </div>
             </div>
@@ -634,35 +478,37 @@ const SitePage = async () => {
                 label: "Performance & Quality",
                 content: (
                   <div className="space-y-12">
-                    {/* Performance Strategies with Chart */}
+                    {/* Performance Strategies */}
                     <div className="space-y-6">
-                      <h3 className="text-base font-semibold text-neutral-100">
-                        Performance Strategies
-                      </h3>
-                      <div className="grid gap-6 lg:grid-cols-2">
-                        <div className="space-y-4">
-                          {performanceStrategies.map((item) => (
-                            <div
-                              key={item.label}
-                              className="space-y-2 rounded-lg border border-neutral-800 bg-neutral-950/30 p-4 hover:border-neutral-700 transition-colors"
-                            >
-                              <div className="flex items-baseline justify-between gap-2">
-                                <span className="font-medium text-neutral-200">
-                                  {item.label}
-                                </span>
-                                <span className="font-mono text-xs text-cyan-400">
-                                  {item.value}
-                                </span>
-                              </div>
-                              <p className="text-xs leading-relaxed text-neutral-500">
-                                {item.description}
-                              </p>
+                      <div className="space-y-2">
+                        <h3 className="text-base font-semibold text-neutral-100">
+                          Performance Strategies
+                        </h3>
+                        <p className="max-w-2xl text-sm leading-relaxed text-neutral-400">
+                          Optimizations that keep this portfolio fast,
+                          efficient, and delightful to use — from server-side
+                          rendering to smart caching strategies.
+                        </p>
+                      </div>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        {performanceStrategies.map((strategy) => (
+                          <div
+                            key={strategy.label}
+                            className="rounded-lg border border-neutral-800 bg-neutral-950/30 p-5 hover:border-neutral-700 transition-colors"
+                          >
+                            <div className="mb-2 flex items-baseline justify-between gap-3">
+                              <h4 className="font-ubuntu text-sm font-medium text-white">
+                                {strategy.label}
+                              </h4>
+                              <span className="flex-shrink-0 rounded bg-cyan-400/10 px-2 py-0.5 font-mono text-xs text-cyan-400">
+                                {strategy.value}
+                              </span>
                             </div>
-                          ))}
-                        </div>
-                        <div className="flex items-center rounded-lg border border-neutral-800 bg-neutral-950/30 p-6">
-                          <MetricsChart data={performanceChartData} />
-                        </div>
+                            <p className="text-sm leading-relaxed text-neutral-400">
+                              {strategy.description}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -838,24 +684,6 @@ const SitePage = async () => {
             ]}
           />
 
-          {/* Recent Activity */}
-          <section className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className={cn(typo({ variant: "h2" }), "text-2xl")}>
-                Recent Activity
-              </h2>
-              <Link
-                href={`https://github.com/${config.author.github}/chahatkesh.me/commits/main`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm text-neutral-400 hover:text-cyan-400 transition-colors"
-              >
-                View all <FiExternalLink className="text-[10px]" />
-              </Link>
-            </div>
-            <CommitActivity commits={formattedCommits} />
-          </section>
-
           {/* Footer */}
           <section className="rounded-xl border border-neutral-800 bg-neutral-950/50 p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -864,7 +692,6 @@ const SitePage = async () => {
                   Version 4.0 • Built with Next.js & TypeScript
                 </p>
                 <p className="text-xs text-neutral-500">
-                  Last updated: {latestCommits[0]?.date || "recently"} ·
                   Inspired by Apple Design Principles
                 </p>
               </div>

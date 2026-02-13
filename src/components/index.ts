@@ -4,5 +4,6 @@ export * from "./features";
 export * from "./shared";
 export * from "./seo";
 export * from "./ui";
-export * from "./layout/footer";
-export * from "./layout/nav";
+export * from "./layout";
+export * from "./admin";
+export * from "./analytics";
