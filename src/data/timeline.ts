@@ -38,6 +38,16 @@ export const timelineEvents: TimelineEvent[] = [
   //   location: '',
   // },
   {
+    id: "timeline--2026-02-14",
+    startDate: "2026-02-14",
+    endDate: "2026-02-15",
+    title: "Spiritual Trip to Shree Mata Vaishno Devi Temple",
+    description:
+      "A spiritual journey to the revered Shree Mata Vaishno Devi Temple in Katra, Jammu & Kashmir. The trip was filled with devotion, tranquility, and memorable moments shared with friends at one of the most sacred pilgrimage sites in India.",
+    category: "travel",
+    location: "Katra, Jammu & Kashmir, India",
+  },
+  {
     id: "timeline-2025-12-14-founding-engineer-at-zenbase",
     startDate: "2025-12-14",
     endDate: "present",
