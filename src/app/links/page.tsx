@@ -23,6 +23,7 @@ import { LinkStats } from "~/components/features";
 import { links, type LinkItem } from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
 import { experiences } from "~/data/experience";
+import { currentProjects } from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
@@ -68,61 +69,99 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
         target={link.href.startsWith("/") ? "_self" : "_blank"}
         rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}
         className={cn(
-          "group block",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg",
+          "group block h-full",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl",
         )}
       >
         <Card
           className={cn(
-            "transition-all duration-300 border border-neutral-800 hover:border-neutral-700",
+            "h-full transition-all duration-300 border border-neutral-800 hover:border-neutral-700",
             "active:scale-[0.98]",
             link.hoverColor,
-            isPrimary && "min-h-[72px] p-5",
+            isPrimary && "p-4 md:p-5",
             !isPrimary && "min-h-[64px] p-4",
             isSupport &&
               "border-yellow-500/30 bg-yellow-500/5 hover:border-yellow-500/50",
           )}
         >
-          <div className="flex items-center gap-4">
-            {/* Icon */}
-            <div
-              className={cn(
-                "flex-shrink-0 flex items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110",
-                isPrimary && "size-12 bg-primary/10",
-                !isPrimary && "size-10 bg-primary/5",
-              )}
-            >
+          {/* Primary Links - Vertical layout on mobile, horizontal on desktop */}
+          {isPrimary ? (
+            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 h-full">
+              {/* Icon */}
               <div
                 className={cn(
-                  link.gradient &&
-                    `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
+                  "flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg",
+                  "size-12 md:size-12 bg-primary/10 group-hover:bg-primary/15",
+                  "self-center md:self-auto",
                 )}
               >
-                {icon}
+                <div
+                  className={cn(
+                    "flex items-center justify-center",
+                    link.gradient &&
+                      `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
+                  )}
+                >
+                  {icon}
+                </div>
+              </div>
+
+              {/* Content - Centered on mobile, left-aligned on desktop */}
+              <div className="flex-1 min-w-0 text-center md:text-left">
+                <h3
+                  className={cn(
+                    "font-semibold tracking-tight transition-colors",
+                    "text-sm md:text-lg mb-0.5 md:mb-0",
+                  )}
+                >
+                  {link.title}
+                </h3>
+                <p className="hidden md:block text-xs md:text-sm text-muted-foreground line-clamp-2 md:truncate">
+                  {link.description}
+                </p>
+              </div>
+
+              {/* Arrow indicator - Hidden on mobile, shown on desktop */}
+              <div className="hidden md:flex flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
+                <ChevronRight className="size-5" />
               </div>
             </div>
-
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              <h3
+          ) : (
+            /* Non-Primary Links - Keep horizontal layout */
+            <div className="flex items-center gap-4">
+              {/* Icon */}
+              <div
                 className={cn(
-                  "font-semibold tracking-tight transition-colors",
-                  isPrimary && "text-lg",
-                  !isPrimary && "text-base",
+                  "flex-shrink-0 flex items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110",
+                  "size-10 bg-primary/5",
                 )}
               >
-                {link.title}
-              </h3>
-              <p className="text-sm text-muted-foreground truncate">
-                {link.description}
-              </p>
-            </div>
+                <div
+                  className={cn(
+                    link.gradient &&
+                      `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
+                  )}
+                >
+                  {icon}
+                </div>
+              </div>
 
-            {/* Arrow indicator */}
-            <div className="flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
-              <ChevronRight className="size-5" />
+              {/* Content */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base font-semibold tracking-tight transition-colors">
+                  {link.title}
+                </h3>
+                <p className="text-sm text-muted-foreground truncate">
+                  {link.description}
+                </p>
+              </div>
+
+              {/* Arrow indicator */}
+              <div className="flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
+                <ChevronRight className="size-5" />
+              </div>
             </div>
-          </div>
+          )}
         </Card>
       </a>
     </MotionDiv>
@@ -150,6 +189,19 @@ const LinksPage = () => {
     type: "current" as const,
     hoverColor: "hover:border-ring/50 hover:bg-ring/5",
   }));
+
+  const currentProjectLinks: LinkItem[] = currentProjects
+    .filter((project) => project.showInLinks)
+    .map((project, index) => ({
+      id: 2000 + index,
+      title: project.title,
+      description: project.description,
+      href: project.url,
+      icon: "FolderGit2",
+      iconSize: "md" as const,
+      type: "current" as const,
+      hoverColor: "hover:border-ring/50 hover:bg-ring/5",
+    }));
 
   return (
     <>
@@ -200,7 +252,7 @@ const LinksPage = () => {
         </MotionDiv>
 
         {/* Primary Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-2.5 md:gap-3 mb-6">
           {primaryLinks.map((link, index) => (
             <LinkCard key={link.id} link={link} index={index} />
           ))}
@@ -272,12 +324,41 @@ const LinksPage = () => {
           </div>
         )}
 
+        {/* Beyond Coding */}
+        {currentProjectLinks.length > 0 && (
+          <div className="mb-6">
+            <MotionDiv
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.35 }}
+            >
+              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
+                Beyond Coding
+              </h2>
+            </MotionDiv>
+            <div className="space-y-3">
+              {currentProjectLinks.map((link, index) => (
+                <LinkCard
+                  key={link.id}
+                  link={link}
+                  index={
+                    index +
+                    primaryLinks.length +
+                    actionLinks.length +
+                    currentLinks.length
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Social Links */}
         <div className="mb-6">
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.35 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Social
@@ -292,6 +373,7 @@ const LinksPage = () => {
                   index +
                   primaryLinks.length +
                   actionLinks.length +
+                  currentProjectLinks.length +
                   currentLinks.length
                 }
               />
@@ -304,7 +386,7 @@ const LinksPage = () => {
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.45 }}
           >
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
               Support
@@ -319,6 +401,7 @@ const LinksPage = () => {
                   index +
                   primaryLinks.length +
                   actionLinks.length +
+                  currentProjectLinks.length +
                   currentLinks.length +
                   socialLinks.length
                 }

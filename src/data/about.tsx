@@ -14,6 +14,7 @@ export interface CurrentProject {
   title: string;
   description: string;
   url: string;
+  showInLinks: boolean;
 }
 
 export const currentProjects: CurrentProject[] = [
@@ -22,6 +23,14 @@ export const currentProjects: CurrentProject[] = [
     description:
       "Transform real estate agents into high performers with AI co-pilots. Autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management. Integrates WhatsApp Business, Vonage voice, Cal.com scheduling.",
     url: "https://silentninja.tech/",
+    showInLinks: false,
+  },
+  {
+    title: "Organizer, HackMOL 7.0",
+    description:
+      "Currently organizing HackMOL 7.0, the flagship annual hackathon of NIT Jalandhar, scheduled for 28\u201329 March 2026. Contributing to planning, execution, and community engagement to deliver a high-impact hackathon experience.",
+    url: "https://hackmol.com",
+    showInLinks: true,
   },
 ];
 
