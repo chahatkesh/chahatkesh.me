@@ -1,17 +1,22 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import { MotionDiv, ScrollButtons } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import { useHorizontalScroll } from "~/hooks/use-horizontal-scroll";
 
+export type CarouselItem = {
+  url: string;
+  caption?: string;
+};
+
 type ExperienceCarouselProps = {
-  images: (string | StaticImageData)[];
+  items: CarouselItem[];
   experienceName: string;
 };
 
 export function ExperienceCarousel({
-  images,
+  items,
   experienceName,
 }: ExperienceCarouselProps) {
   const {
@@ -22,7 +27,7 @@ export function ExperienceCarousel({
     scrollRight,
   } = useHorizontalScroll();
 
-  if (images.length === 0) {
+  if (items.length === 0) {
     return null;
   }
 
@@ -38,7 +43,7 @@ export function ExperienceCarousel({
           Highlights
         </h2>
 
-        {images.length > 1 && (
+        {items.length > 1 && (
           <ScrollButtons
             canScrollLeft={canScrollLeft}
             canScrollRight={canScrollRight}
@@ -57,28 +62,36 @@ export function ExperienceCarousel({
             "pb-4 -mb-4",
             "scroll-smooth",
           )}
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {images.map((image, index) => (
+          {items.map((item, index) => (
             <div
-              key={typeof image === "string" ? image : index}
+              key={item.url + index}
               className={cn(
-                "relative overflow-hidden rounded-xl group cursor-pointer",
-                "aspect-[3/4] flex-shrink-0 w-80",
+                "relative overflow-hidden rounded-xl group cursor-pointer flex-shrink-0",
+                "aspect-[3/4] w-72",
               )}
             >
               <Image
-                src={image}
-                alt={`${experienceName} - Image ${index + 1}`}
+                src={item.url}
+                alt={
+                  item.caption ?? `${experienceName} — highlight ${index + 1}`
+                }
                 fill
                 priority={index < 3}
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 768px) 280px, 320px"
+                sizes="(max-width: 768px) 260px, 288px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Always-visible gradient at bottom so caption is readable */}
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
+
+              {/* Caption */}
+              {item.caption && (
+                <p className="absolute inset-x-0 bottom-3 px-3 text-xs text-white/90 font-medium text-center leading-snug line-clamp-2 drop-shadow">
+                  {item.caption}
+                </p>
+              )}
             </div>
           ))}
         </div>

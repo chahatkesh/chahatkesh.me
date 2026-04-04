@@ -4,6 +4,7 @@ import { MotionDiv } from "~/components/shared";
 import { ALL_STACKS } from "~/lib/project-utils";
 import type { Project } from "~/data/projects";
 import config from "~/config";
+import { MAX_RELATED_PROJECTS, MAX_VISIBLE_STACKS_FEATURED } from "~/constants";
 
 interface RelatedProjectsProps {
   projects: Project[];
@@ -14,7 +15,10 @@ interface RelatedProjectsProps {
 /**
  * "More Projects" grid section shown at the bottom of project detail pages.
  */
-export function RelatedProjects({ projects, count = 3 }: RelatedProjectsProps) {
+export function RelatedProjects({
+  projects,
+  count = MAX_RELATED_PROJECTS,
+}: RelatedProjectsProps) {
   const visible = projects.slice(0, count);
 
   if (visible.length === 0) return null;
@@ -69,15 +73,17 @@ export function RelatedProjects({ projects, count = 3 }: RelatedProjectsProps) {
                     {project.tagline}
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {project.stacks.slice(0, 3).map((stack) => {
-                      const techInfo = ALL_STACKS[stack];
-                      const Icon = techInfo?.Icon;
-                      return Icon ? (
-                        <span key={stack} className="text-neutral-400">
-                          <Icon size={16} aria-label={stack} />
-                        </span>
-                      ) : null;
-                    })}
+                    {project.stacks
+                      .slice(0, MAX_VISIBLE_STACKS_FEATURED)
+                      .map((stack) => {
+                        const techInfo = ALL_STACKS[stack];
+                        const Icon = techInfo?.Icon;
+                        return Icon ? (
+                          <span key={stack} className="text-neutral-400">
+                            <Icon size={16} aria-label={stack} />
+                          </span>
+                        ) : null;
+                      })}
                     {project.stacks.length > 3 && (
                       <span className="text-xs text-neutral-500">
                         +{project.stacks.length - 3} more

@@ -10,6 +10,7 @@ import config from "~/config";
 import { type Project } from "~/data/projects";
 import { getImageSrc, ALL_STACKS } from "~/lib/project-utils";
 import { MotionDiv } from "~/components/shared";
+import { MAX_VISIBLE_FEATURES, MAX_VISIBLE_STACKS } from "~/constants";
 
 type ProjectItemProps = {
   metadata?: boolean;
@@ -106,7 +107,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 
             {features && features.length > 0 && (
               <ul className="mb-4 space-y-1">
-                {features.slice(0, 5).map((feature) => (
+                {features.slice(0, MAX_VISIBLE_FEATURES).map((feature) => (
                   <li
                     key={feature}
                     className="text-xs text-neutral-400 flex items-start"
@@ -115,10 +116,12 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                     <span className="line-clamp-1">{feature}</span>
                   </li>
                 ))}
-                {features.length > 5 && (
+                {features.length > MAX_VISIBLE_FEATURES && (
                   <li className="text-xs text-neutral-500 flex items-start">
                     <span className="mr-1">•</span>
-                    <span>+{features.length - 5} more features</span>
+                    <span>
+                      +{features.length - MAX_VISIBLE_FEATURES} more features
+                    </span>
                   </li>
                 )}
               </ul>
@@ -126,7 +129,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 
             <div className="mt-auto">
               <div className="flex flex-wrap gap-1.5">
-                {stacks.slice(0, 5).map((stack) => {
+                {stacks.slice(0, MAX_VISIBLE_STACKS).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
