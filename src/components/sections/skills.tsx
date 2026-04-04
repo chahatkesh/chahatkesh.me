@@ -7,21 +7,22 @@ import {
   type stacksProps,
 } from "~/data/stack";
 import { typo } from "~/components/ui";
+import { MARQUEE_SPEED } from "~/constants";
 
 const Skills = () => {
   return (
     <section aria-label="skills" className="my-4 space-y-8 bg-background">
       <h2 className={typo({ variant: "h2" })}>Tools that I have used</h2>
       <div className="w-full space-y-6">
-        <Marquee autoFill pauseOnHover speed={20}>
+        <Marquee autoFill pauseOnHover speed={MARQUEE_SPEED}>
           <SkillsList stacks={LANGUAGES_TOOLS} />
         </Marquee>
 
-        <Marquee autoFill pauseOnHover direction="right" speed={20}>
+        <Marquee autoFill pauseOnHover direction="right" speed={MARQUEE_SPEED}>
           <SkillsList stacks={FRONTEND_STACKS} />
         </Marquee>
 
-        <Marquee autoFill pauseOnHover speed={20}>
+        <Marquee autoFill pauseOnHover speed={MARQUEE_SPEED}>
           <SkillsList stacks={BACKEND_DEVOPS} />
         </Marquee>
       </div>

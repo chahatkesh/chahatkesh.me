@@ -1,11 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
+import { FETCH_TIMEOUT_MS } from "~/constants";
 
 function ReactQueryProvider({ children }: React.PropsWithChildren) {
   const [client] = React.useState(
     new QueryClient({
       defaultOptions: {
-        queries: { staleTime: 5000, refetchOnWindowFocus: false },
+        queries: { staleTime: FETCH_TIMEOUT_MS, refetchOnWindowFocus: false },
       },
     }),
   );
