@@ -1,6 +1,11 @@
 import { ImageResponse } from "next/og";
 import config from "~/config";
-import { BRAND_ACCENT_HEX, BACKGROUND_HEX } from "~/constants";
+import {
+  BRAND_ACCENT_HEX,
+  BACKGROUND_HEX,
+  OG_DESCRIPTION_MAX_LENGTH,
+  OG_MAX_TAGS,
+} from "~/constants";
 
 export const OG_IMAGE_SIZE = {
   width: 1200,
@@ -115,8 +120,8 @@ export function generateOGImageResponse({
               flexWrap: "wrap",
             }}
           >
-            {description.substring(0, 150)}
-            {description.length > 150 ? "..." : ""}
+            {description.substring(0, OG_DESCRIPTION_MAX_LENGTH)}
+            {description.length > OG_DESCRIPTION_MAX_LENGTH ? "..." : ""}
           </div>
         )}
 
@@ -130,7 +135,7 @@ export function generateOGImageResponse({
               marginTop: "20px",
             }}
           >
-            {tags.slice(0, 5).map((tag) => (
+            {tags.slice(0, OG_MAX_TAGS).map((tag) => (
               <div
                 key={tag}
                 style={{

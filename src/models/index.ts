@@ -13,3 +13,6 @@ export type { IGalleryImage } from "./gallery";
 
 export { Visitor } from "./visitor";
 export type { IVisitor } from "./visitor";
+
+export { default as ExperienceGalleryImage } from "./experience-gallery";
+export type { IExperienceGalleryImage } from "./experience-gallery";

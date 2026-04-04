@@ -10,6 +10,10 @@ import config from "~/config";
 import { type Project } from "~/data/projects";
 import { getImageSrc, ALL_STACKS } from "~/lib/project-utils";
 import { MotionDiv } from "~/components/shared";
+import {
+  MAX_VISIBLE_FEATURES_FEATURED,
+  MAX_VISIBLE_STACKS_FEATURED,
+} from "~/constants";
 
 type FeaturedProjectItemProps = {
   metadata?: boolean;
@@ -90,20 +94,23 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
               Key Features
             </h3>
             <ul className="mb-6 space-y-1">
-              {features.slice(0, 3).map((feature) => (
-                <li
-                  key={feature}
-                  className="text-sm text-neutral-400 flex items-start"
-                >
-                  <span className="mr-2 text-primary">•</span>
-                  {feature}
-                </li>
-              ))}
-              {features.length > 3 && (
+              {features
+                .slice(0, MAX_VISIBLE_FEATURES_FEATURED)
+                .map((feature) => (
+                  <li
+                    key={feature}
+                    className="text-sm text-neutral-400 flex items-start"
+                  >
+                    <span className="mr-2 text-primary">•</span>
+                    {feature}
+                  </li>
+                ))}
+              {features.length > MAX_VISIBLE_FEATURES_FEATURED && (
                 <li className="text-sm text-neutral-500 flex items-start">
                   <span className="mr-2 text-primary">•</span>
                   <span className="italic">
-                    +{features.length - 3} more features
+                    +{features.length - MAX_VISIBLE_FEATURES_FEATURED} more
+                    features
                   </span>
                 </li>
               )}
@@ -114,7 +121,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-2">
-                {stacks.slice(0, 3).map((stack) => {
+                {stacks.slice(0, MAX_VISIBLE_STACKS_FEATURED).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
                   const className = techInfo?.className || "text-neutral-400";
