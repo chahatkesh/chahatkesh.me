@@ -1,6 +1,7 @@
 import { projects } from "~/data/projects";
 import { generateOGImageResponse, OG_IMAGE_SIZE } from "~/lib/og-template";
 import { notFound } from "next/navigation";
+import { OG_MAX_TAGS } from "~/constants";
 
 export const size = OG_IMAGE_SIZE;
 export const contentType = "image/png";
@@ -24,7 +25,7 @@ export default async function Image({ params }: Props) {
     subtitle: project.tagline,
     description: project.description,
     badge: "Project",
-    tags: project.stacks.slice(0, 5),
+    tags: project.stacks.slice(0, OG_MAX_TAGS),
   });
 }
 

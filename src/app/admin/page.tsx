@@ -364,16 +364,15 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
-          {/* Experience Card - Coming Soon */}
-          <Card className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden">
-            <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-neutral-800/80 backdrop-blur-sm">
-              <span className="text-xs font-medium text-neutral-400">
-                Coming Soon
-              </span>
-            </div>
-            <CardContent className="p-6">
+          {/* Experience Gallery Card */}
+          <Card
+            className="border-neutral-800 bg-neutral-950/50 backdrop-blur-sm hover:border-neutral-700 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
+            onClick={() => router.push("/admin/experience")}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-neutral-800/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="p-6 relative">
               <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-neutral-900 shadow-lg">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-neutral-800 to-neutral-900 group-hover:from-neutral-700 group-hover:to-neutral-800 transition-all shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -384,17 +383,33 @@ export default function AdminPage() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="text-neutral-500"
+                    className="text-neutral-300"
                   >
                     <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
                     <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                   </svg>
                 </div>
+                <div className="p-2 rounded-lg bg-neutral-900/50 group-hover:bg-neutral-800/50 transition-all">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-neutral-500 group-hover:text-neutral-400 group-hover:translate-x-0.5 transition-all"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Experience</h3>
+                <h3 className="text-xl font-semibold">Experience Gallery</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Update your professional experience and career timeline
+                  Upload and manage highlight images for each work experience
                 </p>
               </div>
             </CardContent>

@@ -2,13 +2,33 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import useSWR from "swr";
 import { MotionDiv } from "~/components/shared";
 import { Breadcrumb } from "~/components/shared";
-import { ExperienceCarousel } from "~/components/features/experience";
+import {
+  ExperienceCarousel,
+  type CarouselItem,
+} from "~/components/features/experience";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { type Experience } from "~/data/experience";
+import { API_ROUTES } from "~/constants";
 import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+interface ExperienceGalleryApiResponse {
+  success: boolean;
+  data: { _id: string; imageUrl: string; caption?: string; order: number }[];
+}
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
 
 interface ExperienceDetailClientProps {
   experience: Experience;
@@ -17,6 +37,22 @@ interface ExperienceDetailClientProps {
 const ExperienceDetailClient = ({
   experience,
 }: ExperienceDetailClientProps) => {
+  // Prefer DB-managed images; fall back to static gallery in data file
+  const { data: galleryData } = useSWR<ExperienceGalleryApiResponse>(
+    API_ROUTES.EXPERIENCE_GALLERY(experience.slug),
+    fetcher,
+  );
+
+  const galleryItems: CarouselItem[] =
+    galleryData?.data && galleryData.data.length > 0
+      ? galleryData.data.map((img) => ({
+          url: img.imageUrl,
+          caption: img.caption,
+        }))
+      : (experience.gallery
+          ?.filter((g): g is string => typeof g === "string")
+          .map((url) => ({ url })) ?? []);
+
   return (
     <MotionDiv>
       <div className="space-y-8">
@@ -114,10 +150,10 @@ const ExperienceDetailClient = ({
             </p>
           </section>
 
-          {/* Gallery Carousel */}
-          {experience.gallery && experience.gallery.length > 0 && (
+          {/* Gallery Carousel — DB images preferred, static fallback */}
+          {galleryItems.length > 0 && (
             <ExperienceCarousel
-              images={experience.gallery}
+              items={galleryItems}
               experienceName={experience.employer}
             />
           )}

@@ -1,14 +1,15 @@
 import { type StaticImageData } from "next/image";
+import { generateExperienceSlug } from "~/lib/utils";
 
 // Import logos
 import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
 import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
 import XceedLogo from "../assets/images/experience/Xceed.png";
-import AwadhLogo from "../assets/images/experience/Awadh.png";
 import ZenbaseLogo from "../assets/images/experience/Zenbase.png";
 
 export type Experience = {
   slug: string;
+  companyId?: string;
   employer: string;
   role: string;
   type: string; // Full-time, Part-time, Internship, Contract, etc.
@@ -22,15 +23,15 @@ export type Experience = {
   contributions?: string[]; // Key contributions/responsibilities
   techStack?: string[]; // Technologies used
   achievements?: string[]; // Measurable achievements
-  links?: { title: string; url: string; icon?: string }[];
+  links?: { title: string; url: string; icon?: string }[]; // Optional links related to the experience
   gallery?: (string | StaticImageData)[]; // Image URLs or StaticImageData
 };
 
 export const experiences: Experience[] = [
   {
-    slug: "zenbase-founding-engineer",
+    slug: generateExperienceSlug("Zenbase Technologies", "Frontend Engineer"),
     employer: "Zenbase Technologies",
-    role: "Founding Engineer (Frontend)",
+    role: "Frontend Engineer",
     type: "Full-time",
     location: "Singapore, Remote",
     start_date: "Dec 2025",
@@ -78,25 +79,24 @@ export const experiences: Experience[] = [
         icon: "website",
       },
     ],
-    gallery: [
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/zenbase/img1.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/zenbase/img2.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/zenbase/img3.png",
-    ],
   },
   {
-    slug: "awadh-eir",
-    employer: "iHub AwaDH IIT Ropar",
+    slug: generateExperienceSlug(
+      "Annam.ai IIT Ropar",
+      "Entrepreneur in Residence",
+    ),
+    companyId: "annam-ai",
+    employer: "Annam.ai IIT Ropar",
     role: "Entrepreneur in Residence",
     type: "Full-time",
     location: "Hybrid",
     start_date: "Oct 2025",
-    end_date: "present",
+    end_date: "Mar 2026",
     tagline:
       "Innovation-driven research and startup ideation under IIT Ropar's incubation ecosystem.",
     description:
       "Engaged in innovation-driven research and startup ideation under iHub AWaDH's incubation ecosystem. Focused on developing AI-powered solutions for real-world problems, leveraging cutting-edge technologies and methodologies.",
-    logo: AwadhLogo,
+    logo: AnnamAILogo,
     about:
       "iHub AWaDH (Agriculture and Water Technology Development Hub) is a Technology Innovation Hub established at IIT Ropar under the National Mission on Interdisciplinary Cyber-Physical Systems (NM-ICPS) by the Department of Science and Technology, Government of India.",
     contributions: [
@@ -117,16 +117,13 @@ export const experiences: Experience[] = [
         icon: "website",
       },
     ],
-    gallery: [
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img1.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img2.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img3.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img4.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/awadh-eir/img5.png",
-    ],
   },
   {
-    slug: "annam-ai-research-intern",
+    slug: generateExperienceSlug(
+      "Annam.ai IIT Ropar",
+      "Research Intern - AI Systems",
+    ),
+    companyId: "annam-ai",
     employer: "Annam.ai IIT Ropar",
     role: "Research Intern - AI Systems",
     type: "Internship",
@@ -160,14 +157,9 @@ export const experiences: Experience[] = [
     links: [
       { title: "Annam.ai Website", url: "https://annam.ai/", icon: "website" },
     ],
-    gallery: [
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/annam-ai-research-intern/img1.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/annam-ai-research-intern/img2.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/annam-ai-research-intern/img3.png",
-    ],
   },
   {
-    slug: "level-supermind-fullstack",
+    slug: generateExperienceSlug("Level SuperMind", "Fullstack Developer"),
     employer: "Level SuperMind",
     role: "Fullstack Developer",
     type: "Internship",
@@ -202,14 +194,9 @@ export const experiences: Experience[] = [
       "Reduced user setup time by 20% with improved onboarding",
       "Built comprehensive reusable component library",
     ],
-    gallery: [
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/level-supermind-fullstack/img1.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/level-supermind-fullstack/img2.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/level-supermind-fullstack/img3.png",
-    ],
   },
   {
-    slug: "xceed-nitj-fullstack",
+    slug: generateExperienceSlug("Xceed NITJ", "Fullstack Developer"),
     employer: "Xceed NITJ",
     role: "Fullstack Developer",
     type: "Project",
@@ -245,11 +232,6 @@ export const experiences: Experience[] = [
     ],
     links: [
       { title: "Xceed NITJ", url: "https://xceed.co.in/", icon: "website" },
-    ],
-    gallery: [
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/xceed-nitj-fullstack/img1.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/xceed-nitj-fullstack/img2.png",
-      "https://jklrjucnntkajrda.public.blob.vercel-storage.com/experience/xceed-nitj-fullstack/img3.png",
     ],
   },
 ];

@@ -25,13 +25,6 @@ export const currentProjects: CurrentProject[] = [
     url: "https://silentninja.tech/",
     showInLinks: false,
   },
-  {
-    title: "Organizer, HackMOL 7.0",
-    description:
-      "Currently organizing HackMOL 7.0, the flagship annual hackathon of NIT Jalandhar, scheduled for 28\u201329 March 2026. Contributing to planning, execution, and community engagement to deliver a high-impact hackathon experience.",
-    url: "https://hackmol.com",
-    showInLinks: true,
-  },
 ];
 
 // ── Hobbies ───────────────────────────────────────────────────────

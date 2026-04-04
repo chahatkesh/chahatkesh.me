@@ -53,6 +53,22 @@ export const updateGalleryImageSchema = z.object({
   order: z.number().int().min(0).optional(),
 });
 
+// ---------------------------------------------------------------------------
+// Experience Gallery
+// ---------------------------------------------------------------------------
+
+export const createExperienceGalleryImageSchema = z.object({
+  experienceSlug: z.string().min(1, "Experience slug is required"),
+  imageUrl: z.url("Invalid image URL"),
+  publicId: z.string().min(1, "Cloudinary public ID is required"),
+  caption: z.string().max(500, "Caption too long").optional(),
+});
+
+export const updateExperienceGalleryImageSchema = z.object({
+  caption: z.string().max(500, "Caption too long").optional(),
+  order: z.number().int().min(0).optional(),
+});
+
 export const uploadFileSchema = z.object({
   file: z.string().min(1, "No file provided"),
 });

@@ -10,6 +10,9 @@ export const API_ROUTES = {
   VISITORS: "/api/visitors",
   GALLERY: "/api/gallery",
   AUTH_LOGIN: "/api/auth/login",
+  /** Returns the URL for fetching experience gallery images by slug */
+  EXPERIENCE_GALLERY: (slug: string) =>
+    `/api/experience/gallery?slug=${encodeURIComponent(slug)}`,
 } as const;
 
 // External API routes

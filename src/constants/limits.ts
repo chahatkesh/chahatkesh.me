@@ -12,7 +12,7 @@ export const MAX_VISIBLE_STACKS = 5;
 export const MAX_RELATED_PROJECTS = 3;
 
 // Experience display limits
-export const MAX_DISPLAYED_EXPERIENCES = 4;
+export const MAX_DISPLAYED_EXPERIENCES = 3;
 
 // Polling & timeout intervals (ms)
 export const SPOTIFY_POLL_INTERVAL_MS = 30_000;
