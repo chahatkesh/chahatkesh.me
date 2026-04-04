@@ -239,6 +239,57 @@ const AboutPage = () => {
               </div>
             </section>
 
+            {/* Poem Section */}
+            <section aria-label="A note on me" className="mt-10">
+              <div className="relative overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/30 px-7 py-9 sm:px-9 sm:py-10">
+                <div className="absolute left-0 top-0 h-full w-[3px] rounded-l-xl bg-ring opacity-45" />
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-2 left-5 select-none font-poem text-[7rem] leading-none text-ring/15 sm:text-[8.5rem]"
+                >
+                  &ldquo;
+                </span>
+                <div className="relative space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-neutral-400 sm:text-[1.03rem]">
+                  <p>
+                    I build things with care,
+                    <br />
+                    and sometimes I hate how much I care.
+                  </p>
+                  <p>
+                    I overthink everything.
+                    <br />
+                    the work, the words, the weight of it all.
+                    <br />
+                    I fix what I can,
+                    <br />
+                    and apologize for what I can&apos;t.
+                  </p>
+                  <p>
+                    I hold on too long.
+                    <br />
+                    to ideas, to people.
+                    <br />
+                    even when they&apos;ve already let go.
+                  </p>
+                  <p>
+                    And sometimes I feel alone,
+                    <br />
+                    not because no one&apos;s there,
+                    <br />
+                    but because I go deeper than most.
+                  </p>
+                  <p className="not-italic text-neutral-200">
+                    still waiting to meet someone
+                    <br />
+                    who loves as <em className="italic text-ring">
+                      fiercely
+                    </em>{" "}
+                    as I build.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             {/* Beyond Code Section */}
             <section className="mt-10 space-y-6" aria-label="Beyond Code">
               <h2 className={typo({ variant: "h2" })}>Beyond Code</h2>

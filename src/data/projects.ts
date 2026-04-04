@@ -91,7 +91,7 @@ const projects: Project[] = [
     deployedURL: "https://chahatkesh.me",
     datePublished: "2025-04-21",
     dateStarted: "2025-03-27",
-    dateModified: "2026-02-09",
+    dateModified: "2026-02-23",
     isFeatured: false,
   },
   {

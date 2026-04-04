@@ -1,4 +1,4 @@
-import { fontSans } from "~/components/ui";
+import { fontSans, fontPoem } from "~/components/ui";
 import {
   getSEOTags,
   renderSchemaTags,
@@ -40,6 +40,7 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
+          fontPoem.variable,
         )}
       >
         {renderSchemaTags()}
