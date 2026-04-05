@@ -39,9 +39,9 @@ const AboutSection = () => {
         </p>
 
         <p className={typo({ variant: "paragraph", font: "sans" })}>
-          I'm an <span className="text-white">EIR at iHub AWaDH</span>, aiming
-          to build and contribute to impactful open-source projects. When not
-          coding, I read books, go out for a run, or binge YouTube.
+          I'm an <span className="text-white">EIR at Annam.ai, IIT Ropar</span>,
+          aiming to build and contribute to impactful open-source projects. When
+          not coding, I read books, go out for a run, or binge YouTube.
         </p>
 
         <p
