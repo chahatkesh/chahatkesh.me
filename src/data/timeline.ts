@@ -38,6 +38,20 @@ export const timelineEvents: TimelineEvent[] = [
   //   location: '',
   // },
   {
+    id: "timeline-2026-03-28-organiser-hackmol-7-0",
+    startDate: "2026-03-28",
+    endDate: "2026-03-29",
+    title: "Event Coordinator (Organiser) at HackMol 7.0",
+    description:
+      "Led HackMol 7.0 as Event Coordinator, managing end-to-end execution including registrations, hackspaces, and ceremonies. Ensured smooth coordination by interacting closely with teams. Handled 3000+ registrations and 450+ PPTs, shortlisting 60 teams (200+ participants) for the offline round, while working through 60+ hours of continuous execution. Built strong leadership and coordination skills while contributing to a growing tech community.",
+    category: "workshop",
+    links: [
+      { title: "HackMol 7.0", url: "https://hackmol.com/", icon: "website" },
+      { title: "View Post", url: "", icon: "linkedin" },
+    ],
+    location: "NIT Jalandhar, Punjab, India",
+  },
+  {
     id: "timeline--2026-02-14",
     startDate: "2026-02-14",
     endDate: "2026-02-15",
@@ -404,15 +418,15 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: "timeline-2025-10-17-started-entrepreneur-in-residence-eir",
     startDate: "2025-10-17",
-    endDate: "present",
-    title: "Started Entrepreneur-in-Residence (EIR)",
+    endDate: "2026-03-16",
+    title: "Entrepreneur in Residence at Annam.ai, IIT Ropar",
     description:
-      "Started my journey as an Entrepreneur-in-Residence at iHub AwaDH IIT Ropar, where I work full-time on a project supported and backed by the iHub AwaDH.",
+      "Joined Annam.ai (IIT Ropar) as an Entrepreneur-in-Residence, working full-time on AI-powered agri-tech product development within the IIT Ropar incubation ecosystem.",
     category: "work",
     links: [
       {
-        title: "Visit iHub AwaDH",
-        url: "https://ihub-awadh.in/",
+        title: "Visit Annam.ai",
+        url: "https://annam.ai/",
         icon: "website",
       },
       {

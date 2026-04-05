@@ -10,6 +10,6 @@ export default async function Image() {
     description:
       "Explore my professional journey through various roles in full-stack development, UI/UX design, and entrepreneurship.",
     badge: "Experience",
-    tags: ["iHub AwaDH", "AnnamAI", "Full Stack", "UI/UX"],
+    tags: ["Annam.ai", "IIT Ropar", "Full Stack", "UI/UX"],
   });
 }

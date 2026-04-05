@@ -79,7 +79,7 @@ const AboutPage = () => {
                   like to know more about the work I do, feel free to browse
                   through my{" "}
                   <Link
-                    href="https://drive.google.com/file/d/1HEdKZYNu8Q_0Cu2zM0BMCR5lf8XpO_gs/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="el-focus-styles text-ring"
