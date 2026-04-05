@@ -95,25 +95,26 @@ export const experiences: Experience[] = [
     tagline:
       "Innovation-driven research and startup ideation under IIT Ropar's incubation ecosystem.",
     description:
-      "Engaged in innovation-driven research and startup ideation under iHub AWaDH's incubation ecosystem. Focused on developing AI-powered solutions for real-world problems, leveraging cutting-edge technologies and methodologies.",
+      "Led AI and agri-tech product development at Annam.ai (IIT Ropar), working on production systems and startup initiatives within the incubation ecosystem. Built and shipped AI-powered solutions addressing real-world agricultural challenges, collaborating with researchers and mentors.",
     logo: AnnamAILogo,
     about:
-      "iHub AWaDH (Agriculture and Water Technology Development Hub) is a Technology Innovation Hub established at IIT Ropar under the National Mission on Interdisciplinary Cyber-Physical Systems (NM-ICPS) by the Department of Science and Technology, Government of India.",
+      "Annam.ai is an AI-driven agricultural technology platform incubated at IIT Ropar, focused on transforming agriculture through intelligent systems and data-driven solutions.",
     contributions: [
-      "Conducting innovation-driven research in AI and agricultural technology",
-      "Developing AI-powered solutions for real-world agricultural problems",
-      "Collaborating with startup ecosystem and mentors",
-      "Leveraging cutting-edge technologies for sustainable solutions",
+      "Led product development and system architecture for AI-powered agri-tech solutions",
+      "Collaborated with research team, mentors and startups within the IIT Ropar ecosystem",
+      "Built and shipped production AI systems addressing real-world agricultural challenges",
+      "Applied cloud technologies and scalable architecture for societal-impact solutions",
     ],
     techStack: [
       "Artificial Intelligence",
       "Machine Learning",
+      "Full Stack Development",
       "Research & Development",
     ],
     links: [
       {
-        title: "iHub AwaDH Website",
-        url: "https://www.ihubawadh.iitrpr.ac.in/",
+        title: "Annam.ai Website",
+        url: "https://annam.ai/",
         icon: "website",
       },
     ],
