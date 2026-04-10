@@ -1,5 +1,7 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { experiences, type Experience } from "~/data/experience";
 import { calculateDuration } from "~/lib/date-utils";
@@ -7,7 +9,7 @@ import {
   groupExperiencesByCompany,
   type ExperienceGroup,
 } from "~/lib/experience-utils";
-import { MAX_DISPLAYED_EXPERIENCES, EXPERIENCE_LOGO_SIZE } from "~/constants";
+import { MAX_DISPLAYED_EXPERIENCES } from "~/constants";
 
 const ProfessionalExperience = () => {
   const groups = groupExperiencesByCompany(experiences);
@@ -19,200 +21,172 @@ const ProfessionalExperience = () => {
       className="mt-5 space-y-6"
       id="experience"
     >
-      <h2 className={typo({ variant: "h2" })}>Professional Experience</h2>
-      <div className="!mt-8">
-        <ol className="grid gap-3 md:gap-4">
-          {visibleGroups.map((group) =>
-            group.positions.length === 1 ? (
-              <ExperienceCard
-                key={group.companyId}
-                experience={group.positions[0]}
-              />
-            ) : (
-              <CompanyGroupCard key={group.companyId} group={group} />
-            ),
-          )}
-        </ol>
-        {groups.length > MAX_DISPLAYED_EXPERIENCES && (
-          <div className="flex justify-end mt-4">
-            <Link
-              href="/about/experience"
-              className="text-sm text-neutral-400 hover:text-ring transition-colors inline-flex items-center gap-1.5"
-            >
-              View all
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                  clipRule="evenodd"
+      <h2 className={typo({ variant: "h2" })}> Where I&apos;ve Shipped</h2>
+
+      <ol className="relative">
+        {/* Outer thread — runs the full height of the list, centre-aligned with logos */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-5 w-px bg-gradient-to-b from-transparent via-neutral-800/70 to-transparent"
+          aria-hidden="true"
+        />
+
+        {visibleGroups.map((group, idx) => {
+          const isLast = idx === visibleGroups.length - 1;
+          return (
+            <React.Fragment key={group.companyId}>
+              {group.positions.length === 1 ? (
+                <SingleRole group={group} isLast={isLast} />
+              ) : (
+                <MultiRole group={group} isLast={isLast} />
+              )}
+              {!isLast && (
+                <div
+                  className="ml-[52px] my-3 h-px bg-neutral-800/50"
+                  aria-hidden="true"
                 />
-              </svg>
-            </Link>
-          </div>
-        )}
-      </div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </ol>
+
+      {groups.length > MAX_DISPLAYED_EXPERIENCES && (
+        <div className="flex justify-end">
+          <Link
+            href="/about/experience"
+            className="text-sm text-neutral-500 transition-colors hover:text-ring"
+          >
+            View all
+          </Link>
+        </div>
+      )}
     </section>
   );
 };
 
-// ---------------------------------------------------------------------------
-// Single-position card (unchanged visual)
-// ---------------------------------------------------------------------------
+/* ── Logo — acts as the node on the outer thread ─────────────────── */
 
-const ExperienceCard = ({ experience }: { experience: Experience }) => {
-  const duration = calculateDuration(
-    experience.start_date,
-    experience.end_date,
-  );
+const Logo = ({ src, alt }: { src: Experience["logo"]; alt: string }) => (
+  <div className="relative z-10 h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950">
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes="40px"
+      className="object-contain p-1.5"
+    />
+  </div>
+);
+
+/* ── Dates column ────────────────────────────────────────────────── */
+
+const Dates = ({
+  start,
+  end,
+  duration,
+}: {
+  start: string;
+  end: string;
+  duration?: string;
+}) => (
+  <div className="flex-shrink-0 text-right">
+    <p className="text-xs text-neutral-500 whitespace-nowrap">
+      {start} &ndash;{" "}
+      <span className={cn(end === "present" && "text-ring")}>{end}</span>
+    </p>
+    {duration && (
+      <p className="mt-0.5 text-[11px] text-neutral-600">{duration}</p>
+    )}
+  </div>
+);
+
+/* ── Single position ─────────────────────────────────────────────── */
+
+const SingleRole = ({
+  group,
+  isLast,
+}: {
+  group: ExperienceGroup;
+  isLast: boolean;
+}) => {
+  const exp = group.positions[0];
+  const duration = calculateDuration(exp.start_date, exp.end_date);
 
   return (
-    <li className="transition-all duration-300">
+    <li className={cn("relative flex items-start gap-4", !isLast && "pb-3")}>
+      <Logo src={group.logo} alt={group.employer} />
       <Link
-        href={`/about/experience/${experience.slug}`}
-        className="block group"
+        href={`/about/experience/${exp.slug}`}
+        className="group flex flex-1 min-w-0 items-start justify-between gap-4"
       >
-        <div className="flex gap-3 md:gap-4 border border-neutral-800 hover:border-neutral-700 rounded-lg p-3 md:p-4 transition-colors">
-          {/* Logo Column - Fixed Width */}
-          <div className="flex-shrink-0">
-            <div className="relative h-[60px] w-[60px] md:h-[72px] md:w-[72px] overflow-hidden rounded-md border border-neutral-800 bg-neutral-800/50">
-              <Image
-                src={experience.logo}
-                alt={`${experience.employer} logo`}
-                fill
-                sizes={`(max-width: 768px) ${EXPERIENCE_LOGO_SIZE.mobile}px, ${EXPERIENCE_LOGO_SIZE.desktop}px`}
-                className="object-contain rounded-md p-1 md:p-1.5"
-                priority
-              />
-            </div>
-          </div>
-
-          {/* Content Column */}
-          <div className="flex flex-1 items-start justify-between gap-3 md:gap-4 min-w-0">
-            <div className="flex flex-col flex-1 min-w-0">
-              <h3 className="font-ubuntu text-base md:text-lg font-medium text-white group-hover:text-ring transition-colors leading-tight">
-                {experience.role}
-              </h3>
-              <p className="text-sm text-neutral-400 mt-0.5 leading-tight">
-                {experience.employer}
-              </p>
-              <div className="flex flex-wrap items-center gap-1.5 md:gap-2 text-[11px] md:text-xs text-neutral-400 mt-2.5 leading-tight">
-                <span>{experience.type}</span>
-                <span>•</span>
-                <span>{experience.location}</span>
-              </div>
-            </div>
-
-            <div className="text-right flex-shrink-0">
-              <p className="hidden md:block text-sm text-neutral-300 leading-tight whitespace-nowrap">
-                {experience.start_date} - {experience.end_date}
-              </p>
-              <p className="text-[11px] md:text-xs text-neutral-500 md:mt-0.5 leading-tight">
-                {duration}
-              </p>
-            </div>
-          </div>
+        <div className="min-w-0">
+          <h3 className="font-ubuntu text-[15px] font-medium leading-snug text-white transition-colors group-hover:text-ring">
+            {group.employer}
+          </h3>
+          <p className="mt-0.5 text-[13px] text-neutral-400 leading-snug">
+            {exp.role}
+          </p>
+          <p className="mt-2 text-xs text-neutral-600">
+            {exp.type} &middot; {exp.location}
+          </p>
         </div>
+        <Dates start={exp.start_date} end={exp.end_date} duration={duration} />
       </Link>
     </li>
   );
 };
 
-// ---------------------------------------------------------------------------
-// Multi-position company card
-// ---------------------------------------------------------------------------
+/* ── Multi position ──────────────────────────────────────────────── */
 
-const CompanyGroupCard = ({ group }: { group: ExperienceGroup }) => {
-  return (
-    <li className="transition-all duration-300">
-      <div className="border border-neutral-800 rounded-lg overflow-hidden">
-        {/* Company header */}
-        <div className="flex gap-3 md:gap-4 p-3 md:p-4 border-b border-neutral-800">
-          <div className="flex-shrink-0">
-            <div className="relative h-[60px] w-[60px] md:h-[72px] md:w-[72px] overflow-hidden rounded-md border border-neutral-800 bg-neutral-800/50">
-              <Image
-                src={group.logo}
-                alt={`${group.employer} logo`}
-                fill
-                sizes={`(max-width: 768px) ${EXPERIENCE_LOGO_SIZE.mobile}px, ${EXPERIENCE_LOGO_SIZE.desktop}px`}
-                className="object-contain rounded-md p-1 md:p-1.5"
-                priority
-              />
-            </div>
-          </div>
-          <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
-            <div className="min-w-0">
-              <h3 className="font-ubuntu text-base md:text-lg font-medium text-white leading-tight">
-                {group.employer}
-              </h3>
-              <p className="text-[11px] md:text-xs text-neutral-500 mt-0.5">
-                {group.positions.length} positions
-              </p>
-            </div>
-            <div className="text-right flex-shrink-0">
-              <p className="hidden md:block text-sm text-neutral-300 leading-tight whitespace-nowrap">
-                {group.earliestStart} - {group.latestEnd}
-              </p>
-            </div>
-          </div>
-        </div>
+const MultiRole = ({
+  group,
+  isLast,
+}: {
+  group: ExperienceGroup;
+  isLast: boolean;
+}) => (
+  <li className={cn("relative flex items-start gap-4", !isLast && "pb-3")}>
+    <Logo src={group.logo} alt={group.employer} />
 
-        {/* Individual positions */}
-        {group.positions.map((position, idx) => (
-          <Link
-            key={position.slug}
-            href={`/about/experience/${position.slug}`}
-            className="block group"
-          >
-            <div
-              className={`flex items-center justify-between px-3 md:px-4 py-2.5 hover:bg-neutral-900/50 transition-colors ${
-                idx < group.positions.length - 1
-                  ? "border-b border-neutral-800/60"
-                  : ""
-              }`}
-            >
-              <div className="flex items-start gap-2.5 min-w-0">
-                <span className="text-neutral-600 text-sm mt-0.5 select-none flex-shrink-0">
-                  ↳
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-neutral-300 group-hover:text-ring transition-colors leading-tight">
-                    {position.role}
-                  </p>
-                  <p className="text-[11px] md:text-xs text-neutral-500 mt-0.5">
-                    {position.type}
-                    {" • "}
-                    {calculateDuration(position.start_date, position.end_date)}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-1.5 flex-shrink-0 ml-3">
-                <span className="hidden md:inline text-xs text-neutral-500 whitespace-nowrap">
-                  {position.start_date} - {position.end_date}
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="w-3.5 h-3.5 text-neutral-600 group-hover:text-ring transition-colors flex-shrink-0"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-          </Link>
-        ))}
+    <div className="flex-1 min-w-0">
+      {/* Company header */}
+      <div className="flex items-start gap-4">
+        <h3 className="font-ubuntu text-[15px] font-medium text-white">
+          {group.employer}
+        </h3>
       </div>
-    </li>
-  );
-};
+
+      <div className="mt-3 space-y-2.5">
+        {group.positions.map((position) => {
+          const duration = calculateDuration(
+            position.start_date,
+            position.end_date,
+          );
+          return (
+            <Link
+              key={position.slug}
+              href={`/about/experience/${position.slug}`}
+              className="group flex items-start justify-between gap-4 transition-colors"
+            >
+              <div className="min-w-0">
+                <p className="text-[13px] font-medium text-neutral-300 transition-colors group-hover:text-ring">
+                  {position.role}
+                </p>
+                <p className="mt-0.5 text-xs text-neutral-600">
+                  {position.type} &middot; {position.location}
+                </p>
+              </div>
+              <Dates
+                start={position.start_date}
+                end={position.end_date}
+                duration={duration}
+              />
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  </li>
+);
 
 export default ProfessionalExperience;

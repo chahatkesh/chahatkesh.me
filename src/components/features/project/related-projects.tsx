@@ -30,7 +30,7 @@ export function RelatedProjects({
       transition={{ duration: 0.5, delay: 0.6 }}
       className="mt-16 pt-16 border-t border-neutral-800"
     >
-      <h2 className={typo({ variant: "h2" })}>More Projects</h2>
+      <h2 className={typo({ variant: "h2" })}>Keep Exploring</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
         {visible.map((project, index) => (
