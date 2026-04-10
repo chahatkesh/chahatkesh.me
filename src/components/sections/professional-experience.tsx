@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
@@ -9,16 +10,6 @@ import {
   type ExperienceGroup,
 } from "~/lib/experience-utils";
 import { MAX_DISPLAYED_EXPERIENCES } from "~/constants";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Layout:
-//   Outer thread — vertical line at left-5 (= logo center) connecting all
-//   companies down the page.
-//
-//   Single entry  → logo (node) + content row; whole row is a <Link>
-//   Multi entry   → logo (node) + company header; inner border-l thread
-//                   connects individual role rows beneath the company name
-// ─────────────────────────────────────────────────────────────────────────────
 
 const ProfessionalExperience = () => {
   const groups = groupExperiencesByCompany(experiences);
@@ -41,10 +32,20 @@ const ProfessionalExperience = () => {
 
         {visibleGroups.map((group, idx) => {
           const isLast = idx === visibleGroups.length - 1;
-          return group.positions.length === 1 ? (
-            <SingleRole key={group.companyId} group={group} isLast={isLast} />
-          ) : (
-            <MultiRole key={group.companyId} group={group} isLast={isLast} />
+          return (
+            <React.Fragment key={group.companyId}>
+              {group.positions.length === 1 ? (
+                <SingleRole group={group} isLast={isLast} />
+              ) : (
+                <MultiRole group={group} isLast={isLast} />
+              )}
+              {!isLast && (
+                <div
+                  className="ml-[52px] my-3 h-px bg-neutral-800/50"
+                  aria-hidden="true"
+                />
+              )}
+            </React.Fragment>
           );
         })}
       </ol>
@@ -112,7 +113,7 @@ const SingleRole = ({
   const duration = calculateDuration(exp.start_date, exp.end_date);
 
   return (
-    <li className={cn("relative flex items-start gap-4", !isLast && "pb-7")}>
+    <li className={cn("relative flex items-start gap-4", !isLast && "pb-3")}>
       <Logo src={group.logo} alt={group.employer} />
       <Link
         href={`/about/experience/${exp.slug}`}
@@ -144,7 +145,7 @@ const MultiRole = ({
   group: ExperienceGroup;
   isLast: boolean;
 }) => (
-  <li className={cn("relative flex items-start gap-4", !isLast && "pb-7")}>
+  <li className={cn("relative flex items-start gap-4", !isLast && "pb-3")}>
     <Logo src={group.logo} alt={group.employer} />
 
     <div className="flex-1 min-w-0">

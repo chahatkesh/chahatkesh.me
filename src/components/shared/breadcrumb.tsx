@@ -15,6 +15,9 @@ interface BreadcrumbProps {
 }
 
 const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
+  const displayName = (name: string, url: string) =>
+    url === "/" ? "chahat" : name.toLowerCase();
+
   return (
     <nav
       aria-label="Breadcrumb"
@@ -31,14 +34,14 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
               )}
               {isLast ? (
                 <span className="text-neutral-400 font-medium">
-                  {item.name}
+                  {displayName(item.name, item.url)}
                 </span>
               ) : (
                 <Link
                   href={item.url}
                   className="text-neutral-500 hover:text-ring transition-colors duration-200"
                 >
-                  {item.name}
+                  {displayName(item.name, item.url)}
                 </Link>
               )}
             </li>
