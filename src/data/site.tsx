@@ -429,9 +429,9 @@ export const fonts: FontEntry[] = [
     className: "font-sans",
   },
   {
-    family: "Ubuntu",
+    family: "LT Remark",
     usage: "Headings, section titles, nav labels",
-    weights: "400–700",
+    weights: "400, 700, 900",
     className: "font-ubuntu",
   },
   {
@@ -594,7 +594,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "15,957+",
+    value: "15,991+",
     description: "TypeScript + TSX + CSS",
   },
   {
