@@ -8,7 +8,7 @@ const ContactUs = () => {
   return (
     <section aria-label="contact">
       <div className="space-y-8">
-        <h2 className={typo({ variant: "h2" })}>Get in Touch</h2>
+        <h2 className={typo({ variant: "h2" })}>Let&apos;s Build Something</h2>
 
         <div className="grid gap-8 md:grid-cols-3">
           {/* Left Column - Contact Info */}
@@ -19,9 +19,10 @@ const ContactUs = () => {
                 "text-neutral-300",
               )}
             >
-              Have a project in mind or want to collaborate? I'm always open to
-              discussing new opportunities, creative ideas, or just having a
-              chat about technology and design.
+              The best things I&apos;ve built started with a message from
+              someone I didn&apos;t know yet. If you have an idea, a product, a
+              problem worth solving, or just want to talk about architecture and
+              craft, my inbox is always open.
             </p>
             <p
               className={cn(
@@ -29,7 +30,7 @@ const ContactUs = () => {
                 "text-neutral-300",
               )}
             >
-              Reach out via email at{" "}
+              Reach out at{" "}
               <SmartLink
                 href={`mailto:${config.social.email}`}
                 aria-label={config.social.email}
@@ -48,7 +49,7 @@ const ContactUs = () => {
 
         <div className="space-y-3 pt-2">
           <h3 className={cn(typo({ variant: "h2" }), "!text-lg")}>
-            Connect with me
+            Find me here
           </h3>
           <Socials />
         </div>
