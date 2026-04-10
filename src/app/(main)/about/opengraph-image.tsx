@@ -8,8 +8,8 @@ export default async function Image() {
     title: "About Me",
     subtitle: "Chahat Kesharwani",
     description:
-      "Learn more about my journey as a Full Stack Developer, my passion for UI/UX design, and the experiences that shaped my career.",
+      "Engineer, builder, and explorer. Building AI-powered products, shipping fast, and caring deeply about craft. The story behind the code.",
     badge: "About",
-    tags: ["Developer", "Designer", "Problem Solver"],
+    tags: ["Engineer", "Builder", "Explorer"],
   });
 }
