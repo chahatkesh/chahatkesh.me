@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="!mt-auto flex flex-col items-center justify-center py-6">
       <div className="mb-4 h-px w-12 bg-border" />
-      <div className="flex w-full flex-wrap items-center justify-center gap-2 text-center text-sm text-muted-foreground sm:justify-between">
+      <div className="flex w-full flex-col items-center gap-1.5 text-center text-sm text-muted-foreground sm:flex-row sm:justify-between sm:gap-0 sm:text-left">
         <span>
           &copy; {new Date().getFullYear()} &middot;{" "}
           <Link
