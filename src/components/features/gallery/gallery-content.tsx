@@ -140,9 +140,9 @@ export function GalleryContent() {
         className="space-y-6"
       >
         <div>
-          <h2 className={cn(typo({ variant: "h2" }))}>All Moments</h2>
+          <h2 className={cn(typo({ variant: "h2" }))}>Every Frame</h2>
           <p className={cn(typo({ variant: "paragraph" }), "hidden md:block")}>
-            Explore the complete collection of my visual journey
+            The full collection, unfiltered
           </p>
         </div>
         <GalleryGrid items={galleryItems} />

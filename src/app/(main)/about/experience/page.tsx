@@ -9,10 +9,10 @@ import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
   title: "Professional Experience",
-  description: `Explore ${config.appName}'s professional journey. View detailed work experience, contributions, and achievements across various roles and organizations.`,
+  description: `Where I've shipped. Every role, what I built, what I learned, and what came out of it. A complete look at ${config.appName}'s professional journey.`,
   openGraph: {
     title: `Experience - ${config.appName}`,
-    description: `Comprehensive overview of professional experience, key contributions, and technical expertise gained through various roles.`,
+    description: `Frontend engineer at Zenbase, former EIR at IIT Ropar. Here's the full story of every role I've held and what I built along the way.`,
   },
   canonicalUrlRelative: "/about/experience",
 });
@@ -43,11 +43,10 @@ const ExperiencePage = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className={cn(typo({ variant: "h2" }))}>
-              Professional Experience
+              Where I&apos;ve Shipped
             </h1>
             <p className={cn(typo({ variant: "paragraph" }))}>
-              A comprehensive overview of my professional journey, roles, and
-              contributions.
+              Every role, what I built, and what I walked away knowing.
             </p>
           </MotionDiv>
 

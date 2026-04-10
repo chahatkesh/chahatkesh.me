@@ -19,7 +19,7 @@ const ProjectList = ({
   return (
     <section aria-label="projects" className="mt-5 space-y-6" id="main-content">
       {metadata && (
-        <h2 className={typo({ variant: "h2" })}>Featured Projects</h2>
+        <h2 className={typo({ variant: "h2" })}>Work Worth Showing</h2>
       )}
 
       <div className="!mt-8">

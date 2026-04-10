@@ -55,10 +55,11 @@ const BtechCoursesClient = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="space-y-1">
-            <h1 className={cn(typo({ variant: "h2" }))}>BTech Journey</h1>
+            <h1 className={cn(typo({ variant: "h2" }))}>
+              BTech at NIT Jalandhar
+            </h1>
             <p className={cn(typo({ variant: "paragraph" }))}>
-              A comprehensive overview of courses throughout my undergraduate
-              degree.
+              Everything I studied, semester by semester.
             </p>
           </div>
 

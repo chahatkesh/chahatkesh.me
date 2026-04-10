@@ -47,7 +47,11 @@ export const timelineEvents: TimelineEvent[] = [
     category: "workshop",
     links: [
       { title: "HackMol 7.0", url: "https://hackmol.com/", icon: "website" },
-      { title: "View Post", url: "", icon: "linkedin" },
+      {
+        title: "View Post",
+        url: "https://www.linkedin.com/posts/chahatkesharwani_%F0%9D%97%9B%F0%9D%97%AE%F0%9D%97%B0%F0%9D%97%B8%F0%9D%97%A0%F0%9D%97%BC%F0%9D%97%B9-%F0%9D%9F%B3%F0%9D%9F%AC-more-than-just-a-hackathon-activity-7446616045823602688-CZ2K/",
+        icon: "linkedin",
+      },
     ],
     location: "NIT Jalandhar, Punjab, India",
   },
