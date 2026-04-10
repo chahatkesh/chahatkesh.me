@@ -4,11 +4,11 @@ import config from "~/config";
 import BtechCoursesClient from "./page.client";
 
 export const metadata: Metadata = getSEOTags({
-  title: "BTech Course Details",
-  description: `Explore ${config.appName}'s BTech journey at NIT Jalandhar. View detailed course information, syllabi, and academic progression across all semesters.`,
+  title: "BTech at NIT Jalandhar",
+  description: `Everything I studied during my B.Tech in Instrumentation and Control Engineering at NIT Jalandhar. Courses, syllabi, and semesters.`,
   openGraph: {
     title: `BTech Courses - ${config.appName}`,
-    description: `Comprehensive overview of courses, syllabi, and academic journey throughout the undergraduate BTech degree in Instrumentation and Control Engineering.`,
+    description: `A complete record of my undergraduate coursework. ICE at NIT Jalandhar, semester by semester.`,
   },
   canonicalUrlRelative: "/about/journey/btech",
 });

@@ -9,7 +9,7 @@ import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
   title: "Projects",
-  description: `Explore ${config.appName}'s portfolio of projects. Browse through web applications, tools, and software solutions built using modern technologies.`,
+  description: `Things I've built and shipped. From AI tools to production platforms, each project is a chapter in figuring out what I can make.`,
   canonicalUrlRelative: "/projects",
   keywords: [
     "JavaScript",
@@ -22,7 +22,7 @@ export const metadata: Metadata = getSEOTags({
   ],
   openGraph: {
     title: `Projects by ${config.appName}`,
-    description: `Explore my portfolio of projects and case studies. See examples of my work as a ${config.appDesignation} using React, Next.js, and other modern technologies.`,
+    description: `Production-grade projects built with React, Next.js, TypeScript, and a lot of late nights. Explore the work.`,
   },
 });
 
@@ -63,7 +63,14 @@ const ProjectsPage = async ({
         ]}
       />
       <div className="flex flex-col flex-wrap justify-between gap-4 sm:flex-row sm:items-center mt-4">
-        <h1 className={cn(typo({ variant: "h2" }))}>All Projects</h1>
+        <div className="space-y-1">
+          <h1 className={cn(typo({ variant: "h2" }))}>
+            Things I&apos;ve Built
+          </h1>
+          <p className={cn(typo({ variant: "paragraph", size: "sm" }))}>
+            From side projects to production. Each one taught me something.
+          </p>
+        </div>
       </div>
 
       <div className="mt-6">
