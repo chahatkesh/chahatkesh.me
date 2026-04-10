@@ -30,7 +30,7 @@ const HomePage = () => {
       <div className="!mt-8 space-y-14">
         <AboutSection />
         <GitHubContributions />
-        <Skills />
+        <ProfessionalExperience />
         <ProjectList
           projects={projects
             .filter((project) => project.isFeatured)
@@ -38,7 +38,7 @@ const HomePage = () => {
           metadata
           showFeatured={true}
         />
-        <ProfessionalExperience />
+        <Skills />
         <ContactUs />
       </div>
     </>

@@ -2,8 +2,8 @@ import { type ConfigProps } from "./types/config";
 
 export const config = {
   appName: "Chahat Kesharwani",
-  appDesignation: "Full Stack Developer & UI/UX Enthusiast",
-  appDescription: `Hi, I'm Chahat Kesharwani. I'm a passionate developer specializing in web development, creating engaging user experiences with modern technologies like React, Next.js, and TypeScript.`,
+  appDesignation: "Engineer · Builder · Explorer",
+  appDescription: `I'm Chahat, an engineer who builds products people actually use. I care deeply about architecture, ship fast, and find the most satisfaction in systems that just work. Currently building AI-powered products at Zenbase, Singapore.`,
   domainName: "chahatkesh.me",
   author: {
     name: "Chahat Kesharwani",
@@ -15,31 +15,27 @@ export const config = {
 
   seo: {
     titleTemplate: "%s | Chahat Kesharwani",
-    defaultTitle:
-      "Chahat Kesharwani - Full Stack Developer & UI/UX Enthusiast Portfolio",
+    defaultTitle: "Chahat Kesharwani - Engineer · Builder · Explorer",
     defaultDescription:
-      "Full Stack Developer & UI/UX Enthusiast specializing in modern web development with React, Next.js, TypeScript, and Node.js. Explore my projects, skills, professional experience, and journey in software engineering.",
+      "Engineer, builder, and explorer from India. I build AI-powered products, ship production-grade frontends, and care deeply about craft. Founding engineer at Zenbase (Singapore). Explore my projects, experience, and journey.",
     defaultKeywords: [
       "Chahat Kesharwani",
       "chahatkesh",
+      "engineer builder explorer",
+      "product builder",
+      "startup engineer",
+      "frontend engineer",
       "full stack developer",
-      "ui/ux enthusiast",
-      "web developer",
-      "software engineer",
+      "AI products",
       "React developer",
       "Next.js developer",
       "TypeScript developer",
-      "Node.js developer",
-      "JavaScript developer",
-      "frontend developer",
-      "backend developer",
+      "software engineer India",
       "portfolio website",
-      "web development portfolio",
-      "software development",
-      "India developer",
-      "tech portfolio",
-      "coding projects",
+      "Zenbase",
       "open source developer",
+      "hackathon winner",
+      "NIT Jalandhar",
     ],
     language: "en-US",
     locale: "en_US",

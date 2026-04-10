@@ -19,9 +19,9 @@ export interface CurrentProject {
 
 export const currentProjects: CurrentProject[] = [
   {
-    title: "Ninja: Stop Dialing. Stop Chasing. Let AI Book Meetings for You.",
+    title: "Ninja at Zenbase",
     description:
-      "Transform real estate agents into high performers with AI co-pilots. Autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management. Integrates WhatsApp Business, Vonage voice, Cal.com scheduling.",
+      "Building the frontend for Ninja, an AI platform for real estate agents. The system handles autonomous lead outreach, real-time conversation management, voice calls, WhatsApp follow-ups, and appointment scheduling. Production-grade architecture, fast iteration, and a lot of fun engineering problems.",
     url: "https://silentninja.tech/",
     showInLinks: false,
   },
@@ -38,25 +38,25 @@ export const hobbies: Hobby[] = [
   {
     title: "Reading",
     description:
-      "I enjoy reading non-fiction books on technology, psychology, and personal growth",
+      "Non-fiction is my default. Psychology, systems thinking, startup stories. I read to understand how things work beyond the surface.",
     icon: <FaBook className="text-amber-500" />,
   },
   {
     title: "Gym",
     description:
-      "Regular workout sessions to stay fit and maintain a healthy work-life balance",
+      "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
     icon: <FaRunning className="text-green-400" />,
   },
   {
     title: "Designing",
     description:
-      "Creating visually appealing UI/UX designs and digital artwork in my free time",
+      "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
     icon: <FaPenFancy className="text-blue-300" />,
   },
   {
     title: "Content Creation",
     description:
-      "Creating fun tech content and tutorials for the developer community",
+      "Sharing what I build and what I learn. It started as a way to document things, and now it keeps me honest about making progress.",
     icon: <FaYoutube className="text-red-500" />,
   },
 ];

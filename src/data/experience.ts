@@ -6,6 +6,7 @@ import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
 import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
 import XceedLogo from "../assets/images/experience/Xceed.png";
 import ZenbaseLogo from "../assets/images/experience/Zenbase.png";
+import GDGCLogo from "../assets/images/experience/GDGC.png";
 
 export type Experience = {
   slug: string;
@@ -81,15 +82,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    slug: generateExperienceSlug(
-      "Annam.ai IIT Ropar",
-      "Entrepreneur in Residence",
-    ),
+    slug: generateExperienceSlug("Annam.ai", "Entrepreneur in Residence"),
     companyId: "annam-ai",
-    employer: "Annam.ai IIT Ropar",
+    employer: "Annam.ai",
     role: "Entrepreneur in Residence",
     type: "Full-time",
-    location: "Hybrid",
+    location: "IIT Ropar, Hybrid",
     start_date: "Oct 2025",
     end_date: "Mar 2026",
     tagline:
@@ -120,15 +118,12 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    slug: generateExperienceSlug(
-      "Annam.ai IIT Ropar",
-      "Research Intern - AI Systems",
-    ),
+    slug: generateExperienceSlug("Annam.ai", "Research Intern - AI Systems"),
     companyId: "annam-ai",
-    employer: "Annam.ai IIT Ropar",
+    employer: "Annam.ai",
     role: "Research Intern - AI Systems",
     type: "Internship",
-    location: "Hybrid",
+    location: "IIT Ropar, Hybrid",
     start_date: "May 2025",
     end_date: "Oct 2025",
     tagline:
@@ -164,7 +159,7 @@ export const experiences: Experience[] = [
     employer: "Level SuperMind",
     role: "Fullstack Developer",
     type: "Internship",
-    location: "Remote",
+    location: "Mumbai, Remote",
     start_date: "Jan 2025",
     end_date: "Feb 2025",
     tagline:
@@ -194,6 +189,42 @@ export const experiences: Experience[] = [
       "Achieved 30% faster page load times through optimization",
       "Reduced user setup time by 20% with improved onboarding",
       "Built comprehensive reusable component library",
+    ],
+  },
+  {
+    slug: generateExperienceSlug("GDGC NITJ", "Core Team Member"),
+    employer: "GDGC NITJ",
+    role: "Core Team Member",
+    type: "Volunteer",
+    location: "NIT Jalandhar",
+    start_date: "Nov 2024",
+    end_date: "present",
+    tagline:
+      "Building the developer community at NIT Jalandhar through events, workshops, and open-source work.",
+    description:
+      "Part of the core team at Google Developer Group on Campus, NIT Jalandhar. Contributing to community building through web development, UI/UX, and organizing tech events on campus.",
+    logo: GDGCLogo,
+    about:
+      "Google Developers Group on Campus (GDGC) is a global program by Google Developers that empowers university students to build their skills, grow their communities, and make an impact through technology. GDGC NITJ is the official chapter at NIT Jalandhar.",
+    contributions: [
+      "Volunteered at HackMol 6.0 (April 2025) — supported onsite execution for 400+ participants across North India's largest student hackathon during Utakansh, the techno-cultural fest.",
+      "Led HackMol 7.0 as Event Coordinator (March 2026) — managed end-to-end execution including registrations, hackspaces, and ceremonies. Handled 3000+ registrations and 450+ PPTs, shortlisted 60 teams (200+ participants) for the offline round, and worked through 60+ hours of continuous execution.",
+      "Spoke at GDGC NITJ Winter Fest (February 5, 2025) — delivered a session on UI/UX fundamentals as a speaker in the UI domain.",
+      "Established the GDGC NITJ GitHub organisation, sourced legacy codebases for HackMol 3.0 through 7.0, and deployed all of them to preserve and maintain project history.",
+    ],
+    techStack: ["Next.js", "React", "Tailwind CSS", "GitHub"],
+    achievements: [
+      "Coordinated HackMol 7.0 end-to-end — 3000+ registrations, 450+ PPTs reviewed, 60 teams selected for offline round.",
+      "Speaker at GDGC NITJ Winter Fest 2025 in the UI/UX domain.",
+      "Built and deployed the GDGC NITJ GitHub org with archived codebases from HackMol 3.0 to 7.0.",
+    ],
+    links: [
+      {
+        title: "GDGC NITJ GitHub",
+        url: "https://github.com/gdgcnitj/",
+        icon: "website",
+      },
+      { title: "HackMol", url: "https://hackmol.com/", icon: "website" },
     ],
   },
   {

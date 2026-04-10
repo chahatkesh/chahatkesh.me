@@ -51,77 +51,76 @@ const AboutPage = () => {
         <section className="space-y-4">
           {/* Hero Section */}
           <div className="!mt-8 space-y-14">
-            <section
-              className="grid gap-8 sm:gap-6 md:grid-cols-3"
-              aria-label="About Me"
-            >
-              <div className="order-2 space-y-4 sm:order-1 md:col-span-2">
-                <h1 className="font-ubuntu text-2xl font-semibold text-white sm:text-3xl">
-                  Chahat Kesharwani
-                </h1>
+            <section aria-label="About Me">
+              <h1 className="font-ubuntu text-2xl font-semibold text-white sm:text-3xl mb-4 sm:mb-5">
+                Chahat, 20
+              </h1>
 
-                <p className={typo({ variant: "paragraph", font: "sans" })}>
-                  <span className="text-white">Hello there!</span> I'm a
-                  passionate developer and engineering student from India,
-                  focused on creating beautiful, functional web experiences.
-                </p>
+              <div className="grid gap-8 sm:gap-6 md:grid-cols-3">
+                <div className="order-2 space-y-4 sm:order-1 md:col-span-2">
+                  <p className={typo({ variant: "paragraph", font: "sans" })}>
+                    I&apos;ve been building since before I had a good reason to.
+                    Websites, tools, startups that didn&apos;t work, startups
+                    that did. Every project taught me something a textbook
+                    couldn&apos;t.
+                  </p>
 
-                <p className={typo({ variant: "paragraph", font: "sans" })}>
-                  I specialize in modern web development using React, Next.js,
-                  and TypeScript. My journey in tech has been filled with
-                  learning, building, and collaborating on projects that solve
-                  real problems.
-                </p>
+                  <p className={typo({ variant: "paragraph", font: "sans" })}>
+                    Late-night side projects, AI research at IIT Ropar,
+                    hackathon wins, and now a founding engineer role at a
+                    Singapore-based startup. Each step was less about the
+                    destination and more about how much I could learn before the
+                    next one.
+                  </p>
 
-                <p className={typo({ variant: "paragraph", font: "sans" })}>
-                  Currently, I'm pursuing my engineering degree while working on
-                  freelance projects and open-source contributions. If you’d
-                  like to know more about the work I do, feel free to browse
-                  through my{" "}
-                  <Link
-                    href="https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="el-focus-styles text-ring"
-                  >
-                    Resume
-                  </Link>
-                  .
-                </p>
+                  <p className={typo({ variant: "paragraph", font: "sans" })}>
+                    What excites me isn&apos;t just the technology. It&apos;s
+                    the architecture. How systems fit together. How fast a
+                    focused team can ship without breaking things. How good
+                    design and good engineering are actually the same
+                    discipline.
+                  </p>
 
-                <p
-                  className={cn(
-                    typo({ variant: "paragraph", font: "sans" }),
-                    "sm:!mt-4",
-                  )}
-                >
-                  And if you're curious about the moments that shaped me,
-                  explore{" "}
-                  <Link
-                    href="/about/journey"
-                    className="el-focus-styles text-ring"
-                  >
-                    My Storyline
-                  </Link>
-                  .
-                </p>
-              </div>
+                  <p className={typo({ variant: "paragraph", font: "sans" })}>
+                    I&apos;m working towards building AI products that reduce
+                    unnecessary human effort, and learning something new every
+                    day along the way. If you want the full picture, start with
+                    my{" "}
+                    <Link
+                      href="https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="el-focus-styles text-ring"
+                    >
+                      Resume
+                    </Link>{" "}
+                    or explore{" "}
+                    <Link
+                      href="/about/journey"
+                      className="el-focus-styles text-ring"
+                    >
+                      My Storyline
+                    </Link>
+                    .
+                  </p>
+                </div>
 
-              <div className="relative order-1 block aspect-square sm:order-2">
-                <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
-                <Image
-                  alt="Chahat Kesharwani profile picture"
-                  src={chahat}
-                  placeholder="blur"
-                  className="size-full -rotate-3 transform rounded-md shadow-md"
-                  priority
-                />
+                <div className="relative order-1 block aspect-square sm:order-2">
+                  <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
+                  <Image
+                    alt="Chahat Kesharwani profile picture"
+                    src={chahat}
+                    placeholder="blur"
+                    className="size-full -rotate-3 transform rounded-md shadow-md"
+                    priority
+                  />
+                </div>
               </div>
             </section>
 
             {/* My Workspace Section */}
             <section className="mt-10 space-y-6" aria-label="My Workspace">
-              <h2 className={typo({ variant: "h2" })}>My Workspace</h2>
+              <h2 className={typo({ variant: "h2" })}>Where I Work</h2>
 
               <div className="mt-6 space-y-6">
                 {/* Full-width workspace image */}
@@ -157,7 +156,7 @@ const AboutPage = () => {
             {/* Current Work Section */}
             <section className="mt-10 space-y-6" aria-label="Current Work">
               <h2 className={typo({ variant: "h2" })}>
-                What I'm Currently Working On
+                What I&apos;m Built On Right Now
               </h2>
 
               <div className="mt-4 grid gap-6 sm:grid-cols-1">
@@ -192,7 +191,7 @@ const AboutPage = () => {
 
             {/* Let's Connect Section */}
             <section className="mt-10 space-y-6" aria-label="Let's Connect">
-              <h2 className={typo({ variant: "h2" })}>Let's Connect</h2>
+              <h2 className={typo({ variant: "h2" })}>Get in Touch</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-2">
                 {/* Book a Call CTA */}
                 <Link
@@ -208,8 +207,8 @@ const AboutPage = () => {
                       </h3>
                     </div>
                     <p className="text-sm text-neutral-400 mb-3">
-                      Schedule a 30-minute 1:1 meeting to discuss your project,
-                      ideas, or just chat about tech.
+                      30 minutes. Your project, your idea, or just a
+                      conversation about something you&apos;re building.
                     </p>
                     <div className="flex items-center gap-2 text-ring text-sm font-medium">
                       <span>Schedule Now</span>
@@ -227,8 +226,7 @@ const AboutPage = () => {
                       </h3>
                     </div>
                     <p className="text-sm text-neutral-400 mb-3">
-                      Find all my social profiles, projects, and ways to connect
-                      with me in one place.
+                      Every place I exist online, in one spot.
                     </p>
                     <div className="flex items-center gap-2 text-ring text-sm font-medium">
                       <span>View Links</span>
@@ -241,7 +239,10 @@ const AboutPage = () => {
 
             {/* Poem Section */}
             <section aria-label="A note on me" className="mt-10">
-              <div className="relative overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/30 px-7 py-9 sm:px-9 sm:py-10">
+              <h2 className={typo({ variant: "h2" })}>
+                A note I wrote to myself
+              </h2>
+              <div className="relative mt-6 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/30 px-7 py-9 sm:px-9 sm:py-10">
                 <div className="absolute left-0 top-0 h-full w-[3px] rounded-l-xl bg-ring opacity-45" />
                 <span
                   aria-hidden="true"
@@ -292,7 +293,7 @@ const AboutPage = () => {
 
             {/* Beyond Code Section */}
             <section className="mt-10 space-y-6" aria-label="Beyond Code">
-              <h2 className={typo({ variant: "h2" })}>Beyond Code</h2>
+              <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-2">
                 {hobbies.map((hobby) => (
                   <div

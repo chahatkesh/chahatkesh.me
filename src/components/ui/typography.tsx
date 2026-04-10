@@ -1,11 +1,10 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
-const typography = cva(["font-bold inline-block font-ubuntu"], {
+const typography = cva([""], {
   variants: {
     variant: {
-      h2: "text-lg decoration-ring inline-block",
-      paragraph:
-        "text-muted-foreground font-normal block text-base font-ubuntu",
+      h2: "font-ubuntu font-bold text-lg decoration-ring inline-block",
+      paragraph: "text-muted-foreground font-normal block text-base font-sans",
     },
     size: {
       sm: "text-sm",
@@ -14,8 +13,8 @@ const typography = cva(["font-bold inline-block font-ubuntu"], {
     },
     font: {
       sans: "font-sans",
-      dank: "font-dank",
       ubuntu: "font-ubuntu",
+      poem: "font-poem",
     },
   },
   defaultVariants: {
@@ -23,6 +22,6 @@ const typography = cva(["font-bold inline-block font-ubuntu"], {
   },
 });
 
-export type ButtonVariants = VariantProps<typeof typography>;
+export type TypographyVariants = VariantProps<typeof typography>;
 
 export const typo = typography;
