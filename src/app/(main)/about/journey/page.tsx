@@ -8,11 +8,11 @@ import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
-  title: "Journey Timeline",
-  description: `Explore ${config.appName}'s journey timeline. Discover key events, achievements, projects, and milestones from education to professional development.`,
+  title: "My Storyline",
+  description: `The moments that shaped me. Projects, hackathons, travel, community work, and everything in between. Laid out as it happened.`,
   openGraph: {
-    title: `Journey - ${config.appName}`,
-    description: `Follow my journey through an interactive timeline showcasing projects, achievements, learning experiences, and professional milestones.`,
+    title: `My Storyline - ${config.appName}`,
+    description: `A timeline of the key moments, builds, and experiences that define who I am. Not just the wins.`,
   },
   canonicalUrlRelative: "/about/journey",
 });
@@ -40,9 +40,9 @@ const JourneyPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className={cn(typo({ variant: "h2" }))}>My Journey</h1>
+          <h1 className={cn(typo({ variant: "h2" }))}>My Storyline</h1>
           <p className={cn(typo({ variant: "paragraph" }))}>
-            A timeline showcasing my learnings, achievements, and milestones.
+            The moments that shaped me. Not just the wins.
           </p>
         </MotionDiv>
         <TimelineComponent />

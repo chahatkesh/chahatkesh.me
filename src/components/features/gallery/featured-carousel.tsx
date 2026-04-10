@@ -63,8 +63,8 @@ type FeaturedCarouselProps = {
 
 export function FeaturedCarousel({
   items,
-  title = "Featured Moments",
-  subtitle = "Highlights from my journey and experiences",
+  title = "The Favorites",
+  subtitle = "A few frames worth remembering",
   showTitle = true,
 }: FeaturedCarouselProps) {
   const {

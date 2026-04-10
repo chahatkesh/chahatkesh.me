@@ -30,7 +30,7 @@ const ProfessionalExperience = () => {
       className="mt-5 space-y-6"
       id="experience"
     >
-      <h2 className={typo({ variant: "h2" })}>Professional Experience</h2>
+      <h2 className={typo({ variant: "h2" })}> Where I&apos;ve Shipped</h2>
 
       <ol className="relative">
         {/* Outer thread — runs the full height of the list, centre-aligned with logos */}

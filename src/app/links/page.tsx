@@ -27,10 +27,10 @@ import { currentProjects } from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
-  description: `Connect with ${config.appName} - All my important links in one place. Find my social profiles, projects, and ways to get in touch.`,
+  description: `Everything in one place. GitHub, socials, resume, and ways to reach ${config.appName}.`,
   openGraph: {
     title: `Links - ${config.appName}`,
-    description: `All important links to connect with ${config.appName}. Social profiles, portfolio, and contact information.`,
+    description: `Every place I exist online. Pick your platform.`,
   },
   canonicalUrlRelative: "/links",
 });
