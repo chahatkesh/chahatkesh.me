@@ -12,7 +12,7 @@ import { MARQUEE_SPEED } from "~/constants";
 const Skills = () => {
   return (
     <section aria-label="skills" className="my-4 space-y-8 bg-background">
-      <h2 className={typo({ variant: "h2" })}>Tools that I have used</h2>
+      <h2 className={typo({ variant: "h2" })}>What I Build With</h2>
       <div className="w-full space-y-6">
         <Marquee autoFill pauseOnHover speed={MARQUEE_SPEED}>
           <SkillsList stacks={LANGUAGES_TOOLS} />
