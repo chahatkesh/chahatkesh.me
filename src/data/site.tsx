@@ -423,15 +423,15 @@ export const colorTokens: ColorToken[] = [
 
 export const fonts: FontEntry[] = [
   {
-    family: "League Spartan",
+    family: "Outfit",
     usage: "Body text, paragraphs, descriptions",
-    weights: "300–700",
+    weights: "300–500",
     className: "font-sans",
   },
   {
-    family: "LT Remark",
+    family: "League Spartan",
     usage: "Headings, section titles, nav labels",
-    weights: "400, 700, 900",
+    weights: "400, 500, 600, 700, 800, 900",
     className: "font-ubuntu",
   },
   {
@@ -594,7 +594,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "16,004+",
+    value: "15,977+",
     description: "TypeScript + TSX + CSS",
   },
   {
