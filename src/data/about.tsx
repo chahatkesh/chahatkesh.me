@@ -19,6 +19,13 @@ export interface CurrentProject {
 
 export const currentProjects: CurrentProject[] = [
   {
+    title: "Layr",
+    description:
+      "Building Layr, a product decision layer for AI-native teams. It connects Slack, Jira, Linear, customer calls, support tickets, and docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts. Kind of like Cursor for PMs: less context hunting, faster decisions, and cleaner handoffs to engineering.",
+    url: "https://www.uselayr.com/",
+    showInLinks: true,
+  },
+  {
     title: "Ninja at Zenbase",
     description:
       "Building the frontend for Ninja, an AI platform for real estate agents. The system handles autonomous lead outreach, real-time conversation management, voice calls, WhatsApp follow-ups, and appointment scheduling. Production-grade architecture, fast iteration, and a lot of fun engineering problems.",
