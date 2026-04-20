@@ -156,7 +156,7 @@ const AboutPage = () => {
             {/* Current Work Section */}
             <section className="mt-10 space-y-6" aria-label="Current Work">
               <h2 className={typo({ variant: "h2" })}>
-                What I&apos;m Built On Right Now
+                What I&apos;m Building Right Now
               </h2>
 
               <div className="mt-4 grid gap-6 sm:grid-cols-1">
