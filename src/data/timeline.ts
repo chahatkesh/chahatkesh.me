@@ -38,6 +38,48 @@ export const timelineEvents: TimelineEvent[] = [
   //   location: '',
   // },
   {
+    id: "timeline-2026-04-18-attended-yc-startup-school-india",
+    startDate: "2026-04-18",
+    title: "Attended YC Startup School India",
+    description:
+      "Attended Y Combinator's first Startup School India in Bengaluru, joining thousands of founders, engineers, and builders for talks from YC partners and Indian startup founders. Learned a lot about founder mindset, speed, and how AI-era teams need to build, iterate, and ship faster.",
+    category: "learning",
+    links: [
+      {
+        title: "Event",
+        url: "https://events.ycombinator.com/yc-sus-india",
+        icon: "website",
+      },
+      {
+        title: "Coverage",
+        url: "https://economictimes.indiatimes.com/tech/technology/y-combinators-first-startup-school-event-in-india-helps-techies-land-jobs-gigs-but/articleshow/130372140.cms",
+        icon: "article",
+      },
+    ],
+    location: "Bengaluru, Karnataka, India",
+  },
+  {
+    id: "timeline-2026-04-16-participated-in-openai-codex-hackathon-bengaluru",
+    startDate: "2026-04-16",
+    title: "Participated in OpenAI Codex Hackathon Bengaluru",
+    description:
+      "Participated in OpenAI Codex Hackathon Bengaluru, a one-day builder event with OpenAI and GrowthX for 100 selected developers focused on shipping ambitious products with Codex. Our team built FuseKit, a self-growing API marketplace where Codex can discover, call, bill, and generate new API tools through MCP.",
+    category: "hackathon",
+    links: [
+      {
+        title: "Event",
+        url: "https://luma.com/x495vdw1",
+        icon: "website",
+      },
+      {
+        title: "CodeBase",
+        url: "https://github.com/chahatkesh/openai-codex-hackathon",
+        icon: "github",
+      },
+    ],
+    location: "Bengaluru, Karnataka, India",
+  },
+  {
     id: "timeline-2026-03-28-organiser-hackmol-7-0",
     startDate: "2026-03-28",
     endDate: "2026-03-29",
