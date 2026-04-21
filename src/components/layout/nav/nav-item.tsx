@@ -17,15 +17,18 @@ const NavItem: React.FC<
     }
   };
 
-  // Check if we're on a project detail page when the path is /projects
-  // or on an about sub-page when the path is /about
   const isProjectDetailPage =
     path === "/projects" && pathname.startsWith("/projects/");
   const isAboutSubPage =
     path === "/about" &&
     pathname.startsWith("/about/") &&
     !pathname.startsWith("/about/journey");
-  const isActive = pathname === path || isProjectDetailPage || isAboutSubPage;
+  const isVideoSubPage = path === "/videos" && pathname.startsWith("/videos/");
+  const isActive =
+    pathname === path ||
+    isProjectDetailPage ||
+    isAboutSubPage ||
+    isVideoSubPage;
 
   return (
     <li

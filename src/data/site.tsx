@@ -185,14 +185,6 @@ export const techStack: TechItem[] = [
     description: "Edge Network, Analytics, Speed Insights, Preview Deploys",
     category: "infra",
   },
-  {
-    name: "Lenis",
-    version: "1.3",
-    icon: SiFramer,
-    color: "text-orange-400",
-    description: "Smooth scroll, RAF loop, inertia-based scrolling",
-    category: "ui",
-  },
 ];
 
 export const architectureLayers: ArchitectureLayer[] = [
@@ -235,7 +227,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       { label: "SWR", detail: "Gallery data with optimistic UI" },
       {
         label: "Custom Hooks",
-        detail: "useHorizontalScroll, useDebouncedValue, useLenis",
+        detail: "useHorizontalScroll, useDebouncedValue, useScrollTo",
         count: 7,
       },
       { label: "URL State", detail: "Search params for gallery filters" },
@@ -320,10 +312,10 @@ export const designPatterns: DesignPattern[] = [
       "const { ref, canScrollLeft, scrollRight } = useHorizontalScroll()",
   },
   {
-    name: "Type-Safe Window Augmentation",
+    name: "Type-Safe Browser APIs",
     description:
-      "Global browser APIs are properly typed via declaration merging — window.lenis is declared in types/window.d.ts, eliminating all (window as any) casts across the codebase.",
-    example: "declare global { interface Window { lenis?: Lenis } }",
+      "Global browser APIs and declaration merging are used to eliminate all (window as any) casts across the codebase. Native scroll APIs are used directly via typed wrappers.",
+    example: "window.scrollTo({ top: offsetPosition, behavior: 'smooth' })",
   },
   {
     name: "Centralized Data Transforms",
@@ -365,9 +357,9 @@ export const performanceStrategies: PerformanceMetric[] = [
   },
   {
     label: "Smooth Scrolling",
-    value: "RAF-based",
+    value: "Native CSS",
     description:
-      "Lenis smooth scroll runs on requestAnimationFrame with proper cleanup via cancelAnimationFrame. Custom easeOutExpo easing curve.",
+      "Native scroll-behavior: smooth on the html element. Zero JS overhead — the same approach used by Linear, Vercel, and Stripe. Respects prefers-reduced-motion automatically.",
     impact: 65,
   },
   {
@@ -594,18 +586,18 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "16,026+",
+    value: "16,605+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "56",
+    value: "55",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
     label: "Custom Hooks",
     value: "7",
-    description: "useHorizontalScroll, useDebouncedValue, useLenis, etc.",
+    description: "useHorizontalScroll, useDebouncedValue, useScrollTo, etc.",
   },
   {
     label: "API Routes",
@@ -624,7 +616,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Data Modules",
-    value: "9",
+    value: "10",
     description: "Projects, experience, timeline, stack, courses, links, about",
   },
   {
