@@ -37,9 +37,13 @@ interface ExperienceDetailClientProps {
 const ExperienceDetailClient = ({
   experience,
 }: ExperienceDetailClientProps) => {
+  // For multi-role companies (companyId present), use the shared gallery key.
+  // For single-role entries, fall back to the experience slug (backward-compatible).
+  const gallerySlug = experience.companyId ?? experience.slug;
+
   // Prefer DB-managed images; fall back to static gallery in data file
   const { data: galleryData } = useSWR<ExperienceGalleryApiResponse>(
-    API_ROUTES.EXPERIENCE_GALLERY(experience.slug),
+    API_ROUTES.EXPERIENCE_GALLERY(gallerySlug),
     fetcher,
   );
 

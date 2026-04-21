@@ -113,7 +113,7 @@ export default async function ProjectPage({ params }: Props) {
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
               {project.title}
             </h1>
-            <p className="text-lg md:text-xl text-primary font-medium">
+            <p className="text-sm md:text-xl text-primary font-medium">
               {project.tagline}
             </p>
           </MotionDiv>

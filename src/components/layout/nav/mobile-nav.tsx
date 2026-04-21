@@ -22,6 +22,8 @@ const isNavActive = (path: string, pathname: string): boolean => {
   if (path === "/") return pathname === "/";
   if (path === "/projects")
     return pathname === "/projects" || pathname.startsWith("/projects/");
+  if (path === "/videos")
+    return pathname === "/videos" || pathname.startsWith("/videos/");
   if (path === "/about")
     return (
       pathname.startsWith("/about/") && !pathname.startsWith("/about/journey")
@@ -45,9 +47,9 @@ const MobileNav = () => {
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open navigation menu"
-        className="flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
       >
-        <Menu className="size-[18px]" />
+        <Menu className="size-5" />
       </button>
 
       <AnimatePresence>
@@ -71,9 +73,9 @@ const MobileNav = () => {
                 transition={{ delay: 0.08, duration: 0.3, ease: "backOut" }}
                 onClick={() => setIsOpen(false)}
                 aria-label="Close navigation menu"
-                className="flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
               >
-                <X className="size-[18px]" />
+                <X className="size-5" />
               </motion.button>
             </div>
 
