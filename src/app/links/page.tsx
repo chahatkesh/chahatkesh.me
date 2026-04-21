@@ -75,7 +75,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
       >
         <Card
           className={cn(
-            "h-full transition-all duration-300 border border-neutral-800 hover:border-neutral-700",
+            "h-full transition-all duration-300 border border-border hover:border-muted-foreground/30",
             "active:scale-[0.98]",
             link.hoverColor,
             isPrimary && "p-4 md:p-5",

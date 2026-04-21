@@ -18,7 +18,7 @@ import { MotionDiv, Breadcrumb } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { ProtectedRoute } from "~/components/admin/protected-route";
-import { experiences } from "~/data/experience";
+import { experiences, type Experience } from "~/data/experience";
 import { API_ROUTES } from "~/constants";
 
 // ---------------------------------------------------------------------------
@@ -39,9 +39,7 @@ interface ExperienceGalleryApiResponse {
   data: ExperienceGalleryImage[];
 }
 
-/** An image that has been uploaded to Cloudinary but not yet saved to DB */
 interface PendingItem {
-  /** Client-only stable key */
   clientId: string;
   imageUrl: string;
   publicId: string;
@@ -50,11 +48,56 @@ interface PendingItem {
   error?: string;
 }
 
+/** A company with one or more roles, sharing a single media gallery */
+interface CompanyGroup {
+  /** The slug used to key the gallery (companyId for multi-role, else experience slug) */
+  gallerySlug: string;
+  employer: string;
+  logo: Experience["logo"];
+  roles: Pick<
+    Experience,
+    "slug" | "role" | "type" | "start_date" | "end_date"
+  >[];
+}
+
 // ---------------------------------------------------------------------------
-// Fetcher
+// Helpers
 // ---------------------------------------------------------------------------
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+/**
+ * Group experiences by employer.
+ * Gallery is keyed by companyId when present (multi-role companies),
+ * otherwise by the single experience slug — preserving backward compatibility.
+ */
+function groupExperiencesByCompany(exps: Experience[]): CompanyGroup[] {
+  const map = new Map<string, CompanyGroup>();
+
+  for (const exp of exps) {
+    const key = exp.employer;
+    if (!map.has(key)) {
+      // For multi-role companies, companyId is the shared gallery key.
+      // For single-role, fall back to the experience slug (backward-compatible).
+      const gallerySlug = exp.companyId ?? exp.slug;
+      map.set(key, {
+        gallerySlug,
+        employer: exp.employer,
+        logo: exp.logo,
+        roles: [],
+      });
+    }
+    map.get(key)!.roles.push({
+      slug: exp.slug,
+      role: exp.role,
+      type: exp.type,
+      start_date: exp.start_date,
+      end_date: exp.end_date,
+    });
+  }
+
+  return Array.from(map.values());
+}
 
 // ---------------------------------------------------------------------------
 // Page
@@ -70,9 +113,10 @@ export default function AdminExperienceGalleryPage() {
 
 function AdminExperienceGalleryContent() {
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+  const companies = groupExperiencesByCompany(experiences);
 
-  const toggleExpanded = (slug: string) =>
-    setExpandedSlug((prev) => (prev === slug ? null : slug));
+  const toggleExpanded = (gallerySlug: string) =>
+    setExpandedSlug((prev) => (prev === gallerySlug ? null : gallerySlug));
 
   return (
     <div className="space-y-8">
@@ -93,7 +137,8 @@ function AdminExperienceGalleryContent() {
           Experience Gallery
         </h1>
         <p className={cn(typo({ variant: "paragraph" }))}>
-          Upload and manage highlight images for each work experience
+          Upload and manage highlight images per company. Multiple roles at the
+          same company share one gallery.
         </p>
       </MotionDiv>
 
@@ -103,15 +148,12 @@ function AdminExperienceGalleryContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        {experiences.map((exp) => (
-          <ExperienceGalleryCard
-            key={exp.slug}
-            slug={exp.slug}
-            employer={exp.employer}
-            role={exp.role}
-            logo={exp.logo}
-            isExpanded={expandedSlug === exp.slug}
-            onToggle={() => toggleExpanded(exp.slug)}
+        {companies.map((company) => (
+          <CompanyGalleryCard
+            key={company.gallerySlug}
+            company={company}
+            isExpanded={expandedSlug === company.gallerySlug}
+            onToggle={() => toggleExpanded(company.gallerySlug)}
           />
         ))}
       </MotionDiv>
@@ -120,27 +162,23 @@ function AdminExperienceGalleryContent() {
 }
 
 // ---------------------------------------------------------------------------
-// Per-experience accordion card
+// Per-company accordion card
 // ---------------------------------------------------------------------------
 
-interface ExperienceGalleryCardProps {
-  slug: string;
-  employer: string;
-  role: string;
-  logo: string | { src: string };
+interface CompanyGalleryCardProps {
+  company: CompanyGroup;
   isExpanded: boolean;
   onToggle: () => void;
 }
 
-function ExperienceGalleryCard({
-  slug,
-  employer,
-  role,
-  logo,
+function CompanyGalleryCard({
+  company,
   isExpanded,
   onToggle,
-}: ExperienceGalleryCardProps) {
-  const apiUrl = API_ROUTES.EXPERIENCE_GALLERY(slug);
+}: CompanyGalleryCardProps) {
+  const { gallerySlug, employer, logo, roles } = company;
+  const apiUrl = API_ROUTES.EXPERIENCE_GALLERY(gallerySlug);
+
   const { data, isLoading } = useSWR<ExperienceGalleryApiResponse>(
     isExpanded ? apiUrl : null,
     fetcher,
@@ -148,54 +186,77 @@ function ExperienceGalleryCard({
 
   const images = data?.data ?? [];
   const logoSrc = typeof logo === "string" ? logo : logo.src;
+  const isMultiRole = roles.length > 1;
 
   return (
-    <Card className="border-neutral-800 bg-neutral-950 overflow-hidden">
+    <Card className="overflow-hidden border-border bg-background">
       {/* Collapsible header */}
       <button
         type="button"
         onClick={onToggle}
-        className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-neutral-950"
+        className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
         aria-expanded={isExpanded}
       >
         <CardHeader className="pb-3">
-          <div className="flex items-center gap-4">
+          <div className="flex items-start gap-4">
             {/* Logo */}
-            <div className="h-12 w-12 rounded-md overflow-hidden border border-neutral-700 bg-neutral-800/50 flex-shrink-0">
+            <div className="mt-0.5 flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/50">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logoSrc}
                 alt={`${employer} logo`}
-                className="w-full h-full object-contain p-1"
+                className="h-full w-full object-contain p-1"
               />
             </div>
 
-            {/* Text */}
-            <div className="flex-1 min-w-0">
-              <CardTitle className="text-base text-white truncate">
+            {/* Company + roles */}
+            <div className="min-w-0 flex-1">
+              <CardTitle className="truncate text-base text-foreground">
                 {employer}
               </CardTitle>
-              <CardDescription className="text-neutral-400 text-sm truncate">
-                {role}
-              </CardDescription>
+
+              {isMultiRole ? (
+                /* Multiple roles — list them all */
+                <ul className="mt-1 space-y-0.5">
+                  {roles.map((r) => (
+                    <li key={r.slug} className="flex items-center gap-1.5">
+                      <span className="h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground/50" />
+                      <CardDescription className="truncate text-xs text-muted-foreground">
+                        {r.role}
+                        <span className="ml-1.5 text-muted-foreground/50">
+                          {r.start_date} – {r.end_date}
+                        </span>
+                      </CardDescription>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                /* Single role — show inline */
+                <CardDescription className="mt-0.5 truncate text-sm text-muted-foreground">
+                  {roles[0].role}
+                  <span className="ml-1.5 text-muted-foreground/50 text-xs">
+                    {roles[0].start_date} – {roles[0].end_date}
+                  </span>
+                </CardDescription>
+              )}
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex flex-shrink-0 items-center gap-3">
               {isExpanded && images.length > 0 && (
-                <span className="hidden sm:inline-flex items-center rounded-full border border-neutral-700 px-2.5 py-0.5 text-xs text-neutral-400">
+                <span className="hidden items-center rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground sm:inline-flex">
                   {images.length} image{images.length !== 1 ? "s" : ""}
                 </span>
               )}
               {!isExpanded && (
-                <span className="text-xs text-neutral-500">Manage</span>
+                <span className="text-xs text-muted-foreground/70">Manage</span>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 className={cn(
-                  "w-4 h-4 text-neutral-400 transition-transform duration-200",
+                  "h-4 w-4 text-muted-foreground transition-transform duration-200",
                   isExpanded ? "rotate-180" : "",
                 )}
               >
@@ -212,26 +273,36 @@ function ExperienceGalleryCard({
 
       {/* Expanded content */}
       {isExpanded && (
-        <CardContent className="pt-0 border-t border-neutral-800">
-          <div className="pt-5 space-y-6">
+        <CardContent className="border-t border-border pt-0">
+          <div className="space-y-6 pt-5">
+            {isMultiRole && (
+              <p className="rounded-md border border-border bg-card/50 px-3 py-2 text-xs text-muted-foreground/70">
+                Images uploaded here are shared across all{" "}
+                <span className="text-foreground/80">{employer}</span> roles.
+              </p>
+            )}
+
             {/* Upload zone */}
-            <UploadSection slug={slug} onSaved={() => mutate(apiUrl)} />
+            <UploadSection
+              gallerySlug={gallerySlug}
+              onSaved={() => mutate(apiUrl)}
+            />
 
             {/* Saved images */}
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-600" />
+                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-muted-foreground/30" />
               </div>
             ) : images.length === 0 ? (
-              <p className="text-sm text-neutral-500 text-center py-6 border border-dashed border-neutral-800 rounded-lg">
+              <p className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground/70">
                 No images yet — upload your first highlight above.
               </p>
             ) : (
               <div className="space-y-3">
-                <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">
+                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
                   Saved ({images.length})
                 </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                   {images.map((img) => (
                     <GalleryImageTile
                       key={img._id}
@@ -254,11 +325,11 @@ function ExperienceGalleryCard({
 // ---------------------------------------------------------------------------
 
 interface UploadSectionProps {
-  slug: string;
+  gallerySlug: string;
   onSaved: () => void;
 }
 
-function UploadSection({ slug, onSaved }: UploadSectionProps) {
+function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
   const [pendingItems, setPendingItems] = useState<PendingItem[]>([]);
   const baseId = useId();
 
@@ -307,7 +378,7 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          experienceSlug: slug,
+          experienceSlug: gallerySlug,
           imageUrl: item.imageUrl,
           publicId: item.publicId,
           caption: item.caption.trim() || undefined,
@@ -318,11 +389,11 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
         setPendingItems((prev) => prev.filter((i) => i.clientId !== clientId));
         onSaved();
       } else {
-        const data = await res.json();
+        const errData = await res.json();
         setPendingItems((prev) =>
           prev.map((i) =>
             i.clientId === clientId
-              ? { ...i, saving: false, error: data.error ?? "Save failed" }
+              ? { ...i, saving: false, error: errData.error ?? "Save failed" }
               : i,
           ),
         );
@@ -348,11 +419,10 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
 
   return (
     <div className="space-y-4">
-      {/* Upload trigger */}
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-neutral-300">Add Images</p>
+        <p className="text-sm font-medium text-foreground/80">Add Images</p>
         {hasPending && (
-          <span className="text-xs text-neutral-500">
+          <span className="text-xs text-muted-foreground/70">
             {pendingItems.length} pending
           </span>
         )}
@@ -366,7 +436,7 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
         onSuccess={handleUploadSuccess}
         onError={(error) => console.error("Upload error:", error)}
         options={{
-          folder: `portfolio/experience/${slug}`,
+          folder: `portfolio/experience/${gallerySlug}`,
           multiple: true,
           maxFiles: 20,
           resourceType: "image",
@@ -378,7 +448,7 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
           <button
             type="button"
             onClick={() => open()}
-            className="w-full flex flex-col items-center justify-center gap-2 border-2 border-dashed border-neutral-700 hover:border-neutral-500 rounded-lg py-6 text-neutral-500 hover:text-neutral-400 transition-colors"
+            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border py-6 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:text-muted-foreground"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -403,11 +473,10 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
         )}
       </CldUploadWidget>
 
-      {/* Staging queue */}
       {hasPending && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-neutral-500 font-medium uppercase tracking-wide">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
               Review & add captions
             </p>
             <Button
@@ -420,7 +489,7 @@ function UploadSection({ slug, onSaved }: UploadSectionProps) {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
             {pendingItems.map((item) => (
               <PendingImageTile
                 key={item.clientId}
@@ -455,24 +524,22 @@ function PendingImageTile({
   onDiscard,
 }: PendingImageTileProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-lg border border-neutral-700 bg-neutral-900/40 overflow-hidden">
-      {/* Image */}
+    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-card/40">
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={item.imageUrl}
           alt="Pending upload preview"
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
         {item.saving && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white" />
           </div>
         )}
       </div>
 
-      {/* Caption + actions */}
-      <div className="px-2 pb-2 flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5 px-2 pb-2">
         <input
           type="text"
           placeholder="Caption (optional)"
@@ -480,7 +547,7 @@ function PendingImageTile({
           onChange={(e) => onCaptionChange(e.target.value)}
           maxLength={500}
           disabled={item.saving}
-          className="w-full px-2 py-1 text-xs bg-neutral-900 border border-neutral-700 rounded text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-500 disabled:opacity-50"
+          className="w-full rounded border border-border bg-card px-2 py-1 text-xs text-foreground/90 placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none disabled:opacity-50"
         />
         {item.error && <p className="text-xs text-red-400">{item.error}</p>}
         <div className="flex gap-1">
@@ -489,7 +556,7 @@ function PendingImageTile({
             size="sm"
             onClick={onSave}
             disabled={item.saving}
-            className="flex-1 text-xs h-7"
+            className="h-7 flex-1 text-xs"
           >
             {item.saving ? "Saving…" : "Save"}
           </Button>
@@ -499,7 +566,7 @@ function PendingImageTile({
             variant="outline"
             onClick={onDiscard}
             disabled={item.saving}
-            className="text-xs h-7 px-2"
+            className="h-7 px-2 text-xs"
             aria-label="Discard"
           >
             ✕
@@ -563,24 +630,22 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border border-neutral-800 bg-neutral-950 overflow-hidden">
-      {/* Image */}
+    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-background">
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image.imageUrl}
           alt={image.caption ?? "Gallery image"}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
         {deleting && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white" />
           </div>
         )}
       </div>
 
-      {/* Caption display / edit + actions */}
-      <div className="px-2 pb-2 flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5 px-2 pb-2">
         {isEditing ? (
           <>
             <input
@@ -595,7 +660,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
               autoFocus
               disabled={saving}
               placeholder="Caption (optional)"
-              className="w-full px-2 py-1 text-xs bg-neutral-900 border border-neutral-600 rounded text-neutral-200 placeholder-neutral-600 focus:outline-none focus:border-neutral-400 disabled:opacity-50"
+              className="w-full rounded border border-muted-foreground/40 bg-card px-2 py-1 text-xs text-foreground/90 placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none disabled:opacity-50"
             />
             <div className="flex gap-1">
               <Button
@@ -603,7 +668,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 size="sm"
                 onClick={saveCaption}
                 disabled={saving}
-                className="flex-1 text-xs h-7"
+                className="h-7 flex-1 text-xs"
               >
                 {saving ? "Saving…" : "Save"}
               </Button>
@@ -613,7 +678,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 variant="outline"
                 onClick={cancelEdit}
                 disabled={saving}
-                className="text-xs h-7 px-2"
+                className="h-7 px-2 text-xs"
               >
                 Cancel
               </Button>
@@ -621,13 +686,12 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
           </>
         ) : (
           <>
-            {/* Caption preview — always visible */}
             <p
               className={cn(
-                "text-xs min-h-[1rem] line-clamp-2 cursor-pointer",
+                "min-h-[1rem] cursor-pointer text-xs line-clamp-2",
                 image.caption
-                  ? "text-neutral-400 hover:text-neutral-300"
-                  : "text-neutral-600 italic hover:text-neutral-500",
+                  ? "text-muted-foreground hover:text-foreground/80"
+                  : "italic text-muted-foreground/50 hover:text-muted-foreground/70",
               )}
               onClick={startEdit}
               title="Click to edit caption"
@@ -641,7 +705,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 size="sm"
                 variant="outline"
                 onClick={startEdit}
-                className="flex-1 text-xs h-7"
+                className="h-7 flex-1 text-xs"
               >
                 Edit caption
               </Button>
@@ -651,7 +715,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 variant="destructive"
                 onClick={handleDelete}
                 disabled={deleting}
-                className="text-xs h-7 px-2"
+                className="h-7 px-2 text-xs"
                 aria-label="Delete image"
               >
                 {deleting ? (

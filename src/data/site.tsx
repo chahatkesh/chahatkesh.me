@@ -98,7 +98,7 @@ export const techStack: TechItem[] = [
     name: "Next.js",
     version: "16.1",
     icon: SiNextdotjs,
-    color: "text-neutral-400",
+    color: "text-foreground/80",
     description: "App Router, RSC, ISR, Edge Runtime",
     category: "core",
     priority: 1,
@@ -181,17 +181,9 @@ export const techStack: TechItem[] = [
     name: "Vercel",
     version: "Latest",
     icon: SiVercel,
-    color: "text-neutral-400",
+    color: "text-foreground/80",
     description: "Edge Network, Analytics, Speed Insights, Preview Deploys",
     category: "infra",
-  },
-  {
-    name: "Lenis",
-    version: "1.3",
-    icon: SiFramer,
-    color: "text-orange-400",
-    description: "Smooth scroll, RAF loop, inertia-based scrolling",
-    category: "ui",
   },
 ];
 
@@ -235,7 +227,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       { label: "SWR", detail: "Gallery data with optimistic UI" },
       {
         label: "Custom Hooks",
-        detail: "useHorizontalScroll, useDebouncedValue, useLenis",
+        detail: "useHorizontalScroll, useDebouncedValue, useScrollTo",
         count: 7,
       },
       { label: "URL State", detail: "Search params for gallery filters" },
@@ -320,10 +312,10 @@ export const designPatterns: DesignPattern[] = [
       "const { ref, canScrollLeft, scrollRight } = useHorizontalScroll()",
   },
   {
-    name: "Type-Safe Window Augmentation",
+    name: "Type-Safe Browser APIs",
     description:
-      "Global browser APIs are properly typed via declaration merging — window.lenis is declared in types/window.d.ts, eliminating all (window as any) casts across the codebase.",
-    example: "declare global { interface Window { lenis?: Lenis } }",
+      "Global browser APIs and declaration merging are used to eliminate all (window as any) casts across the codebase. Native scroll APIs are used directly via typed wrappers.",
+    example: "window.scrollTo({ top: offsetPosition, behavior: 'smooth' })",
   },
   {
     name: "Centralized Data Transforms",
@@ -365,9 +357,9 @@ export const performanceStrategies: PerformanceMetric[] = [
   },
   {
     label: "Smooth Scrolling",
-    value: "RAF-based",
+    value: "Native CSS",
     description:
-      "Lenis smooth scroll runs on requestAnimationFrame with proper cleanup via cancelAnimationFrame. Custom easeOutExpo easing curve.",
+      "Native scroll-behavior: smooth on the html element. Zero JS overhead — the same approach used by Linear, Vercel, and Stripe. Respects prefers-reduced-motion automatically.",
     impact: 65,
   },
   {
@@ -382,41 +374,41 @@ export const performanceStrategies: PerformanceMetric[] = [
 export const colorTokens: ColorToken[] = [
   {
     name: "Background",
-    hex: "#000000",
-    desc: "Pure Black",
-    color: "bg-black",
+    hex: "hsl(240 10% 3.9%)",
+    desc: "--background",
+    color: "bg-background",
     border: true,
   },
   {
-    name: "Accent",
+    name: "Accent / Ring",
     hex: "hsl(182.7 100% 35.5%)",
-    desc: "Brand Cyan",
+    desc: "--ring",
     color: "bg-ring",
   },
   {
-    name: "Text Primary",
-    hex: "#FFFFFF",
-    desc: "White",
-    color: "bg-white",
+    name: "Foreground",
+    hex: "hsl(0 0% 98%)",
+    desc: "--foreground",
+    color: "bg-foreground",
     border: true,
   },
   {
-    name: "Text Secondary",
-    hex: "#A3A3A3",
-    desc: "Neutral 400",
-    color: "bg-neutral-400",
+    name: "Muted Foreground",
+    hex: "hsl(240 5% 64.9%)",
+    desc: "--muted-foreground",
+    color: "bg-muted-foreground",
   },
   {
     name: "Border",
-    hex: "#262626",
-    desc: "Neutral 800",
-    color: "bg-neutral-800",
+    hex: "hsl(240 3.7% 15.9%)",
+    desc: "--border",
+    color: "bg-border",
   },
   {
-    name: "Surface",
-    hex: "#0a0a0a",
-    desc: "Neutral 950",
-    color: "bg-neutral-950",
+    name: "Card / Surface",
+    hex: "hsl(240 5% 8%)",
+    desc: "--card",
+    color: "bg-card",
     border: true,
   },
 ];
@@ -433,6 +425,12 @@ export const fonts: FontEntry[] = [
     usage: "Headings, section titles, nav labels",
     weights: "400, 500, 600, 700, 800, 900",
     className: "font-ubuntu",
+  },
+  {
+    family: "Lora",
+    usage: "Poem section, italic accents, personal notes",
+    weights: "400, 500, 600 (normal + italic)",
+    className: "font-poem",
   },
   {
     family: "System Mono",
@@ -594,18 +592,18 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "16,026+",
+    value: "16,601+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "56",
+    value: "55",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
     label: "Custom Hooks",
     value: "7",
-    description: "useHorizontalScroll, useDebouncedValue, useLenis, etc.",
+    description: "useHorizontalScroll, useDebouncedValue, useScrollTo, etc.",
   },
   {
     label: "API Routes",
@@ -624,7 +622,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Data Modules",
-    value: "9",
+    value: "10",
     description: "Projects, experience, timeline, stack, courses, links, about",
   },
   {

@@ -46,11 +46,11 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
       )}
       <Link href={`/projects/${slug}`}>
         <MotionDiv
-          className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
+          className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-border hover:border-muted-foreground/30 transition-all duration-300"
           transition={{ duration: 0.3 }}
         >
           {/* Left side with full image and tagline overlay - takes 2/5 of the width */}
-          <div className="sm:col-span-2 relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">
+          <div className="sm:col-span-2 relative bg-gradient-to-br from-card via-background to-background overflow-hidden">
             <MotionDiv
               className="relative w-full h-full min-h-[200px] overflow-hidden"
               whileHover={{ scale: 1.05 }}
@@ -67,7 +67,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
 
               {/* Tagline overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent z-20 p-6 pt-16">
-                <p className="text-sm text-neutral-200">{tagline}</p>
+                <p className="text-sm text-foreground/90">{tagline}</p>
               </div>
 
               {/* Decorative elements */}
@@ -82,7 +82,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
               <h2 className="font-ubuntu text-base font-semibold mb-2">
                 {title}
               </h2>
-              <div className="flex items-end gap-2 text-[9px] text-neutral-400">
+              <div className="flex items-end gap-2 text-[9px] text-muted-foreground">
                 {isFeatured ? (
                   <span className="text-ring font-medium">FEATURED</span>
                 ) : (
@@ -110,14 +110,14 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 {features.slice(0, MAX_VISIBLE_FEATURES).map((feature) => (
                   <li
                     key={feature}
-                    className="text-xs text-neutral-400 flex items-start"
+                    className="text-xs text-muted-foreground flex items-start"
                   >
                     <span className="mr-1 text-primary">•</span>
                     <span className="line-clamp-1">{feature}</span>
                   </li>
                 ))}
                 {features.length > MAX_VISIBLE_FEATURES && (
-                  <li className="text-xs text-neutral-500 flex items-start">
+                  <li className="text-xs text-muted-foreground/70 flex items-start">
                     <span className="mr-1">•</span>
                     <span>
                       +{features.length - MAX_VISIBLE_FEATURES} more features
@@ -132,12 +132,13 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 {stacks.slice(0, MAX_VISIBLE_STACKS).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
-                  const className = techInfo?.className || "text-neutral-400";
+                  const className =
+                    techInfo?.className || "text-muted-foreground";
 
                   return (
                     <MotionDiv
                       key={stack}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[10px]"
+                      className="flex items-center gap-1 px-2 py-1 rounded-full bg-card border border-border text-[10px]"
                       whileHover={{ y: -1 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -153,7 +154,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                   );
                 })}
                 {stacks.length > 5 && (
-                  <div className="flex items-center px-3 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-xs text-neutral-400">
+                  <div className="flex items-center px-3 py-1.5 rounded-full bg-muted border border-border text-xs text-muted-foreground">
                     <span className="whitespace-nowrap">
                       +{stacks.length - 5}
                     </span>

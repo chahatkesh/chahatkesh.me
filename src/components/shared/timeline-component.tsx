@@ -101,7 +101,7 @@ const TimelineComponent = () => {
     >
       {/* Category Filter */}
       <MotionDiv
-        className="pb-4 border-b border-neutral-800"
+        className="pb-4 border-b border-border"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
@@ -116,13 +116,13 @@ const TimelineComponent = () => {
                 "text-sm transition-all duration-200",
                 selectedCategory === category.value
                   ? "text-ring underline underline-offset-4 decoration-2"
-                  : "text-neutral-400 hover:text-neutral-300",
+                  : "text-muted-foreground hover:text-foreground/80",
               )}
             >
               {category.label}
             </button>
           ))}
-          <span className="ml-auto text-xs text-neutral-500">
+          <span className="ml-auto text-xs text-muted-foreground/70">
             {filteredEvents.length}{" "}
             {filteredEvents.length === 1 ? "event" : "events"}
           </span>
@@ -142,7 +142,7 @@ const TimelineComponent = () => {
                   "text-sm whitespace-nowrap transition-all duration-200 flex-shrink-0",
                   selectedCategory === category.value
                     ? "text-ring underline underline-offset-4 decoration-2"
-                    : "text-neutral-400",
+                    : "text-muted-foreground",
                 )}
               >
                 {category.label}
@@ -159,7 +159,7 @@ const TimelineComponent = () => {
                 });
               }
             }}
-            className="text-neutral-400 p-1 flex-shrink-0"
+            className="text-muted-foreground p-1 flex-shrink-0"
             aria-label="Scroll categories"
           >
             <svg
@@ -191,7 +191,7 @@ const TimelineComponent = () => {
         {/* Events */}
         <div className="space-y-8">
           {filteredEvents.length === 0 ? (
-            <div className="text-center py-12 text-neutral-400">
+            <div className="text-center py-12 text-muted-foreground">
               No events found in this category.
             </div>
           ) : (
@@ -210,7 +210,7 @@ const TimelineComponent = () => {
                   className="relative"
                 >
                   {/* Timeline dot */}
-                  <div className="absolute mt-1 left-0 flex h-3 w-3 items-center justify-center rounded-full shadow-lg bg-ring border-2 border-neutral-900"></div>
+                  <div className="absolute mt-1 left-0 flex h-3 w-3 items-center justify-center rounded-full shadow-lg bg-ring border-2 border-background"></div>
                   <div className="ml-8">
                     {/* Reduced margin since dot is smaller */}
                     <EventCard event={event} duration={duration} />
@@ -240,14 +240,14 @@ const EventCard = ({ event, duration }: EventCardProps) => {
   };
 
   return (
-    <div className="group relative space-y-3 pb-6 transition-all duration-300 border-b border-neutral-800">
+    <div className="group relative space-y-3 pb-6 transition-all duration-300 border-b border-border">
       {/* Title and Metadata on same line */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
-        <h3 className="font-ubuntu text-base font-medium text-white group-hover:text-ring transition-colors">
+        <h3 className="font-ubuntu text-base font-medium text-foreground group-hover:text-ring transition-colors">
           {event.title}
         </h3>
 
-        <div className="flex items-center gap-3 text-xs text-neutral-400 flex-wrap">
+        <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
           <div className="flex items-center gap-1.5">
             <FaCalendarAlt size={11} />
             {formatEventDate(event)}
@@ -271,7 +271,7 @@ const EventCard = ({ event, duration }: EventCardProps) => {
 
       {/* Description */}
       {event.description && (
-        <p className="text-neutral-300 text-sm leading-relaxed text-justify">
+        <p className="text-foreground/80 text-sm leading-relaxed text-justify">
           {event.description}
         </p>
       )}
@@ -288,7 +288,7 @@ const EventCard = ({ event, duration }: EventCardProps) => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 text-xs text-neutral-400 hover:text-ring/80 transition-colors bg-neutral-800/30 hover:bg-neutral-800/50 px-3 py-1.5 rounded border border-neutral-700 hover:border-neutral-600"
+                className="inline-flex items-center justify-center gap-1.5 text-xs text-muted-foreground hover:text-ring/80 transition-colors bg-muted/30 hover:bg-muted/60 px-3 py-1.5 rounded border border-border hover:border-muted-foreground/30"
               >
                 <span className="flex items-center">
                   {getLinkIcon(link.icon)}
