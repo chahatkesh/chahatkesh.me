@@ -23,7 +23,7 @@ const ExperienceTimeline = () => {
     >
       <div className="relative space-y-8">
         {/* Vertical timeline line */}
-        <div className="absolute left-[15px] top-4 bottom-4 w-[2px] bg-neutral-800" />
+        <div className="absolute left-[15px] top-4 bottom-4 w-[2px] bg-border" />
 
         {groups.map((group, index) =>
           group.positions.length === 1 ? (
@@ -65,7 +65,7 @@ function SinglePositionEntry({
     >
       {/* Timeline dot */}
       <div className="absolute left-0 top-4">
-        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-border bg-card">
           <Image
             src={experience.logo}
             alt={`${experience.employer} logo`}
@@ -80,23 +80,23 @@ function SinglePositionEntry({
         href={`/about/experience/${experience.slug}`}
         className="block group"
       >
-        <div className="border border-neutral-800 hover:border-neutral-700 rounded-lg p-4 transition-colors bg-background">
+        <div className="border border-border hover:border-muted-foreground/30 rounded-lg p-4 transition-colors bg-background">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
             <div className="flex-1">
-              <h3 className="font-ubuntu text-lg font-medium text-white group-hover:text-ring transition-colors">
+              <h3 className="font-ubuntu text-lg font-medium text-foreground group-hover:text-ring transition-colors">
                 {experience.role}
               </h3>
-              <p className="text-sm text-neutral-400 mt-0.5">
+              <p className="text-sm text-muted-foreground mt-0.5">
                 {experience.employer}
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-neutral-500">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
               <span>{experience.start_date}</span>
               <span>→</span>
               <span>{experience.end_date}</span>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-neutral-400">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
             <span>{experience.type}</span>
             <span>•</span>
             <span>{experience.location}</span>
@@ -131,7 +131,7 @@ function MultiPositionEntry({
     >
       {/* Timeline dot */}
       <div className="absolute left-0 top-4">
-        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900">
+        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-border bg-card">
           <Image
             src={group.logo}
             alt={`${group.employer} logo`}
@@ -142,18 +142,18 @@ function MultiPositionEntry({
         </div>
       </div>
 
-      <div className="border border-neutral-800 rounded-lg overflow-hidden bg-background">
+      <div className="border border-border rounded-lg overflow-hidden bg-background">
         {/* Company header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 px-4 py-3 border-b border-neutral-800">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 px-4 py-3 border-b border-border">
           <div>
-            <h3 className="font-ubuntu text-lg font-medium text-white">
+            <h3 className="font-ubuntu text-lg font-medium text-foreground">
               {group.employer}
             </h3>
-            <p className="text-xs text-neutral-500 mt-0.5">
+            <p className="text-xs text-muted-foreground/70 mt-0.5">
               {group.positions.length} positions
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs text-neutral-500 flex-shrink-0">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground/70 flex-shrink-0">
             <span>{group.earliestStart}</span>
             <span>→</span>
             <span>{group.latestEnd}</span>
@@ -168,22 +168,22 @@ function MultiPositionEntry({
             className="block group"
           >
             <div
-              className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 px-4 py-3 hover:bg-neutral-900/50 transition-colors ${
+              className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 px-4 py-3 hover:bg-muted/40 transition-colors ${
                 posIdx < group.positions.length - 1
-                  ? "border-b border-neutral-800/60"
+                  ? "border-b border-border/60"
                   : ""
               }`}
             >
               <div className="flex items-start gap-3">
                 {/* Connector indent */}
-                <span className="text-neutral-600 mt-0.5 text-sm select-none flex-shrink-0">
+                <span className="text-muted-foreground/50 mt-0.5 text-sm select-none flex-shrink-0">
                   ↳
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-neutral-200 group-hover:text-ring transition-colors">
+                  <p className="text-sm font-medium text-foreground/90 group-hover:text-ring transition-colors">
                     {position.role}
                   </p>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-500 mt-1">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground/70 mt-1">
                     <span>{position.type}</span>
                     <span>•</span>
                     <span>{position.location}</span>
@@ -197,7 +197,7 @@ function MultiPositionEntry({
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-xs text-neutral-500 flex-shrink-0 pl-6 sm:pl-0">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground/70 flex-shrink-0 pl-6 sm:pl-0">
                 <span>{position.start_date}</span>
                 <span>→</span>
                 <span>{position.end_date}</span>

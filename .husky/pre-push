@@ -14,9 +14,27 @@ npm run update-tech-versions || {
   echo "⚠️  Failed to update tech versions, continuing anyway..."
 }
 
+# Normalize formatting before diffing
+pnpm prettier --write src/data/site.tsx --log-level silent 2>/dev/null || true
+
 # Check if there are uncommitted changes from updates
 if ! git diff --quiet src/data/site.tsx; then
   echo "⚠️  Metrics or versions were updated in src/data/site.tsx"
+  echo "   Please review, commit the changes, and push again."
+  exit 1
+fi
+
+echo "🎬 Updating YouTube videos..."
+pnpm update-youtube || {
+  echo "⚠️  Failed to update YouTube videos, continuing anyway..."
+}
+
+# Normalize formatting so prettier differences don't trigger a false diff
+pnpm prettier --write src/data/youtube.ts --log-level silent 2>/dev/null || true
+
+# Check if there are uncommitted changes from YouTube update
+if ! git diff --quiet src/data/youtube.ts; then
+  echo "⚠️  YouTube videos were updated in src/data/youtube.ts"
   echo "   Please review, commit the changes, and push again."
   exit 1
 fi

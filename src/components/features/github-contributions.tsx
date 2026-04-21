@@ -20,7 +20,7 @@ const GitHubContributions = () => {
   if (!isClient) {
     return (
       <div className="w-full" aria-label="GitHub contribution graph">
-        <div className="h-32 animate-pulse bg-gray-800/50 rounded-lg" />
+        <div className="h-32 animate-pulse bg-muted/50 rounded-lg" />
       </div>
     );
   }

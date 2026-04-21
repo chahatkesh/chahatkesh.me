@@ -37,9 +37,13 @@ interface ExperienceDetailClientProps {
 const ExperienceDetailClient = ({
   experience,
 }: ExperienceDetailClientProps) => {
+  // For multi-role companies (companyId present), use the shared gallery key.
+  // For single-role entries, fall back to the experience slug (backward-compatible).
+  const gallerySlug = experience.companyId ?? experience.slug;
+
   // Prefer DB-managed images; fall back to static gallery in data file
   const { data: galleryData } = useSWR<ExperienceGalleryApiResponse>(
-    API_ROUTES.EXPERIENCE_GALLERY(experience.slug),
+    API_ROUTES.EXPERIENCE_GALLERY(gallerySlug),
     fetcher,
   );
 
@@ -77,7 +81,7 @@ const ExperienceDetailClient = ({
         >
           {/* Header with Logo */}
           <div className="flex items-start gap-4">
-            <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-800/50 flex-shrink-0">
+            <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-border bg-muted/50 flex-shrink-0">
               <Image
                 src={experience.logo}
                 alt={`${experience.employer} logo`}
@@ -93,11 +97,11 @@ const ExperienceDetailClient = ({
                 <h1 className={cn(typo({ variant: "h2" }))}>
                   {experience.role}
                 </h1>
-                <p className="text-md text-neutral-400">
+                <p className="text-base text-muted-foreground">
                   {experience.employer}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-sm text-neutral-500">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground/70">
                 <span>
                   {experience.start_date} - {experience.end_date}
                 </span>
@@ -109,7 +113,7 @@ const ExperienceDetailClient = ({
           <p
             className={cn(
               typo({ variant: "paragraph" }),
-              "text-neutral-300 text-lg",
+              "text-foreground/80 text-lg",
             )}
           >
             {experience.tagline}
@@ -121,13 +125,13 @@ const ExperienceDetailClient = ({
           {/* About Organization */}
           {experience.about && (
             <section className="space-y-3">
-              <h2 className="font-ubuntu text-xl font-medium text-white">
+              <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 About {experience.employer}
               </h2>
               <p
                 className={cn(
                   typo({ variant: "paragraph", size: "sm" }),
-                  "text-neutral-300 text-justify",
+                  "text-foreground/80 text-justify",
                 )}
               >
                 {experience.about}
@@ -137,13 +141,13 @@ const ExperienceDetailClient = ({
 
           {/* Full Description */}
           <section className="space-y-3">
-            <h2 className="font-ubuntu text-xl font-medium text-white">
+            <h2 className="font-ubuntu text-xl font-medium text-foreground">
               Overview
             </h2>
             <p
               className={cn(
                 typo({ variant: "paragraph", size: "sm" }),
-                "text-neutral-300 text-justify",
+                "text-foreground/80 text-justify",
               )}
             >
               {experience.description}
@@ -161,14 +165,14 @@ const ExperienceDetailClient = ({
           {/* Key Contributions */}
           {experience.contributions && experience.contributions.length > 0 && (
             <section className="space-y-3">
-              <h2 className="font-ubuntu text-xl font-medium text-white">
+              <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Key Contributions
               </h2>
               <ul className="space-y-2">
                 {experience.contributions.map((contribution) => (
                   <li
                     key={contribution}
-                    className="flex items-start gap-3 text-sm text-neutral-300"
+                    className="flex items-start gap-3 text-sm text-foreground/80"
                   >
                     <span className="text-ring mt-0.5">•</span>
                     <span className="text-justify">{contribution}</span>
@@ -181,14 +185,14 @@ const ExperienceDetailClient = ({
           {/* Tech Stack */}
           {experience.techStack && experience.techStack.length > 0 && (
             <section className="space-y-3">
-              <h2 className="font-ubuntu text-xl font-medium text-white">
+              <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Technologies Used
               </h2>
               <div className="flex flex-wrap gap-2">
                 {experience.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="inline-flex items-center px-3 py-1 rounded-full border border-neutral-800 bg-neutral-900/50 text-xs text-neutral-300"
+                    className="inline-flex items-center px-3 py-1 rounded-full border border-border bg-card/50 text-xs text-foreground/80"
                   >
                     {tech}
                   </span>
@@ -200,14 +204,14 @@ const ExperienceDetailClient = ({
           {/* Achievements */}
           {experience.achievements && experience.achievements.length > 0 && (
             <section className="space-y-3">
-              <h2 className="font-ubuntu text-xl font-medium text-white">
+              <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Impact & Achievements
               </h2>
               <ul className="space-y-2">
                 {experience.achievements.map((achievement) => (
                   <li
                     key={achievement}
-                    className="flex items-start gap-3 text-sm text-neutral-300"
+                    className="flex items-start gap-3 text-sm text-foreground/80"
                   >
                     <span className="text-ring mt-0.5">✓</span>
                     <span className="text-justify">{achievement}</span>
@@ -220,7 +224,7 @@ const ExperienceDetailClient = ({
           {/* Links */}
           {experience.links && experience.links.length > 0 && (
             <section className="space-y-3">
-              <h2 className="font-ubuntu text-xl font-medium text-white">
+              <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Related Links
               </h2>
               <div className="flex flex-wrap gap-3">
@@ -230,7 +234,7 @@ const ExperienceDetailClient = ({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-800/50 rounded-lg transition-colors text-neutral-300 hover:text-white"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border hover:border-muted-foreground/30 bg-card/50 hover:bg-muted/50 rounded-lg transition-colors text-foreground/80 hover:text-foreground"
                   >
                     {link.icon === "website" ? (
                       <FaGlobe size={14} />

@@ -88,7 +88,7 @@ export default async function ProjectPage({ params }: Props) {
         ]}
       />
 
-      <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-neutral-800 overflow-hidden mb-12 group">
+      <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-border overflow-hidden mb-12 group">
         <Image
           src={project.cover}
           alt={project.title}
@@ -113,7 +113,7 @@ export default async function ProjectPage({ params }: Props) {
             <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
               {project.title}
             </h1>
-            <p className="text-lg md:text-xl text-primary font-medium">
+            <p className="text-sm md:text-xl text-primary font-medium">
               {project.tagline}
             </p>
           </MotionDiv>
@@ -133,7 +133,7 @@ export default async function ProjectPage({ params }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+        <div className="prose prose-lg prose-invert max-w-none">
           <p
             className={
               typo({ variant: "paragraph", size: "lg" }) + " text-justify"
@@ -191,7 +191,7 @@ export default async function ProjectPage({ params }: Props) {
           className="space-y-6"
         >
           <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
-          <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none">
+          <div className="prose prose-lg prose-invert max-w-none">
             <p
               className={
                 typo({ variant: "paragraph", size: "lg" }) + " text-justify"
@@ -217,13 +217,13 @@ export default async function ProjectPage({ params }: Props) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 * index }}
-                  className="flex items-center justify-between border-b border-neutral-800 pb-4 last:border-b-0 last:pb-0"
+                  className="flex items-center justify-between border-b border-border pb-4 last:border-b-0 last:pb-0"
                 >
                   <div className="flex-1">
-                    <h3 className="font-ubuntu text-base text-white">
+                    <h3 className="font-ubuntu text-base text-foreground">
                       {contributor.name}
                     </h3>
-                    <p className="text-sm text-neutral-400 mt-0.5">
+                    <p className="text-sm text-muted-foreground mt-0.5">
                       {contributor.role}
                     </p>
                   </div>
@@ -231,7 +231,7 @@ export default async function ProjectPage({ params }: Props) {
                     {contributor.github && (
                       <SmartLink
                         href={contributor.github}
-                        className="text-neutral-400 hover:text-white transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors"
                       >
                         GitHub
                       </SmartLink>
@@ -239,7 +239,7 @@ export default async function ProjectPage({ params }: Props) {
                     {contributor.linkedin && (
                       <SmartLink
                         href={contributor.linkedin}
-                        className="text-neutral-400 hover:text-ring transition-colors"
+                        className="text-muted-foreground hover:text-ring transition-colors"
                       >
                         LinkedIn
                       </SmartLink>

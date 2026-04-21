@@ -39,11 +39,10 @@ export function CommitActivity({ commits, className }: CommitActivityProps) {
             key={commit.sha}
             onClick={() => setExpandedCommit(isExpanded ? null : commit.sha)}
             className={cn(
-              "w-full rounded-lg border bg-neutral-950/50 p-4 text-left transition-colors",
+              "el-focus-styles w-full rounded-lg border bg-card/50 p-4 text-left transition-colors",
               recent
-                ? "border-cyan-500/30 hover:border-cyan-500/50"
-                : "border-neutral-800 hover:border-neutral-700",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500",
+                ? "border-ring/30 hover:border-ring/50"
+                : "border-border hover:border-muted-foreground/30",
             )}
           >
             <div className="flex items-start gap-4">
@@ -51,30 +50,30 @@ export function CommitActivity({ commits, className }: CommitActivityProps) {
               <div
                 className={cn(
                   "mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full",
-                  recent ? "bg-cyan-500/10" : "bg-neutral-900",
+                  recent ? "bg-ring/10" : "bg-muted",
                 )}
               >
                 <FiGitCommit
                   className={cn(
                     "h-3.5 w-3.5",
-                    recent ? "text-cyan-400" : "text-neutral-400",
+                    recent ? "text-ring" : "text-muted-foreground",
                   )}
                 />
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="font-medium text-neutral-100 line-clamp-2">
+                <p className="font-medium text-foreground line-clamp-2">
                   {commit.message}
                 </p>
-                <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-neutral-400">
+                <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                   <span>{commit.author}</span>
                   <span>•</span>
                   <span>{formatRelativeDate(commit.date)}</span>
                   <span>•</span>
                   <code
                     className={cn(
-                      "rounded bg-neutral-900 px-1.5 py-0.5 font-mono",
-                      recent ? "text-cyan-400" : "text-neutral-400",
+                      "rounded bg-muted px-1.5 py-0.5 font-mono",
+                      recent ? "text-ring" : "text-muted-foreground",
                     )}
                   >
                     {commit.sha.substring(0, 7)}
@@ -83,17 +82,17 @@ export function CommitActivity({ commits, className }: CommitActivityProps) {
 
                 {/* Expanded details */}
                 {isExpanded && (
-                  <div className="mt-4 space-y-2 border-t border-neutral-800 pt-4">
-                    <div className="text-sm text-neutral-400">
+                  <div className="mt-4 space-y-2 border-t border-border pt-4">
+                    <div className="text-sm text-muted-foreground">
                       Full SHA:{" "}
-                      <code className="text-neutral-300">{commit.sha}</code>
+                      <code className="text-foreground/80">{commit.sha}</code>
                     </div>
                     <a
                       href={commit.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300"
+                      className="inline-flex items-center gap-1 text-sm text-ring hover:text-ring/80"
                     >
                       View on GitHub
                       <svg

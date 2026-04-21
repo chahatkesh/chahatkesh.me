@@ -8,7 +8,7 @@ const typography = cva([""], {
     },
     size: {
       sm: "text-sm",
-      md: "text-md",
+      md: "text-base",
       lg: "text-lg",
     },
     font: {
