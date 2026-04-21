@@ -11,6 +11,11 @@ export const MAX_VISIBLE_STACKS_FEATURED = 3;
 export const MAX_VISIBLE_STACKS = 5;
 export const MAX_RELATED_PROJECTS = 3;
 
+// YouTube video display limits
+export const MAX_RELATED_VIDEOS = 3;
+export const MAX_VIDEO_DESCRIPTION_LENGTH = 300;
+export const MAX_VIDEO_TAGS = 5;
+
 // Experience display limits
 export const MAX_DISPLAYED_EXPERIENCES = 4;
 

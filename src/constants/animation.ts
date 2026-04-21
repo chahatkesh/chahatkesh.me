@@ -71,20 +71,6 @@ export const staggerContainer: Variants = {
   },
 };
 
-// --- Smooth scroll easing ---
-
-/** easeOutExpo — standard smooth scroll easing curve */
-export const easeOutExpo = (t: number): number =>
-  Math.min(1, 1.001 - Math.pow(2, -10 * t));
-
-// --- Lenis configuration ---
-
-export const LENIS_CONFIG = {
-  duration: 1.2,
-  wheelMultiplier: 1,
-  touchMultiplier: 2,
-} as const;
-
 // --- Scroll progress spring ---
 
 export const SCROLL_SPRING_CONFIG = {
