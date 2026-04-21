@@ -22,13 +22,13 @@ function GalleryImage({
   if (!src) {
     // Placeholder when image URL is not available
     return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900">
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-card">
         <div className="flex flex-col items-center justify-center text-center p-4">
           <svg
             width="80"
             height="80"
             viewBox="0 0 100 100"
-            className="mb-3 text-neutral-500"
+            className="mb-3 text-muted-foreground/70"
             fill="currentColor"
           >
             <defs>
@@ -83,7 +83,7 @@ function GalleryImage({
             <circle cx="15" cy="85" r="1" fill="#06b6d4" opacity="0.5" />
           </svg>
 
-          <p className="text-sm text-neutral-400 font-medium">
+          <p className="text-sm text-muted-foreground font-medium">
             Image not available
           </p>
         </div>
@@ -123,7 +123,7 @@ export function GalleryGrid({ items }: BentoGridProps) {
           transition={{ duration: 0.4, delay: i * 0.1 }}
           viewport={{ once: true, margin: "-100px" }}
           className={cn(
-            "group relative overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950",
+            "group relative overflow-hidden rounded-lg border border-border bg-background",
             item.className,
             {
               // Mobile: all items are single column width, different aspect ratios apply to desktop only
@@ -152,7 +152,7 @@ export function GalleryGrid({ items }: BentoGridProps) {
               <h3 className="text-base font-medium text-white">
                 {item.title}, {item.location}
               </h3>
-              <p className="mt-1 text-sm text-neutral-300">
+              <p className="mt-1 text-sm text-white/80">
                 {formatDate(item.date)}
               </p>
             </div>

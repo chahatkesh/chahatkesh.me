@@ -8,7 +8,7 @@ import chahat from "~/assets/images/chahat.png";
 const AboutSection = () => {
   return (
     <section aria-label="About">
-      <h1 className="mb-4 font-ubuntu text-xl font-semibold text-white sm:mb-4 sm:text-2xl">
+      <h1 className="mb-4 font-ubuntu text-xl font-semibold text-foreground sm:mb-4 sm:text-2xl">
         Chahat, 20
       </h1>
 
@@ -25,7 +25,7 @@ const AboutSection = () => {
             Right now I&apos;m a{" "}
             <Link
               href="/about/experience/zenbase-technologies-frontend-engineer"
-              className="text-white hover:opacity-80 transition-opacity"
+              className="text-foreground hover:opacity-80 transition-opacity"
             >
               Founding Frontend Engineer at Zenbase
             </Link>
@@ -52,7 +52,7 @@ const AboutSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={config.social.twitter}
-              className="text-white"
+              className="text-foreground"
               aria-label="Follow on X"
             >
               X
