@@ -23,31 +23,28 @@ export function AccordionSection({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className={cn("rounded-lg border border-neutral-800", className)}>
+    <div className={cn("rounded-lg border border-border", className)}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex w-full items-center justify-between p-5 text-left transition-colors",
-          "hover:bg-neutral-900/30 focus-visible:outline-none focus-visible:ring-2",
-          "focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+          "el-focus-styles flex w-full items-center justify-between p-5 text-left transition-colors",
+          "hover:bg-muted/40",
         )}
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">
           {icon && (
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-cyan-500/10 text-cyan-400">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-ring/10 text-ring">
               {icon}
             </div>
           )}
-          <span className="text-lg font-semibold text-neutral-100">
-            {title}
-          </span>
+          <span className="text-lg font-semibold text-foreground">{title}</span>
         </div>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ type: "spring", stiffness: 250, damping: 25 }}
         >
-          <FiChevronDown className="h-5 w-5 text-neutral-400" />
+          <FiChevronDown className="h-5 w-5 text-muted-foreground" />
         </motion.div>
       </button>
 
@@ -60,7 +57,7 @@ export function AccordionSection({
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="overflow-hidden"
           >
-            <div className="border-t border-neutral-800 p-5">{children}</div>
+            <div className="border-t border-border p-5">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

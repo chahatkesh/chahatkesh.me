@@ -25,7 +25,7 @@ export default function MainError({
           </p>
           <button
             onClick={reset}
-            className="rounded-md bg-brand px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand/90"
+            className="el-focus-styles rounded-md bg-brand px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand/90"
           >
             Try again
           </button>

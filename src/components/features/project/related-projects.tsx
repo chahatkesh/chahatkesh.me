@@ -28,7 +28,7 @@ export function RelatedProjects({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.6 }}
-      className="mt-16 pt-16 border-t border-neutral-800"
+      className="mt-16 pt-16 border-t border-border"
     >
       <h2 className={typo({ variant: "h2" })}>Keep Exploring</h2>
 
@@ -45,7 +45,7 @@ export function RelatedProjects({
               href={`/projects/${project.slug}`}
               className="block w-full h-full"
             >
-              <div className="rounded-xl overflow-hidden border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
+              <div className="rounded-xl overflow-hidden border border-border bg-gradient-to-br from-card/50 to-background/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
                 <div className="relative w-full aspect-video overflow-hidden">
                   <Image
                     src={project.cover}
@@ -55,8 +55,8 @@ export function RelatedProjects({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                  <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-md px-2 z-20">
-                    <span className="text-xs text-neutral-300">
+                  <div className="absolute top-2 right-2 bg-background/50 backdrop-blur-sm rounded-md px-2 z-20">
+                    <span className="text-xs text-foreground/80">
                       {new Date(project.datePublished).toLocaleDateString(
                         config.seo.language,
                         { year: "numeric", month: "short" },
@@ -69,7 +69,7 @@ export function RelatedProjects({
                   <h3 className="text-lg font-semibold mb-2 line-clamp-2">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-neutral-400 line-clamp-3 mb-4 flex-1">
+                  <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">
                     {project.tagline}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -79,13 +79,13 @@ export function RelatedProjects({
                         const techInfo = ALL_STACKS[stack];
                         const Icon = techInfo?.Icon;
                         return Icon ? (
-                          <span key={stack} className="text-neutral-400">
+                          <span key={stack} className="text-muted-foreground">
                             <Icon size={16} aria-label={stack} />
                           </span>
                         ) : null;
                       })}
                     {project.stacks.length > 3 && (
-                      <span className="text-xs text-neutral-500">
+                      <span className="text-xs text-muted-foreground/70">
                         +{project.stacks.length - 3} more
                       </span>
                     )}

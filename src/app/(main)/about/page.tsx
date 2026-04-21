@@ -52,7 +52,7 @@ const AboutPage = () => {
           {/* Hero Section */}
           <div className="!mt-8 space-y-14">
             <section aria-label="About Me">
-              <h1 className="font-ubuntu text-2xl font-semibold text-white sm:text-3xl mb-4 sm:mb-5">
+              <h1 className="font-ubuntu text-2xl font-semibold text-foreground sm:text-3xl mb-4 sm:mb-5">
                 Chahat, 20
               </h1>
 
@@ -124,7 +124,7 @@ const AboutPage = () => {
 
               <div className="mt-6 space-y-6">
                 {/* Full-width workspace image */}
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-800">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-border">
                   <Image
                     src={workspaceImage}
                     alt="My workspace setup"
@@ -140,7 +140,7 @@ const AboutPage = () => {
                   {deskSetup.map((item) => (
                     <div
                       key={item.name}
-                      className="flex items-center gap-2 text-neutral-300 transition-transform duration-300 hover:scale-105 hover:text-white"
+                      className="flex items-center gap-2 text-foreground/80 transition-transform duration-300 hover:scale-105 hover:text-foreground"
                     >
                       <span className="text-lg">{item.icon}</span>
                       {item.name}
@@ -170,11 +170,11 @@ const AboutPage = () => {
                           rel="noopener noreferrer"
                           className="block"
                         >
-                          <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20">
-                            <h3 className="font-ubuntu text-base font-medium text-white mb-3">
+                          <div className="rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20">
+                            <h3 className="font-ubuntu text-base font-medium text-foreground mb-3">
                               {project.title}
                             </h3>
-                            <p className="text-sm text-neutral-400">
+                            <p className="text-sm text-muted-foreground">
                               {project.description}
                             </p>
                           </div>
@@ -202,11 +202,11 @@ const AboutPage = () => {
                 >
                   <div className="h-full rounded-lg border-2 border-ring/30 bg-ring/5 p-6 transition-all duration-300 hover:border-ring/50 hover:bg-ring/10">
                     <div className="mb-3 flex items-center gap-3">
-                      <h3 className="font-ubuntu text-base font-medium text-white">
+                      <h3 className="font-ubuntu text-base font-medium text-foreground">
                         Book a Call
                       </h3>
                     </div>
-                    <p className="text-sm text-neutral-400 mb-3">
+                    <p className="text-sm text-muted-foreground mb-3">
                       30 minutes. Your project, your idea, or just a
                       conversation about something you&apos;re building.
                     </p>
@@ -219,13 +219,13 @@ const AboutPage = () => {
 
                 {/* All Links CTA */}
                 <Link href="/links" className="group block">
-                  <div className="h-full rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:bg-neutral-800/50 hover:shadow-lg hover:shadow-neutral-900/20">
+                  <div className="h-full rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:bg-muted/50 hover:shadow-lg hover:shadow-black/20">
                     <div className="mb-3 flex items-center gap-3">
-                      <h3 className="font-ubuntu text-base font-medium text-white">
+                      <h3 className="font-ubuntu text-base font-medium text-foreground">
                         All My Links
                       </h3>
                     </div>
-                    <p className="text-sm text-neutral-400 mb-3">
+                    <p className="text-sm text-muted-foreground mb-3">
                       Every place I exist online, in one spot.
                     </p>
                     <div className="flex items-center gap-2 text-ring text-sm font-medium">
@@ -242,7 +242,7 @@ const AboutPage = () => {
               <h2 className={typo({ variant: "h2" })}>
                 A note I wrote to myself
               </h2>
-              <div className="relative mt-6 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900/30 px-7 py-9 sm:px-9 sm:py-10">
+              <div className="relative mt-6 overflow-hidden rounded-xl border border-border bg-card/30 px-7 py-9 sm:px-9 sm:py-10">
                 <div className="absolute left-0 top-0 h-full w-[3px] rounded-l-xl bg-ring opacity-45" />
                 <span
                   aria-hidden="true"
@@ -250,7 +250,7 @@ const AboutPage = () => {
                 >
                   &ldquo;
                 </span>
-                <div className="relative space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-neutral-400 sm:text-[1.03rem]">
+                <div className="relative space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-muted-foreground sm:text-[1.03rem]">
                   <p>
                     I build things with care,
                     <br />
@@ -279,7 +279,7 @@ const AboutPage = () => {
                     <br />
                     but because I go deeper than most.
                   </p>
-                  <p className="not-italic text-neutral-200">
+                  <p className="not-italic text-foreground/90">
                     still waiting to meet someone
                     <br />
                     who loves as <em className="italic text-ring">
@@ -298,17 +298,17 @@ const AboutPage = () => {
                 {hobbies.map((hobby) => (
                   <div
                     key={hobby.title}
-                    className="group rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 transition-all duration-300 hover:border-neutral-700 hover:shadow-lg hover:shadow-neutral-900/20"
+                    className="group rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
                   >
                     <div className="mb-3 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800/50 transition-transform duration-300 group-hover:rotate-6">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-transform duration-300 group-hover:rotate-6">
                         {hobby.icon}
                       </div>
-                      <h3 className="font-ubuntu text-base font-medium text-white">
+                      <h3 className="font-ubuntu text-base font-medium text-foreground">
                         {hobby.title}
                       </h3>
                     </div>
-                    <p className="text-sm text-neutral-400">
+                    <p className="text-sm text-muted-foreground">
                       {hobby.description}
                     </p>
                   </div>
@@ -324,7 +324,7 @@ const AboutPage = () => {
               <h2 className={typo({ variant: "h2" })}>Portfolio Evolution</h2>
               <div className="relative">
                 {/* Timeline line - vertical on mobile, horizontal on desktop */}
-                <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-800 opacity-50 md:left-0 md:right-0 md:top-2 md:bottom-auto md:h-0.5 md:w-auto md:bg-gradient-to-r" />
+                <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-border via-muted-foreground/30 to-border opacity-50 md:left-0 md:right-0 md:top-2 md:bottom-auto md:h-0.5 md:w-auto md:bg-gradient-to-r" />
 
                 <div
                   className="space-y-6 md:gap-6 md:space-y-0 md:grid"
@@ -337,10 +337,10 @@ const AboutPage = () => {
                       <>
                         <div
                           className={cn(
-                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-neutral-900",
+                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-background",
                             v.isCurrent
                               ? "bg-ring shadow-lg shadow-ring/20"
-                              : "bg-neutral-800 group-hover:bg-neutral-700 transition-colors",
+                              : "bg-muted group-hover:bg-muted-foreground/30 transition-colors",
                           )}
                         />
                         <div className="flex-1 md:space-y-1">
@@ -348,8 +348,8 @@ const AboutPage = () => {
                             className={cn(
                               "block font-ubuntu text-sm font-medium",
                               v.isCurrent
-                                ? "text-white"
-                                : "text-white group-hover:text-ring transition-colors",
+                                ? "text-foreground"
+                                : "text-foreground group-hover:text-ring transition-colors",
                             )}
                           >
                             {v.version}
@@ -359,7 +359,7 @@ const AboutPage = () => {
                               "block text-xs",
                               v.isCurrent
                                 ? "text-ring"
-                                : "text-neutral-400 group-hover:text-neutral-300 transition-colors",
+                                : "text-muted-foreground group-hover:text-foreground/80 transition-colors",
                             )}
                           >
                             {v.label}

@@ -16,7 +16,7 @@ const ContactUs = () => {
             <p
               className={cn(
                 typo({ variant: "paragraph", size: "sm" }),
-                "text-neutral-300",
+                "text-foreground/80",
               )}
             >
               The best things I&apos;ve built started with a message from
@@ -27,7 +27,7 @@ const ContactUs = () => {
             <p
               className={cn(
                 typo({ variant: "paragraph", size: "sm" }),
-                "text-neutral-300",
+                "text-foreground/80",
               )}
             >
               Reach out at{" "}
