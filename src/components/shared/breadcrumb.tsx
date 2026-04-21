@@ -18,7 +18,9 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
   const displayName = (name: string, url: string) =>
     url === "/" ? "chahat" : name.toLowerCase();
 
-  const sep = <ChevronRight className="size-3.5 shrink-0 text-neutral-600" />;
+  const sep = (
+    <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/50" />
+  );
 
   const last = items[items.length - 1];
   const parent = items.length >= 2 ? items[items.length - 2] : null;
@@ -38,7 +40,7 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
        */}
       <ol className="flex sm:hidden items-center gap-1.5 min-w-0 w-full overflow-hidden">
         {items.length === 1 ? (
-          <li className="truncate text-neutral-400 font-medium min-w-0">
+          <li className="truncate text-muted-foreground font-medium min-w-0">
             {displayName(last.name, last.url)}
           </li>
         ) : (
@@ -46,7 +48,7 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
             {hasAncestors && (
               <li className="flex items-center gap-1.5 shrink-0">
                 <span
-                  className="text-neutral-600 select-none"
+                  className="text-muted-foreground/50 select-none"
                   aria-hidden="true"
                 >
                   &hellip;
@@ -58,7 +60,7 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
                 {hasAncestors && sep}
                 <Link
                   href={parent.url}
-                  className="shrink-0 text-neutral-500 hover:text-ring transition-colors duration-200"
+                  className="shrink-0 text-muted-foreground/70 hover:text-ring transition-colors duration-200"
                 >
                   {displayName(parent.name, parent.url)}
                 </Link>
@@ -66,7 +68,7 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
             )}
             <li className="flex items-center gap-1.5 min-w-0 overflow-hidden">
               {sep}
-              <span className="truncate text-neutral-400 font-medium min-w-0">
+              <span className="truncate text-muted-foreground font-medium min-w-0">
                 {displayName(last.name, last.url)}
               </span>
             </li>
@@ -82,13 +84,13 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
             <li key={item.url} className="flex items-center gap-2">
               {index > 0 && sep}
               {isLast ? (
-                <span className="text-neutral-400 font-medium">
+                <span className="text-muted-foreground font-medium">
                   {displayName(item.name, item.url)}
                 </span>
               ) : (
                 <Link
                   href={item.url}
-                  className="text-neutral-500 hover:text-ring transition-colors duration-200"
+                  className="text-muted-foreground/70 hover:text-ring transition-colors duration-200"
                 >
                   {displayName(item.name, item.url)}
                 </Link>

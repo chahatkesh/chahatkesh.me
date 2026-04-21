@@ -77,7 +77,7 @@ export interface DeskItem {
 export const deskSetup: DeskItem[] = [
   {
     name: "MacBook Pro M3 (2023)",
-    icon: <FaLaptop className="text-gray-300" />,
+    icon: <FaLaptop className="text-foreground/80" />,
   },
   {
     name: "CMF by Nothing Buds 2",
@@ -89,7 +89,7 @@ export const deskSetup: DeskItem[] = [
   },
   {
     name: "iPhone 15 Pro",
-    icon: <FaMobileAlt className="text-gray-400" />,
+    icon: <FaMobileAlt className="text-foreground/70" />,
   },
 ];
 

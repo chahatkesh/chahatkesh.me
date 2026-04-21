@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { MotionDiv } from "~/components/shared";
 import { Breadcrumb } from "~/components/shared";
 import { cn } from "~/lib/utils";
@@ -65,7 +65,7 @@ const BtechCoursesClient = () => {
 
           {/* Stats & Search */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <div className="flex items-center gap-4 text-sm text-neutral-400">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span>{btechCourses.length} Semesters</span>
               <span>•</span>
               <span>{totalCourses} Courses</span>
@@ -78,14 +78,14 @@ const BtechCoursesClient = () => {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full md:w-48 bg-transparent border-b border-neutral-800 focus:border-ring/50 px-0 py-1.5 text-sm text-neutral-400 placeholder:text-neutral-500 focus:outline-none transition-colors"
+              className="w-full md:w-48 bg-transparent border-b border-border focus:border-ring/50 px-0 py-1.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none transition-colors"
             />
           </div>
         </MotionDiv>
 
         {/* Semesters */}
         {filteredSemesters.length === 0 ? (
-          <div className="text-center py-12 text-neutral-400">
+          <div className="text-center py-12 text-muted-foreground">
             No courses found matching &quot;{searchQuery}&quot;
           </div>
         ) : (
@@ -124,17 +124,17 @@ const SemesterSection = ({ semester, index }: SemesterSectionProps) => {
       className="space-y-6"
     >
       {/* Semester Header */}
-      <div className="border-b border-neutral-800 pb-4">
+      <div className="border-b border-border pb-4">
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
-            <h2 className="font-ubuntu text-2xl font-medium text-white">
+            <h2 className="font-ubuntu text-2xl font-medium text-foreground">
               Semester {semester.number}
             </h2>
-            <p className="text-sm text-neutral-400 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {semester.academicYear}
             </p>
           </div>
-          <div className="flex items-center gap-3 text-sm text-neutral-400">
+          <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <span>{semester.courses.length} Courses</span>
             <span>•</span>
             <span>{totalCredits} Credits</span>
@@ -172,7 +172,19 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
     Project: "text-ring border-ring/30 bg-ring/10",
   };
 
-  const hasSyllabus = course.syllabus && course.syllabus.length > 0;
+  const hasSyllabus = Boolean(course.syllabus && course.syllabus.length > 0);
+
+  const openModal = () => {
+    if (hasSyllabus) setIsModalOpen(true);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (!hasSyllabus) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -180,11 +192,18 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.2, delay: Math.min(index * 0.03, 0.3) }}
+        {...(hasSyllabus && {
+          role: "button",
+          tabIndex: 0,
+          "aria-label": `View syllabus for ${course.name}`,
+          "aria-haspopup": "dialog",
+          onKeyDown: handleKeyDown,
+        })}
         className={cn(
-          "bg-neutral-900/50 border border-neutral-800 hover:border-neutral-700 transition-all duration-200 rounded-lg p-4 group",
-          hasSyllabus && "cursor-pointer hover:border-ring/50",
+          "bg-card/50 border border-border hover:border-muted-foreground/30 transition-all duration-200 rounded-lg p-4 group",
+          hasSyllabus && "cursor-pointer hover:border-ring/50 el-focus-styles",
         )}
-        onClick={() => hasSyllabus && setIsModalOpen(true)}
+        onClick={openModal}
       >
         <div className="space-y-3">
           {/* Course Code & Type */}
@@ -204,12 +223,12 @@ const CourseCard = ({ course, index }: CourseCardProps) => {
 
           {/* Course Name & Professor */}
           <div className="space-y-1.5">
-            <h3 className="text-base text-white font-medium leading-snug line-clamp-2 min-h-[2.5rem]">
+            <h3 className="text-base text-foreground font-medium leading-snug line-clamp-2 min-h-[2.5rem]">
               {course.name}
             </h3>
 
             {/* Professor */}
-            <p className="text-sm text-neutral-400 truncate">
+            <p className="text-sm text-muted-foreground truncate">
               {course.professor}
             </p>
           </div>

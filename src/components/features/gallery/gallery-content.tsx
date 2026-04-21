@@ -42,12 +42,12 @@ export function GalleryContent() {
       <div className="space-y-8">
         {/* Featured Carousel Skeleton */}
         <div className="space-y-4">
-          <div className="h-8 w-48 bg-neutral-800 animate-pulse rounded" />
+          <div className="h-8 w-48 bg-muted animate-pulse rounded" />
           <div className="flex gap-4 overflow-hidden">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="relative overflow-hidden rounded-xl aspect-[3/4] w-80 flex-shrink-0 bg-neutral-800 animate-pulse"
+                className="relative overflow-hidden rounded-xl aspect-[3/4] w-80 flex-shrink-0 bg-muted animate-pulse"
               />
             ))}
           </div>
@@ -55,13 +55,10 @@ export function GalleryContent() {
 
         {/* Gallery Grid Skeleton */}
         <div className="space-y-6">
-          <div className="h-8 w-48 bg-neutral-800 animate-pulse rounded" />
+          <div className="h-8 w-48 bg-muted animate-pulse rounded" />
           <div className="grid w-full auto-rows-[200px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div
-                key={i}
-                className="rounded-lg bg-neutral-800 animate-pulse"
-              />
+              <div key={i} className="rounded-lg bg-muted animate-pulse" />
             ))}
           </div>
         </div>
@@ -82,7 +79,7 @@ export function GalleryContent() {
           strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-red-500 mb-2"
+          className="text-destructive mb-2"
         >
           <circle cx="12" cy="12" r="10" />
           <line x1="12" x2="12" y1="8" y2="12" />
@@ -120,7 +117,7 @@ export function GalleryContent() {
   if (!data?.success || galleryItems.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <p className="text-gray-600 dark:text-gray-400">
+        <p className="text-muted-foreground">
           No gallery images available yet.
         </p>
       </div>

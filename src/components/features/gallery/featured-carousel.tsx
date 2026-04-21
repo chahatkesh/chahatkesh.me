@@ -25,7 +25,7 @@ function FeaturedImage({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl group cursor-pointer",
+        "relative overflow-hidden rounded-xl group",
         "aspect-[3/4] flex-shrink-0",
         className,
       )}
@@ -48,7 +48,7 @@ function FeaturedImage({
         <h3 className="text-base font-medium text-white">
           {item.title}, {item.location}
         </h3>
-        <p className="mt-1 text-sm text-neutral-300">{formatDate(item.date)}</p>
+        <p className="mt-1 text-sm text-white/80">{formatDate(item.date)}</p>
       </div>
     </div>
   );

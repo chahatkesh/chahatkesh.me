@@ -48,12 +48,12 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
       )}
       <Link href={`/projects/${slug}`} className="block">
         <MotionDiv
-          className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
+          className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-border hover:border-muted-foreground/30 transition-all duration-300"
           whileHover={{ y: -5 }}
           transition={{ duration: 0.3 }}
         >
           {/* Left side with full image and tagline overlay */}
-          <div className="relative bg-gradient-to-br from-neutral-900 via-neutral-950 to-black overflow-hidden">
+          <div className="relative bg-gradient-to-br from-card via-background to-background overflow-hidden">
             {" "}
             <MotionDiv
               className="relative w-full h-full min-h-[300px] overflow-hidden"
@@ -71,7 +71,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
 
               {/* Tagline overlay */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent z-20 p-6 pt-16">
-                <p className="text-sm text-neutral-200">{tagline}</p>
+                <p className="text-sm text-foreground/90">{tagline}</p>
               </div>
 
               {/* Decorative elements */}
@@ -90,7 +90,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
               {description}
             </p>
 
-            <h3 className="text-sm font-medium text-neutral-300 mb-2">
+            <h3 className="text-sm font-medium text-foreground/80 mb-2">
               Key Features
             </h3>
             <ul className="mb-6 space-y-1">
@@ -99,14 +99,14 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                 .map((feature) => (
                   <li
                     key={feature}
-                    className="text-sm text-neutral-400 flex items-start"
+                    className="text-sm text-muted-foreground flex items-start"
                   >
                     <span className="mr-2 text-primary">•</span>
                     {feature}
                   </li>
                 ))}
               {features.length > MAX_VISIBLE_FEATURES_FEATURED && (
-                <li className="text-sm text-neutral-500 flex items-start">
+                <li className="text-sm text-muted-foreground/70 flex items-start">
                   <span className="mr-2 text-primary">•</span>
                   <span className="italic">
                     +{features.length - MAX_VISIBLE_FEATURES_FEATURED} more
@@ -117,19 +117,20 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
             </ul>
 
             <div className="mt-auto">
-              <h3 className="text-sm font-medium text-neutral-300 mb-2">
+              <h3 className="text-sm font-medium text-foreground/80 mb-2">
                 Tech Stack
               </h3>
               <div className="flex flex-wrap gap-2">
                 {stacks.slice(0, MAX_VISIBLE_STACKS_FEATURED).map((stack) => {
                   const techInfo = ALL_STACKS[stack];
                   const Icon = techInfo?.Icon;
-                  const className = techInfo?.className || "text-neutral-400";
+                  const className =
+                    techInfo?.className || "text-muted-foreground";
 
                   return (
                     <MotionDiv
                       key={stack}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card border border-border text-xs"
                       whileHover={{ y: -2 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -145,7 +146,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                   );
                 })}
                 {stacks.length > 3 && (
-                  <div className="flex items-center px-3 py-1.5 rounded-full bg-neutral-800 border border-neutral-700 text-xs text-neutral-400">
+                  <div className="flex items-center px-3 py-1.5 rounded-full bg-muted border border-border text-xs text-muted-foreground">
                     <span className="whitespace-nowrap">
                       +{stacks.length - 3}
                     </span>

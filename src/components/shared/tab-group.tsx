@@ -73,8 +73,8 @@ export function TabGroup({
       {/* Tab Navigation */}
       <div
         className={cn(
-          "border-b border-neutral-800",
-          sticky && "sticky top-0 z-20 bg-black/95 backdrop-blur-sm",
+          "border-b border-border",
+          sticky && "sticky top-0 z-20 bg-background/95 backdrop-blur-sm",
         )}
       >
         <div
@@ -85,6 +85,7 @@ export function TabGroup({
           {tabs.map((tab, index) => (
             <button
               key={tab.id}
+              id={`tab-${tab.id}`}
               ref={(el) => {
                 tabRefs.current[tab.id] = el;
               }}
@@ -95,11 +96,10 @@ export function TabGroup({
               onClick={() => handleTabClick(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               className={cn(
-                "relative px-4 py-3 text-sm font-medium transition-colors",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                "relative el-focus-styles px-4 py-3 text-sm font-medium transition-colors",
                 activeTab === tab.id
-                  ? "text-cyan-400"
-                  : "text-neutral-400 hover:text-neutral-200",
+                  ? "text-ring"
+                  : "text-muted-foreground hover:text-foreground/90",
               )}
             >
               {tab.label}
@@ -108,7 +108,7 @@ export function TabGroup({
 
           {/* Animated indicator */}
           <motion.div
-            className="absolute bottom-0 h-0.5 bg-cyan-500"
+            className="absolute bottom-0 h-0.5 bg-ring"
             initial={false}
             animate={{
               left: indicatorStyle.left,

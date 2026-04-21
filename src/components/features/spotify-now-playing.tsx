@@ -27,10 +27,10 @@ const SpotifyNowPlaying = () => {
   if (isLoading) {
     return (
       <div className="flex gap-3 animate-pulse">
-        <div className="w-16 h-16 bg-neutral-800 rounded" />
+        <div className="w-16 h-16 bg-muted rounded" />
         <div className="flex-1 space-y-2">
-          <div className="h-3 bg-neutral-800 rounded w-3/4" />
-          <div className="h-2 bg-neutral-800 rounded w-1/2" />
+          <div className="h-3 bg-muted rounded w-3/4" />
+          <div className="h-2 bg-muted rounded w-1/2" />
         </div>
       </div>
     );
@@ -38,9 +38,9 @@ const SpotifyNowPlaying = () => {
 
   if (!data?.isPlaying) {
     return (
-      <div className="flex items-center gap-3 text-neutral-500">
-        <div className="w-16 h-16 bg-neutral-800 rounded flex items-center justify-center">
-          <SiSpotify className="text-neutral-600 text-2xl" />
+      <div className="flex items-center gap-3 text-muted-foreground/70">
+        <div className="w-16 h-16 bg-muted rounded flex items-center justify-center">
+          <SiSpotify className="text-muted-foreground/50 text-2xl" />
         </div>
         <p className="text-sm">Not playing</p>
       </div>
@@ -67,15 +67,17 @@ const SpotifyNowPlaying = () => {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-white truncate group-hover:text-ring transition-colors">
+        <p className="text-sm font-medium text-foreground truncate group-hover:text-ring transition-colors">
           {data.title}
         </p>
-        <p className="text-xs text-neutral-400 truncate mt-0.5">
+        <p className="text-xs text-muted-foreground truncate mt-0.5">
           {data.artist}
         </p>
         <div className="flex items-center gap-1.5 mt-1">
           <SiSpotify className="text-green-500 text-xs" />
-          <span className="text-[10px] text-neutral-500">Playing now</span>
+          <span className="text-[10px] text-muted-foreground/70">
+            Playing now
+          </span>
         </div>
       </div>
     </a>

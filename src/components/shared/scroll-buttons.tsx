@@ -25,9 +25,9 @@ export function ScrollButtons({
         onClick={onScrollLeft}
         disabled={!canScrollLeft}
         className={cn(
-          "p-2 rounded-full border transition-all duration-200",
-          "bg-neutral-900 border-neutral-700 text-white",
-          "hover:bg-neutral-800 hover:border-neutral-600",
+          "el-focus-styles p-2 rounded-full border transition-all duration-200",
+          "bg-card border-border text-foreground",
+          "hover:bg-muted hover:border-muted-foreground/30",
           "disabled:opacity-40 disabled:cursor-not-allowed",
           canScrollLeft && "hover:scale-105",
         )}
@@ -39,9 +39,9 @@ export function ScrollButtons({
         onClick={onScrollRight}
         disabled={!canScrollRight}
         className={cn(
-          "p-2 rounded-full border transition-all duration-200",
-          "bg-neutral-900 border-neutral-700 text-white",
-          "hover:bg-neutral-800 hover:border-neutral-600",
+          "el-focus-styles p-2 rounded-full border transition-all duration-200",
+          "bg-card border-border text-foreground",
+          "hover:bg-muted hover:border-muted-foreground/30",
           "disabled:opacity-40 disabled:cursor-not-allowed",
           canScrollRight && "hover:scale-105",
         )}
