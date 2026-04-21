@@ -15,6 +15,11 @@ export const navData = [
     path: "/gallery",
   },
   {
+    id: "nav-videos",
+    label: "Videos",
+    path: "/videos",
+  },
+  {
     id: "nav-journey",
     label: "Journey",
     path: "/about/journey",

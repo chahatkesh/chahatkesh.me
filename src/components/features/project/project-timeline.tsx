@@ -25,16 +25,16 @@ function TimelineCard({
         className={`absolute inset-0 bg-gradient-to-br ${highlight ? "from-primary/20" : "from-primary/10"} to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
       />
       <div
-        className={`relative p-6 rounded-lg border ${highlight ? "border-primary/50" : "border-neutral-800"} bg-neutral-900/50 backdrop-blur-sm`}
+        className={`relative p-6 rounded-lg border ${highlight ? "border-primary/50" : "border-border"} bg-card/50 backdrop-blur-sm`}
       >
         <div
-          className={`text-sm ${highlight ? "text-primary/80" : "text-neutral-400"} mb-2`}
+          className={`text-sm ${highlight ? "text-primary/80" : "text-muted-foreground"} mb-2`}
         >
           {label}
         </div>
         <time
           dateTime={date}
-          className={`text-2xl font-bold ${highlight ? "text-primary" : "text-white"} block`}
+          className={`text-2xl font-bold ${highlight ? "text-primary" : "text-foreground"} block`}
         >
           {new Date(date).toLocaleDateString(config.seo.language, {
             month: "short",
@@ -42,7 +42,7 @@ function TimelineCard({
             year: "numeric",
           })}
         </time>
-        <div className="text-xs text-neutral-500 mt-2">{sublabel}</div>
+        <div className="text-xs text-muted-foreground/70 mt-2">{sublabel}</div>
       </div>
     </div>
   );

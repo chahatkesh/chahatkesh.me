@@ -58,10 +58,10 @@ export function PageTableOfContents({ sections }: PageTableOfContentsProps) {
   };
 
   return (
-    <div className="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+    <div className="rounded-lg border border-border bg-card/50 p-4">
       <div className="mb-3 flex items-center gap-2">
         <FiList className="text-ring" />
-        <h3 className="font-ubuntu text-sm font-medium text-white">
+        <h3 className="font-ubuntu text-sm font-medium text-foreground">
           Table of Contents
         </h3>
       </div>
@@ -72,10 +72,10 @@ export function PageTableOfContents({ sections }: PageTableOfContentsProps) {
               <button
                 onClick={() => scrollToSection(section.id)}
                 className={cn(
-                  "group flex w-full items-start gap-2 rounded-md px-3 py-2 text-left text-sm transition-all",
+                  "group el-focus-styles flex w-full items-start gap-2 rounded-md px-3 py-2 text-left text-sm transition-all",
                   activeSection === section.id
                     ? "bg-ring/10 text-ring font-medium"
-                    : "text-neutral-400 hover:bg-neutral-900 hover:text-neutral-200",
+                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground/90",
                 )}
               >
                 <span
@@ -83,7 +83,7 @@ export function PageTableOfContents({ sections }: PageTableOfContentsProps) {
                     "flex-shrink-0 font-mono text-xs",
                     activeSection === section.id
                       ? "text-ring"
-                      : "text-neutral-600 group-hover:text-neutral-500",
+                      : "text-muted-foreground/50 group-hover:text-muted-foreground/80",
                   )}
                 >
                   {String(index + 1).padStart(2, "0")}

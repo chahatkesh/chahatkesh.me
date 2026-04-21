@@ -208,7 +208,7 @@ function AdminGalleryContent() {
           ]}
         />
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-800 dark:border-neutral-200"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
         </div>
       </div>
     );
@@ -224,7 +224,7 @@ function AdminGalleryContent() {
           ]}
         />
         <div className="flex items-center justify-center min-h-[400px]">
-          <p className="text-red-600 dark:text-red-400">
+          <p className="text-destructive">
             Error loading gallery. Please try again.
           </p>
         </div>
@@ -262,7 +262,7 @@ function AdminGalleryContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <Card className="border-neutral-800 bg-neutral-950">
+        <Card className="border-border bg-background">
           <CardHeader>
             <CardTitle className="text-xl">Add New Image</CardTitle>
             <CardDescription>
@@ -328,7 +328,7 @@ function AdminGalleryContent() {
                           <img
                             src={formData.imageUrl}
                             alt="Preview"
-                            className="w-full h-64 object-cover rounded-lg border border-neutral-800"
+                            className="w-full h-64 object-cover rounded-lg border border-border"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
                             <p className="text-white text-sm">
@@ -359,7 +359,7 @@ function AdminGalleryContent() {
                       }))
                     }
                     required
-                    className="bg-neutral-900 border-neutral-800"
+                    className="bg-card border-border"
                   />
                 </div>
 
@@ -379,7 +379,7 @@ function AdminGalleryContent() {
                       }))
                     }
                     required
-                    className="bg-neutral-900 border-neutral-800"
+                    className="bg-card border-border"
                   />
                 </div>
 
@@ -400,7 +400,7 @@ function AdminGalleryContent() {
                         }))
                       }
                       required
-                      className="bg-neutral-900 border-neutral-800 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                      className="bg-card border-border [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                     />
                   </div>
                 </div>
@@ -432,8 +432,8 @@ function AdminGalleryContent() {
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         formData.aspectRatio === option.value
-                          ? "border-neutral-400 bg-neutral-900 text-white"
-                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300",
+                          ? "border-muted-foreground bg-card text-foreground"
+                          : "border-border bg-background text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
                       )}
                     >
                       {option.label}
@@ -443,7 +443,7 @@ function AdminGalleryContent() {
               </div>
 
               {/* Featured Toggle */}
-              <div className="flex items-center space-x-3 p-4 bg-neutral-900 rounded-lg border border-neutral-800">
+              <div className="flex items-center space-x-3 p-4 bg-card rounded-lg border border-border">
                 <input
                   id="isFeatured"
                   type="checkbox"
@@ -454,7 +454,7 @@ function AdminGalleryContent() {
                       isFeatured: e.target.checked,
                     }))
                   }
-                  className="w-4 h-4 rounded border-neutral-700 bg-neutral-800 text-neutral-100 focus:ring-2 focus:ring-neutral-600"
+                  className="w-4 h-4 rounded border-muted-foreground/30 bg-muted text-foreground focus:ring-2 focus:ring-ring"
                 />
                 <div>
                   <Label
@@ -524,7 +524,7 @@ function AdminGalleryContent() {
         </div>
 
         {data?.data && data.data.length === 0 ? (
-          <Card className="border-neutral-800 bg-neutral-950">
+          <Card className="border-border bg-background">
             <CardContent className="flex flex-col items-center justify-center py-16 text-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -536,7 +536,7 @@ function AdminGalleryContent() {
                 strokeWidth="1"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-neutral-600 mb-4"
+                className="text-muted-foreground/50 mb-4"
               >
                 <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
                 <circle cx="9" cy="9" r="2" />
@@ -557,7 +557,7 @@ function AdminGalleryContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className={cn(
-                  "group relative overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950 hover:border-neutral-700 transition-colors duration-300",
+                  "group relative overflow-hidden rounded-lg border border-border bg-background hover:border-muted-foreground/30 transition-colors duration-300",
                   {
                     "md:col-span-2": image.aspectRatio === "landscape",
                     "row-span-2": image.aspectRatio === "portrait",
@@ -605,7 +605,7 @@ function AdminGalleryContent() {
                     <h3 className="text-base font-medium text-white">
                       {image.title}, {image.location}
                     </h3>
-                    <p className="mt-1 text-sm text-neutral-300">
+                    <p className="mt-1 text-sm text-foreground/80">
                       {formatDate(image.date)}
                     </p>
                   </div>
@@ -688,7 +688,7 @@ function AdminGalleryContent() {
                   <img
                     src={editFormData.imageUrl}
                     alt="Preview"
-                    className="w-full h-48 object-cover rounded-lg border border-neutral-800"
+                    className="w-full h-48 object-cover rounded-lg border border-border"
                   />
                 </div>
               </div>
@@ -711,7 +711,7 @@ function AdminGalleryContent() {
                     }))
                   }
                   required
-                  className="bg-neutral-900 border-neutral-800"
+                  className="bg-card border-border"
                 />
               </div>
 
@@ -731,7 +731,7 @@ function AdminGalleryContent() {
                     }))
                   }
                   required
-                  className="bg-neutral-900 border-neutral-800"
+                  className="bg-card border-border"
                 />
               </div>
 
@@ -752,7 +752,7 @@ function AdminGalleryContent() {
                       }))
                     }
                     required
-                    className="bg-neutral-900 border-neutral-800 [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                    className="bg-card border-border [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                   />
                 </div>
               </div>
@@ -783,8 +783,8 @@ function AdminGalleryContent() {
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         editFormData.aspectRatio === option.value
-                          ? "border-neutral-400 bg-neutral-900 text-white"
-                          : "border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:text-neutral-300",
+                          ? "border-muted-foreground bg-card text-foreground"
+                          : "border-border bg-background text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
                       )}
                     >
                       {option.label}
@@ -794,7 +794,7 @@ function AdminGalleryContent() {
               </div>
 
               {/* Featured Toggle */}
-              <div className="flex items-center space-x-3 p-4 bg-neutral-900 rounded-lg border border-neutral-800">
+              <div className="flex items-center space-x-3 p-4 bg-card rounded-lg border border-border">
                 <input
                   id="edit-isFeatured"
                   type="checkbox"
@@ -805,7 +805,7 @@ function AdminGalleryContent() {
                       isFeatured: e.target.checked,
                     }))
                   }
-                  className="w-4 h-4 rounded border-neutral-700 bg-neutral-800 text-neutral-100 focus:ring-2 focus:ring-neutral-600"
+                  className="w-4 h-4 rounded border-muted-foreground/30 bg-muted text-foreground focus:ring-2 focus:ring-ring"
                 />
                 <div>
                   <Label

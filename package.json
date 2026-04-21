@@ -39,7 +39,8 @@
     "update-project-dates": "node scripts/update-project-dates.mjs",
     "update-metrics": "node scripts/update-codebase-metrics.mjs",
     "update-tech-versions": "node scripts/update-tech-versions.mjs",
-    "update-all": "npm run update-metrics && npm run update-tech-versions",
+    "update-youtube": "node scripts/update-youtube.mjs",
+    "update-all": "npm run update-metrics && npm run update-tech-versions && npm run update-youtube",
     "create-admin": "tsx scripts/create-admin.ts"
   },
   "dependencies": {

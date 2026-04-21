@@ -30,12 +30,12 @@ export function TechStackBadges({
       {visible.map((stack) => {
         const techInfo = ALL_STACKS[stack];
         const Icon = techInfo?.Icon;
-        const className = techInfo?.className || "text-neutral-400";
+        const className = techInfo?.className || "text-muted-foreground";
 
         return (
           <MotionDiv
             key={stack}
-            className={`flex items-center ${badgeHeight} gap-1.5 px-3 rounded-full bg-neutral-900 border border-neutral-800 ${textSize}`}
+            className={`flex items-center ${badgeHeight} gap-1.5 px-3 rounded-full bg-card border border-border ${textSize}`}
             whileHover={{ y: -2 }}
             transition={{ duration: 0.2 }}
           >
@@ -47,7 +47,7 @@ export function TechStackBadges({
         );
       })}
       {overflow > 0 && (
-        <span className="flex items-center text-xs text-neutral-500">
+        <span className="flex items-center text-xs text-muted-foreground/70">
           +{overflow} more
         </span>
       )}

@@ -54,6 +54,10 @@ export {
 } from "./btech-courses";
 export type { Course, Semester, SyllabusUnit } from "./btech-courses";
 
+// YouTube videos data
+export { youtubeVideos } from "./youtube";
+export type { YouTubeVideo } from "./youtube";
+
 // Site metadata & tech data
 export {
   techStack,

@@ -2,6 +2,7 @@ import { type MetadataRoute } from "next";
 import config from "~/config";
 import { projects } from "~/data/projects";
 import { experiences } from "~/data/experience";
+import { youtubeVideos } from "~/data/youtube";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.domainName}`;
@@ -46,6 +47,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/videos`,
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/links`,
       lastModified: currentDate,
       changeFrequency: "monthly",
@@ -83,5 +90,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  return [...staticPages, ...projectPages, ...experiencePages];
+  // Dynamic video pages
+  const videoPages: MetadataRoute.Sitemap = youtubeVideos.map((video) => ({
+    url: `${baseUrl}/videos/${video.slug}`,
+    lastModified: video.publishedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...projectPages, ...experiencePages, ...videoPages];
 }

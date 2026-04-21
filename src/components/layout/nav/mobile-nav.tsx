@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,6 +22,8 @@ const isNavActive = (path: string, pathname: string): boolean => {
   if (path === "/") return pathname === "/";
   if (path === "/projects")
     return pathname === "/projects" || pathname.startsWith("/projects/");
+  if (path === "/videos")
+    return pathname === "/videos" || pathname.startsWith("/videos/");
   if (path === "/about")
     return (
       pathname.startsWith("/about/") && !pathname.startsWith("/about/journey")
@@ -29,9 +31,16 @@ const isNavActive = (path: string, pathname: string): boolean => {
   return pathname === path;
 };
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const openButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -40,20 +49,70 @@ const MobileNav = () => {
     };
   }, [isOpen]);
 
+  // Escape to close + focus trap while open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setIsOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusables =
+        dialogRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+      if (!focusables || focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // Move focus to the close button on open; restore to the trigger on close.
+  useEffect(() => {
+    if (isOpen) {
+      wasOpenRef.current = true;
+      const t = window.setTimeout(() => closeButtonRef.current?.focus(), 60);
+      return () => window.clearTimeout(t);
+    }
+    if (wasOpenRef.current) {
+      wasOpenRef.current = false;
+      openButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
   return (
     <>
       <button
+        ref={openButtonRef}
         onClick={() => setIsOpen(true)}
         aria-label="Open navigation menu"
-        className="flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
+        className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
       >
-        <Menu className="size-[18px]" />
+        <Menu className="size-5" />
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
             key="mobile-nav"
+            ref={dialogRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -66,14 +125,15 @@ const MobileNav = () => {
             {/* Header */}
             <div className="flex items-center justify-end border-b border-border/30 px-6 py-4">
               <motion.button
+                ref={closeButtonRef}
                 initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
                 transition={{ delay: 0.08, duration: 0.3, ease: "backOut" }}
                 onClick={() => setIsOpen(false)}
                 aria-label="Close navigation menu"
-                className="flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
               >
-                <X className="size-[18px]" />
+                <X className="size-5" />
               </motion.button>
             </div>
 
