@@ -26,7 +26,7 @@ export function MetricsChart({
     <div className={cn("space-y-4", className)}>
       {data.map((metric, index) => {
         const percentage = (metric.value / metric.max) * 100;
-        const color = metric.color || "hsl(var(--cyan-500))";
+        const color = metric.color || "hsl(var(--ring))";
 
         return (
           <motion.div
@@ -37,18 +37,18 @@ export function MetricsChart({
             className="space-y-2"
           >
             <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-neutral-200">
+              <span className="font-medium text-foreground/90">
                 {metric.label}
               </span>
               {showValues && (
-                <span className="font-mono text-neutral-400">
+                <span className="font-mono text-muted-foreground">
                   {metric.value.toLocaleString()}
                   {metric.unit && ` ${metric.unit}`}
                 </span>
               )}
             </div>
 
-            <div className="relative h-8 overflow-hidden rounded-lg bg-neutral-900/50">
+            <div className="relative h-8 overflow-hidden rounded-lg bg-muted/50">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${percentage}%` }}

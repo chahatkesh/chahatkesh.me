@@ -39,7 +39,7 @@ export function ExperienceCarousel({
       className="space-y-4"
     >
       <div className="flex items-center justify-between">
-        <h2 className="font-ubuntu text-xl font-medium text-white">
+        <h2 className="font-ubuntu text-xl font-medium text-foreground">
           Highlights
         </h2>
 
@@ -68,7 +68,7 @@ export function ExperienceCarousel({
             <div
               key={item.url + index}
               className={cn(
-                "relative overflow-hidden rounded-xl group cursor-pointer flex-shrink-0",
+                "relative overflow-hidden rounded-xl group flex-shrink-0",
                 "aspect-[3/4] w-72",
               )}
             >

@@ -121,7 +121,7 @@ const VideosPage = () => {
             <Link
               key={video.id}
               href={`/videos/${video.slug}`}
-              className="group block overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 transition-all duration-300 hover:border-ring/30"
+              className="group block overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card/50 to-background/70 transition-all duration-300 hover:border-ring/30"
             >
               <div className="relative aspect-video w-full overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

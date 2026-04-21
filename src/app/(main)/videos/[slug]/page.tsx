@@ -165,7 +165,7 @@ export default async function VideoPage({ params }: Props) {
       />
 
       {/* Embed */}
-      <div className="relative w-full overflow-hidden rounded-xl border border-neutral-800 md:rounded-2xl">
+      <div className="relative w-full overflow-hidden rounded-xl border border-border md:rounded-2xl">
         <div className="relative aspect-video w-full">
           <iframe
             src={`https://www.youtube.com/embed/${video.id}?rel=0`}
@@ -218,8 +218,8 @@ export default async function VideoPage({ params }: Props) {
       {video.description && (
         <div className="space-y-3">
           <h2 className={cn(typo({ variant: "h2" }))}>Description</h2>
-          <div className="rounded-xl border border-neutral-800 bg-neutral-950/50 p-5">
-            <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-300">
+          <div className="rounded-xl border border-border bg-card/50 p-5">
+            <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/80">
               {video.description}
             </p>
           </div>
@@ -234,7 +234,7 @@ export default async function VideoPage({ params }: Props) {
             {video.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-neutral-800 bg-neutral-900/50 px-3 py-1 text-xs text-neutral-300"
+                className="rounded-full border border-border bg-card/50 px-3 py-1 text-xs text-foreground/80"
               >
                 {tag}
               </span>
@@ -245,14 +245,14 @@ export default async function VideoPage({ params }: Props) {
 
       {/* Related videos */}
       {relatedVideos.length > 0 && (
-        <div className="mt-16 space-y-6 border-t border-neutral-800 pt-10">
+        <div className="mt-16 space-y-6 border-t border-border pt-10">
           <h2 className={cn(typo({ variant: "h2" }))}>More Videos</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {relatedVideos.map((rv) => (
               <Link
                 key={rv.id}
                 href={`/videos/${rv.slug}`}
-                className="group block overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900/50 to-neutral-950/70 transition-all duration-300 hover:border-ring/30"
+                className="group block overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card/50 to-background/70 transition-all duration-300 hover:border-ring/30"
               >
                 <div className="relative aspect-video w-full overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

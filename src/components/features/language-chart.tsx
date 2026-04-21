@@ -58,7 +58,7 @@ export function LanguageChart({ data, className }: LanguageChartProps) {
             cy={center}
             r={radius}
             fill="none"
-            stroke="hsl(var(--neutral-900))"
+            stroke="hsl(var(--muted))"
             strokeWidth={strokeWidth}
           />
 
@@ -112,7 +112,7 @@ export function LanguageChart({ data, className }: LanguageChartProps) {
           >
             {hoveredSegment ? (
               <>
-                <div className="text-3xl font-bold text-neutral-100">
+                <div className="text-3xl font-bold text-foreground">
                   {
                     segmentsWithPosition.find(
                       (s) => s.language === hoveredSegment,
@@ -120,14 +120,16 @@ export function LanguageChart({ data, className }: LanguageChartProps) {
                   }
                   %
                 </div>
-                <div className="text-sm text-neutral-400">{hoveredSegment}</div>
+                <div className="text-sm text-muted-foreground">
+                  {hoveredSegment}
+                </div>
               </>
             ) : (
               <>
-                <div className="text-sm font-medium text-neutral-400">
+                <div className="text-sm font-medium text-muted-foreground">
                   Languages
                 </div>
-                <div className="text-2xl font-bold text-neutral-100">
+                <div className="text-2xl font-bold text-foreground">
                   {data.length}
                 </div>
               </>
@@ -149,9 +151,9 @@ export function LanguageChart({ data, className }: LanguageChartProps) {
             onMouseEnter={() => setHoveredSegment(item.language)}
             onMouseLeave={() => setHoveredSegment(null)}
             className={cn(
-              "flex items-center gap-2 rounded-md p-2 text-left transition-colors",
-              "hover:bg-neutral-900/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500",
-              hoveredSegment === item.language && "bg-neutral-900/50",
+              "el-focus-styles flex items-center gap-2 rounded-md p-2 text-left transition-colors",
+              "hover:bg-muted/50",
+              hoveredSegment === item.language && "bg-muted/50",
             )}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -161,10 +163,12 @@ export function LanguageChart({ data, className }: LanguageChartProps) {
               style={{ backgroundColor: item.color }}
             />
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-neutral-200">
+              <div className="truncate text-sm font-medium text-foreground/90">
                 {item.language}
               </div>
-              <div className="text-xs text-neutral-500">{item.percentage}%</div>
+              <div className="text-xs text-muted-foreground/70">
+                {item.percentage}%
+              </div>
             </div>
           </motion.button>
         ))}

@@ -189,18 +189,18 @@ function CompanyGalleryCard({
   const isMultiRole = roles.length > 1;
 
   return (
-    <Card className="overflow-hidden border-neutral-800 bg-neutral-950">
+    <Card className="overflow-hidden border-border bg-background">
       {/* Collapsible header */}
       <button
         type="button"
         onClick={onToggle}
-        className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-neutral-950"
+        className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
         aria-expanded={isExpanded}
       >
         <CardHeader className="pb-3">
           <div className="flex items-start gap-4">
             {/* Logo */}
-            <div className="mt-0.5 flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-neutral-700 bg-neutral-800/50">
+            <div className="mt-0.5 flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/50">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logoSrc}
@@ -211,7 +211,7 @@ function CompanyGalleryCard({
 
             {/* Company + roles */}
             <div className="min-w-0 flex-1">
-              <CardTitle className="truncate text-base text-white">
+              <CardTitle className="truncate text-base text-foreground">
                 {employer}
               </CardTitle>
 
@@ -220,10 +220,10 @@ function CompanyGalleryCard({
                 <ul className="mt-1 space-y-0.5">
                   {roles.map((r) => (
                     <li key={r.slug} className="flex items-center gap-1.5">
-                      <span className="h-1 w-1 flex-shrink-0 rounded-full bg-neutral-600" />
-                      <CardDescription className="truncate text-xs text-neutral-400">
+                      <span className="h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground/50" />
+                      <CardDescription className="truncate text-xs text-muted-foreground">
                         {r.role}
-                        <span className="ml-1.5 text-neutral-600">
+                        <span className="ml-1.5 text-muted-foreground/50">
                           {r.start_date} – {r.end_date}
                         </span>
                       </CardDescription>
@@ -232,9 +232,9 @@ function CompanyGalleryCard({
                 </ul>
               ) : (
                 /* Single role — show inline */
-                <CardDescription className="mt-0.5 truncate text-sm text-neutral-400">
+                <CardDescription className="mt-0.5 truncate text-sm text-muted-foreground">
                   {roles[0].role}
-                  <span className="ml-1.5 text-neutral-600 text-xs">
+                  <span className="ml-1.5 text-muted-foreground/50 text-xs">
                     {roles[0].start_date} – {roles[0].end_date}
                   </span>
                 </CardDescription>
@@ -244,19 +244,19 @@ function CompanyGalleryCard({
             {/* Right side */}
             <div className="flex flex-shrink-0 items-center gap-3">
               {isExpanded && images.length > 0 && (
-                <span className="hidden items-center rounded-full border border-neutral-700 px-2.5 py-0.5 text-xs text-neutral-400 sm:inline-flex">
+                <span className="hidden items-center rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground sm:inline-flex">
                   {images.length} image{images.length !== 1 ? "s" : ""}
                 </span>
               )}
               {!isExpanded && (
-                <span className="text-xs text-neutral-500">Manage</span>
+                <span className="text-xs text-muted-foreground/70">Manage</span>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 className={cn(
-                  "h-4 w-4 text-neutral-400 transition-transform duration-200",
+                  "h-4 w-4 text-muted-foreground transition-transform duration-200",
                   isExpanded ? "rotate-180" : "",
                 )}
               >
@@ -273,12 +273,12 @@ function CompanyGalleryCard({
 
       {/* Expanded content */}
       {isExpanded && (
-        <CardContent className="border-t border-neutral-800 pt-0">
+        <CardContent className="border-t border-border pt-0">
           <div className="space-y-6 pt-5">
             {isMultiRole && (
-              <p className="rounded-md border border-neutral-800 bg-neutral-900/50 px-3 py-2 text-xs text-neutral-500">
+              <p className="rounded-md border border-border bg-card/50 px-3 py-2 text-xs text-muted-foreground/70">
                 Images uploaded here are shared across all{" "}
-                <span className="text-neutral-300">{employer}</span> roles.
+                <span className="text-foreground/80">{employer}</span> roles.
               </p>
             )}
 
@@ -291,15 +291,15 @@ function CompanyGalleryCard({
             {/* Saved images */}
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-neutral-600" />
+                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-muted-foreground/30" />
               </div>
             ) : images.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-neutral-800 py-6 text-center text-sm text-neutral-500">
+              <p className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground/70">
                 No images yet — upload your first highlight above.
               </p>
             ) : (
               <div className="space-y-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
                   Saved ({images.length})
                 </p>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -420,9 +420,9 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-neutral-300">Add Images</p>
+        <p className="text-sm font-medium text-foreground/80">Add Images</p>
         {hasPending && (
-          <span className="text-xs text-neutral-500">
+          <span className="text-xs text-muted-foreground/70">
             {pendingItems.length} pending
           </span>
         )}
@@ -448,7 +448,7 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
           <button
             type="button"
             onClick={() => open()}
-            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-neutral-700 py-6 text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-400"
+            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border py-6 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:text-muted-foreground"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -476,7 +476,7 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
       {hasPending && (
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
               Review & add captions
             </p>
             <Button
@@ -524,7 +524,7 @@ function PendingImageTile({
   onDiscard,
 }: PendingImageTileProps) {
   return (
-    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-neutral-700 bg-neutral-900/40">
+    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-card/40">
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -547,7 +547,7 @@ function PendingImageTile({
           onChange={(e) => onCaptionChange(e.target.value)}
           maxLength={500}
           disabled={item.saving}
-          className="w-full rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-xs text-neutral-200 placeholder-neutral-600 focus:border-neutral-500 focus:outline-none disabled:opacity-50"
+          className="w-full rounded border border-border bg-card px-2 py-1 text-xs text-foreground/90 placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none disabled:opacity-50"
         />
         {item.error && <p className="text-xs text-red-400">{item.error}</p>}
         <div className="flex gap-1">
@@ -630,7 +630,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-neutral-800 bg-neutral-950">
+    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-background">
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -660,7 +660,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
               autoFocus
               disabled={saving}
               placeholder="Caption (optional)"
-              className="w-full rounded border border-neutral-600 bg-neutral-900 px-2 py-1 text-xs text-neutral-200 placeholder-neutral-600 focus:border-neutral-400 focus:outline-none disabled:opacity-50"
+              className="w-full rounded border border-muted-foreground/40 bg-card px-2 py-1 text-xs text-foreground/90 placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none disabled:opacity-50"
             />
             <div className="flex gap-1">
               <Button
@@ -690,8 +690,8 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
               className={cn(
                 "min-h-[1rem] cursor-pointer text-xs line-clamp-2",
                 image.caption
-                  ? "text-neutral-400 hover:text-neutral-300"
-                  : "italic text-neutral-600 hover:text-neutral-500",
+                  ? "text-muted-foreground hover:text-foreground/80"
+                  : "italic text-muted-foreground/50 hover:text-muted-foreground/70",
               )}
               onClick={startEdit}
               title="Click to edit caption"
