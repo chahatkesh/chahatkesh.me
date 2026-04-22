@@ -592,7 +592,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "16,601+",
+    value: "16,628+",
     description: "TypeScript + TSX + CSS",
   },
   {
