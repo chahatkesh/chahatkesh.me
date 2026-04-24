@@ -22,3 +22,6 @@ export * from "./diagram";
 
 // Gists / Documents
 export * from "./gist";
+
+// Videos
+export * from "./video";
