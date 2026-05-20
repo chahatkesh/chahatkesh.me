@@ -3,7 +3,7 @@ import { type ConfigProps } from "./types/config";
 export const config = {
   appName: "Chahat Kesharwani",
   appDesignation: "Engineer · Builder · Explorer",
-  appDescription: `I'm Chahat, an engineer who builds products people actually use. I care deeply about architecture, ship fast, and find the most satisfaction in systems that just work. Currently building AI-powered products at Zenbase, Singapore.`,
+  appDescription: `I'm Chahat, an engineer who builds products people actually use. I care deeply about architecture, ship fast, and find the most satisfaction in systems that just work. Previously building AI-powered products at Zenbase, Singapore.`,
   domainName: "chahatkesh.me",
   author: {
     name: "Chahat Kesharwani",
@@ -17,7 +17,7 @@ export const config = {
     titleTemplate: "%s | Chahat Kesharwani",
     defaultTitle: "Chahat Kesharwani - Engineer · Builder · Explorer",
     defaultDescription:
-      "Engineer, builder, and explorer from India. I build AI-powered products, ship production-grade frontends, and care deeply about craft. Founding engineer at Zenbase (Singapore). Explore my projects, experience, and journey.",
+      "Engineer, builder, and explorer from India. I build AI-powered products, ship production-grade frontends, and care deeply about craft. Previously at Zenbase (Singapore). Explore my projects, experience, and journey.",
     defaultKeywords: [
       "Chahat Kesharwani",
       "chahatkesh",
