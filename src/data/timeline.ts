@@ -108,12 +108,12 @@ export const timelineEvents: TimelineEvent[] = [
     location: "Katra, Jammu & Kashmir, India",
   },
   {
-    id: "timeline-2025-12-14-founding-engineer-at-zenbase",
+    id: "timeline-2025-12-14-founding-frontend-engineer-at-zenbase",
     startDate: "2025-12-14",
     endDate: "present",
-    title: "Founding Engineer at Zenbase",
+    title: "Founding Frontend Engineer at Zenbase",
     description:
-      "Joined Zenbase as a Founding Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",
+      "Joined Zenbase as a Founding Frontend Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",
     category: "work",
     location: "Remote (Singapore)",
   },

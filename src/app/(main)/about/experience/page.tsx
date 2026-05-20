@@ -12,7 +12,7 @@ export const metadata: Metadata = getSEOTags({
   description: `Where I've shipped. Every role, what I built, what I learned, and what came out of it. A complete look at ${config.appName}'s professional journey.`,
   openGraph: {
     title: `Experience - ${config.appName}`,
-    description: `Frontend engineer at Zenbase, former EIR at IIT Ropar. Here's the full story of every role I've held and what I built along the way.`,
+    description: `Founding Frontend Engineer at Zenbase, former EIR at IIT Ropar. Here's the full story of every role I've held and what I built along the way.`,
   },
   canonicalUrlRelative: "/about/experience",
 });
