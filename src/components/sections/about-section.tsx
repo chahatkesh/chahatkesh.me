@@ -22,16 +22,16 @@ const AboutSection = () => {
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Right now I&apos;m a{" "}
+            Right now I&apos;m looking for a summer internship. I previously
+            worked at{" "}
             <Link
-              href="/about/experience/zenbase-technologies-frontend-engineer"
+              href="/about/experience/zenbase-technologies-founding-frontend-engineer"
               className="text-foreground hover:opacity-80 transition-opacity"
             >
-              Founding Frontend Engineer at Zenbase
-            </Link>
-            , building Ninja, an AI platform that turns real estate agents into
-            high performers. It&apos;s architecture-heavy, fast-paced, and
-            exactly the kind of work I want to be doing.
+              Zenbase
+            </Link>{" "}
+            as a Founding Frontend Engineer, building Ninja, an AI platform that
+            turns real estate agents into high performers.
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
@@ -47,7 +47,7 @@ const AboutSection = () => {
               "sm:!mt-3",
             )}
           >
-            Building in public on{" "}
+            I love sharing what I&apos;m building on{" "}
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -57,7 +57,7 @@ const AboutSection = () => {
             >
               X
             </a>
-            . If something here resonates,{" "}
+            . If this sounds interesting,{" "}
             <a
               href={`mailto:${config.social.email}`}
               aria-label="Contact Chahat"
