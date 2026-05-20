@@ -30,13 +30,16 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    slug: generateExperienceSlug("Zenbase Technologies", "Frontend Engineer"),
+    slug: generateExperienceSlug(
+      "Zenbase Technologies",
+      "Founding Frontend Engineer",
+    ),
     employer: "Zenbase Technologies",
-    role: "Frontend Engineer",
+    role: "Founding Frontend Engineer",
     type: "Full-time",
     location: "Singapore, Remote",
     start_date: "Dec 2025",
-    end_date: "present",
+    end_date: "May 2026",
     tagline:
       "Building Ninja, an AI-driven sales automation platform for real-estate agents in Singapore with real-time CRM, autonomous agents, and compliance-first architecture.",
     description:
