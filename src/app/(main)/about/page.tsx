@@ -17,6 +17,8 @@ import {
 } from "~/components/ui";
 import { type Metadata } from "next";
 import config from "~/config";
+import { API_ROUTES } from "~/constants";
+import { getOgImageUrl } from "~/lib/og";
 import {
   currentProjects,
   hobbies,
@@ -34,7 +36,16 @@ export const metadata: Metadata = getSEOTags({
   canonicalUrlRelative: "/about",
 });
 
-const AboutPage = () => {
+const AboutPage = async () => {
+  const visibleProjects = currentProjects.filter(
+    (project) => project.showInAbout,
+  );
+
+  // Resolve Open Graph preview images for the current-work cards in parallel.
+  const currentProjectPreviews = await Promise.all(
+    visibleProjects.map((project) => getOgImageUrl(project.url)),
+  );
+
   return (
     <MotionDiv>
       {renderBreadcrumbSchema([
@@ -160,32 +171,56 @@ const AboutPage = () => {
               </h2>
 
               <div className="mt-4 grid gap-6 sm:grid-cols-1">
-                {currentProjects.map((project) => (
-                  <TooltipProvider key={project.title}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block"
-                        >
-                          <div className="rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20">
-                            <h3 className="font-ubuntu text-base font-medium text-foreground mb-3">
-                              {project.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {project.description}
-                            </p>
-                          </div>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Click to view</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                ))}
+                {visibleProjects.map((project, index) => {
+                  const previewImage = currentProjectPreviews[index];
+
+                  return (
+                    <TooltipProvider key={project.title}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Link
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group block"
+                          >
+                            <div
+                              className={cn(
+                                "flex flex-col gap-4 overflow-hidden rounded-lg border border-border bg-card/50 p-4 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20 sm:gap-5 sm:p-5",
+                                index % 2 === 0
+                                  ? "sm:flex-row"
+                                  : "sm:flex-row-reverse",
+                              )}
+                            >
+                              {previewImage && (
+                                <div className="relative aspect-[1200/630] w-full shrink-0 overflow-hidden rounded-md border border-border/60 bg-muted/40 sm:aspect-auto sm:w-52 sm:self-stretch sm:-mb-5 sm:rounded-b-none sm:border-b-0 md:w-56">
+                                  <Image
+                                    src={API_ROUTES.OG_IMAGE(previewImage)}
+                                    alt={`${project.title} preview`}
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                    sizes="(max-width: 640px) 100vw, 224px"
+                                  />
+                                </div>
+                              )}
+                              <div className="flex-1 sm:py-1">
+                                <h3 className="font-ubuntu text-base font-medium text-foreground mb-3">
+                                  {project.title}
+                                </h3>
+                                <p className="text-sm text-muted-foreground">
+                                  {project.description}
+                                </p>
+                              </div>
+                            </div>
+                          </Link>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Click to view</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  );
+                })}
               </div>
             </section>
 
