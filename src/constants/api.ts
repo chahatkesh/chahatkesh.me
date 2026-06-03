@@ -16,6 +16,8 @@ export const API_ROUTES = {
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>
     `/api/experience/gallery?slug=${encodeURIComponent(slug)}`,
+  /** Proxies an external Open Graph preview image through our own origin */
+  OG_IMAGE: (src: string) => `/api/og-image?src=${encodeURIComponent(src)}`,
 } as const;
 
 // External API routes
