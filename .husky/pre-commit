@@ -1,6 +1,16 @@
 # Run lint-staged on staged files
 pnpm exec lint-staged
 
+# Refresh codebase metrics & tech versions AFTER formatting, so the committed
+# numbers match the formatted code. Otherwise lint-staged reformats files after
+# a manual `update-metrics`, the line count drifts, and the pre-push hook
+# recomputes a different value and blocks the push.
+echo "📊 Refreshing codebase metrics & tech versions..."
+pnpm run update-metrics --silent || echo "⚠️  update-metrics failed, continuing..."
+pnpm run update-tech-versions --silent || echo "⚠️  update-tech-versions failed, continuing..."
+pnpm prettier --write src/data/site.tsx --log-level silent 2>/dev/null || true
+git add src/data/site.tsx
+
 # Type check only if TypeScript files are staged
 if git diff --cached --name-only | grep -q '\.tsx\?$'; then
   echo "TypeScript files detected, running type check..."
