@@ -12,6 +12,7 @@ export interface ConfigProps {
     url: string;
     github: string;
     twitter: string;
+    leetcode: string;
   };
 
   seo: {
