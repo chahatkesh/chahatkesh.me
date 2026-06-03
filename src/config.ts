@@ -11,6 +11,7 @@ export const config = {
     url: "https://chahatkesh.me",
     github: "chahatkesh",
     twitter: "@chahatkesh",
+    leetcode: "chahatkesh",
   },
 
   seo: {

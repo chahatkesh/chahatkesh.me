@@ -91,7 +91,7 @@ const projects: Project[] = [
     deployedURL: "https://chahatkesh.me",
     datePublished: "2025-04-21",
     dateStarted: "2025-03-27",
-    dateModified: "2026-02-23",
+    dateModified: "2026-05-20",
     isFeatured: false,
   },
   {
@@ -287,7 +287,7 @@ const projects: Project[] = [
     deployedURL: "https://openlearn.org.in",
     datePublished: "2025-06-15",
     dateStarted: "2025-06-09",
-    dateModified: "2026-02-04",
+    dateModified: "2026-05-27",
     isFeatured: true,
     contributors: [
       {
@@ -328,7 +328,7 @@ const projects: Project[] = [
     deployedURL: "https://webmark.chahatkesh.me/",
     datePublished: "2024-11-05",
     dateStarted: "2024-07-09",
-    dateModified: "2025-11-26",
+    dateModified: "2026-04-14",
     isFeatured: true,
   },
   {

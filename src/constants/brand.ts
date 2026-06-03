@@ -19,6 +19,15 @@ export const GITHUB_CONTRIBUTION_COLORS = [
   "#00adb5",
 ] as const;
 
+/** Brand color palette for LeetCode activity calendar (premium amber) */
+export const LEETCODE_CALENDAR_COLORS = [
+  "#1b1b1b",
+  "#5a3a12",
+  "#8a5a1f",
+  "#c8892b",
+  "#f2b84b",
+] as const;
+
 /** Background color (hex for OG images) */
 export const BACKGROUND_HEX = "#000000";
 
