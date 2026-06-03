@@ -7,7 +7,7 @@ import {
 import { ProjectList } from "~/components/features/project";
 import { projects } from "~/data/projects";
 import { ContactUs } from "~/components/sections";
-import { GitHubContributions } from "~/components/features";
+import { CodingActivity } from "~/components/features";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { HomeJsonLd } from "~/components/seo";
@@ -29,7 +29,7 @@ const HomePage = () => {
       {renderBreadcrumbSchema([{ name: "Home", url: "/" }])}
       <div className="!mt-8 space-y-14">
         <AboutSection />
-        <GitHubContributions />
+        <CodingActivity />
         <ProfessionalExperience />
         <ProjectList
           projects={projects

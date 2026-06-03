@@ -218,21 +218,23 @@ const LinksPage = () => {
           transition={{ duration: 0.5 }}
           className="mb-8 md:mb-12"
         >
-          <div className="flex items-start gap-4 md:gap-6">
-            {/* Left - Profile Image */}
-            <div className="relative flex-shrink-0">
-              <Image
-                src={chahat}
-                alt={config.appName}
-                width={120}
-                height={120}
-                className="rounded-2xl border-2 border-border shadow-lg md:w-40 md:h-40"
-                priority
-              />
+          <div className="grid grid-cols-[auto_1fr] items-stretch gap-4 md:gap-6">
+            {/* Square photo: height follows the text column, width follows height */}
+            <div className="relative h-full w-fit min-h-0">
+              <div className="relative aspect-square h-full min-h-[7.5rem]">
+                <Image
+                  src={chahat}
+                  alt={config.appName}
+                  fill
+                  className="rounded-2xl border-2 border-border object-cover shadow-lg"
+                  sizes="(max-width: 768px) 120px, 160px"
+                  priority
+                />
+              </div>
             </div>
 
-            {/* Right - Name & Tagline */}
-            <div className="flex-1 min-w-0 space-y-3">
+            {/* Right - Name, description, and stats */}
+            <div className="flex min-w-0 flex-col space-y-3">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5">
                   {config.appName}

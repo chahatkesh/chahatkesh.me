@@ -71,7 +71,7 @@ const AboutSection = () => {
         <div className="relative order-1 block aspect-square sm:order-2 sm:hidden md:block">
           <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
           <Image
-            alt="Speaking on stage at a hackathon presentation"
+            alt="Profile picture of Chahat Kesharwani"
             src={chahat}
             placeholder="blur"
             className="size-full -rotate-3 transform rounded-md shadow-md"

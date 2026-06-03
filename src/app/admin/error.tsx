@@ -14,18 +14,30 @@ export default function AdminError({
   }, [error]);
 
   return (
-    <section className="flex min-h-[60vh] items-center justify-center py-12">
-      <div className="container flex flex-col items-center gap-6 text-center">
-        <div className="rounded-xl border border-border bg-card p-8">
-          <h2 className="mb-2 text-2xl font-bold text-foreground">
-            Admin Error
-          </h2>
-          <p className="mb-6 text-sm text-muted-foreground">
-            Something went wrong in the admin panel.
+    <section
+      className="flex min-h-dvh items-center justify-center px-6"
+      id="main-content"
+    >
+      <div className="max-w-md text-center">
+        <p
+          aria-hidden="true"
+          className="font-poem text-[8rem] font-semibold leading-none tracking-tighter text-foreground/[0.04] sm:text-[12rem]"
+        >
+          500
+        </p>
+
+        <div className="-mt-10 space-y-4 sm:-mt-14">
+          <h1 className="font-ubuntu text-lg font-medium text-foreground sm:text-xl">
+            Something broke.
+          </h1>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Something went wrong in the admin panel. Try again, or head back to
+            the dashboard.
           </p>
+
           <button
             onClick={reset}
-            className="el-focus-styles rounded-md bg-brand px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-brand/90"
+            className="el-focus-styles inline-block rounded-md border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-card"
           >
             Try again
           </button>
