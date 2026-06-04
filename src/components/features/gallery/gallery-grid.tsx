@@ -105,9 +105,10 @@ function GalleryImage({
 
 type BentoGridProps = {
   items: GalleryItem[];
+  onImageClick?: (item: GalleryItem) => void;
 };
 
-export function GalleryGrid({ items }: BentoGridProps) {
+export function GalleryGrid({ items, onImageClick }: BentoGridProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -135,19 +136,28 @@ export function GalleryGrid({ items }: BentoGridProps) {
             },
           )}
         >
-          <div className="relative h-full w-full overflow-hidden">
+          <div
+            className={cn(
+              "relative h-full w-full overflow-hidden",
+              onImageClick && "cursor-pointer",
+            )}
+            role={onImageClick ? "button" : undefined}
+            tabIndex={onImageClick ? 0 : undefined}
+            onClick={() => onImageClick?.(item)}
+            onKeyDown={(e) => {
+              if (onImageClick && (e.key === "Enter" || e.key === " ")) {
+                e.preventDefault();
+                onImageClick(item);
+              }
+            }}
+          >
             <GalleryImage
               src={item.src}
               alt={item.title}
-              priority={i < 3} // First 3 items get priority loading
+              priority={i < 3}
               className="object-cover transition-all duration-500 group-hover:scale-105"
             />
-            {/* Bottom left corner black overlay */}
-            <div className="absolute bottom-0 left-0 z-10 h-1/3 bg-black/70 rounded-tr-2xl" />
-            {/* Hover overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent opacity-100 transition-opacity duration-300" />
-            {/* Default gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
             <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
               <h3 className="text-base font-medium text-white">
                 {item.title}, {item.location}
