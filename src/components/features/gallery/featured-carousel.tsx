@@ -8,15 +8,16 @@ import { typo } from "~/components/ui";
 import { formatDate } from "~/lib/date-utils";
 import { useHorizontalScroll } from "~/hooks/use-horizontal-scroll";
 
-// Featured Image Component
 function FeaturedImage({
   item,
   priority,
   className,
+  onClick,
 }: {
   item: GalleryItem;
   priority?: boolean;
   className?: string;
+  onClick?: () => void;
 }) {
   if (!item.src) {
     return null;
@@ -27,8 +28,18 @@ function FeaturedImage({
       className={cn(
         "relative overflow-hidden rounded-xl group",
         "aspect-[3/4] flex-shrink-0",
+        onClick && "cursor-pointer",
         className,
       )}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (onClick && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       <Image
         src={item.src}
@@ -38,12 +49,7 @@ function FeaturedImage({
         className="object-cover transition-transform duration-500 group-hover:scale-105"
         sizes="(max-width: 768px) 280px, 320px"
       />
-      {/* Bottom left corner black overlay */}
-      <div className="absolute bottom-0 left-0 z-10 h-1/3 bg-black/70 rounded-tr-2xl" />
-      {/* Hover overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent opacity-100 transition-opacity duration-300" />
-      {/* Default gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
       <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
         <h3 className="text-base font-medium text-white">
           {item.title}, {item.location}
@@ -59,6 +65,7 @@ type FeaturedCarouselProps = {
   title?: string;
   subtitle?: string;
   showTitle?: boolean;
+  onImageClick?: (item: GalleryItem) => void;
 };
 
 export function FeaturedCarousel({
@@ -66,6 +73,7 @@ export function FeaturedCarousel({
   title = "The Favorites",
   subtitle = "A few frames worth remembering",
   showTitle = true,
+  onImageClick,
 }: FeaturedCarouselProps) {
   const {
     scrollContainerRef,
@@ -126,6 +134,7 @@ export function FeaturedCarousel({
               item={item}
               priority={index < 3}
               className="w-80 flex-shrink-0"
+              onClick={onImageClick ? () => onImageClick(item) : undefined}
             />
           ))}
         </div>
