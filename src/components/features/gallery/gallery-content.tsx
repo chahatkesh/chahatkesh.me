@@ -1,7 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import useSWR from "swr";
-import { GalleryGrid, FeaturedCarousel } from "~/components/features/gallery";
+import {
+  GalleryGrid,
+  FeaturedCarousel,
+  GalleryLightbox,
+} from "~/components/features/gallery";
 import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
@@ -31,11 +36,18 @@ export function GalleryContent() {
     },
   );
 
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
   // Transform API data to match component props
   const galleryItems: GalleryItem[] = data?.data?.map(toGalleryItem) || [];
 
   // Filter featured items for the carousel
   const featuredItems = galleryItems.filter((item) => item.isFeatured);
+
+  const handleImageClick = (item: GalleryItem) => {
+    const idx = galleryItems.findIndex((g) => g.id === item.id);
+    if (idx !== -1) setSelectedIndex(idx);
+  };
 
   if (isLoading) {
     return (
@@ -127,7 +139,12 @@ export function GalleryContent() {
   return (
     <>
       {/* Featured Carousel */}
-      {featuredItems.length > 0 && <FeaturedCarousel items={featuredItems} />}
+      {featuredItems.length > 0 && (
+        <FeaturedCarousel
+          items={featuredItems}
+          onImageClick={handleImageClick}
+        />
+      )}
 
       {/* All Gallery Items */}
       <MotionDiv
@@ -142,8 +159,16 @@ export function GalleryContent() {
             The full collection, unfiltered
           </p>
         </div>
-        <GalleryGrid items={galleryItems} />
+        <GalleryGrid items={galleryItems} onImageClick={handleImageClick} />
       </MotionDiv>
+
+      {/* Full-image lightbox */}
+      <GalleryLightbox
+        items={galleryItems}
+        index={selectedIndex}
+        onClose={() => setSelectedIndex(null)}
+        onIndexChange={setSelectedIndex}
+      />
     </>
   );
 }

@@ -20,6 +20,21 @@ export interface YouTubeVideo {
 
 export const youtubeVideos: YouTubeVideo[] = [
   {
+    id: "7b81tJgCdBM",
+    slug: "minor-project-intelligent-pesticide-sprinkling-system-7b81tJgCdBM",
+    title: "Minor Project: Intelligent Pesticide Sprinkling System",
+    description:
+      "An IoT and AI system that detects tomato-leaf infection severity and sprays pesticide proportionally, reducing waste while logging every event to a live dashboard.",
+    publishedAt: "2026-06-04T11:06:42Z",
+    thumbnailUrl: "https://i.ytimg.com/vi/7b81tJgCdBM/maxresdefault.jpg",
+    duration: "PT1M16S",
+    durationFormatted: "1:16",
+    viewCount: 2,
+    likeCount: 1,
+    tags: [],
+    channelTitle: "Chahat Kesharwani",
+  },
+  {
     id: "Y7yZ_eYQ5Lo",
     slug: "building-openlearn-behind-the-scenes-of-development-part-1-Y7yZ_eYQ5Lo",
     title: "Building OpenLearn: Behind the Scenes of Development | Part-1",
@@ -44,7 +59,7 @@ export const youtubeVideos: YouTubeVideo[] = [
     thumbnailUrl: "https://i.ytimg.com/vi/rA6qcsEjAWc/maxresdefault.jpg",
     duration: "PT2M34S",
     durationFormatted: "2:34",
-    viewCount: 54,
+    viewCount: 55,
     likeCount: 4,
     tags: [],
     channelTitle: "Chahat Kesharwani",
