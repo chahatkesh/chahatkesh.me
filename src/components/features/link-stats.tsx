@@ -1,6 +1,7 @@
 "use client";
 
-import { GitCommit, Code2 } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
+import { SiLeetcode } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import config from "~/config";
 import { API_ROUTES, EXTERNAL_APIS, LEETCODE_STALE_TIME_MS } from "~/constants";
@@ -56,7 +57,7 @@ const LinkStats = () => {
         aria-label="GitHub profile"
         className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
-        <GitCommit className="size-4" />
+        <FaGithub className="size-4" />
         <span className="font-semibold">
           {totalContributions.toLocaleString()}
         </span>
@@ -70,7 +71,7 @@ const LinkStats = () => {
           aria-label="LeetCode profile"
           className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <Code2 className="size-4" />
+          <SiLeetcode className="size-4" />
           <span className="font-semibold">
             {leetcode.totalSolved.toLocaleString()}
           </span>

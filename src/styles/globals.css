@@ -78,6 +78,34 @@
     display: none;
   }
 
+  /* Activity calendar: hide inner horizontal scrollbar on mobile while keeping touch scroll */
+  .coding-activity-calendar .react-activity-calendar__scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .coding-activity-calendar
+    .react-activity-calendar__scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .coding-activity-calendar.react-activity-calendar {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Activity calendar cell interactions */
+  .coding-activity-calendar rect[data-date],
+  .coding-activity-calendar g[data-date] {
+    cursor: pointer;
+    transition: filter 150ms ease;
+  }
+
+  .coding-activity-calendar rect[data-date]:hover,
+  .coding-activity-calendar g[data-date]:hover {
+    filter: brightness(1.35) saturate(1.1);
+  }
+
   /* GPU acceleration for smooth animations */
   .gpu-accelerated {
     transform: translateZ(0);
