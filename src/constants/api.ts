@@ -7,7 +7,6 @@
 export const API_ROUTES = {
   SPOTIFY_NOW_PLAYING: "/api/spotify/now-playing",
   LEETCODE_STATS: "/api/leetcode/stats",
-  LEETCODE_CALENDAR: "/api/leetcode/calendar",
   CODING_ACTIVITY: "/api/coding-activity",
   VISITORS_INCREMENT: "/api/visitors/increment",
   VISITORS: "/api/visitors",

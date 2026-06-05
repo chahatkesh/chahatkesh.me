@@ -37,11 +37,6 @@ export const OG_MAX_TAGS = 5;
 
 // GitHub calendar
 export const GITHUB_CALENDAR_FONT_SIZE = 12;
-export const GITHUB_CALENDAR_BLOCK_SIZE = 12;
-
-// LeetCode calendar
-export const LEETCODE_CALENDAR_FONT_SIZE = 12;
-export const LEETCODE_CALENDAR_BLOCK_SIZE = 12;
 
 // Marquee
 export const MARQUEE_SPEED = 20;

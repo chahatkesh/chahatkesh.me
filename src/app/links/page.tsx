@@ -17,7 +17,7 @@ import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
 import { MotionDiv } from "~/components/shared";
-import chahat from "~/assets/images/chahat.jpeg";
+import chahat from "~/assets/images/chahat.jpg";
 import { Card } from "~/components/ui";
 import { LinkStats } from "~/components/features";
 import { links, type LinkItem } from "~/data/links";
