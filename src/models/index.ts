@@ -16,3 +16,6 @@ export type { IVisitor } from "./visitor";
 
 export { default as ExperienceGalleryImage } from "./experience-gallery";
 export type { IExperienceGalleryImage } from "./experience-gallery";
+
+export { default as SharedFile } from "./shared-file";
+export type { ISharedFile } from "./shared-file";
