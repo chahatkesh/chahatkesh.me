@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: Props) {
           className="object-cover object-center transition-transform duration-700 ease-in-out group-hover:scale-105"
           priority
           placeholder="blur"
-          sizes="(max-width: 1200px) 100vw"
+          sizes="(min-width: 912px) 880px, 100vw"
         />
         {project.contributors && project.contributors.length > 0 && (
           <div className="absolute top-6 right-6 z-20 text-[10px] bg-black/75 rounded-sm px-2 py-1 md:text-xs text-ring font-medium tracking-wide">

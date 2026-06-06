@@ -11,6 +11,7 @@ export const API_ROUTES = {
   VISITORS_INCREMENT: "/api/visitors/increment",
   VISITORS: "/api/visitors",
   GALLERY: "/api/gallery",
+  FILES: "/api/files",
   AUTH_LOGIN: "/api/auth/login",
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>

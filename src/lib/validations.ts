@@ -74,6 +74,29 @@ export const uploadFileSchema = z.object({
 });
 
 // ---------------------------------------------------------------------------
+// Shared Files (generic file uploads with shareable URLs)
+// ---------------------------------------------------------------------------
+
+export const createSharedFileSchema = z.object({
+  fileName: z
+    .string()
+    .min(1, "File name is required")
+    .max(300, "File name too long"),
+  fileUrl: z.url("Invalid file URL"),
+  publicId: z.string().min(1, "Cloudinary public ID is required"),
+  format: z.string().max(50).optional().default(""),
+  bytes: z.number().int().min(0).optional().default(0),
+  resourceType: z.string().max(20).optional().default("auto"),
+});
+
+export const updateSharedFileSchema = z.object({
+  fileName: z
+    .string()
+    .min(1, "File name is required")
+    .max(300, "File name too long"),
+});
+
+// ---------------------------------------------------------------------------
 // API response helpers
 // ---------------------------------------------------------------------------
 
