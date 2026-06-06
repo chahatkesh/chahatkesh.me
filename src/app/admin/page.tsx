@@ -328,6 +328,58 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
+          {/* File Sharing Card */}
+          <Card
+            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
+            onClick={() => router.push("/admin/files")}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="p-6 relative">
+              <div className="flex items-start justify-between mb-4">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-foreground/80"
+                  >
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </div>
+                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">File Sharing</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Upload any file and instantly get a shareable URL to send to
+                  anyone
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Projects Card - Coming Soon */}
           <Card className="border-border bg-card/50 backdrop-blur-sm opacity-60 cursor-not-allowed relative overflow-hidden">
             <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-muted/80 backdrop-blur-sm">

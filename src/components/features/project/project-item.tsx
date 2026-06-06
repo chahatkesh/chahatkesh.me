@@ -63,6 +63,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                 src={cover}
                 className="w-full h-full object-cover object-center"
                 fill
+                sizes="(max-width: 640px) 100vw, 40vw"
               />
 
               {/* Tagline overlay */}

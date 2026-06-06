@@ -38,6 +38,43 @@ export const timelineEvents: TimelineEvent[] = [
   //   location: '',
   // },
   {
+    id: "timeline-2026-06-04-minor-project-completion",
+    startDate: "2026-06-01",
+    title: "Minor Project Completion",
+    description:
+      "Completed my Minor Project, an Intelligent Pesticide Sprinkling System that detects tomato-leaf infection severity using an ESP32-CAM and Google Gemini, then sprays pesticide proportionally to reduce waste while logging every scan to a live dashboard. Presented the project and poster at the Phase-II evaluation at NIT Jalandhar.",
+    category: "project",
+    links: [
+      {
+        title: "CodeBase",
+        url: "https://github.com/chahatkesh/intelligent-pesticide-sprinkling-system",
+        icon: "github",
+      },
+      {
+        title: "Poster",
+        url: "/s/6a23d0222b7598902048d1d1",
+        icon: "document",
+      },
+    ],
+    location: "NIT Jalandhar, Punjab, India",
+  },
+  {
+    id: "timeline-2026-04-08-building-layr",
+    startDate: "2026-04-08",
+    title: "Building Layr",
+    description:
+      "Started building Layr, the intelligence layer between your product tools. It reads the signals teams already have across conversations, tickets, calls, feedback, and docs, then turns them into clear product decisions, keeping the customer voice close to the roadmap for founders, PMs, and early product teams.",
+    category: "project",
+    links: [
+      {
+        title: "Visit Layr",
+        url: "https://uselayr.com",
+        icon: "website",
+      },
+    ],
+    location: "Remote",
+  },
+  {
     id: "timeline-2026-04-18-attended-yc-startup-school-india",
     startDate: "2026-04-18",
     title: "Attended YC Startup School India",

@@ -141,7 +141,7 @@ const AboutPage = async () => {
                     alt="My workspace setup"
                     fill
                     className="object-cover"
-                    sizes="100vw"
+                    sizes="(min-width: 912px) 880px, 100vw"
                     priority
                   />
                 </div>
