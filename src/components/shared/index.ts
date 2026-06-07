@@ -12,3 +12,4 @@ export { MotionDiv, MotionSpan } from "./motion-wrapper";
 export { PageTableOfContents } from "./page-toc";
 export { TabGroup } from "./tab-group";
 export { AccordionSection } from "./accordion-section";
+export { RevealSection, RevealCard } from "./reveal-section";

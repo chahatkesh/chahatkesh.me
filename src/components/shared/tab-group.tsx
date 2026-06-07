@@ -125,21 +125,30 @@ export function TabGroup({
 
       {/* Tab Content */}
       <div className="mt-8">
-        {tabs.map((tab) => (
-          <div
-            key={tab.id}
-            id={`tabpanel-${tab.id}`}
-            role="tabpanel"
-            aria-labelledby={`tab-${tab.id}`}
-            hidden={activeTab !== tab.id}
-            className={cn(
-              "focus:outline-none",
-              activeTab === tab.id && "animate-fade-in",
-            )}
-          >
-            {activeTab === tab.id && tab.content}
-          </div>
-        ))}
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <div
+              key={tab.id}
+              id={`tabpanel-${tab.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${tab.id}`}
+              hidden={!isActive}
+              className="focus:outline-none"
+            >
+              {isActive && (
+                <motion.div
+                  key={tab.id}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  {tab.content}
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ import {
   Breadcrumb,
   TabGroup,
   AccordionSection,
+  RevealSection,
+  RevealCard,
 } from "~/components/shared";
 import { MetricsChart } from "~/components/features";
 import { cn } from "~/lib/utils";
@@ -131,20 +133,44 @@ const SitePage = async () => {
             </MotionDiv>
           </div>
 
-          {/* Repository Summary */}
-          <section className="space-y-6">
-            <div className="rounded-lg border border-border bg-card/50 p-6">
-              <div className="flex items-center gap-4">
-                <FiGitCommit className="text-2xl text-ring" />
-                <div>
-                  <p className="font-mono text-3xl font-semibold text-foreground">
-                    {commitCount > 0 ? commitCount.toLocaleString() : "100+"}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Total commits in this repository
-                  </p>
-                </div>
-              </div>
+          {/* Repository Stat Strip */}
+          <section>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+              {[
+                {
+                  icon: FiGitCommit,
+                  value:
+                    commitCount > 0 ? commitCount.toLocaleString() : "100+",
+                  label: "Commits",
+                },
+                {
+                  icon: FiCode,
+                  value: codebaseMetrics[0]?.value ?? "19k+",
+                  label: "Lines of Code",
+                },
+                {
+                  icon: FiLayout,
+                  value: codebaseMetrics[1]?.value ?? "57",
+                  label: "Components",
+                },
+                {
+                  icon: FiZap,
+                  value: codebaseMetrics[3]?.value ?? "17",
+                  label: "API Routes",
+                },
+              ].map((stat, i) => (
+                <RevealCard key={stat.label} index={i}>
+                  <div className="group h-full rounded-lg border border-border bg-card/50 p-4 transition-colors hover:border-ring/40 sm:p-5">
+                    <stat.icon className="text-xl text-ring transition-transform duration-300 group-hover:scale-110" />
+                    <p className="mt-3 font-mono text-2xl font-semibold text-foreground sm:text-3xl">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                      {stat.label}
+                    </p>
+                  </div>
+                </RevealCard>
+              ))}
             </div>
           </section>
 
@@ -159,18 +185,26 @@ const SitePage = async () => {
                   <div className="space-y-12">
                     {/* Featured Tech Stack */}
                     {featuredTech.length > 0 && (
-                      <div className="space-y-4">
+                      <RevealSection className="space-y-4">
                         <h3 className="text-base font-semibold text-foreground">
                           Core Technologies
                         </h3>
-                        <div className="grid gap-4 sm:grid-cols-3">
-                          {featuredTech.map((tech) => (
-                            <div
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                          {featuredTech.map((tech, i) => (
+                            <RevealCard
                               key={tech.name}
-                              className="rounded-lg border border-border bg-card/50 p-5 hover:border-muted-foreground/30 transition-colors"
+                              index={i}
+                              className="group relative h-full overflow-hidden rounded-lg border border-border bg-card/50 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ring/40"
                             >
+                              <div
+                                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ring/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                aria-hidden
+                              />
                               <tech.icon
-                                className={cn("mb-3 text-xl", tech.color)}
+                                className={cn(
+                                  "mb-3 text-xl transition-transform duration-300 group-hover:scale-110",
+                                  tech.color,
+                                )}
                               />
                               <div className="mb-2 flex items-baseline justify-between">
                                 <span className="text-lg font-semibold text-foreground">
@@ -183,14 +217,14 @@ const SitePage = async () => {
                               <p className="text-sm leading-relaxed text-muted-foreground">
                                 {tech.description}
                               </p>
-                            </div>
+                            </RevealCard>
                           ))}
                         </div>
-                      </div>
+                      </RevealSection>
                     )}
 
                     {/* Tech Stack by Category */}
-                    <div className="space-y-6">
+                    <RevealSection className="space-y-6">
                       <h3 className="text-base font-semibold text-foreground">
                         Technology Stack
                       </h3>
@@ -216,7 +250,7 @@ const SitePage = async () => {
                               {items.map((tech) => (
                                 <div
                                   key={tech.name}
-                                  className="flex items-start gap-3 rounded-lg border border-border bg-card/30 px-4 py-3 hover:border-muted-foreground/30 transition-colors"
+                                  className="flex items-start gap-3 rounded-lg border border-border bg-card/30 px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                                 >
                                   <tech.icon
                                     className={cn(
@@ -243,10 +277,10 @@ const SitePage = async () => {
                           </div>
                         );
                       })}
-                    </div>
+                    </RevealSection>
 
                     {/* Architecture Layers */}
-                    <div className="space-y-6">
+                    <RevealSection className="space-y-6">
                       <h3 className="text-base font-semibold text-foreground">
                         Architecture Layers
                       </h3>
@@ -301,10 +335,10 @@ const SitePage = async () => {
                           );
                         })}
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Design Patterns */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Design Patterns
                       </h3>
@@ -317,7 +351,7 @@ const SitePage = async () => {
                         {designPatterns.map((pattern) => (
                           <div
                             key={pattern.name}
-                            className="rounded-lg border border-border bg-card/30 p-5 hover:border-muted-foreground/30 transition-colors"
+                            className="rounded-lg border border-border bg-card/30 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <h4 className="mb-1.5 font-ubuntu text-sm font-medium text-foreground">
                               {pattern.name}
@@ -331,7 +365,7 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
                   </div>
                 ),
               },
@@ -341,7 +375,7 @@ const SitePage = async () => {
                 content: (
                   <div className="space-y-12">
                     {/* Philosophy Callout */}
-                    <div className="rounded-lg border border-border bg-card/30 p-6">
+                    <RevealSection className="rounded-lg border border-border bg-card/30 p-6">
                       <h3 className="mb-4 text-base font-semibold text-foreground">
                         Design Philosophy
                       </h3>
@@ -361,10 +395,10 @@ const SitePage = async () => {
                           take away, not what to add.
                         </p>
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Color Tokens */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Color Palette
                       </h3>
@@ -372,11 +406,11 @@ const SitePage = async () => {
                         {colorTokens.map((token) => (
                           <div
                             key={token.name}
-                            className="rounded-lg border border-border p-4 hover:border-muted-foreground/30 transition-colors"
+                            className="group rounded-lg border border-border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <div
                               className={cn(
-                                "mb-3 h-20 w-full rounded-lg",
+                                "mb-3 h-20 w-full rounded-lg transition-transform duration-300 group-hover:scale-[1.02]",
                                 token.color,
                                 token.border &&
                                   "border-2 border-muted-foreground/30",
@@ -394,10 +428,10 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Typography Specimens */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Typography
                       </h3>
@@ -405,7 +439,7 @@ const SitePage = async () => {
                         {fonts.map((font) => (
                           <div
                             key={font.family}
-                            className="rounded-lg border border-border bg-card/30 p-6 hover:border-muted-foreground/30 transition-colors"
+                            className="rounded-lg border border-border bg-card/30 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <p
                               className={cn(
@@ -440,10 +474,10 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Responsive Breakpoints */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Responsive Breakpoints
                       </h3>
@@ -460,7 +494,7 @@ const SitePage = async () => {
                         ].map((bp) => (
                           <div
                             key={bp.name}
-                            className="rounded-lg border border-border bg-card/30 p-4 hover:border-muted-foreground/30 transition-colors"
+                            className="rounded-lg border border-border bg-card/30 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <p className="font-semibold text-foreground/90">
                               {bp.name}
@@ -474,7 +508,7 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
                   </div>
                 ),
               },
@@ -484,7 +518,7 @@ const SitePage = async () => {
                 content: (
                   <div className="space-y-12">
                     {/* Performance Strategies */}
-                    <div className="space-y-6">
+                    <RevealSection className="space-y-6">
                       <div className="space-y-2">
                         <h3 className="text-base font-semibold text-foreground">
                           Performance Strategies
@@ -499,7 +533,7 @@ const SitePage = async () => {
                         {performanceStrategies.map((strategy) => (
                           <div
                             key={strategy.label}
-                            className="rounded-lg border border-border bg-card/30 p-5 hover:border-muted-foreground/30 transition-colors"
+                            className="rounded-lg border border-border bg-card/30 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <div className="mb-2 flex items-baseline justify-between gap-3">
                               <h4 className="font-ubuntu text-sm font-medium text-foreground">
@@ -515,10 +549,10 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Code Quality */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Code Quality Tools
                       </h3>
@@ -526,7 +560,7 @@ const SitePage = async () => {
                         {codeQuality.map((category) => (
                           <div
                             key={category.category}
-                            className="rounded-lg border border-border bg-card/30 p-5 hover:border-muted-foreground/30 transition-colors"
+                            className="rounded-lg border border-border bg-card/30 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                           >
                             <h4 className="mb-3 font-ubuntu font-semibold text-foreground">
                               {category.category}
@@ -561,10 +595,10 @@ const SitePage = async () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Codebase Metrics Chart */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Codebase Metrics
                       </h3>
@@ -576,7 +610,7 @@ const SitePage = async () => {
                           {codebaseMetrics.slice(4).map((metric) => (
                             <div
                               key={metric.label}
-                              className="rounded-lg border border-border bg-card/30 p-4"
+                              className="rounded-lg border border-border bg-card/30 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-muted-foreground/30"
                             >
                               <p className="font-mono text-xl font-bold text-foreground">
                                 {metric.value}
@@ -591,10 +625,10 @@ const SitePage = async () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </RevealSection>
 
                     {/* Route Map */}
-                    <div className="space-y-4">
+                    <RevealSection className="space-y-4">
                       <h3 className="text-base font-semibold text-foreground">
                         Route Map
                       </h3>
@@ -682,7 +716,7 @@ const SitePage = async () => {
                           server-rendered on demand
                         </span>
                       </div>
-                    </div>
+                    </RevealSection>
                   </div>
                 ),
               },
@@ -690,7 +724,7 @@ const SitePage = async () => {
           />
 
           {/* Footer */}
-          <section className="rounded-xl border border-border bg-card/50 p-6">
+          <RevealSection className="rounded-xl border border-border bg-card/50 p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
                 <p className="font-ubuntu text-sm font-semibold text-foreground">
@@ -710,7 +744,7 @@ const SitePage = async () => {
                 View Source Code
               </Link>
             </div>
-          </section>
+          </RevealSection>
         </div>
       </MotionDiv>
     </>
