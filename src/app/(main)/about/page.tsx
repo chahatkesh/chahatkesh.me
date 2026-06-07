@@ -101,15 +101,12 @@ const AboutPage = async () => {
                       href="https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="el-focus-styles text-ring"
+                      className="link-inline"
                     >
                       Resume
                     </Link>{" "}
                     or explore{" "}
-                    <Link
-                      href="/about/journey"
-                      className="el-focus-styles text-ring"
-                    >
+                    <Link href="/about/journey" className="link-inline">
                       My Storyline
                     </Link>
                     .
@@ -182,7 +179,7 @@ const AboutPage = async () => {
                             href={project.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group block"
+                            className="el-focus-styles group block rounded-lg"
                           >
                             <div
                               className={cn(
@@ -233,7 +230,7 @@ const AboutPage = async () => {
                   href="https://cal.com/chahatkesh/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block"
+                  className="el-focus-styles group block rounded-lg"
                 >
                   <div className="h-full rounded-lg border-2 border-ring/30 bg-ring/5 p-6 transition-all duration-300 hover:border-ring/50 hover:bg-ring/10">
                     <div className="mb-3 flex items-center gap-3">
@@ -253,7 +250,10 @@ const AboutPage = async () => {
                 </Link>
 
                 {/* All Links CTA */}
-                <Link href="/links" className="group block">
+                <Link
+                  href="/links"
+                  className="el-focus-styles group block rounded-lg"
+                >
                   <div className="h-full rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:bg-muted/50 hover:shadow-lg hover:shadow-black/20">
                     <div className="mb-3 flex items-center gap-3">
                       <h3 className="font-ubuntu text-base font-medium text-foreground">
@@ -410,7 +410,7 @@ const AboutPage = async () => {
                           href={v.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
+                          className="el-focus-styles group relative flex items-center gap-4 rounded-md transition-all duration-300 md:flex-col md:items-start md:space-y-3"
                         >
                           {inner}
                         </Link>

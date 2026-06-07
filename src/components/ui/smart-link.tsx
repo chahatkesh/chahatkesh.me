@@ -6,7 +6,6 @@ import React, {
 import Link from "next/link";
 import { type ClassValue } from "clsx";
 import { cn } from "~/lib/utils";
-import { buttonVariants } from "./button";
 
 interface SmartLinkProps extends Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -21,13 +20,10 @@ const SmartLink = forwardRef<HTMLAnchorElement, SmartLinkProps>(
   ({ href, children, className, ...props }, ref) => {
     const isInternalLink = href && href.startsWith("/");
 
-    const linkVariant = buttonVariants({
-      variant: "link",
-      className: cn(
-        "!p-0 h-full !inline-block !whitespace-normal !text-base !text-ring",
-        className,
-      ),
-    });
+    const linkVariant = cn(
+      "el-focus-styles !p-0 h-full !inline-block !whitespace-normal !text-base text-ring",
+      className,
+    );
 
     if (isInternalLink) {
       return (

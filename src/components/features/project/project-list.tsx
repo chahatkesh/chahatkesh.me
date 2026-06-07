@@ -17,7 +17,7 @@ const ProjectList = ({
   showFeatured = false,
 }: ProjectListProps) => {
   return (
-    <section aria-label="projects" className="mt-5 space-y-6" id="main-content">
+    <section aria-label="projects" className="mt-5 space-y-6">
       {metadata && (
         <h2 className={typo({ variant: "h2" })}>Work Worth Showing</h2>
       )}

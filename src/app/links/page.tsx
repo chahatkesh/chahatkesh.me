@@ -68,10 +68,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
         href={link.href}
         target={link.href.startsWith("/") ? "_self" : "_blank"}
         rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}
-        className={cn(
-          "group block h-full",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl",
-        )}
+        className="el-focus-styles group block h-full rounded-xl"
       >
         <Card
           className={cn(

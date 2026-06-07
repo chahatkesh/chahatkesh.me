@@ -26,7 +26,7 @@ const AboutSection = () => {
             worked at{" "}
             <Link
               href="/about/experience/zenbase-technologies-founding-frontend-engineer"
-              className="text-foreground hover:opacity-80 transition-opacity"
+              className="text-foreground link-inline"
             >
               Zenbase
             </Link>{" "}
@@ -52,7 +52,7 @@ const AboutSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={config.social.twitter}
-              className="text-foreground"
+              className="link-inline"
               aria-label="Follow on X"
             >
               X
@@ -61,7 +61,7 @@ const AboutSection = () => {
             <a
               href={`mailto:${config.social.email}`}
               aria-label="Contact Chahat"
-              className="el-focus-styles text-ring"
+              className="link-inline"
             >
               reach out.
             </a>

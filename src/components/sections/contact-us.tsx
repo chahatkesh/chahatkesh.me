@@ -1,6 +1,6 @@
 import config from "~/config";
 import { Socials } from "~/components/shared";
-import { typo, SmartLink } from "~/components/ui";
+import { typo } from "~/components/ui";
 import { SpotifyNowPlaying } from "~/components/features";
 import { cn } from "~/lib/utils";
 
@@ -31,13 +31,13 @@ const ContactUs = () => {
               )}
             >
               Reach out at{" "}
-              <SmartLink
+              <a
                 href={`mailto:${config.social.email}`}
                 aria-label={config.social.email}
-                className="text-ring hover:underline"
+                className="link-inline"
               >
                 {config.social.email}
-              </SmartLink>
+              </a>
             </p>
           </div>
 
