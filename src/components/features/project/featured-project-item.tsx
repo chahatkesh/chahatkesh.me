@@ -46,7 +46,10 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
           tags={stacks}
         />
       )}
-      <Link href={`/projects/${slug}`} className="block">
+      <Link
+        href={`/projects/${slug}`}
+        className="el-focus-styles block rounded-2xl"
+      >
         <MotionDiv
           className="grid grid-cols-1 lg:grid-cols-2 rounded-2xl overflow-hidden border border-border hover:border-muted-foreground/30 transition-all duration-300"
           whileHover={{ y: -5 }}

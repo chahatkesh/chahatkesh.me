@@ -52,7 +52,7 @@ const SpotifyNowPlaying = () => {
       href={data.songUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex gap-3 group"
+      className="el-focus-styles flex gap-3 group rounded-md"
     >
       <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0">
         {data.albumImageUrl && (

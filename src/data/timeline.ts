@@ -147,7 +147,7 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: "timeline-2025-12-14-founding-frontend-engineer-at-zenbase",
     startDate: "2025-12-14",
-    endDate: "present",
+    endDate: "2026-05-13",
     title: "Founding Frontend Engineer at Zenbase",
     description:
       "Joined Zenbase as a Founding Frontend Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",

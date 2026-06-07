@@ -8,10 +8,7 @@ const Footer = () => {
       <div className="flex w-full flex-col items-center gap-1.5 text-center text-sm text-muted-foreground sm:flex-row sm:justify-between sm:gap-0 sm:text-left">
         <span>
           &copy; {new Date().getFullYear()} &middot;{" "}
-          <Link
-            href="/about/site"
-            className="hover:text-foreground transition-colors underline decoration-border hover:decoration-ring underline-offset-2"
-          >
+          <Link href="/about/site" className="link-inline">
             Built
           </Link>{" "}
           by Chahat
