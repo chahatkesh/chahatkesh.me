@@ -55,4 +55,19 @@ async function dbConnect() {
   return cached.conn;
 }
 
+/**
+ * Returns the configured MongoDB URI, or `null` (with a logged error) when it
+ * is missing. Use in API routes to short-circuit with a clear response.
+ */
+export function getMongoDBUri(context = "API route"): string | null {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    console.error(
+      `MONGODB_URI environment variable is not defined (${context})`,
+    );
+    return null;
+  }
+  return uri;
+}
+
 export default dbConnect;

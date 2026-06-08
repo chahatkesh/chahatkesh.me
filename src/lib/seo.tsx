@@ -50,6 +50,12 @@ export const getSEOTags = ({
         : `https://${config.domainName}/`,
     ),
 
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
+      verification: {
+        google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+      },
+    }),
+
     ...(noIndex && {
       robots: {
         index: false,
@@ -103,8 +109,6 @@ export const getSEOTags = ({
       "og:updated_time": new Date().toISOString(),
 
       // Additional SEO
-      "google-site-verification":
-        process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
       viewport: "width=device-width, initial-scale=1, maximum-scale=5",
       ...extraTags,
     },
