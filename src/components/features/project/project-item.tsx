@@ -44,7 +44,10 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
           tags={stacks}
         />
       )}
-      <Link href={`/projects/${slug}`}>
+      <Link
+        href={`/projects/${slug}`}
+        className="el-focus-styles block rounded-xl"
+      >
         <MotionDiv
           className="grid grid-cols-1 sm:grid-cols-5 gap-4 rounded-xl overflow-hidden border border-border hover:border-muted-foreground/30 transition-all duration-300"
           transition={{ duration: 0.3 }}

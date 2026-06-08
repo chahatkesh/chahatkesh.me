@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import createJiti from "jiti";
 const jiti = createJiti(fileURLToPath(import.meta.url));
+const config = jiti("./src/config.ts").default;
 
 /** @type {import('next').NextConfig} */
 
@@ -38,13 +39,7 @@ const nextConfig = {
     ],
   },
   redirects: async () => {
-    return [
-      {
-        source: "/resume",
-        destination:
-          "https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing",
-        permanent: true,
-      },
+    const redirects = [
       {
         source: "/linkedin",
         destination: "https://www.linkedin.com/in/chahatkesharwani/",
@@ -91,6 +86,17 @@ const nextConfig = {
         permanent: true,
       },
     ];
+
+    const resumeUrl = config.resumeUrl;
+    if (typeof resumeUrl === "string" && resumeUrl.length > 0) {
+      redirects.unshift({
+        source: "/resume",
+        destination: resumeUrl,
+        permanent: true,
+      });
+    }
+
+    return redirects;
   },
 };
 

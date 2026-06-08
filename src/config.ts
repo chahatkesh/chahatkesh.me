@@ -5,6 +5,7 @@ export const config = {
   appDesignation: "Engineer · Builder · Explorer",
   appDescription: `I'm Chahat, an engineer who builds products people actually use. I care deeply about architecture, ship fast, and find the most satisfaction in systems that just work. Previously building AI-powered products at Zenbase, Singapore.`,
   domainName: "chahatkesh.me",
+  resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL,
   author: {
     name: "Chahat Kesharwani",
     email: "ckesharwani4@gmail.com",

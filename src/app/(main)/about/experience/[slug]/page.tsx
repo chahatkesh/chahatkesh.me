@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { experiences } from "~/data/experience";
+import { getOgImageUrlsForLinks } from "~/lib/og";
 import ExperienceDetailClient from "./page.client";
 
 type Props = {
@@ -45,6 +46,10 @@ const ExperienceDetailPage = async ({ params }: Props) => {
     notFound();
   }
 
+  const relatedLinkPreviews = await getOgImageUrlsForLinks(
+    experience.links ?? [],
+  );
+
   return (
     <>
       {renderBreadcrumbSchema([
@@ -53,7 +58,10 @@ const ExperienceDetailPage = async ({ params }: Props) => {
         { name: "Experience", url: "/about/experience" },
         { name: experience.role, url: `/about/experience/${experience.slug}` },
       ])}
-      <ExperienceDetailClient experience={experience} />
+      <ExperienceDetailClient
+        experience={experience}
+        relatedLinkPreviews={relatedLinkPreviews}
+      />
     </>
   );
 };

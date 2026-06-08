@@ -1,7 +1,6 @@
 import { type Metadata } from "next";
 import Image from "next/image";
 import {
-  Linkedin,
   Mail,
   FileText,
   FolderGit2,
@@ -10,7 +9,6 @@ import {
   Calendar,
   Briefcase,
 } from "lucide-react";
-import { FaInstagram, FaYoutube, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { GiJourney } from "react-icons/gi";
 import { SiBuymeacoffee } from "react-icons/si";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -24,6 +22,7 @@ import { links, type LinkItem } from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
 import { experiences } from "~/data/experience";
 import { currentProjects } from "~/data/about";
+import { getLinkIcon } from "~/lib/link-icons";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
@@ -40,11 +39,6 @@ const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText className="size-6" />,
   FolderGit2: <FolderGit2 className="size-6" />,
   Home: <Home className="size-6" />,
-  FaGithub: <FaGithub className="size-6" />,
-  Linkedin: <Linkedin className="size-6" />,
-  FaInstagram: <FaInstagram className="size-5" />,
-  FaXTwitter: <FaXTwitter className="size-5" />,
-  FaYoutube: <FaYoutube className="size-5" />,
   Mail: <Mail className="size-5" />,
   SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
   Journey: <GiJourney className="size-6" />,
@@ -56,7 +50,13 @@ const iconMap: Record<string, React.ReactNode> = {
 const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
   const isPrimary = link.type === "primary";
   const isSupport = link.type === "support";
-  const icon = iconMap[link.icon];
+  const icon =
+    iconMap[link.icon] ??
+    getLinkIcon(link.icon, {
+      default: link.iconSize === "sm" ? 20 : 24,
+      globe: link.iconSize === "sm" ? 20 : 24,
+      file: link.iconSize === "sm" ? 20 : 24,
+    });
 
   return (
     <MotionDiv
@@ -68,10 +68,7 @@ const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
         href={link.href}
         target={link.href.startsWith("/") ? "_self" : "_blank"}
         rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}
-        className={cn(
-          "group block h-full",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl",
-        )}
+        className="el-focus-styles group block h-full rounded-xl"
       >
         <Card
           className={cn(

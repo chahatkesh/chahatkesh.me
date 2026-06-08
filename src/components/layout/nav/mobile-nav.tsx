@@ -103,7 +103,7 @@ const MobileNav = () => {
         aria-label="Open navigation menu"
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+        className="el-focus-styles flex size-9 items-center justify-center rounded-sm text-foreground/70 transition-colors hover:text-foreground"
       >
         <Menu className="size-5" />
       </button>
@@ -131,7 +131,7 @@ const MobileNav = () => {
                 transition={{ delay: 0.08, duration: 0.3, ease: "backOut" }}
                 onClick={() => setIsOpen(false)}
                 aria-label="Close navigation menu"
-                className="flex size-9 items-center justify-center text-foreground/70 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                className="el-focus-styles flex size-9 items-center justify-center rounded-sm text-foreground/70 transition-colors hover:text-foreground"
               >
                 <X className="size-5" />
               </motion.button>
@@ -161,7 +161,7 @@ const MobileNav = () => {
                         href={item.path}
                         onClick={() => setIsOpen(false)}
                         className={cn(
-                          "group flex w-full items-center justify-between py-[1.1rem] transition-colors duration-200",
+                          "el-focus-styles group flex w-full items-center justify-between rounded-sm py-[1.1rem] transition-colors duration-200",
                           active
                             ? "text-ring"
                             : "text-foreground/50 hover:text-foreground",
@@ -206,7 +206,7 @@ const MobileNav = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex size-9 items-center justify-center rounded-md border border-border/40 text-muted-foreground/60 transition-colors hover:border-ring/40 hover:text-ring"
+                    className="el-focus-styles flex size-9 items-center justify-center rounded-md border border-border/40 text-muted-foreground/60 transition-colors hover:border-ring/40 hover:text-ring"
                   >
                     <Icon className="size-4" />
                   </a>

@@ -19,8 +19,7 @@ import {
 } from "~/constants";
 import type { GalleryApiResponse, GalleryItem } from "~/types/gallery";
 import { toGalleryItem } from "~/types/gallery";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { simpleFetcher as fetcher } from "~/lib/fetcher";
 
 export function GalleryContent() {
   const { data, error, isLoading, mutate } = useSWR<GalleryApiResponse>(

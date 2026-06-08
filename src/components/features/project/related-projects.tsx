@@ -43,7 +43,7 @@ export function RelatedProjects({
           >
             <SmartLink
               href={`/projects/${project.slug}`}
-              className="block w-full h-full"
+              className="block w-full h-full rounded-xl"
             >
               <div className="rounded-xl overflow-hidden border border-border bg-gradient-to-br from-card/50 to-background/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
                 <div className="relative w-full aspect-video overflow-hidden">

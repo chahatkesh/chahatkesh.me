@@ -48,6 +48,7 @@ const clientSchema = z.object({
   NEXT_PUBLIC_CLARITY_PROJECT_ID: z.string().optional(),
   NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional(),
+  NEXT_PUBLIC_RESUME_URL: z.url().optional(),
 });
 
 // ---------------------------------------------------------------------------
@@ -75,6 +76,7 @@ const processEnv = {
   NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION:
     process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  NEXT_PUBLIC_RESUME_URL: process.env.NEXT_PUBLIC_RESUME_URL,
 };
 
 // Merge schemas

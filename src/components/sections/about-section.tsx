@@ -26,7 +26,7 @@ const AboutSection = () => {
             worked at{" "}
             <Link
               href="/about/experience/zenbase-technologies-founding-frontend-engineer"
-              className="text-foreground hover:opacity-80 transition-opacity"
+              className="text-foreground link-inline"
             >
               Zenbase
             </Link>{" "}
@@ -52,16 +52,20 @@ const AboutSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={config.social.twitter}
-              className="text-foreground"
+              className="link-inline text-foreground"
               aria-label="Follow on X"
             >
-              X
+              X (Twitter)
             </a>
+            . You can also check my{" "}
+            <Link href="/resume" className="link-inline text-foreground">
+              Resume
+            </Link>
             . If this sounds interesting,{" "}
             <a
               href={`mailto:${config.social.email}`}
               aria-label="Contact Chahat"
-              className="el-focus-styles text-ring"
+              className="link-inline"
             >
               reach out.
             </a>

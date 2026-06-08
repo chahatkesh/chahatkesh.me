@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import dbConnect from "~/lib/mongodb";
+import dbConnect, { getMongoDBUri } from "~/lib/mongodb";
 import { Visitor } from "~/models/visitor";
 
 // This ensures the route is not statically optimized
@@ -7,8 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    if (!process.env.MONGODB_URI) {
-      console.error("MONGODB_URI environment variable is not defined");
+    if (!getMongoDBUri("visitors GET")) {
       return NextResponse.json(
         { count: 0, error: "Database configuration error" },
         { status: 200 },

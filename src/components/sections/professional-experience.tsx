@@ -45,7 +45,7 @@ const ProfessionalExperience = () => {
         <div className="flex justify-end">
           <Link
             href="/about/experience"
-            className="text-sm text-muted-foreground transition-colors hover:text-ring"
+            className="link-inline text-sm !text-muted-foreground hover:!text-ring"
           >
             View all
           </Link>
@@ -109,7 +109,7 @@ const SingleRole = ({
         <Logo src={group.logo} alt={group.employer} />
         <Link
           href={`/about/experience/${exp.slug}`}
-          className="group flex flex-1 min-w-0 items-start justify-between gap-4"
+          className="el-focus-styles group flex flex-1 min-w-0 items-start justify-between gap-4 rounded-md"
         >
           <div className="min-w-0">
             <h3 className="font-ubuntu text-[15px] font-medium leading-snug text-foreground transition-colors group-hover:text-ring">
@@ -167,7 +167,7 @@ const MultiRole = ({
               <Link
                 key={position.slug}
                 href={`/about/experience/${position.slug}`}
-                className="group flex items-start justify-between gap-4 transition-colors"
+                className="el-focus-styles group flex items-start justify-between gap-4 rounded-md transition-colors"
               >
                 <div className="min-w-0">
                   <p className="text-[13px] font-medium text-foreground/80 transition-colors group-hover:text-ring">

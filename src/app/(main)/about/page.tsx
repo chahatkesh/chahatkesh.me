@@ -17,8 +17,8 @@ import {
 } from "~/components/ui";
 import { type Metadata } from "next";
 import config from "~/config";
-import { API_ROUTES } from "~/constants";
-import { getOgImageUrl } from "~/lib/og";
+import { LinkPreviewImage } from "~/components/features";
+import { getOgImageUrlsForLinks } from "~/lib/og";
 import {
   currentProjects,
   hobbies,
@@ -41,10 +41,9 @@ const AboutPage = async () => {
     (project) => project.showInAbout,
   );
 
-  // Resolve Open Graph preview images for the current-work cards in parallel.
-  const currentProjectPreviews = await Promise.all(
-    visibleProjects.map((project) => getOgImageUrl(project.url)),
-  );
+  // Resolve Open Graph preview images for current-work links in one reusable pass.
+  const currentProjectPreviewsByUrl =
+    await getOgImageUrlsForLinks(visibleProjects);
 
   return (
     <MotionDiv>
@@ -98,18 +97,15 @@ const AboutPage = async () => {
                     day along the way. If you want the full picture, start with
                     my{" "}
                     <Link
-                      href="https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing"
+                      href="/resume"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="el-focus-styles text-ring"
+                      className="link-inline"
                     >
                       Resume
                     </Link>{" "}
                     or explore{" "}
-                    <Link
-                      href="/about/journey"
-                      className="el-focus-styles text-ring"
-                    >
+                    <Link href="/about/journey" className="link-inline">
                       My Storyline
                     </Link>
                     .
@@ -172,7 +168,7 @@ const AboutPage = async () => {
 
               <div className="mt-4 grid gap-6 sm:grid-cols-1">
                 {visibleProjects.map((project, index) => {
-                  const previewImage = currentProjectPreviews[index];
+                  const previewImage = currentProjectPreviewsByUrl[project.url];
 
                   return (
                     <TooltipProvider key={project.title}>
@@ -182,7 +178,7 @@ const AboutPage = async () => {
                             href={project.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group block"
+                            className="el-focus-styles group block rounded-lg"
                           >
                             <div
                               className={cn(
@@ -193,15 +189,12 @@ const AboutPage = async () => {
                               )}
                             >
                               {previewImage && (
-                                <div className="relative aspect-[1200/630] w-full shrink-0 overflow-hidden rounded-md border border-border/60 bg-muted/40 sm:aspect-auto sm:w-52 sm:self-stretch sm:-mb-5 sm:rounded-b-none sm:border-b-0 md:w-56">
-                                  <Image
-                                    src={API_ROUTES.OG_IMAGE(previewImage)}
-                                    alt={`${project.title} preview`}
-                                    fill
-                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                    sizes="(max-width: 640px) 100vw, 224px"
-                                  />
-                                </div>
+                                <LinkPreviewImage
+                                  previewImage={previewImage}
+                                  alt={`${project.title} preview`}
+                                  sizes="(max-width: 640px) 100vw, 224px"
+                                  className="shrink-0 rounded-md border border-border/60 sm:aspect-auto sm:w-52 sm:self-stretch sm:-mb-5 sm:rounded-b-none sm:border-b-0 md:w-56"
+                                />
                               )}
                               <div className="flex-1 sm:py-1">
                                 <h3 className="font-ubuntu text-base font-medium text-foreground mb-3">
@@ -233,7 +226,7 @@ const AboutPage = async () => {
                   href="https://cal.com/chahatkesh/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block"
+                  className="el-focus-styles group block rounded-lg"
                 >
                   <div className="h-full rounded-lg border-2 border-ring/30 bg-ring/5 p-6 transition-all duration-300 hover:border-ring/50 hover:bg-ring/10">
                     <div className="mb-3 flex items-center gap-3">
@@ -253,7 +246,10 @@ const AboutPage = async () => {
                 </Link>
 
                 {/* All Links CTA */}
-                <Link href="/links" className="group block">
+                <Link
+                  href="/links"
+                  className="el-focus-styles group block rounded-lg"
+                >
                   <div className="h-full rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:bg-muted/50 hover:shadow-lg hover:shadow-black/20">
                     <div className="mb-3 flex items-center gap-3">
                       <h3 className="font-ubuntu text-base font-medium text-foreground">
@@ -410,7 +406,7 @@ const AboutPage = async () => {
                           href={v.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group relative flex items-center gap-4 transition-all duration-300 md:flex-col md:items-start md:space-y-3"
+                          className="el-focus-styles group relative flex items-center gap-4 rounded-md transition-all duration-300 md:flex-col md:items-start md:space-y-3"
                         >
                           {inner}
                         </Link>
