@@ -52,11 +52,15 @@ const AboutSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               href={config.social.twitter}
-              className="link-inline"
+              className="link-inline text-foreground"
               aria-label="Follow on X"
             >
-              X
+              X (Twitter)
             </a>
+            . You can also check my{" "}
+            <Link href="/resume" className="link-inline text-foreground">
+              Resume
+            </Link>
             . If this sounds interesting,{" "}
             <a
               href={`mailto:${config.social.email}`}

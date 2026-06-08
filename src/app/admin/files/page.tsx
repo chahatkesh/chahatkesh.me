@@ -14,15 +14,29 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { MotionDiv, Breadcrumb } from "~/components/shared";
+import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
-import { ProtectedRoute } from "~/components/admin/protected-route";
+import {
+  ProtectedRoute,
+  AdminPageHeader,
+  AdminLoadingState,
+  AdminErrorState,
+} from "~/components/admin";
 import { formatRelativeDate } from "~/lib/date-utils";
 import type { SharedFile, SharedFileApiResponse } from "~/types/files";
 import { API_ROUTES } from "~/constants";
+import {
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_UPLOAD_OPTIONS,
+} from "~/constants/cloudinary";
+import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const BREADCRUMBS = [
+  { name: "Admin", url: "/admin" },
+  { name: "Files", url: "/admin/files" },
+];
 
 function formatBytes(bytes: number): string {
   if (!bytes || bytes <= 0) return "—";
@@ -46,14 +60,14 @@ function AdminFilesContent() {
   const [savingRename, setSavingRename] = useState(false);
 
   const handleUploadSuccess = async (result: CloudinaryUploadWidgetResults) => {
-    if (!result.info || typeof result.info === "string") return;
+    const upload = parseCloudinaryUploadResult(result);
+    if (!upload) return;
 
-    const info = result.info;
-    const fileName = info.original_filename
-      ? info.format
-        ? `${info.original_filename}.${info.format}`
-        : info.original_filename
-      : info.public_id;
+    const fileName = upload.originalFilename
+      ? upload.format
+        ? `${upload.originalFilename}.${upload.format}`
+        : upload.originalFilename
+      : upload.publicId;
 
     setUploading(true);
     try {
@@ -62,11 +76,11 @@ function AdminFilesContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fileName,
-          fileUrl: info.secure_url,
-          publicId: info.public_id,
-          format: info.format ?? "",
-          bytes: info.bytes ?? 0,
-          resourceType: info.resource_type ?? "auto",
+          fileUrl: upload.imageUrl,
+          publicId: upload.publicId,
+          format: upload.format ?? "",
+          bytes: upload.bytes ?? 0,
+          resourceType: upload.resourceType ?? "auto",
         }),
       });
 
@@ -163,36 +177,15 @@ function AdminFilesContent() {
   };
 
   if (isLoading) {
-    return (
-      <div className="space-y-8">
-        <Breadcrumb
-          items={[
-            { name: "Admin", url: "/admin" },
-            { name: "Files", url: "/admin/files" },
-          ]}
-        />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
-        </div>
-      </div>
-    );
+    return <AdminLoadingState breadcrumbs={BREADCRUMBS} />;
   }
 
   if (error) {
     return (
-      <div className="space-y-8">
-        <Breadcrumb
-          items={[
-            { name: "Admin", url: "/admin" },
-            { name: "Files", url: "/admin/files" },
-          ]}
-        />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <p className="text-destructive">
-            Error loading files. Please try again.
-          </p>
-        </div>
-      </div>
+      <AdminErrorState
+        breadcrumbs={BREADCRUMBS}
+        errorMessage="Error loading files. Please try again."
+      />
     );
   }
 
@@ -200,27 +193,11 @@ function AdminFilesContent() {
 
   return (
     <div className="space-y-8">
-      <Breadcrumb
-        items={[
-          { name: "Admin", url: "/admin" },
-          { name: "Files", url: "/admin/files" },
-        ]}
+      <AdminPageHeader
+        breadcrumbs={BREADCRUMBS}
+        title="File Sharing"
+        subtitle="Upload files and instantly get a shareable URL you can send to anyone"
       />
-
-      {/* Page Header */}
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }), "text-3xl")}>
-          File Sharing
-        </h1>
-        <p className={cn(typo({ variant: "paragraph" }))}>
-          Upload files and instantly get a shareable URL you can send to anyone
-        </p>
-      </MotionDiv>
 
       {/* Upload Card */}
       <MotionDiv
@@ -238,10 +215,7 @@ function AdminFilesContent() {
           </CardHeader>
           <CardContent>
             <CldUploadWidget
-              uploadPreset={
-                process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ||
-                "portfolio_gallery"
-              }
+              uploadPreset={CLOUDINARY_UPLOAD_PRESET}
               onSuccess={handleUploadSuccess}
               onError={(err) => {
                 console.error("Upload error:", err);
@@ -249,30 +223,7 @@ function AdminFilesContent() {
                   "Failed to upload file. Please check your Cloudinary settings.",
                 );
               }}
-              options={{
-                folder: "portfolio/files",
-                maxFiles: 1,
-                resourceType: "auto",
-                clientAllowedFormats: [
-                  "jpg",
-                  "jpeg",
-                  "png",
-                  "webp",
-                  "gif",
-                  "svg",
-                  "pdf",
-                  "doc",
-                  "docx",
-                  "xls",
-                  "xlsx",
-                  "ppt",
-                  "pptx",
-                  "txt",
-                  "csv",
-                  "zip",
-                ],
-                maxFileSize: 20000000, // 20MB
-              }}
+              options={CLOUDINARY_UPLOAD_OPTIONS.FILES}
             >
               {({ open }) => (
                 <Button

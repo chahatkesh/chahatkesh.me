@@ -11,53 +11,10 @@ import {
   formatOngoingDate,
 } from "~/data/timeline";
 import { TIMELINE_SCROLL_AMOUNT } from "~/constants";
-import {
-  FaExternalLinkAlt,
-  FaCalendarAlt,
-  FaClock,
-  FaMapMarkerAlt,
-  FaGithub,
-  FaGlobe,
-  FaFileAlt,
-  FaCertificate,
-  FaYoutube,
-  FaLinkedin,
-  FaInstagram,
-} from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import { MotionDiv } from "./motion-wrapper";
-import { SiDevpost } from "react-icons/si";
 import { cn } from "~/lib/utils";
-import { BsTwitterX } from "react-icons/bs";
-
-// Helper function to get link icon
-const getLinkIcon = (iconType?: string) => {
-  switch (iconType) {
-    case "github":
-      return <FaGithub size={14} />;
-    case "website":
-    case "demo":
-      return <FaGlobe size={10} />;
-    case "article":
-    case "blog":
-      return <FaFileAlt size={10} />;
-    case "certificate":
-      return <FaCertificate size={10} />;
-    case "youtube":
-      return <FaYoutube size={14} />;
-    case "devfolio":
-      return <SiDevpost size={14} />;
-    case "linkedin":
-      return <FaLinkedin size={14} />;
-    case "instagram":
-      return <FaInstagram size={14} />;
-    case "twitter":
-      return <BsTwitterX size={10} />;
-    case "document":
-      return <FaFileAlt size={10} />;
-    default:
-      return <FaExternalLinkAlt size={10} />;
-  }
-};
+import { getLinkIcon } from "~/lib/link-icons";
 
 type CategoryFilter =
   | "all"

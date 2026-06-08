@@ -6,67 +6,84 @@ import { youtubeVideos } from "~/data/youtube";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.domainName}`;
-  const currentDate = new Date().toISOString();
+
+  // Derive honest "last modified" dates from real content so the signal is
+  // truthful rather than reporting "now" on every build.
+  const latestOf = (dates: string[], fallback: string) =>
+    dates.length
+      ? dates.reduce((a, b) => (new Date(a) > new Date(b) ? a : b))
+      : fallback;
+
+  const siteCreationDate = new Date(config.seo.siteCreationDate).toISOString();
+
+  const projectsLastModified = latestOf(
+    projects.map((p) => p.dateModified || p.datePublished),
+    siteCreationDate,
+  );
+  const videosLastModified = latestOf(
+    youtubeVideos.map((v) => v.publishedAt),
+    siteCreationDate,
+  );
 
   // Static pages with comprehensive metadata
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: currentDate,
+      lastModified: projectsLastModified,
       changeFrequency: "weekly",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/projects`,
-      lastModified: currentDate,
+      lastModified: projectsLastModified,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
       url: `${baseUrl}/about/experience`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.85,
     },
     {
       url: `${baseUrl}/about/journey`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.75,
     },
     {
       url: `${baseUrl}/gallery`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/videos`,
-      lastModified: currentDate,
+      lastModified: videosLastModified,
       changeFrequency: "weekly",
       priority: 0.85,
     },
     {
       url: `${baseUrl}/links`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${baseUrl}/about/journey/btech`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/about/site`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.5,
     },
@@ -75,7 +92,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic project pages
   const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: project.dateModified || project.datePublished,
+    lastModified: new Date(
+      project.dateModified || project.datePublished,
+    ).toISOString(),
     changeFrequency: "monthly" as const,
     priority: project.isFeatured ? 0.8 : 0.6,
   }));
@@ -84,7 +103,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const experiencePages: MetadataRoute.Sitemap = experiences.map(
     (experience) => ({
       url: `${baseUrl}/about/experience/${experience.slug}`,
-      lastModified: currentDate,
+      lastModified: siteCreationDate,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }),

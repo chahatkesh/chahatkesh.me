@@ -23,15 +23,29 @@ import {
   SheetHeader,
   SheetTitle,
 } from "~/components/ui/sheet";
-import { MotionDiv, Breadcrumb } from "~/components/shared";
+import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
-import { ProtectedRoute } from "~/components/admin/protected-route";
+import {
+  ProtectedRoute,
+  AdminPageHeader,
+  AdminLoadingState,
+  AdminErrorState,
+} from "~/components/admin";
 import { formatDate } from "~/lib/date-utils";
 import type { GalleryImage, GalleryApiResponse } from "~/types/gallery";
 import { API_ROUTES } from "~/constants";
+import {
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_UPLOAD_OPTIONS,
+} from "~/constants/cloudinary";
+import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const BREADCRUMBS = [
+  { name: "Admin", url: "/admin" },
+  { name: "Gallery", url: "/admin/gallery" },
+];
 
 function AdminGalleryContent() {
   const { data, error, isLoading } = useSWR<GalleryApiResponse>(
@@ -67,19 +81,13 @@ function AdminGalleryContent() {
   const [uploading, setUploading] = useState(false);
 
   const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
-    if (result.info && typeof result.info !== "string") {
-      setFormData((prev) => ({
-        ...prev,
-        imageUrl:
-          result.info && typeof result.info !== "string"
-            ? result.info.secure_url
-            : "",
-        publicId:
-          result.info && typeof result.info !== "string"
-            ? result.info.public_id
-            : "",
-      }));
-    }
+    const upload = parseCloudinaryUploadResult(result);
+    if (!upload) return;
+    setFormData((prev) => ({
+      ...prev,
+      imageUrl: upload.imageUrl,
+      publicId: upload.publicId,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -199,62 +207,25 @@ function AdminGalleryContent() {
   };
 
   if (isLoading) {
-    return (
-      <div className="space-y-8">
-        <Breadcrumb
-          items={[
-            { name: "Admin", url: "/admin" },
-            { name: "Gallery", url: "/admin/gallery" },
-          ]}
-        />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
-        </div>
-      </div>
-    );
+    return <AdminLoadingState breadcrumbs={BREADCRUMBS} />;
   }
 
   if (error) {
     return (
-      <div className="space-y-8">
-        <Breadcrumb
-          items={[
-            { name: "Admin", url: "/admin" },
-            { name: "Gallery", url: "/admin/gallery" },
-          ]}
-        />
-        <div className="flex items-center justify-center min-h-[400px]">
-          <p className="text-destructive">
-            Error loading gallery. Please try again.
-          </p>
-        </div>
-      </div>
+      <AdminErrorState
+        breadcrumbs={BREADCRUMBS}
+        errorMessage="Error loading gallery. Please try again."
+      />
     );
   }
 
   return (
     <div className="space-y-8">
-      <Breadcrumb
-        items={[
-          { name: "Admin", url: "/admin" },
-          { name: "Gallery", url: "/admin/gallery" },
-        ]}
+      <AdminPageHeader
+        breadcrumbs={BREADCRUMBS}
+        title="Gallery Management"
+        subtitle="Upload, edit, and manage your gallery images"
       />
-
-      {/* Page Header */}
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }), "text-3xl")}>
-          Gallery Management
-        </h1>
-        <p className={cn(typo({ variant: "paragraph" }))}>
-          Upload, edit, and manage your gallery images
-        </p>
-      </MotionDiv>
 
       {/* Upload Form */}
       <MotionDiv
@@ -277,10 +248,7 @@ function AdminGalleryContent() {
                   Image *
                 </Label>
                 <CldUploadWidget
-                  uploadPreset={
-                    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ||
-                    "portfolio_gallery"
-                  }
+                  uploadPreset={CLOUDINARY_UPLOAD_PRESET}
                   onSuccess={handleUploadSuccess}
                   onError={(error) => {
                     console.error("Upload error:", error);
@@ -288,13 +256,7 @@ function AdminGalleryContent() {
                       "Failed to upload image. Please check your Cloudinary settings.",
                     );
                   }}
-                  options={{
-                    folder: "portfolio/gallery",
-                    maxFiles: 1,
-                    resourceType: "image",
-                    clientAllowedFormats: ["jpg", "jpeg", "png", "webp"],
-                    maxFileSize: 10000000, // 10MB
-                  }}
+                  options={CLOUDINARY_UPLOAD_OPTIONS.GALLERY}
                 >
                   {({ open }) => (
                     <div className="space-y-3">
