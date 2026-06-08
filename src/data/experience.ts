@@ -1,5 +1,6 @@
 import { type StaticImageData } from "next/image";
 import { generateExperienceSlug } from "~/lib/utils";
+import { type LinkIconType } from "~/lib/link-icons";
 
 // Import logos
 import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
@@ -24,7 +25,11 @@ export type Experience = {
   contributions?: string[]; // Key contributions/responsibilities
   techStack?: string[]; // Technologies used
   achievements?: string[]; // Measurable achievements
-  links?: { title: string; url: string; icon?: string }[]; // Optional links related to the experience
+  links?: {
+    title: string;
+    url: string;
+    icon?: LinkIconType;
+  }[]; // Optional links related to the experience
   gallery?: (string | StaticImageData)[]; // Image URLs or StaticImageData
 };
 
@@ -62,13 +67,17 @@ export const experiences: Experience[] = [
     ],
     techStack: [
       "Next.js",
-      "React",
+      "React.js",
       "TypeScript",
       "Tailwind CSS",
-      "API Integration",
-      "State Management",
-      "Real-Time UI Systems",
-      "Role-Based Access Interfaces",
+      "Framer Motion",
+      "REST APIs",
+      "Third-Party Integrations",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Redis",
+      "JWT",
+      "GitHub Actions",
     ],
     achievements: [
       "Shipped a production-ready CRM interface for real-estate agents within the first 4 weeks of development",
@@ -81,6 +90,11 @@ export const experiences: Experience[] = [
         title: "Product Overview",
         url: "https://silentninja.tech/",
         icon: "website",
+      },
+      {
+        title: "Zenbase LinkedIn",
+        url: "https://www.linkedin.com/company/zenbase-tech/",
+        icon: "linkedin",
       },
     ],
   },
@@ -109,7 +123,8 @@ export const experiences: Experience[] = [
     techStack: [
       "Artificial Intelligence",
       "Machine Learning",
-      "Full Stack Development",
+      "Python",
+      "Data Modeling",
       "Research & Development",
     ],
     links: [
@@ -117,6 +132,11 @@ export const experiences: Experience[] = [
         title: "Annam.ai Website",
         url: "https://annam.ai/",
         icon: "website",
+      },
+      {
+        title: "Annam.ai LinkedIn",
+        url: "https://www.linkedin.com/company/annam-ai/",
+        icon: "linkedin",
       },
     ],
   },
@@ -155,6 +175,11 @@ export const experiences: Experience[] = [
     ],
     links: [
       { title: "Annam.ai Website", url: "https://annam.ai/", icon: "website" },
+      {
+        title: "Annam.ai LinkedIn",
+        url: "https://www.linkedin.com/company/annam-ai/",
+        icon: "linkedin",
+      },
     ],
   },
   {
@@ -168,10 +193,10 @@ export const experiences: Experience[] = [
     tagline:
       "Built 15+ reusable UI components and integrated 5+ APIs with 30% faster load times.",
     description:
-      "Developed 15+ reusable UI components and integrated 5+ third-party APIs, resulting in 30% faster load times. Revamped onboarding with optimized API flows, reducing user setup time by 20%. Tech stack: Next.js, TypeScript, Tailwind CSS, ShadCN UI, LiveKit, Framer Motion.",
+      "Worked as a Fullstack Developer Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
     logo: LevelSuperMindLogo,
     about:
-      "Level SuperMind is a platform that leverages AI to enhance learning experiences through interactive and personalized content delivery.",
+      "Level SuperMind is a consumer wellness and mindfulness platform that combines neuroscience-backed practices, guided meditation, and AI-powered personalization to help users improve focus, emotional well-being, and daily mental performance through structured digital experiences.",
     contributions: [
       "Developed 15+ reusable UI components for the platform",
       "Integrated 5+ third-party APIs with optimized performance",
@@ -183,15 +208,27 @@ export const experiences: Experience[] = [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "ShadCN UI",
+      "Shadcn UI",
       "LiveKit",
       "Framer Motion",
-      "API Integration",
+      "REST APIs",
     ],
     achievements: [
       "Achieved 30% faster page load times through optimization",
       "Reduced user setup time by 20% with improved onboarding",
       "Built comprehensive reusable component library",
+    ],
+    links: [
+      {
+        title: "Level SuperMind Website",
+        url: "https://level.game/",
+        icon: "website",
+      },
+      {
+        title: "Level SuperMind LinkedIn",
+        url: "https://www.linkedin.com/company/levelsupermind/",
+        icon: "linkedin",
+      },
     ],
   },
   {
@@ -205,17 +242,17 @@ export const experiences: Experience[] = [
     tagline:
       "Building the developer community at NIT Jalandhar through events, workshops, and open-source work.",
     description:
-      "Part of the core team at Google Developer Group on Campus, NIT Jalandhar. Contributing to community building through web development, UI/UX, and organizing tech events on campus.",
+      "Served as a core team member at GDG on Campus NIT Jalandhar, driving community initiatives across web development and UI/UX while supporting large-scale events and technical programs. Contributed to HackMol operations, delivered UI/UX knowledge sessions, and helped strengthen the chapter’s open-source ecosystem by organizing and preserving project codebases across multiple editions.",
     logo: GDGCLogo,
     about:
-      "Google Developers Group on Campus (GDGC) is a global program by Google Developers that empowers university students to build their skills, grow their communities, and make an impact through technology. GDGC NITJ is the official chapter at NIT Jalandhar.",
+      "GDG on Campus NIT Jalandhar (GDGC NITJ) is the official student-led Google Developer Groups chapter at Dr. B. R. Ambedkar National Institute of Technology, Jalandhar. The community brings together developers, designers, and innovators to learn, build, and grow through hands-on workshops, hackathons, study jams, and open-source collaboration. The chapter operates across specialized domains including AI/ML, App Development, Competitive Programming, DevSecOps, UI/UX, Web Development, and Women in Tech—creating an inclusive, developer-first ecosystem for skill-building and real-world impact.",
     contributions: [
       "Volunteered at HackMol 6.0 (April 2025) — supported onsite execution for 400+ participants across North India's largest student hackathon during Utakansh, the techno-cultural fest.",
       "Led HackMol 7.0 as Event Coordinator (March 2026) — managed end-to-end execution including registrations, hackspaces, and ceremonies. Handled 3000+ registrations and 450+ PPTs, shortlisted 60 teams (200+ participants) for the offline round, and worked through 60+ hours of continuous execution.",
       "Spoke at GDGC NITJ Winter Fest (February 5, 2025) — delivered a session on UI/UX fundamentals as a speaker in the UI domain.",
       "Established the GDGC NITJ GitHub organisation, sourced legacy codebases for HackMol 3.0 through 7.0, and deployed all of them to preserve and maintain project history.",
     ],
-    techStack: ["Next.js", "React", "Tailwind CSS", "GitHub"],
+    techStack: ["Next.js", "React.js", "Tailwind CSS", "GitHub"],
     achievements: [
       "Coordinated HackMol 7.0 end-to-end — 3000+ registrations, 450+ PPTs reviewed, 60 teams selected for offline round.",
       "Speaker at GDGC NITJ Winter Fest 2025 in the UI/UX domain.",
@@ -225,7 +262,7 @@ export const experiences: Experience[] = [
       {
         title: "GDGC NITJ GitHub",
         url: "https://github.com/gdgcnitj/",
-        icon: "website",
+        icon: "github",
       },
       { title: "HackMol", url: "https://hackmol.com/", icon: "website" },
     ],
@@ -241,7 +278,7 @@ export const experiences: Experience[] = [
     tagline:
       "Built Certificate Module used by 20+ college clubs for streamlined distribution.",
     description:
-      "Collaborated with a 22-member team to build a Certificate Module for bulk certificate generation and distribution. Designed and shipped a user dashboard, used by 20+ college clubs for streamlined certificate distribution. Tech stack: React.js, Tailwind CSS, Chakra UI, Axios, Framer Motion, html2Canvas.",
+      "Collaborated with a 22-member team to build a Certificate Module for bulk certificate generation and distribution. Designed and shipped a user dashboard, used by 20+ college clubs for streamlined certificate distribution. Tech stack: React.js, Tailwind CSS, Chakra UI, Axios, Framer Motion, HTML5 Canvas.",
     logo: XceedLogo,
     about:
       "Xceed is the official tech club of NIT Jalandhar, focusing on building innovative technical solutions for the campus community.",
@@ -249,7 +286,7 @@ export const experiences: Experience[] = [
       "Collaborated with a 22-member development team",
       "Built Certificate Module for bulk certificate generation",
       "Designed and implemented user dashboard interface",
-      "Integrated html2Canvas for certificate rendering",
+      "Integrated HTML5 Canvas utilities for certificate rendering",
       "Implemented bulk distribution system for certificates",
     ],
     techStack: [
@@ -258,7 +295,7 @@ export const experiences: Experience[] = [
       "Chakra UI",
       "Axios",
       "Framer Motion",
-      "html2Canvas",
+      "HTML5 Canvas",
     ],
     achievements: [
       "Certificate system adopted by 20+ college clubs",
@@ -266,7 +303,11 @@ export const experiences: Experience[] = [
       "Successfully collaborated in large team environment",
     ],
     links: [
-      { title: "Xceed NITJ", url: "https://xceed.co.in/", icon: "website" },
+      {
+        title: "Xceed NITJ",
+        url: "https://xceed.nitj.ac.in/",
+        icon: "website",
+      },
     ],
   },
 ];

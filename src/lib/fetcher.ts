@@ -21,6 +21,13 @@ export async function fetcher<T = unknown>(
 }
 
 /**
+ * Lightweight JSON fetcher for SWR (no timeout / throw-on-error).
+ * Use when callers handle their own error/loading states via SWR.
+ */
+export const simpleFetcher = <T = unknown>(url: string): Promise<T> =>
+  fetch(url).then((res) => res.json());
+
+/**
  * POST fetcher for mutations (e.g., visitor counter increment).
  */
 export async function postFetcher<T = unknown>(url: string): Promise<T> {

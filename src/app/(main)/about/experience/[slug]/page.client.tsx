@@ -9,11 +9,14 @@ import {
   ExperienceCarousel,
   type CarouselItem,
 } from "~/components/features/experience";
+import { TechStackBadges } from "~/components/features/project";
+import { LinkPreviewImage } from "~/components/features";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { type Experience } from "~/data/experience";
 import { API_ROUTES } from "~/constants";
-import { FaExternalLinkAlt, FaGlobe } from "react-icons/fa";
+import { getLinkIcon } from "~/lib/link-icons";
+import { simpleFetcher as fetcher } from "~/lib/fetcher";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -24,18 +27,18 @@ interface ExperienceGalleryApiResponse {
   data: { _id: string; imageUrl: string; caption?: string; order: number }[];
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
 
 interface ExperienceDetailClientProps {
   experience: Experience;
+  relatedLinkPreviews: Record<string, string | null>;
 }
 
 const ExperienceDetailClient = ({
   experience,
+  relatedLinkPreviews,
 }: ExperienceDetailClientProps) => {
   // For multi-role companies (companyId present), use the shared gallery key.
   // For single-role entries, fall back to the experience slug (backward-compatible).
@@ -188,16 +191,7 @@ const ExperienceDetailClient = ({
               <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Technologies Used
               </h2>
-              <div className="flex flex-wrap gap-2">
-                {experience.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="inline-flex items-center px-3 py-1 rounded-full border border-border bg-card/50 text-xs text-foreground/80"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+              <TechStackBadges stacks={experience.techStack} />
             </section>
           )}
 
@@ -227,21 +221,31 @@ const ExperienceDetailClient = ({
               <h2 className="font-ubuntu text-xl font-medium text-foreground">
                 Related Links
               </h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
                 {experience.links.map((link) => (
                   <Link
                     key={link.url}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-border hover:border-muted-foreground/30 bg-card/50 hover:bg-muted/50 rounded-lg transition-colors text-foreground/80 hover:text-foreground"
+                    className="group overflow-hidden rounded-lg border border-border bg-card/50 text-foreground/80 transition-colors hover:border-muted-foreground/30 hover:bg-muted/50 hover:text-foreground"
                   >
-                    {link.icon === "website" ? (
-                      <FaGlobe size={14} />
-                    ) : (
-                      <FaExternalLinkAlt size={12} />
+                    {relatedLinkPreviews[link.url] && (
+                      <LinkPreviewImage
+                        previewImage={relatedLinkPreviews[link.url]!}
+                        alt={`${link.title} preview`}
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="border-b border-border/60"
+                      />
                     )}
-                    <span>{link.title}</span>
+                    <div className="flex items-center gap-2 p-4 text-sm">
+                      {getLinkIcon(link.icon, {
+                        default: 14,
+                        globe: 14,
+                        file: 12,
+                      })}
+                      <span>{link.title}</span>
+                    </div>
                   </Link>
                 ))}
               </div>

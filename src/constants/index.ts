@@ -6,3 +6,4 @@ export * from "./api";
 export * from "./limits";
 export * from "./animation";
 export * from "./theme";
+export * from "./cloudinary";

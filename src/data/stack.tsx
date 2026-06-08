@@ -72,12 +72,15 @@ export const LANGUAGES_TOOLS: stacksProps = {
 
 export const FRONTEND_STACKS: stacksProps = {
   HTML5: { Icon: SiHtml5, className: "text-orange-500" },
+  "HTML5 Canvas": { Icon: SiHtml5, className: "text-orange-500" },
   CSS3: { Icon: SiCss3, className: "text-blue-500" },
+  React: { Icon: SiReact, className: "text-sky-500" },
   "React.js": { Icon: SiReact, className: "text-sky-500" },
   "Next.js": { Icon: SiNextdotjs, className: "text-foreground/70" },
   Vite: { Icon: SiVite, className: "text-purple-500" },
   "Tailwind CSS": { Icon: SiTailwindcss, className: "text-cyan-300" },
   "Chakra UI": { Icon: SiChakraui, className: "text-teal-500" },
+  "ShadCN UI": { Icon: SiShadcnui, className: "text-foreground/90" },
   "Shadcn UI": { Icon: SiShadcnui, className: "text-foreground/90" },
   "Aceternity UI": { Icon: SiFramer, className: "text-purple-400" },
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
@@ -93,12 +96,23 @@ export const FRONTEND_STACKS: stacksProps = {
 };
 
 export const BACKEND_DEVOPS: stacksProps = {
+  "Artificial Intelligence": { Icon: BsRobot, className: "text-rose-500" },
+  "Machine Learning": { Icon: BsRobot, className: "text-pink-500" },
+  "AI Pipelines": { Icon: BsRobot, className: "text-rose-500" },
+  "Classification Algorithms": {
+    Icon: BsRobot,
+    className: "text-fuchsia-500",
+  },
+  "Full Stack Development": { Icon: VscCode, className: "text-blue-500" },
+  "Research & Development": { Icon: VscCode, className: "text-indigo-400" },
+  "Data Modeling": { Icon: DiDatabase, className: "text-blue-400" },
   "Node.js": { Icon: SiNodedotjs, className: "text-green-600" },
   "Express.js": { Icon: SiExpress, className: "text-foreground/70" },
   MongoDB: { Icon: SiMongodb, className: "text-green-500" },
   Mongoose: { Icon: SiMongoose, className: "text-red-500" },
   Cloudinary: { Icon: SiCloudinary, className: "text-blue-500" },
   "REST APIs": { Icon: TbApi, className: "text-blue-400" },
+  "API Integration": { Icon: TbApi, className: "text-blue-400" },
   Axios: { Icon: SiAxios, className: "text-blue-600" },
   PostgreSQL: { Icon: SiPostgresql, className: "text-blue-500" },
   MySQL: { Icon: SiMysql, className: "text-blue-600" },
@@ -116,6 +130,7 @@ export const BACKEND_DEVOPS: stacksProps = {
   JWT: { Icon: SiJsonwebtokens, className: "text-pink-500" },
   "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
   Redis: { Icon: SiRedis, className: "text-red-500" },
+  LiveKit: { Icon: TbApi, className: "text-cyan-400" },
   FastAPI: { Icon: SiFastapi, className: "text-green-500" },
   "AWS Lambda": { Icon: SiAwslambda, className: "text-orange-400" },
   "AWS S3": { Icon: SiAmazons3, className: "text-orange-400" },

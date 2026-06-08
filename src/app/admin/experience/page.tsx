@@ -14,12 +14,17 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { MotionDiv, Breadcrumb } from "~/components/shared";
-import { typo } from "~/components/ui";
+import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { ProtectedRoute } from "~/components/admin/protected-route";
+import { ProtectedRoute, AdminPageHeader } from "~/components/admin";
 import { experiences, type Experience } from "~/data/experience";
 import { API_ROUTES } from "~/constants";
+import {
+  CLOUDINARY_UPLOAD_PRESET,
+  CLOUDINARY_UPLOAD_OPTIONS,
+} from "~/constants/cloudinary";
+import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -63,8 +68,6 @@ interface CompanyGroup {
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 /**
  * Group experiences by employer.
@@ -120,27 +123,14 @@ function AdminExperienceGalleryContent() {
 
   return (
     <div className="space-y-8">
-      <Breadcrumb
-        items={[
+      <AdminPageHeader
+        breadcrumbs={[
           { name: "Admin", url: "/admin" },
           { name: "Experience Gallery", url: "/admin/experience" },
         ]}
+        title="Experience Gallery"
+        subtitle="Upload and manage highlight images per company. Multiple roles at the same company share one gallery."
       />
-
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }), "text-3xl")}>
-          Experience Gallery
-        </h1>
-        <p className={cn(typo({ variant: "paragraph" }))}>
-          Upload and manage highlight images per company. Multiple roles at the
-          same company share one gallery.
-        </p>
-      </MotionDiv>
 
       <MotionDiv
         className="space-y-4"
@@ -334,19 +324,18 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
   const baseId = useId();
 
   const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
-    if (result.info && typeof result.info !== "string") {
-      const info = result.info;
-      setPendingItems((prev) => [
-        ...prev,
-        {
-          clientId: `${baseId}-${Date.now()}-${Math.random()}`,
-          imageUrl: info.secure_url,
-          publicId: info.public_id,
-          caption: "",
-          saving: false,
-        },
-      ]);
-    }
+    const upload = parseCloudinaryUploadResult(result);
+    if (!upload) return;
+    setPendingItems((prev) => [
+      ...prev,
+      {
+        clientId: `${baseId}-${Date.now()}-${Math.random()}`,
+        imageUrl: upload.imageUrl,
+        publicId: upload.publicId,
+        caption: "",
+        saving: false,
+      },
+    ]);
   };
 
   const updateCaption = (clientId: string, caption: string) => {
@@ -429,20 +418,10 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
       </div>
 
       <CldUploadWidget
-        uploadPreset={
-          process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ||
-          "portfolio_gallery"
-        }
+        uploadPreset={CLOUDINARY_UPLOAD_PRESET}
         onSuccess={handleUploadSuccess}
         onError={(error) => console.error("Upload error:", error)}
-        options={{
-          folder: `portfolio/experience/${gallerySlug}`,
-          multiple: true,
-          maxFiles: 20,
-          resourceType: "image",
-          clientAllowedFormats: ["jpg", "jpeg", "png", "webp"],
-          maxFileSize: 10000000,
-        }}
+        options={CLOUDINARY_UPLOAD_OPTIONS.EXPERIENCE(gallerySlug)}
       >
         {({ open }) => (
           <button
