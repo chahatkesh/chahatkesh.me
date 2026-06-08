@@ -16,6 +16,7 @@ import {
   TechStackBadges,
   RelatedProjects,
   ProjectTimeline,
+  ProjectMermaidDiagram,
 } from "~/components/features/project";
 
 type Props = {
@@ -201,6 +202,13 @@ export default async function ProjectPage({ params }: Props) {
             </p>
           </div>
         </MotionDiv>
+
+        {project.mermaidDefinition && (
+          <ProjectMermaidDiagram
+            title={`${project.title} flowchart`}
+            definition={project.mermaidDefinition}
+          />
+        )}
 
         {project.contributors && project.contributors.length > 0 && (
           <MotionDiv

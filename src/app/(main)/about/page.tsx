@@ -5,6 +5,7 @@ import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { ProfessionalExperience } from "~/components/sections";
 import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
+import illustration from "~/assets/images/illustration.png";
 import { Breadcrumb } from "~/components/shared";
 import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
@@ -281,7 +282,15 @@ const AboutPage = async () => {
                 >
                   &ldquo;
                 </span>
-                <div className="relative space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-muted-foreground sm:text-[1.03rem]">
+                {/* Decorative illustration */}
+                <Image
+                  src={illustration}
+                  alt=""
+                  aria-hidden="true"
+                  loading="eager"
+                  className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-auto select-none object-contain sm:block"
+                />
+                <div className="relative z-10 space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-muted-foreground sm:text-[1.03rem]">
                   <p>
                     I build things with care,
                     <br />
