@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import createJiti from "jiti";
 const jiti = createJiti(fileURLToPath(import.meta.url));
+const config = jiti("./src/config.ts").default;
 
 /** @type {import('next').NextConfig} */
 
@@ -41,8 +42,7 @@ const nextConfig = {
     return [
       {
         source: "/resume",
-        destination:
-          "https://drive.google.com/file/d/1V1oHB7fOUaQdKLrHFtQv1ehIoqUkrwYv/view?usp=sharing",
+        destination: config.resumeUrl,
         permanent: true,
       },
       {

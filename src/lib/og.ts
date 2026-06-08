@@ -132,3 +132,25 @@ export async function getOgImageUrl(pageUrl: string): Promise<string | null> {
     return null;
   }
 }
+
+type LinkWithUrl = { url: string };
+
+/**
+ * Resolves OG preview images for any list of links and returns a URL-keyed map.
+ * Duplicate URLs are fetched once, making this efficient for reusable UI blocks.
+ */
+export async function getOgImageUrlsForLinks<T extends LinkWithUrl>(
+  links: T[],
+): Promise<Record<string, string | null>> {
+  const uniqueUrls = Array.from(
+    new Set(
+      links.map((link) => link.url).filter((url) => isPublicHttpUrl(url)),
+    ),
+  );
+
+  const resolved = await Promise.all(
+    uniqueUrls.map(async (url) => [url, await getOgImageUrl(url)] as const),
+  );
+
+  return Object.fromEntries(resolved);
+}
