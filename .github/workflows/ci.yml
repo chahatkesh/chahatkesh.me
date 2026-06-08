@@ -7,7 +7,7 @@
 #   main     push/PR  ->  lint, type-check, build, deploy to Vercel
 #
 # Required GitHub Secrets:
-#   VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+#   VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID, NEXT_PUBLIC_RESUME_URL
 # =============================================================================
 
 name: CI/CD Pipeline
@@ -70,6 +70,7 @@ jobs:
           SKIP_ENV_VALIDATION: true
           MONGODB_URI: mongodb://localhost:27017/dummy
           NEXTAUTH_SECRET: dummy-secret-for-build
+          NEXT_PUBLIC_RESUME_URL: ${{ secrets.NEXT_PUBLIC_RESUME_URL }}
 
       - name: Security audit
         if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
@@ -115,6 +116,7 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          NEXT_PUBLIC_RESUME_URL: ${{ secrets.NEXT_PUBLIC_RESUME_URL }}
 
       - name: Deploy to Vercel Production
         id: deploy

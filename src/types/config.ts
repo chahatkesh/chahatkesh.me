@@ -5,7 +5,7 @@ export interface ConfigProps {
   appDescription: string;
   appDesignation: string;
   domainName: string;
-  resumeUrl?: string;
+  resumeUrl: string;
 
   author: {
     name: string;

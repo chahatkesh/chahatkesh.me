@@ -39,7 +39,12 @@ const nextConfig = {
     ],
   },
   redirects: async () => {
-    const redirects = [
+    return [
+      {
+        source: "/resume",
+        destination: config.resumeUrl,
+        permanent: true,
+      },
       {
         source: "/linkedin",
         destination: "https://www.linkedin.com/in/chahatkesharwani/",
@@ -86,17 +91,6 @@ const nextConfig = {
         permanent: true,
       },
     ];
-
-    const resumeUrl = config.resumeUrl;
-    if (typeof resumeUrl === "string" && resumeUrl.length > 0) {
-      redirects.unshift({
-        source: "/resume",
-        destination: resumeUrl,
-        permanent: true,
-      });
-    }
-
-    return redirects;
   },
 };
 
