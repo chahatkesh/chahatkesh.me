@@ -35,6 +35,7 @@ export interface Project {
   dateStarted: string;
   dateModified: string;
   isFeatured: boolean;
+  mermaidDefinition?: string;
   contributors?: Contributor[];
 }
 
@@ -93,6 +94,24 @@ const projects: Project[] = [
     dateStarted: "2025-03-27",
     dateModified: "2026-05-20",
     isFeatured: false,
+    mermaidDefinition: `flowchart LR
+      visitor(["Visitor"])
+      admin(["Admin"])
+      app["Next.js App Router<br/>(SSR + RSC)"]
+      api["Route Handlers<br/>(REST API)"]
+      auth["JWT Session<br/>(jose + cookie)"]
+      db[("MongoDB<br/>(Mongoose)")]
+      cdn["Cloudinary<br/>(Media)"]
+      ext["GitHub · Spotify<br/>· LeetCode APIs"]
+
+      visitor --> app
+      admin -->|login| auth
+      app --> api
+      api --> auth
+      api --> db
+      api --> cdn
+      api --> ext
+    `,
   },
   {
     id: "project-swasya-ai",
@@ -149,6 +168,25 @@ const projects: Project[] = [
       "Node.js",
       "Vite",
     ],
+    mermaidDefinition: `flowchart LR
+      nurse(["Nurse<br/>(Flutter App)"])
+      doctor(["Doctor<br/>(React Dashboard)"])
+      gw["API Gateway<br/>+ Lambda"]
+      s3[("S3 Buckets<br/>(audio / image)")]
+      scribe["scribe_task<br/>Transcribe → Gemini"]
+      digitize["digitize_task<br/>Textract → Gemini"]
+      db[("DynamoDB<br/>Patients · Notes")]
+
+      nurse -->|presigned upload| s3
+      nurse -->|register| gw
+      gw --> db
+      s3 -->|audio trigger| scribe
+      s3 -->|image trigger| digitize
+      scribe --> db
+      digitize --> db
+      db --> gw
+      gw --> doctor
+    `,
     cover: swasya,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/swasya-ai",
@@ -223,6 +261,20 @@ const projects: Project[] = [
       "Lucide React",
       "Axios",
     ],
+    mermaidDefinition: `flowchart LR
+      visitor(["Visitor"])
+      admin(["Admin"])
+      app["React SPA<br/>(Radix UI)"]
+      api["Express REST API<br/>(users · blogs · events)"]
+      auth["JWT + bcrypt"]
+      db[("MongoDB<br/>(Mongoose)")]
+
+      visitor --> app
+      admin -->|manage content| app
+      app --> api
+      api --> auth
+      api --> db
+    `,
     cover: gwinfra,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/gwinfra",
@@ -281,6 +333,22 @@ const projects: Project[] = [
       "Framer Motion",
       "Lucide React",
     ],
+    mermaidDefinition: `flowchart LR
+      user(["Learner / Admin"])
+      web["React 19 SPA<br/>(Vite + SWR)"]
+      api["Express + TS API<br/>(JWT · RBAC)"]
+      db[("PostgreSQL<br/>via Prisma")]
+      queue[("Redis<br/>Bull Queue")]
+      worker["Email Worker"]
+      ses["AWS SES"]
+
+      user --> web
+      web -->|REST + JWT| api
+      api --> db
+      api -->|enqueue email| queue
+      queue --> worker
+      worker --> ses
+    `,
     cover: openlearn,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/openlearn-frontend",
@@ -322,6 +390,22 @@ const projects: Project[] = [
       "Cross-device synchronization",
     ],
     stacks: ["React.js", "Tailwind CSS", "Node.js", "MongoDB", "Radix UI"],
+    mermaidDefinition: `flowchart LR
+      user(["User"])
+      app["React SPA<br/>(SWR · DnD · Recharts)"]
+      api["Express REST API<br/>(bookmarks · clicks · stats)"]
+      auth["JWT · Google OAuth"]
+      ai["OpenAI<br/>(auto-categorize)"]
+      cron["node-cron<br/>(stats + email)"]
+      db[("MongoDB")]
+
+      user --> app
+      app --> api
+      api --> auth
+      api --> ai
+      api --> db
+      cron --> db
+    `,
     cover: webmark,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/webmark",
@@ -361,6 +445,23 @@ const projects: Project[] = [
       "Vite",
       "CSS3",
     ],
+    mermaidDefinition: `flowchart LR
+      customer(["Customer<br/>(React App)"])
+      admin(["Admin Panel<br/>(React)"])
+      api["Express REST API<br/>(food · cart · order)"]
+      auth["JWT + bcrypt"]
+      uploads["Multer<br/>(food images)"]
+      db[("MongoDB")]
+      stripe["Stripe Checkout"]
+
+      customer -->|browse / order| api
+      admin -->|manage menu| api
+      admin --> uploads
+      api --> auth
+      api --> db
+      api -->|payment| stripe
+      stripe -->|redirect| customer
+    `,
     cover: tomato,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/food-delivery-app",
@@ -402,6 +503,20 @@ const projects: Project[] = [
       "Axios",
       "Cloudinary",
     ],
+    mermaidDefinition: `flowchart LR
+      reader(["Reader"])
+      admin(["Admin"])
+      app["Next.js App Router<br/>(SSR + RSC)"]
+      api["Route Handlers<br/>(/blog · /email)"]
+      cloud["Cloudinary<br/>(blog images)"]
+      db[("MongoDB<br/>Blogs · Subscribers")]
+
+      reader -->|read posts / subscribe| app
+      admin -->|create / delete posts| app
+      app --> api
+      api -->|upload| cloud
+      api --> db
+    `,
     cover: blogger,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/blog-app",
@@ -441,6 +556,24 @@ const projects: Project[] = [
       "Tailwind CSS",
       "Framer Motion",
     ],
+    mermaidDefinition: `flowchart LR
+      user(["User enters<br/>GitHub handle"])
+      app["Next.js App<br/>(React 19)"]
+      ghapi["/api/github<br/>(Edge)"]
+      roast["/api/roast<br/>(Edge)"]
+      gh["GitHub REST API"]
+      ai["OpenAI<br/>(roast generator)"]
+      db[("MongoDB<br/>(visitor analytics)")]
+
+      user --> app
+      app --> ghapi
+      ghapi --> gh
+      app --> roast
+      roast --> ai
+      ai -->|roast card| app
+      app -->|share image| user
+      app --> db
+    `,
     cover: gitroast,
     isRepo: true,
     repoUrl: "https://github.com/chahatkesh/gitroast",
