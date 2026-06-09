@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, real-time Spotify integration, GitHub contributions visualization, and an admin panel for gallery management.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, and an admin panel for gallery and file management.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -12,41 +12,49 @@ This portfolio website serves as a professional showcase for projects, skills, a
 
 ### Core Technologies
 
-- **Framework:** Next.js 16.1.1 (App Router)
-- **Language:** TypeScript 5.9.3
-- **Styling:** Tailwind CSS 3.4.1
-- **Database:** MongoDB (with Mongoose 9.0.2)
-- **Authentication:** JWT (Jose 6.1.3)
-- **Image Management:** Cloudinary, Next-Cloudinary 6.17.5
-- **Animation:** Framer Motion 12.23.26
+- **Framework:** Next.js 16 (App Router)
+- **UI Library:** React 19
+- **Language:** TypeScript 5.9
+- **Styling:** Tailwind CSS 3.4
+- **Database:** MongoDB (with Mongoose 9)
+- **Authentication:** JWT (Jose 6)
+- **Image Management:** Cloudinary, Next-Cloudinary 6
+- **Animation:** Framer Motion 12
 
 ### Key Dependencies
 
 - **UI Components:** Radix UI primitives
-- **Data Fetching:** Axios 1.13.2, SWR 2.3.8, TanStack React Query 5.90.13
+- **Data Fetching:** SWR, TanStack React Query 5
 - **Analytics:** Vercel Analytics, Microsoft Clarity, Google Analytics
-- **Utilities:** Zod 4.2.1, class-variance-authority, clsx, tailwind-merge
+- **Utilities:** Zod 4, class-variance-authority, clsx, tailwind-merge, Lenis, Mermaid
 
 ## Features
 
 ### Public Features
 
 - **Responsive Design:** Mobile-first, fully responsive interface
-- **Project Showcase:** Detailed project pages with metadata, tech stack, and contributions
-- **Professional Experience:** Timeline-based experience display with company details
+- **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
+- **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
 - **Skills Visualization:** Interactive tech stack showcase with categorization
-- **GitHub Integration:** Real-time GitHub contributions calendar
+- **Coding Activity:** Unified GitHub and LeetCode contribution calendars
 - **Spotify Integration:** Live now-playing widget displaying current music
 - **Image Gallery:** Curated photo gallery with optimized image delivery
-- **Contact Form:** Direct communication channel
-- **Blog/Journey Sections:** Personal and professional journey documentation
+- **Videos:** YouTube video catalog with individual video pages
+- **Changelog:** Monthly release notes documenting site updates
+- **Journey:** Personal and professional journey documentation, including BTech course details
+- **About This Site:** Architecture overview, codebase metrics, and tech stack documentation
+- **Links Hub:** Centralized social links page with profile stats
+- **Shared Files:** Public file sharing via short URLs (`/s/[id]`)
+- **Contact:** Email and social links with Spotify widget
 - **SEO Optimization:** Comprehensive meta tags, JSON-LD structured data, sitemap, robots.txt
-- **Performance:** Optimized images, code splitting, lazy loading
+- **Performance:** Optimized images, code splitting, lazy loading, smooth scrolling
 
 ### Admin Features
 
 - **Protected Admin Panel:** JWT-based authentication system
 - **Gallery Management:** Upload, organize, and manage gallery images via Cloudinary
+- **Experience Gallery Management:** Manage images for individual experience entries
+- **File Sharing:** Upload files and generate shareable public URLs
 - **Session Management:** Secure token-based authentication
 - **Admin Creation Script:** CLI tool for creating admin accounts
 
@@ -62,26 +70,31 @@ This portfolio website serves as a professional showcase for projects, skills, a
 ```
 src/
 ├── app/                    # Next.js app router pages
-│   ├── (main)/            # Public pages (home, about, projects, gallery)
-│   ├── admin/             # Protected admin panel
-│   ├── api/               # API routes (auth, gallery, spotify, visitors)
-│   └── links/             # Social links redirect page
+│   ├── (main)/            # Public pages (home, about, projects, gallery, videos, changelog)
+│   ├── admin/             # Protected admin panel (gallery, files, experience)
+│   ├── api/               # API routes (auth, gallery, files, spotify, visitors, coding-activity)
+│   └── links/             # Social links hub page
+├── assets/                # Static image assets
 ├── components/
 │   ├── admin/             # Admin-specific components
 │   ├── analytics/         # Analytics integrations
-│   ├── features/          # Feature components (GitHub, Spotify, etc.)
+│   ├── features/          # Feature components (coding activity, Spotify, gallery, etc.)
 │   ├── layout/            # Layout components (nav, footer)
 │   ├── sections/          # Homepage sections
 │   ├── seo/               # SEO components and JSON-LD
 │   ├── shared/            # Reusable components
 │   └── ui/                # UI components (buttons, cards, inputs)
-├── data/                  # Static data (experience, projects, stack, timeline)
+├── constants/             # App constants (API routes, limits, theme tokens)
+├── data/                  # Static data (projects, experience, changelog, site metadata)
 ├── hooks/                 # Custom React hooks
-├── lib/                   # Utilities (auth, MongoDB, SEO, Spotify, etc.)
-├── models/                # MongoDB models (admin, gallery, visitor)
+├── lib/                   # Utilities (auth, MongoDB, SEO, Spotify, GitHub, LeetCode, etc.)
+├── models/                # MongoDB models (admin, gallery, visitor, experience-gallery, shared-file)
 ├── providers/             # React context providers
 ├── styles/                # Global styles
-└── types/                 # TypeScript type definitions
+├── types/                 # TypeScript type definitions
+└── env.ts                 # Runtime environment variable validation
+
+scripts/                   # Maintenance scripts (see scripts/README.md)
 ```
 
 ## Available Scripts
@@ -96,8 +109,14 @@ pnpm format                 # Format code with Prettier
 pnpm format:check           # Check code formatting
 pnpm validate               # Run all checks (lint, type-check, format)
 pnpm create-admin           # Create admin user via CLI
-pnpm update-project-dates   # Update project modification dates
+pnpm update-project-dates   # Sync project dates from GitHub repos
+pnpm update-metrics         # Update codebase metrics in src/data/site.tsx
+pnpm update-tech-versions   # Sync displayed tech versions from package.json
+pnpm update-youtube         # Fetch YouTube videos (requires YOUTUBE_* env vars)
+pnpm update-all             # Run update-metrics, update-tech-versions, and update-youtube
 ```
+
+See [scripts/README.md](scripts/README.md) for detailed script documentation.
 
 ## Configuration
 
@@ -111,12 +130,20 @@ Edit `src/config.ts` to customize site metadata:
 - Theme colors
 - Location data
 
+Environment variables are validated at runtime via `src/env.ts`. Copy `.env.example` to `.env.local` and fill in required values before running locally.
+
 ### Content Management
 
 - **Projects:** Edit `src/data/projects.ts`
 - **Experience:** Edit `src/data/experience.ts`
 - **Skills/Stack:** Edit `src/data/stack.tsx`
 - **Timeline:** Edit `src/data/timeline.ts`
+- **About:** Edit `src/data/about.ts`
+- **Links:** Edit `src/data/links.ts`
+- **YouTube Videos:** Edit `src/data/youtube.ts` or run `pnpm update-youtube`
+- **Changelog:** Edit `src/data/changelog.ts`
+- **BTech Courses:** Edit `src/data/btech-courses.ts`
+- **Site Metadata:** Edit `src/data/site.tsx` (metrics updated via `pnpm update-metrics`)
 
 ## Performance Optimization
 
@@ -126,6 +153,7 @@ Edit `src/config.ts` to customize site metadata:
 - Optimized font loading
 - CDN-based image delivery via Cloudinary
 - Minimal bundle size with tree shaking
+- Smooth scrolling via Lenis
 
 ## SEO Features
 
@@ -137,15 +165,15 @@ Edit `src/config.ts` to customize site metadata:
 - Robots.txt configuration
 - Canonical URLs
 - Breadcrumb navigation
+- Per-route Open Graph image generation
 
 ## Security
 
 - JWT-based authentication
 - HTTP-only cookies for session management
-- Environment variable protection
+- Environment variable protection and runtime validation
 - Input validation with Zod
 - CORS configuration
-- Rate limiting considerations
 
 ## Browser Support
 
