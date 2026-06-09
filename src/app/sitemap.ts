@@ -3,6 +3,7 @@ import config from "~/config";
 import { projects } from "~/data/projects";
 import { experiences } from "~/data/experience";
 import { youtubeVideos } from "~/data/youtube";
+import { monthlyChangelog } from "~/data/changelog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.domainName}`;
@@ -22,6 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const videosLastModified = latestOf(
     youtubeVideos.map((v) => v.publishedAt),
+    siteCreationDate,
+  );
+  const changelogLastModified = latestOf(
+    monthlyChangelog.map((entry) => `${entry.month}-01`),
     siteCreationDate,
   );
 
@@ -68,6 +73,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: videosLastModified,
       changeFrequency: "weekly",
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/changelog`,
+      lastModified: changelogLastModified,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/links`,
