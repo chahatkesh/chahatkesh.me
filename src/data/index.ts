@@ -51,8 +51,15 @@ export {
   btechCourses,
   getTotalCredits,
   getTotalCourses,
+  getUniqueProfessors,
 } from "./btech-courses";
-export type { Course, Semester, SyllabusUnit } from "./btech-courses";
+export type {
+  Course,
+  Semester,
+  SyllabusUnit,
+  ProfessorInfo,
+  ProfessorCourse,
+} from "./btech-courses";
 
 // YouTube videos data
 export { youtubeVideos } from "./youtube";

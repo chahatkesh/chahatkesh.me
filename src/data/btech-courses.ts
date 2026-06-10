@@ -902,11 +902,28 @@ export const btechCourses: Semester[] = [
         ],
       },
       {
-        code: "PDFE0207",
+        code: "PDFE0212",
         name: "Value Education and Professional Ethics",
         professor: "Dr. Amit Dhruv Saran",
         credits: 1,
         type: "Elective",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Human Values: Morals, values and Ethics, Integrity, Work ethic, Service learning, Civic virtue, Respect for others, Living peacefully, Honesty, Courage, Valuing time, Cooperation, Commitment, Empathy, Self-confidence, Character, Spirituality, Introduction to Yoga and meditation for professional excellence and stress management.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Understanding Harmony in Nature; Coexistence: Interconnectedness and mutual fulfillment among the four orders of nature- recyclability and self-regulation in nature, Holistic perception of harmony at all levels of existence.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Professional ethics: Senses of Engineering Ethics, Variety of moral issues, Types of inquiry, Moral dilemmas, Moral Autonomy, Models of professional roles, Theories about right action, Self-interest, Environmental Ethics, Moral Leadership, Code of Conduct, Corporate Social Responsibility.",
+          },
+        ],
       },
       {
         code: "ICDC0232",
@@ -1150,7 +1167,7 @@ export const btechCourses: Semester[] = [
       {
         code: "ICTR0300",
         name: "Industrial Practical Training",
-        professor: "Internship",
+        professor: "Dr. Rajesh Singla",
         credits: 2,
         type: "Project",
       },
@@ -1158,6 +1175,331 @@ export const btechCourses: Semester[] = [
         code: "ICPR0301",
         name: "Minor Project (Phase-I)",
         professor: "Dr. Karan Veer",
+        credits: 2,
+        type: "Project",
+      },
+    ],
+  },
+  {
+    id: "sem-6",
+    number: 6,
+    academicYear: "2025-26",
+    courses: [
+      {
+        code: "ICDC0302",
+        name: "Process Automation and Robotics",
+        professor: "Dr. Kuldeep Singh Nagla",
+        credits: 3,
+        type: "Theory",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Industrial Process Automation: Introduction to automation in Production System, types of production system, Principles and Strategies of Automation, Basic Elements of an Automated System, Advanced Automation Functions, Levels of Automations, Automated Flow Lines with Storage Buffers, Automation for Material Handling, Conveyor Systems, Automated Guided Vehicle Systems, Automated Storage/Retrieval Systems, Flexible Manufacturing Systems, transfer lines, automatic inspection, Computer Integrated Manufacture, CNC machines and Industrial networking.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Process Control Strategies: Introduction and Automatic Process Control, overview of SCADA System & RTU for automation, PLC and its applications for automation, process control and automation.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Fundamentals of Robotics: Introduction to industrial robots, classification of Robots, History, Advantages and Disadvantages, components, degree of freedom, joints and coordinates, workspace, Industrial applications of robots, Introduction to basic control strategies of the manipulator. Overview mobile robot, Introduction to Forward and inverse kinematics of robots, short overview on dynamic analysis of the manipulator, feedback control of robotic arm.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Robot Actuators and Sensors: Characteristics of actuating system, Comparison of actuating systems, Details of Hydraulic Actuators, Pneumatic Actuators, Electric Actuators. Introduction to various sensors used for mobile robots and industrial manipulators, Range sensors for AGV and mobile robots.",
+          },
+        ],
+      },
+      {
+        code: "ICDC0304",
+        name: "Data Acquisition and Telemetry",
+        professor: "Dr. Karan Jain",
+        credits: 3,
+        type: "Theory",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Data Acquisition System: Definition and generalized block diagram of data acquisition system (DAQ). Classification of DAQs, working principle, block diagram, construction, and salient features of the following: Analog data acquisition system using time division multiplexing, Analog data acquisition system using frequency division multiplexing, Digital data acquisition system with different configurations, Data loggers.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Analog Communication Techniques: Analog communication techniques: analog modulation of AC carrier. Amplitude modulation and frequency spectrum of AM wave. Frequency modulation and frequency spectrum of FM wave. Phase modulation and frequency spectrum of PM wave.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Digital Communication Techniques: Introduction to digital communication techniques. Amplitude Shift Keying (ASK), Frequency Shift Keying (FSK), Phase Shift Keying (PSK). Various types of PSK configurations. Introduction to digital transmission and pulse modulation. Pulse Code Modulation (PCM), PCM sampling and coding.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Telemetry: Introduction, signal formation, conversion and transmission. General block diagram of telemetry system. Classification of telemetry systems. Signal transmission media: wires and cables, satellite communication, optical fiber communication. Voltage and current telemetry system, pneumatic telemetry system. Overview of industrial telemetry.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Display Devices and Recorders: Seven Segment Display, LCD, LED, OLED, Dot Matrix Display, Touch screen display, smart display systems. Recorders: strip chart, X-Y recorders, X-T, magnetic recorders. Digital recorders.",
+          },
+        ],
+      },
+      {
+        code: "ICDC0306",
+        name: "PLC, DCS & SCADA",
+        professor: "Dr. Rajesh Singla",
+        credits: 3,
+        type: "Theory",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "PLC Fundamentals: Introduction to PLC hardware components and architecture. Understanding PLC programming languages (Ladder Logic, Function Block Diagram, Structured Text). Basic programming concepts (Boolean logic, timers, counters). Hands-on exercises: Writing and testing simple PLC programs.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Advanced PLC Programming: Advanced programming concepts (data manipulation, comparison instructions, mathematical functions). Use of advanced instructions (shift registers, sequencers, PID control). Developing complex control algorithms using PLC programming languages. Integration of PLCs with sensors, actuators, and other devices.",
+          },
+          {
+            unit: 3,
+            topics:
+              "DCS Fundamentals: Introduction to DCS architecture and components. DCS software and its role in process control. Configuration and setup of DCS systems for various industrial processes. Real-time monitoring and control of distributed processes.",
+          },
+          {
+            unit: 4,
+            topics:
+              "SCADA Fundamentals: Introduction to SCADA systems and their components. SCADA software architecture and features. Configuration and setup of SCADA projects. Real-time data acquisition and visualization.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Integration of PLCs with DCS and SCADA: Communication between PLCs and DCS systems. Communication between PLCs and SCADA systems. Configuration of communication protocols (Modbus, OPC, etc.). Data exchange between PLCs and DCS/SCADA for real-time monitoring and control. Hands-on exercises: Integrating PLCs with DCS/SCADA systems and testing communication.",
+          },
+          {
+            unit: 6,
+            topics:
+              "Advanced Control Strategies: Introduction to advanced control strategies (advanced PID control, model predictive control). Implementation of advanced control algorithms in PLCs and DCS systems. Optimization of control loops for improved process performance. Hands-on exercises: Implementing advanced control strategies in a simulation environment.",
+          },
+        ],
+      },
+      {
+        code: "ICDC0308",
+        name: "Virtual Instrumentation System",
+        professor: "Dr. Roop Ahuja",
+        credits: 2,
+        type: "Theory",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Introduction: Historical perspective, definition, comparison between hardware-based and software-based instrumentation systems. VI system architecture, h/w-s/w components. VI programming environment: Overview of LabVIEW (Laboratory Virtual Instrumentation Engineering Workbench). Design methodology: concept of block diagram code and GUI, salient features, data flow execution model, datatypes, application areas.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Basics of Data flow programming: VI program: structure, BD and FP, datatypes, control, indicators, palettes. Functions: arithmetic, comparators Boolean operators, random number generator, string, arrays, cluster, bundle. Loops and structures: Repetitive, conditional loops, shift register, single/multi-case structures, cascading of loops. State-machine model using structures, debugging tools.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Advanced programming methods: Sequence structures, formula nodes: file input-output functions. Visualization methods: tables, arrays, waveform charts, graphs, single and multi-plots, bar-graphs, scatter plots, X-Y waveform, 3D intensity graphs, attributes configuration, time stamping. Data connectivity among VIs: local variables, global variables, property nodes, VI server, web-enabled VI.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Waveform generation, analysis and processing: Generation of standard waveforms, sampling information, noise models, signals mixing, virtual function generator, CRO emulation, lissajous pattern generation. Waveform analysis: statistical, time-domain, frequency-domain. Waveform processing: signal FFT, frequency spectra, power spectrum, windowing, digital filters, moving averaging filter.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Data Acquisition hardware and software: Schematics of general purpose PC-based data acquisition device, important DAQ components and specifications, DAQ classification. Study of typical DAQ devices/embedded controller (NI third party devices). DAQ device and instrument interfacing: signal types; analog/digital input/output, digital buses, sensors, actuators, drivers. DAQ programming: driver layers APIs, express VIs, software configuration. Methods: single/multi-channel read/write analog/digital operations, digital buses timing and data synchronization, Serial VISA methods for data communication.",
+          },
+          {
+            unit: 6,
+            topics:
+              "Applications and case studies: Sensor data monitoring processing and logging (simulation), state-machine models, simulation of device characteristics or system models. Implementing filter algorithm and analysis, use of software controllers and simulation, spectrum analysis and interpretation. Real-time case studies: VI system for room temperature monitoring, logging and control, RS-485 industrial network applications.",
+          },
+        ],
+      },
+      {
+        code: "ICDC0310",
+        name: "Biomedical Instrumentation",
+        professor: "Dr. Richa Sharma",
+        credits: 3,
+        type: "Theory",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Overview of Biomedical Measurements: Introduction, Classification of Medical Devices, Systems Approach, Origins of Biopotentials, Physiological Signals, Constraints in Biomedical Signal Measurements, Functional Building Blocks of Medical Instrumentation.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Biopotential Electrodes and Signal Acquisition: Types of electrodes - surface, needle and micro electrodes. Biosignals characteristics – frequency and amplitude ranges. ECG – Einthoven's triangle, standard 12 lead system. EEG – 10/20 electrode system.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Bio-Amplifier and Electrical Safety: Instrumentation Amplifiers, Differential and Common Mode Signals, Noise in Biopotential Signal Measurements, Interference from External Electrical Field, Interference from External Magnetic Field, Conductive Interference. Electrical Shock Hazards, Macroshock and Microshock, Prevention of Electrical Safety Hazards, Grounded and Isolated Power Systems, Signal Isolation, Other Methods to Reduce Electrical Hazard, Measurement of Leakage Current.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Measurement of Non-Electrical Parameter: Temperature, respiration rate and pulse rate measurements, Blood Pressure Measurement, Electromagnetic and ultrasound blood flow measurement.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Therapeutic Devices: Cardiac Pacemakers, Functional Building Blocks of an Implantable Pacemaker. Principles of Defibrillation, Defibrillation Waveforms, Functional Building Blocks of Defibrillators, Infant Incubators, Warmers, and Phototherapy Lights, Pulse Oximetry and End-Tidal Carbon Dioxide Monitors.",
+          },
+        ],
+      },
+      {
+        code: "ICDE0401",
+        name: "Advanced Process Control",
+        professor: "Dr. Karan Veer",
+        credits: 3,
+        type: "Elective",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Introduction: Review and limitations of Single-Loop Control, need for Multiloop Systems.",
+          },
+          {
+            unit: 2,
+            topics:
+              "P&I diagram: Standard Instrumentation symbols for Devices, Signal types, Representation and reading of Instrumentation Scheme using PI diagrams, Area Drawings.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Advanced Process Control Techniques: Concept of Multiloop Process Control, Design, applications and tuning of Cascade Controllers (Series and Parallel), Selective, override and limit Controls, Model free adaptive control, Model Predictive Control, Design of feedforward control, Time delay and time lag Compensation, Proxy variable Control, Statistical Process Control, Inverse response control.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Design of control system for multivariable process: Multivariable control system, Interaction in multiple loops, RGA method for minimizing interactions e.g. distillation column, absorbers, Heat Exchangers, Furnaces and Reactors, Decoupling of loops.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Industrial Safety Engineering Principles: Principles of Engineering Controls (e.g., hierarchy of controls), Designing for safety, Safety instrumented systems (SIS) and Safety Integrity levels (SIL).",
+          },
+          {
+            unit: 6,
+            topics:
+              "Case Studies in Process Control: Ammonia Plant Control, Control aspects of Fertilizer Unit and Process Control in Cement industry etc.",
+          },
+        ],
+      },
+      {
+        code: "ICDC0332",
+        name: "Process Automation and Robotics Laboratory",
+        professor: "Dr. Mahendra Kumar",
+        credits: 1,
+        type: "Lab",
+      },
+      {
+        code: "ICDC0336",
+        name: "PLC, DCS & SCADA Laboratory",
+        professor: "Dr. Rajesh Singla",
+        credits: 1,
+        type: "Lab",
+      },
+      {
+        code: "ICDC0338",
+        name: "Virtual Instrumentation System Laboratory",
+        professor: "Dr. Richa Sharma",
+        credits: 1,
+        type: "Lab",
+      },
+      {
+        code: "ICDC0340",
+        name: "Biomedical Instrumentation Laboratory",
+        professor: "Dr. Karan Veer",
+        credits: 1,
+        type: "Lab",
+      },
+      {
+        code: "ICPR0302",
+        name: "Minor Project (Phase-II)",
+        professor: "Dr. Karan Veer",
+        credits: 2,
+        type: "Project",
+      },
+    ],
+  },
+  {
+    id: "sem-7",
+    number: 7,
+    academicYear: "2026-27",
+    courses: [
+      {
+        code: "ICMI0411",
+        name: "IPR and Biomedical Ethics",
+        professor: "Dr. Karan Veer",
+        credits: 3,
+        type: "Elective",
+        syllabus: [
+          {
+            unit: 1,
+            topics:
+              "Introduction to intellectual property: Patents and patent rights. Types of patent. Methodology of patenting. Protecting intellectual property by filing a patent. Patent infringement and freedom to operate. Trademarks. Copyrights, Copyright Act 1957.",
+          },
+          {
+            unit: 2,
+            topics:
+              "Intellectual property commercialization and technology transfer: Licensing. Biomedical business models and IP management strategies. International convention related to Intellectual Property, Establishment of WIPO, Mission and Activities. Indian Position Vs WTO and Strategies, Indian IPR legislations, commitments to WTO-Patent Ordinance and the Bill, Draft of a national Intellectual Property Policy.",
+          },
+          {
+            unit: 3,
+            topics:
+              "Engineering Bioethics and Morality: Technology, Engineering, and Economics. Engineering Competence. Engineering: Integrated and Specialized. Systematics: Incorporating Ethics into the Design Process. Major Bioethical Areas. Human Enhancement. Organ Transplantation. Responsible Conduct of Human Research. Animal Testing. Genetically Modified Organisms. Environmental Health: The Ethics of Scale and the Scale of Ethics. Temporal Aspects of Bioethical Decisions.",
+          },
+          {
+            unit: 4,
+            topics:
+              "Professional Zeitgeist: Opinion and thought of Engineers, Improvement versus Enhancement. Moral Coherence, Creativity and Bioethics. The Ethical Quandary of Enhancement, Scientific Dissent. Codes of Ethics.",
+          },
+          {
+            unit: 5,
+            topics:
+              "Making Ethical Decisions in Engineering: Bioethical Research and Technological Development. Bioethical Success and Failure. Justice and Fairness as Biomedical and Biosystem Engineering Concepts. Sustainable Bioethics. Engineering Wisdom. Practical Bioethics.",
+          },
+        ],
+      },
+      {
+        code: "ONGE0001",
+        name: "Introduction to Cybersecurity Cysbersecurity Essentials",
+        professor: "Nasscom",
+        credits: 3,
+        type: "Elective",
+      },
+      {
+        code: "ONGE0002",
+        name: "Acquiring Data Exploratory Data Analysis Data Processing and Visualisation",
+        professor: "Nasscom",
+        credits: 3,
+        type: "Elective",
+      },
+      {
+        code: "ICTR0400",
+        name: "Industrial Practical Training",
+        professor: "",
+        credits: 2,
+        type: "Project",
+      },
+      {
+        code: "ICPR0401",
+        name: "Major Project (Phase-II)",
+        professor: "Dr. Om Prakash Verma",
         credits: 2,
         type: "Project",
       },
@@ -1184,4 +1526,55 @@ export const getTotalCourses = () => {
     (total, semester) => total + semester.courses.length,
     0,
   );
+};
+
+// Helper function to get unique professors with the courses they taught
+export interface ProfessorCourse {
+  code: string;
+  name: string;
+  type: Course["type"];
+  credits: number;
+  semester: number;
+}
+
+export interface ProfessorInfo {
+  name: string;
+  courseCount: number;
+  courses: ProfessorCourse[];
+}
+
+const getProfessorSortName = (name: string): string =>
+  name.replace(/^(Dr\.|Er\.)\s+/i, "").trim();
+
+export const getUniqueProfessors = (): ProfessorInfo[] => {
+  const professorMap = new Map<string, ProfessorCourse[]>();
+
+  btechCourses.forEach((semester) => {
+    semester.courses.forEach((course) => {
+      const entry = professorMap.get(course.professor) ?? [];
+      entry.push({
+        code: course.code,
+        name: course.name,
+        type: course.type,
+        credits: course.credits,
+        semester: semester.number,
+      });
+      professorMap.set(course.professor, entry);
+    });
+  });
+
+  return Array.from(professorMap.entries())
+    .map(([name, courses]) => ({
+      name,
+      courseCount: courses.length,
+      courses: courses.sort((a, b) => a.semester - b.semester),
+    }))
+    .sort((a, b) => {
+      if (b.courseCount !== a.courseCount) {
+        return b.courseCount - a.courseCount;
+      }
+      return getProfessorSortName(a.name).localeCompare(
+        getProfessorSortName(b.name),
+      );
+    });
 };

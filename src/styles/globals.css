@@ -82,6 +82,32 @@
     display: none;
   }
 
+  @media (pointer: fine) {
+    .scrollbar-minimal {
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+      scrollbar-width: thin;
+    }
+
+    .scrollbar-minimal::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    .scrollbar-minimal::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+
+    .scrollbar-minimal::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border: 3px solid var(--scrollbar-track);
+      border-radius: 999px;
+    }
+
+    .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+      background-color: var(--scrollbar-thumb-hover);
+    }
+  }
+
   /* Activity calendar: hide inner horizontal scrollbar on mobile while keeping touch scroll */
   .coding-activity-calendar .react-activity-calendar__scroll-container {
     -ms-overflow-style: none;
@@ -118,7 +144,7 @@
     will-change: transform;
   }
 
-  /* Smooth scroll container */
+  /* Smooth scroll container with portfolio scrollbar styling */
   .smooth-scroll {
     overflow-y: auto;
     overflow-x: hidden;
