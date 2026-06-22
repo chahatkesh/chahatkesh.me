@@ -13,8 +13,10 @@ import config from "~/config";
 import { HomeJsonLd } from "~/components/seo";
 import { MAX_FEATURED_PROJECTS } from "~/constants";
 
+// Intentionally no `title` here: the homepage should carry the brand/default
+// title ("Chahat Kesharwani - Engineer · Builder · Explorer") rather than a
+// generic "Home | ..." prefix. Canonical falls through to the root URL.
 export const metadata: Metadata = getSEOTags({
-  title: "Home",
   description: `${config.appName} - ${config.appDesignation}. Explore my portfolio featuring projects, skills, and professional experience.`,
   openGraph: {
     title: `${config.appName} - ${config.appDesignation}`,

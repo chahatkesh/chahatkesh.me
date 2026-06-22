@@ -66,11 +66,17 @@ export { youtubeVideos } from "./youtube";
 export type { YouTubeVideo } from "./youtube";
 
 // Changelog data
-export { monthlyChangelog, changelogStats } from "./changelog";
+export {
+  monthlyChangelog,
+  changelogStats,
+  getChangelogEntry,
+  getAdjacentChangelog,
+} from "./changelog";
 export type {
   MonthlyChangelog,
   ChangelogChange,
   ChangelogChangeType,
+  ChangelogStats,
 } from "./changelog";
 
 // Site metadata & tech data

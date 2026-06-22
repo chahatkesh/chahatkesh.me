@@ -1,7 +1,13 @@
 import { type ReactNode } from "react";
+import { type Metadata } from "next";
 import Footer from "~/components/layout/footer";
 import Navbar from "~/components/layout/nav";
 import { SkipContent } from "~/components/ui";
+
+// Keep the entire admin area out of search indexes regardless of robots.txt.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false, nocache: true },
+};
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (

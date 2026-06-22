@@ -1,4 +1,3 @@
-import Script from "next/script";
 import config from "~/config";
 
 interface ProjectJsonLdProps {
@@ -25,10 +24,8 @@ export function ProjectJsonLd({
   const projectUrl = `https://${config.domainName}/projects/${slug}`;
 
   return (
-    <Script
-      id={`project-jsonld-${slug}`}
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",

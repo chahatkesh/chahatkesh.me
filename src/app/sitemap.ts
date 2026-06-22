@@ -17,23 +17,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const siteCreationDate = new Date(config.seo.siteCreationDate).toISOString();
 
-  const projectsLastModified = latestOf(
-    projects.map((p) => p.dateModified || p.datePublished),
-    siteCreationDate,
-  );
-  const videosLastModified = latestOf(
-    youtubeVideos.map((v) => v.publishedAt),
-    siteCreationDate,
-  );
-  const changelogLastModified = latestOf(
-    monthlyChangelog.map((entry) => `${entry.month}-01`),
-    siteCreationDate,
-  );
+  // Normalize every "last modified" to a full ISO timestamp so the sitemap
+  // emits a single, consistent date format across hub and detail pages.
+  const projectsLastModified = new Date(
+    latestOf(
+      projects.map((p) => p.dateModified || p.datePublished),
+      siteCreationDate,
+    ),
+  ).toISOString();
+  const videosLastModified = new Date(
+    latestOf(
+      youtubeVideos.map((v) => v.publishedAt),
+      siteCreationDate,
+    ),
+  ).toISOString();
+  const changelogLastModified = new Date(
+    latestOf(
+      monthlyChangelog.map((entry) => `${entry.month}-01`),
+      siteCreationDate,
+    ),
+  ).toISOString();
 
   // Static pages with comprehensive metadata
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      // Trailing slash to exactly match the homepage canonical / JSON-LD URL.
+      url: `${baseUrl}/`,
       lastModified: projectsLastModified,
       changeFrequency: "weekly",
       priority: 1.0,
@@ -123,10 +132,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic video pages
   const videoPages: MetadataRoute.Sitemap = youtubeVideos.map((video) => ({
     url: `${baseUrl}/videos/${video.slug}`,
-    lastModified: video.publishedAt,
+    lastModified: new Date(video.publishedAt).toISOString(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  return [...staticPages, ...projectPages, ...experiencePages, ...videoPages];
+  // Dynamic changelog month pages
+  const changelogPages: MetadataRoute.Sitemap = monthlyChangelog.map(
+    (entry) => ({
+      url: `${baseUrl}/changelog/${entry.month}`,
+      lastModified: new Date(`${entry.month}-01`).toISOString(),
+      changeFrequency: "yearly" as const,
+      priority: 0.4,
+    }),
+  );
+
+  return [
+    ...staticPages,
+    ...projectPages,
+    ...experiencePages,
+    ...videoPages,
+    ...changelogPages,
+  ];
 }

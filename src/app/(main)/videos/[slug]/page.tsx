@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 import { youtubeVideos } from "~/data/youtube";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -66,10 +65,8 @@ export async function generateStaticParams() {
 
 function VideoJsonLd({ video }: { video: (typeof youtubeVideos)[number] }) {
   return (
-    <Script
-      id={`video-jsonld-${video.id}`}
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",

@@ -5,6 +5,22 @@ import type {
 } from "./types";
 import { LAST_YEAR } from "./types";
 
+const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const EMPTY_DATE_SET: ReadonlySet<string> = new Set<string>();
+
+/** Parses a comma-separated list of `YYYY-MM-DD` dates into a set. */
+export function parseIsoDateList(value?: string): Set<string> {
+  if (!value) return new Set();
+  const dates = new Set<string>();
+  for (const part of value.split(",")) {
+    const date = part.trim();
+    if (ISO_DATE_PATTERN.test(date)) {
+      dates.add(date);
+    }
+  }
+  return dates;
+}
+
 /** Parses a `YYYY-MM-DD` string into a local Date (matches the calendar lib). */
 export function parseIsoDate(iso: string): Date {
   const [year, month, day] = iso.split("-").map(Number);
@@ -50,6 +66,7 @@ export function getWeekIndexForDate(startIso: string, dateIso: string): number {
 export function buildActivityView(
   data: CodingActivityData,
   range: ActivityRange,
+  zeroContributionDates: ReadonlySet<string> = EMPTY_DATE_SET,
 ): CodingActivityView {
   let startIso: string;
   let endIso: string;
@@ -79,10 +96,14 @@ export function buildActivityView(
   const end = parseIsoDate(endIso);
   while (cursor <= end) {
     const date = formatIsoDate(cursor);
-    const github = data.githubCountByDate[date] ?? 0;
-    const leetcode = data.leetcodeCountByDate[date] ?? 0;
-    githubTotal += github;
-    leetcodeTotal += leetcode;
+    const rawGithub = data.githubCountByDate[date] ?? 0;
+    const rawLeetcode = data.leetcodeCountByDate[date] ?? 0;
+    githubTotal += rawGithub;
+    leetcodeTotal += rawLeetcode;
+
+    const isForcedZero = zeroContributionDates.has(date);
+    const github = isForcedZero ? 0 : rawGithub;
+    const leetcode = isForcedZero ? 0 : rawLeetcode;
     busiestDayCount = Math.max(busiestDayCount, github + leetcode);
     githubBusiest = Math.max(githubBusiest, github);
     leetcodeBusiest = Math.max(leetcodeBusiest, leetcode);

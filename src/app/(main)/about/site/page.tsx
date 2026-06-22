@@ -123,11 +123,14 @@ const SitePage = async () => {
                     of code.
                   </p>
                 </div>
-                {/* Version Badge */}
-                <div className="flex-shrink-0 rounded-lg border border-border bg-card/50 px-4 py-2">
-                  <div className="font-mono text-sm text-muted-foreground">
-                    v4.0
-                  </div>
+                {/* Header Action */}
+                <div className="flex-shrink-0">
+                  <Link
+                    href="/changelog"
+                    className="inline-flex items-center rounded-lg border border-border bg-card/50 px-4 py-2 font-mono text-sm text-muted-foreground transition-colors hover:border-ring/40 hover:text-ring"
+                  >
+                    Changelog
+                  </Link>
                 </div>
               </div>
             </MotionDiv>
