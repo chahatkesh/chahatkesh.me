@@ -29,13 +29,16 @@ import {
   GITHUB_ACCENT,
   LEETCODE_ACCENT,
 } from "./constants";
-import { buildActivityView } from "./lib";
+import { buildActivityView, parseIsoDateList } from "./lib";
 import { useCalendarScroll } from "./use-calendar-scroll";
 import { createRenderBlock } from "./activity-cell";
 import { ActivityTooltip } from "./activity-tooltip";
 
 const GITHUB_PROFILE_URL = config.social.github;
 const LEETCODE_PROFILE_URL = `https://leetcode.com/u/${config.author.leetcode}`;
+const ZERO_CONTRIBUTION_DATES = parseIsoDateList(
+  process.env.NEXT_PUBLIC_CODING_ACTIVITY_ZERO_DATES,
+);
 
 const CodingActivity = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,7 +64,7 @@ const CodingActivity = () => {
 
   const view = useMemo(() => {
     if (!data) return null;
-    return buildActivityView(data, range);
+    return buildActivityView(data, range, ZERO_CONTRIBUTION_DATES);
   }, [data, range]);
 
   const isMobile = containerWidth > 0 && containerWidth < MOBILE_MAX_WIDTH;

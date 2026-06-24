@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import config from "~/config";
 
 export const getSEOTags = ({
@@ -108,8 +107,9 @@ export const getSEOTags = ({
       // General social media
       "og:updated_time": new Date().toISOString(),
 
-      // Additional SEO
-      viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+      // NOTE: the viewport tag is owned by the `viewport` export in the root
+      // layout (Next.js metadata API). Do not emit it here or pages ship two
+      // conflicting <meta name="viewport"> tags.
       ...extraTags,
     },
   };
@@ -119,9 +119,7 @@ export const renderSchemaTags = () => {
   const currentDate = new Date().toISOString();
 
   return (
-    <Script
-      id="schemaTags"
-      strategy="afterInteractive"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
@@ -201,9 +199,7 @@ export const renderSchemaTags = () => {
 
 export const renderOrganizationSchema = () => {
   return (
-    <Script
-      id="organizationSchema"
-      strategy="afterInteractive"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
@@ -235,9 +231,7 @@ export const renderBreadcrumbSchema = (
   items: { name: string; url: string }[],
 ) => {
   return (
-    <Script
-      id="breadcrumbSchema"
-      strategy="afterInteractive"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({

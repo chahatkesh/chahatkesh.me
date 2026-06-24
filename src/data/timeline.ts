@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS } from "~/constants/theme";
+import { projects } from "./projects";
 
 export interface TimelineLink {
   title: string;
@@ -254,7 +255,7 @@ export const timelineEvents: TimelineEvent[] = [
       },
       {
         title: "Visit Website",
-        url: "https://openlearn.org.in/",
+        url: "https://openlearn.chahatkesh.me/",
         icon: "website",
       },
     ],
@@ -530,7 +531,7 @@ export const timelineEvents: TimelineEvent[] = [
     links: [
       {
         title: "Event Details",
-        url: "https://www.openlearn.org.in/events/hackathon-1",
+        url: "https://openlearn.chahatkesh.me/events/hackathon-1",
         icon: "website",
       },
       {
@@ -564,28 +565,33 @@ export const timelineEvents: TimelineEvent[] = [
     ],
     location: "Remote",
   },
-  {
-    id: "timeline-2025-06-13-openlearn-educational-organization",
-    startDate: "2025-06-13",
-    title: "OpenLearn - Educational Organization",
-    description:
-      "Co-founded OpenLearn, a student-run community with 400+ learners. It’s a space where students learn together, share knowledge, and grow with a long-term vision of turning what we learn into real, impactful products.",
-    category: "project",
-    links: [
-      {
-        title: "Visit OpenLearn",
-        url: "https://openlearn.org.in/",
-        icon: "website",
-      },
-      {
-        title: "Story Board",
-        url: "https://www.instagram.com/openlearn.org.in/",
-        icon: "instagram",
-      },
-    ],
-    location: "Remote",
-  },
 ];
+
+const projectTimelineEvents: TimelineEvent[] = projects.map((project) => {
+  const links: TimelineLink[] = [
+    {
+      title: "Details",
+      url: `/projects/${project.slug}`,
+      icon: "blog",
+    },
+    ...(project.deployedURL
+      ? [{ title: "Live", url: project.deployedURL, icon: "website" }]
+      : []),
+    ...(project.repoUrl
+      ? [{ title: "CodeBase", url: project.repoUrl, icon: "github" }]
+      : []),
+  ];
+
+  return {
+    id: `timeline-${project.slug}`,
+    startDate: project.datePublished,
+    title: project.title,
+    description: project.timelineDescription,
+    category: "project" as const,
+    links,
+    location: "Remote",
+  };
+});
 
 export const getEventDuration = (
   startDate: string,
@@ -667,7 +673,7 @@ export const formatOngoingDate = (startDate: string): string => {
 };
 
 export const getAllTimelineEvents = (): TimelineEvent[] => {
-  return [...timelineEvents].sort(
+  return [...timelineEvents, ...projectTimelineEvents].sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
   );
 };

@@ -49,6 +49,13 @@ const clientSchema = z.object({
   NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().optional(),
   NEXT_PUBLIC_RESUME_URL: z.url().optional(),
+  NEXT_PUBLIC_CODING_ACTIVITY_ZERO_DATES: z
+    .string()
+    .regex(
+      /^$|^(\d{4}-\d{2}-\d{2})(\s*,\s*\d{4}-\d{2}-\d{2})*$/,
+      "NEXT_PUBLIC_CODING_ACTIVITY_ZERO_DATES must be comma-separated YYYY-MM-DD dates",
+    )
+    .optional(),
 });
 
 // ---------------------------------------------------------------------------
@@ -77,6 +84,8 @@ const processEnv = {
   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION:
     process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   NEXT_PUBLIC_RESUME_URL: process.env.NEXT_PUBLIC_RESUME_URL,
+  NEXT_PUBLIC_CODING_ACTIVITY_ZERO_DATES:
+    process.env.NEXT_PUBLIC_CODING_ACTIVITY_ZERO_DATES,
 };
 
 // Merge schemas

@@ -558,6 +558,13 @@ export const pages: PageEntry[] = [
     renderType: "ISR",
   },
   {
+    path: "/changelog",
+    name: "Changelog",
+    description:
+      "Monthly updates, improvements, and fixes across the portfolio",
+    renderType: "Static",
+  },
+  {
     path: "/projects",
     name: "Projects",
     description: "Full project list with search and filters",
@@ -592,7 +599,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "21,417+",
+    value: "21,823+",
     description: "TypeScript + TSX + CSS",
   },
   {

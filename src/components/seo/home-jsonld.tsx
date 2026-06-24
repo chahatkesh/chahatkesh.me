@@ -1,14 +1,11 @@
-import Script from "next/script";
 import config from "~/config";
 
 export function HomeJsonLd() {
   const currentDate = new Date().toISOString();
 
   return (
-    <Script
-      id="home-jsonld"
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
