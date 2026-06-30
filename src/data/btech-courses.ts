@@ -1442,7 +1442,7 @@ export const btechCourses: Semester[] = [
     academicYear: "2026-27",
     courses: [
       {
-        code: "ICMI0411",
+        code: "ICDE0415",
         name: "IPR and Biomedical Ethics",
         professor: "Dr. Karan Veer",
         credits: 3,
@@ -1493,14 +1493,14 @@ export const btechCourses: Semester[] = [
         code: "ICTR0400",
         name: "Industrial Practical Training",
         professor: "",
-        credits: 2,
+        credits: 3,
         type: "Project",
       },
       {
         code: "ICPR0401",
-        name: "Major Project (Phase-II)",
+        name: "Major Project (Phase-I)",
         professor: "Dr. Om Prakash Verma",
-        credits: 2,
+        credits: 4,
         type: "Project",
       },
     ],
