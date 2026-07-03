@@ -208,7 +208,7 @@ export const experiences: Experience[] = [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Shadcn UI",
+      "shadcn/ui",
       "LiveKit",
       "Framer Motion",
       "REST APIs",

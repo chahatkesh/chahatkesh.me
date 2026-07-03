@@ -15,3 +15,9 @@ export * from "./gallery";
 
 // Projects
 export * from "./project";
+
+// Diagrams
+export * from "./diagram";
+
+// Gists / Documents
+export * from "./gist";

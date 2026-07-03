@@ -86,8 +86,10 @@ export function generateOGImageResponse({
             letterSpacing: "-2px",
             lineHeight: 1.1,
             maxWidth: "90%",
-            display: "flex",
-            flexWrap: "wrap",
+            display: "block",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {title}

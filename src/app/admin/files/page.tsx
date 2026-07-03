@@ -22,6 +22,7 @@ import {
   AdminPageHeader,
   AdminLoadingState,
   AdminErrorState,
+  AdminConfirmDialog,
 } from "~/components/admin";
 import { formatRelativeDate } from "~/lib/date-utils";
 import type { SharedFile, SharedFileApiResponse } from "~/types/files";
@@ -55,6 +56,7 @@ function AdminFilesContent() {
   const [uploading, setUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<SharedFile | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [savingRename, setSavingRename] = useState(false);
@@ -115,12 +117,12 @@ function AdminFilesContent() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this file?")) return;
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
 
-    setDeletingId(id);
+    setDeletingId(deleteTarget._id);
     try {
-      const response = await fetch(`${API_ROUTES.FILES}/${id}`, {
+      const response = await fetch(`${API_ROUTES.FILES}/${deleteTarget._id}`, {
         method: "DELETE",
       });
 
@@ -134,6 +136,7 @@ function AdminFilesContent() {
       alert("Failed to delete the file. Please try again.");
     } finally {
       setDeletingId(null);
+      setDeleteTarget(null);
     }
   };
 
@@ -558,7 +561,7 @@ function AdminFilesContent() {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleDelete(file._id)}
+                        onClick={() => setDeleteTarget(file)}
                         disabled={deletingId === file._id}
                         aria-label="Delete file"
                         title="Delete"
@@ -611,6 +614,23 @@ function AdminFilesContent() {
           </div>
         )}
       </MotionDiv>
+
+      <AdminConfirmDialog
+        open={Boolean(deleteTarget)}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+        title="Delete file?"
+        description={
+          deleteTarget
+            ? `This will permanently delete "${deleteTarget.fileName}".`
+            : ""
+        }
+        confirmLabel="Delete File"
+        onConfirm={confirmDelete}
+        confirmDisabled={!deleteTarget || deletingId === deleteTarget?._id}
+        loading={Boolean(deleteTarget && deletingId === deleteTarget._id)}
+      />
     </div>
   );
 }

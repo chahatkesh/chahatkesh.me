@@ -97,6 +97,62 @@ export const updateSharedFileSchema = z.object({
 });
 
 // ---------------------------------------------------------------------------
+// Mermaid Diagram Pages
+// ---------------------------------------------------------------------------
+
+export const createDiagramSchema = z.object({
+  title: z.string().min(1, "Title is required").max(160, "Title is too long"),
+  mermaidCode: z
+    .string()
+    .min(1, "Mermaid code is required")
+    .max(50_000, "Mermaid code is too long"),
+});
+
+export const updateDiagramSchema = z
+  .object({
+    title: z.string().min(1, "Title is required").max(160).optional(),
+    mermaidCode: z
+      .string()
+      .min(1, "Mermaid code is required")
+      .max(50_000, "Mermaid code is too long")
+      .optional(),
+  })
+  .refine(
+    (value) => value.title !== undefined || value.mermaidCode !== undefined,
+    {
+      message: "At least one field is required",
+    },
+  );
+
+// ---------------------------------------------------------------------------
+// Markdown Gist/Document Pages
+// ---------------------------------------------------------------------------
+
+export const createGistSchema = z.object({
+  title: z.string().min(1, "Title is required").max(180, "Title is too long"),
+  markdownContent: z
+    .string()
+    .min(1, "Markdown content is required")
+    .max(150_000, "Markdown content is too long"),
+});
+
+export const updateGistSchema = z
+  .object({
+    title: z.string().min(1, "Title is required").max(180).optional(),
+    markdownContent: z
+      .string()
+      .min(1, "Markdown content is required")
+      .max(150_000, "Markdown content is too long")
+      .optional(),
+  })
+  .refine(
+    (value) => value.title !== undefined || value.markdownContent !== undefined,
+    {
+      message: "At least one field is required",
+    },
+  );
+
+// ---------------------------------------------------------------------------
 // API response helpers
 // ---------------------------------------------------------------------------
 

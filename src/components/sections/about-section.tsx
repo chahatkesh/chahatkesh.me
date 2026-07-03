@@ -22,23 +22,22 @@ const AboutSection = () => {
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Right now I&apos;m looking for a summer internship. I previously
-            worked at{" "}
+            Right now I&apos;m co-founding{" "}
             <Link
-              href="/about/experience/zenbase-technologies-founding-frontend-engineer"
+              href="https://uselayr.com"
               className="text-foreground link-inline"
             >
-              Zenbase
-            </Link>{" "}
-            as a Founding Frontend Engineer, building Ninja, an AI platform that
-            turns real estate agents into high performers.
+              Layr
+            </Link>
+            , an AI product decision layer that turns scattered customer signals
+            into evidence-backed priorities, specs, and task drafts.
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Before this, I was an EIR and AI researcher at Annam.ai, a Centre of
-            Excellence by the Ministry of Education at IIT Ropar. I prefer
-            working close to the problem and thinking in systems, not just
-            shipping features.
+            Previously, I was a Founding Frontend Engineer at Zenbase and an EIR
+            and AI researcher at Annam.ai, a Centre of Excellence by the
+            Ministry of Education at IIT Ropar. I prefer working close to the
+            problem and thinking in systems, not just shipping features.
           </p>
 
           <p
@@ -47,7 +46,9 @@ const AboutSection = () => {
               "sm:!mt-3",
             )}
           >
-            I love sharing what I&apos;m building on{" "}
+            I&apos;m looking to contribute to meaningful work where product
+            thinking, design, and engineering can create something genuinely
+            useful. I also share what I&apos;m building on{" "}
             <a
               target="_blank"
               rel="noopener noreferrer"

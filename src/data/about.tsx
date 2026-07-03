@@ -22,8 +22,8 @@ export const currentProjects: CurrentProject[] = [
   {
     title: "Layr",
     description:
-      "Building Layr, a product decision layer for AI-native teams. It connects Slack, Jira, Linear, customer calls, support tickets, and docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts. Kind of like Cursor for PMs: less context hunting, faster decisions, and cleaner handoffs to engineering.",
-    url: "https://www.uselayr.com/",
+      "Co-founding Layr, the AI product decision layer for founders, product managers, and engineering leaders. It connects Slack, Jira, Linear, customer calls, support tickets, and product docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts.",
+    url: "https://uselayr.com/",
     showInLinks: true,
     showInAbout: true,
   },

@@ -16,7 +16,11 @@ import {
 } from "~/components/ui/card";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { ProtectedRoute, AdminPageHeader } from "~/components/admin";
+import {
+  ProtectedRoute,
+  AdminPageHeader,
+  AdminConfirmDialog,
+} from "~/components/admin";
 import { experiences, type Experience } from "~/data/experience";
 import { API_ROUTES } from "~/constants";
 import {
@@ -569,6 +573,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
   const [editingCaption, setEditingCaption] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const isEditing = editingCaption !== null;
 
@@ -596,7 +601,6 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Delete this image? This cannot be undone.")) return;
     setDeleting(true);
     try {
       const res = await fetch(`/api/experience/gallery/${image._id}`, {
@@ -605,6 +609,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
       if (res.ok) onChanged();
     } finally {
       setDeleting(false);
+      setDeleteDialogOpen(false);
     }
   };
 
@@ -692,7 +697,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 type="button"
                 size="sm"
                 variant="destructive"
-                onClick={handleDelete}
+                onClick={() => setDeleteDialogOpen(true)}
                 disabled={deleting}
                 className="h-7 px-2 text-xs"
                 aria-label="Delete image"
@@ -719,6 +724,17 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
                 )}
               </Button>
             </div>
+
+            <AdminConfirmDialog
+              open={deleteDialogOpen}
+              onOpenChange={setDeleteDialogOpen}
+              title="Delete image?"
+              description="This action cannot be undone."
+              confirmLabel="Delete Image"
+              onConfirm={handleDelete}
+              confirmDisabled={deleting}
+              loading={deleting}
+            />
           </>
         )}
       </div>

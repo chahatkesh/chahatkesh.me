@@ -19,3 +19,9 @@ export type { IExperienceGalleryImage } from "./experience-gallery";
 
 export { default as SharedFile } from "./shared-file";
 export type { ISharedFile } from "./shared-file";
+
+export { default as Diagram } from "./diagram";
+export type { IDiagram } from "./diagram";
+
+export { default as Gist } from "./gist";
+export type { IGist } from "./gist";

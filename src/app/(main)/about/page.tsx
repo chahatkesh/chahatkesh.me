@@ -78,10 +78,10 @@ const AboutPage = async () => {
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
                     Late-night side projects, AI research at IIT Ropar,
-                    hackathon wins, and now a founding engineer role at a
-                    Singapore-based startup. Each step was less about the
-                    destination and more about how much I could learn before the
-                    next one.
+                    hackathon wins, a founding engineer role at a
+                    Singapore-based startup, and now co-founding Layr. Each step
+                    has been less about the destination and more about how much
+                    I could learn before the next one.
                   </p>
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
@@ -93,10 +93,11 @@ const AboutPage = async () => {
                   </p>
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
-                    I&apos;m working towards building AI products that reduce
-                    unnecessary human effort, and learning something new every
-                    day along the way. If you want the full picture, start with
-                    my{" "}
+                    I want to build AI products that reduce unnecessary human
+                    effort, and I&apos;m looking to contribute to meaningful
+                    problems where I can work across product, design, and
+                    engineering—not just execute tickets. If you want the full
+                    picture, start with my{" "}
                     <Link
                       href="/resume"
                       target="_blank"

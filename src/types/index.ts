@@ -13,3 +13,15 @@ export type {
   GalleryApiResponse,
 } from "./gallery";
 export { toGalleryItem } from "./gallery";
+
+export type {
+  DiagramPage,
+  DiagramListApiResponse,
+  DiagramItemApiResponse,
+} from "./diagrams";
+
+export type {
+  GistDocument,
+  GistListApiResponse,
+  GistItemApiResponse,
+} from "./gists";

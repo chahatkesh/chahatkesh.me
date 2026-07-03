@@ -1361,7 +1361,7 @@ export const btechCourses: Semester[] = [
         ],
       },
       {
-        code: "ICDE0401",
+        code: "ICDE0302",
         name: "Advanced Process Control",
         professor: "Dr. Karan Veer",
         credits: 3,

@@ -31,6 +31,7 @@ import {
   AdminPageHeader,
   AdminLoadingState,
   AdminErrorState,
+  AdminConfirmDialog,
 } from "~/components/admin";
 import { formatDate } from "~/lib/date-utils";
 import type { GalleryImage, GalleryApiResponse } from "~/types/gallery";
@@ -78,6 +79,7 @@ function AdminGalleryContent() {
   const [originalEditData, setOriginalEditData] = useState<GalleryImage | null>(
     null,
   );
+  const [deleteTarget, setDeleteTarget] = useState<GalleryImage | null>(null);
   const [uploading, setUploading] = useState(false);
 
   const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
@@ -190,11 +192,10 @@ function AdminGalleryContent() {
       editFormData.imageUrl !== originalEditData.imageUrl
     : false;
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this image?")) return;
-
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      const response = await fetch(`/api/gallery/${id}`, {
+      const response = await fetch(`/api/gallery/${deleteTarget._id}`, {
         method: "DELETE",
       });
 
@@ -203,6 +204,8 @@ function AdminGalleryContent() {
       }
     } catch (error) {
       console.error("Error deleting image:", error);
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -394,8 +397,8 @@ function AdminGalleryContent() {
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         formData.aspectRatio === option.value
-                          ? "border-muted-foreground bg-card text-foreground"
-                          : "border-border bg-background text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
+                          ? "border-muted-foreground bg-background text-foreground"
+                          : "border-border text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
                       )}
                     >
                       {option.label}
@@ -600,7 +603,7 @@ function AdminGalleryContent() {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={() => handleDelete(image._id)}
+                      onClick={() => setDeleteTarget(image)}
                       className="h-8 px-2.5 bg-red-500/95 hover:bg-red-600 text-white border-0 backdrop-blur-sm text-xs"
                     >
                       <svg
@@ -626,6 +629,22 @@ function AdminGalleryContent() {
           </div>
         )}
       </MotionDiv>
+
+      <AdminConfirmDialog
+        open={Boolean(deleteTarget)}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+        title="Delete image?"
+        description={
+          deleteTarget
+            ? `This will permanently delete "${deleteTarget.title}" from your gallery.`
+            : ""
+        }
+        confirmLabel="Delete Image"
+        onConfirm={confirmDelete}
+        confirmDisabled={!deleteTarget}
+      />
 
       {/* Edit Modal */}
       <Sheet open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
@@ -745,8 +764,8 @@ function AdminGalleryContent() {
                       className={cn(
                         "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
                         editFormData.aspectRatio === option.value
-                          ? "border-muted-foreground bg-card text-foreground"
-                          : "border-border bg-background text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
+                          ? "border-muted-foreground bg-background text-foreground"
+                          : "border-border text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
                       )}
                     >
                       {option.label}

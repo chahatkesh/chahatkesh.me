@@ -12,6 +12,10 @@ export const API_ROUTES = {
   VISITORS: "/api/visitors",
   GALLERY: "/api/gallery",
   FILES: "/api/files",
+  DIAGRAMS: "/api/diagrams",
+  DIAGRAM_BY_ID: (id: string) => `/api/diagrams/${encodeURIComponent(id)}`,
+  GISTS: "/api/gists",
+  GIST_BY_ID: (id: string) => `/api/gists/${encodeURIComponent(id)}`,
   AUTH_LOGIN: "/api/auth/login",
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>

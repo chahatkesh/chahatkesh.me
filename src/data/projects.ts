@@ -360,7 +360,7 @@ const projects: Project[] = [
     `,
     cover: openlearn,
     isRepo: true,
-    repoUrl: "https://github.com/chahatkesh/openlearn-frontend",
+    repoUrl: "https://github.com/chahatkesh/openlearn",
     deployedURL: "https://openlearn.chahatkesh.me",
     datePublished: "2025-06-15",
     dateStarted: "2025-06-09",

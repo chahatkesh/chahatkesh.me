@@ -62,14 +62,14 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: "timeline-2026-04-08-building-layr",
     startDate: "2026-04-08",
-    title: "Building Layr",
+    title: "Co-founded Layr",
     description:
-      "Started building Layr, the intelligence layer between your product tools. It reads the signals teams already have across conversations, tickets, calls, feedback, and docs, then turns them into clear product decisions, keeping the customer voice close to the roadmap for founders, PMs, and early product teams.",
+      "Co-founded Layr, the AI product decision layer that connects signals across conversations, tickets, calls, support, and product docs, then turns that context into evidence-backed priorities, specs, and task drafts. Leading product clarity, user experience, and problem framing while building with the founding team.",
     category: "project",
     links: [
       {
         title: "Visit Layr",
-        url: "https://uselayr.com",
+        url: "https://uselayr.com/",
         icon: "website",
       },
     ],
