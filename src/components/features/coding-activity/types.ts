@@ -31,3 +31,20 @@ export type HoveredDay = {
   leetcode: number;
   rect: DOMRect;
 } | null;
+
+export const STATUS_BAR_DAYS = 90;
+
+export type StatusBarDay = {
+  date: string;
+  github: number;
+  leetcode: number;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+};
+
+export type StatusBarView = {
+  days: StatusBarDay[];
+  activeDays: number;
+  totalDays: number;
+  isBuildingToday: boolean;
+};

@@ -17,7 +17,7 @@ import { cn } from "~/lib/utils";
 import { MotionDiv } from "~/components/shared";
 import chahat from "~/assets/images/chahat.jpg";
 import { Card } from "~/components/ui";
-import { LinkStats } from "~/components/features";
+import { LinkStats, CodingActivityStatusBar } from "~/components/features";
 import { links, type LinkItem } from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
 import { experiences } from "~/data/experience";
@@ -248,6 +248,16 @@ const LinksPage = () => {
               <LinkStats />
             </div>
           </div>
+        </MotionDiv>
+
+        {/* Coding Activity Status */}
+        <MotionDiv
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="mb-6"
+        >
+          <CodingActivityStatusBar />
         </MotionDiv>
 
         {/* Primary Links */}
