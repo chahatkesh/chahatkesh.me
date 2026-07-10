@@ -66,9 +66,11 @@ export const youtubeVideos: YouTubeVideo[] = [
   },
   {
     id: "lyXBpUsi7Us",
-    slug: "openlearns-first-twitter-space-lyXBpUsi7Us",
-    title: "OpenLearn's First Twitter Space",
-    description: "",
+    slug: "openlearns-first-twitter-space-cohort-learning-leagues-community-at-nit-jalandha-lyXBpUsi7Us",
+    title:
+      "OpenLearn's First Twitter Space | Cohort Learning, Leagues & Community at NIT Jalandhar",
+    description:
+      "🎙️ OpenLearn's First Twitter Space — full recording\n\nIn our debut X (Twitter) Space, the OpenLearn team opens up about who we are, what we're building, and how students at NIT Jalandhar can learn, compete, and grow together.\n\nOpenLearn is a peer-driven learning platform where students explore new fields, build real projects, and grow alongside passionate peers — through structured Leagues, cohort-based progression, badges, leaderboards, and the Accelerate program.\n\n🔹 What we cover in this Space:\n• What OpenLearn is and why we started it\n• How cohorts work (Summer n.0 & Fall n.5)\n• Skill-based Leagues — ML, Finance, Quantum Computing, Soft Skills & more\n• The Pioneer → Pathfinder journey and community roles\n• Cohort 1.5 — how to join and what to expect\n• Accelerate program, capstone projects & upcoming events\n• Q&A with the community\n\n━━━━━━━━━━━━━━━━━━━━\n🔗 Links\nWebsite: https://openlearn.chahatkesh.me\nJoin Cohort 1.5: https://openlearn.org.in/cohorts\nFollow on X: https://x.com/OpenLearn_nitj\nInstagram: https://www.instagram.com/openlearn.org.in\n\n━━━━━━━━━━━━━━━━━━━━\n🏆 OpenLearn Leagues\n• Machine Learning\n• Finance\n• Quantum Computing\n• Soft Skills\n• Competitive Programming\n• IoT & more\n\nLearn in structured weeks, complete resources, earn badges, and climb the leaderboard — all alongside your peers at NIT Jalandhar.\n\n━━━━━━━━━━━━━━━━━━━━\n#OpenLearn #NITJ #NITJalandhar #Learning #CohortLearning #MachineLearning #Finance #QuantumComputing #StudentCommunity #EdTech #TwitterSpace #XSpace\n\n━━━━━━━━━━━━━━━━━━━━\nAbout OpenLearn\n\nOpenLearn is structured, peer-driven, focused, and truly open — no barriers, no costs, just learning and building. From Grand Orientation with 450+ attendees to hackathons, mentorship sessions, and build-alongs, we're building a community where students don't just consume content — they create, collaborate, and accelerate.\n\nSubscribe for more OpenLearn sessions, event recaps, and community updates.",
     publishedAt: "2026-01-17T10:10:25Z",
     thumbnailUrl: "https://i.ytimg.com/vi/lyXBpUsi7Us/maxresdefault.jpg",
     duration: "PT1H8M5S",
@@ -103,7 +105,7 @@ export const youtubeVideos: YouTubeVideo[] = [
     thumbnailUrl: "https://i.ytimg.com/vi/siLfjw4gTPA/hqdefault.jpg",
     duration: "PT15M40S",
     durationFormatted: "15:40",
-    viewCount: 60,
+    viewCount: 61,
     likeCount: 2,
     tags: [],
     channelTitle: "Chahat Kesharwani",
