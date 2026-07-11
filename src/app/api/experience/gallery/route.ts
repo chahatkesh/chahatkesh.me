@@ -4,6 +4,8 @@ import ExperienceGalleryImage from "~/models/experience-gallery";
 import { requireAuth } from "~/lib/auth";
 import { createExperienceGalleryImageSchema } from "~/lib/validations";
 
+export const revalidate = 60;
+
 // GET - Fetch gallery images for a specific experience (public)
 export async function GET(request: NextRequest) {
   const slug = request.nextUrl.searchParams.get("slug");
@@ -24,7 +26,14 @@ export async function GET(request: NextRequest) {
       .sort({ order: 1, createdAt: 1 })
       .lean();
 
-    return NextResponse.json({ success: true, data: images });
+    return NextResponse.json(
+      { success: true, data: images },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        },
+      },
+    );
   } catch (error) {
     console.error("Error fetching experience gallery:", error);
     return NextResponse.json(

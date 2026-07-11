@@ -417,19 +417,19 @@ export const fonts: FontEntry[] = [
   {
     family: "Outfit",
     usage: "Body text, paragraphs, descriptions",
-    weights: "300–500",
+    weights: "400–500",
     className: "font-sans",
   },
   {
     family: "League Spartan",
     usage: "Headings, section titles, nav labels",
-    weights: "400, 500, 600, 700, 800, 900",
+    weights: "500, 600, 700",
     className: "font-ubuntu",
   },
   {
     family: "Lora",
     usage: "Poem section, italic accents, personal notes",
-    weights: "400, 500, 600 (normal + italic)",
+    weights: "400, 600 (normal + italic)",
     className: "font-poem",
   },
   {
@@ -599,12 +599,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "25,059+",
+    value: "25,114+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "79",
+    value: "77",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

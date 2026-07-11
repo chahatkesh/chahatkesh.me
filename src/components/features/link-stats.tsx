@@ -4,27 +4,21 @@ import { FaGithub } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import config from "~/config";
-import { API_ROUTES, EXTERNAL_APIS, LEETCODE_STALE_TIME_MS } from "~/constants";
+import { API_ROUTES, LEETCODE_STALE_TIME_MS } from "~/constants";
 import { fetcher } from "~/lib/fetcher";
 import { type LeetCodeStats } from "~/lib/leetcode";
+import type { CodingActivityData } from "~/components/features/coding-activity/types";
 
-type ContributionsResponse = {
-  total: Record<string, number>;
-};
-
+/**
+ * Uses the cached `/api/coding-activity` response (shared with the status bar)
+ * for GitHub totals instead of hitting the third-party contributions API
+ * from the browser.
+ */
 const LinkStats = () => {
-  const { data: totalContributions = 0, isLoading: ghLoading } = useQuery({
-    queryKey: ["github-contributions", config.author.github],
-    queryFn: async () => {
-      const data = await fetcher<ContributionsResponse>(
-        EXTERNAL_APIS.GITHUB_CONTRIBUTIONS(config.author.github),
-      );
-      return Object.values(data.total || {}).reduce(
-        (sum, yearContributions) => sum + (yearContributions || 0),
-        0,
-      );
-    },
-    staleTime: 5 * 60 * 1000,
+  const { data: activity, isLoading: ghLoading } = useQuery({
+    queryKey: ["coding-activity"],
+    queryFn: () => fetcher<CodingActivityData>(API_ROUTES.CODING_ACTIVITY),
+    staleTime: LEETCODE_STALE_TIME_MS,
   });
 
   const { data: leetcode, isLoading: lcLoading } = useQuery<LeetCodeStats>({
@@ -32,6 +26,8 @@ const LinkStats = () => {
     queryFn: () => fetcher<LeetCodeStats>(API_ROUTES.LEETCODE_STATS),
     staleTime: LEETCODE_STALE_TIME_MS,
   });
+
+  const totalContributions = activity?.githubTotalContributions ?? 0;
 
   if (ghLoading && lcLoading) {
     return (

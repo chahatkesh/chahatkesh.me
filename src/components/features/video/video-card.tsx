@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Eye, Play } from "lucide-react";
+import Image from "next/image";
+import { Play } from "lucide-react";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import type { YouTubeVideo } from "~/data/youtube";
@@ -30,11 +31,12 @@ export function VideoCard({
         className="el-focus-styles group block h-full"
       >
         <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={video.thumbnailUrl}
             alt={video.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             loading="lazy"
           />
           <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/15" />

@@ -1,5 +1,3 @@
-"use client";
-
 import { ContentNotFound, typo } from "~/components/ui";
 import { type Project } from "~/data/projects";
 import ProjectItem from "./project-item";

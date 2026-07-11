@@ -1,46 +1,53 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { API_ROUTES } from "~/constants";
 import { fetcher, postFetcher } from "~/lib/fetcher";
 
 type VisitorData = { count: number };
 
-const VISITOR_QUERY_KEY = ["visitor-count"] as const;
+const SESSION_INCREMENT_KEY = "visitor-incremented";
 
+/**
+ * Shows the live visitor count, and increments once per browser session.
+ * GET runs immediately for display; POST is session-guarded so React Strict
+ * Mode remounts cannot cancel the request and leave the UI stuck on "...".
+ */
 const VisitorCounter = () => {
-  const queryClient = useQueryClient();
-  const hasIncremented = useRef(false);
+  const [count, setCount] = useState<number | null>(null);
 
-  const { data, isLoading } = useQuery<VisitorData>({
-    queryKey: VISITOR_QUERY_KEY,
-    queryFn: () => fetcher<VisitorData>(API_ROUTES.VISITORS),
-    staleTime: Infinity, // Count won't change during session
-    retry: 1,
-  });
-
-  // Increment once on mount
   useEffect(() => {
-    if (hasIncremented.current) return;
-    hasIncremented.current = true;
+    let cancelled = false;
 
-    postFetcher<VisitorData>(API_ROUTES.VISITORS_INCREMENT)
-      .then((result) => {
-        queryClient.setQueryData(VISITOR_QUERY_KEY, result);
-      })
-      .catch(() => {
-        // Silently fail — visitor increment is non-critical
-      });
-  }, [queryClient]);
+    const load = async () => {
+      try {
+        const current = await fetcher<VisitorData>(API_ROUTES.VISITORS);
+        if (!cancelled) setCount(current.count);
+
+        if (sessionStorage.getItem(SESSION_INCREMENT_KEY)) return;
+
+        sessionStorage.setItem(SESSION_INCREMENT_KEY, "1");
+        const updated = await postFetcher<VisitorData>(
+          API_ROUTES.VISITORS_INCREMENT,
+        );
+        if (!cancelled) setCount(updated.count);
+      } catch {
+        // Silently fail — visitor count is non-critical
+      }
+    };
+
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
       <Users className="h-4 w-4" aria-hidden="true" />
-      <span>
-        Visitor #{isLoading ? "..." : data?.count?.toLocaleString() || "0"}
-      </span>
+      <span>Visitor #{count === null ? "..." : count.toLocaleString()}</span>
     </div>
   );
 };

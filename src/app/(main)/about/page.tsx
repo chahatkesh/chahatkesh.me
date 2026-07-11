@@ -7,7 +7,6 @@ import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import illustration from "~/assets/images/illustration.png";
 import { Breadcrumb } from "~/components/shared";
-import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import {
@@ -47,7 +46,7 @@ const AboutPage = async () => {
     await getOgImageUrlsForLinks(visibleProjects);
 
   return (
-    <MotionDiv>
+    <>
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "About Me", url: "/about" },
@@ -67,7 +66,7 @@ const AboutPage = async () => {
                 Chahat, 20
               </h1>
 
-              <div className="grid gap-8 sm:gap-6 md:grid-cols-3">
+              <div className="grid gap-6 sm:gap-6 md:grid-cols-3 md:items-stretch">
                 <div className="order-2 space-y-4 sm:order-1 md:col-span-2">
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
                     I&apos;ve been building since before I had a good reason to.
@@ -114,15 +113,22 @@ const AboutPage = async () => {
                   </p>
                 </div>
 
-                <div className="relative order-1 block aspect-square sm:order-2">
-                  <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
-                  <Image
-                    alt="Chahat Kesharwani profile picture"
-                    src={chahat}
-                    placeholder="blur"
-                    className="size-full -rotate-3 transform rounded-md shadow-md"
-                    priority
-                  />
+                <div className="order-1 w-full sm:order-2 md:h-full">
+                  <div className="relative aspect-[4/5] w-full md:aspect-auto md:h-full">
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 -z-10 rounded-md bg-brand"
+                    />
+                    <Image
+                      alt="Chahat Kesharwani profile picture"
+                      src={chahat}
+                      fill
+                      placeholder="blur"
+                      sizes="(min-width: 768px) 280px, 100vw"
+                      className="object-cover object-[center_18%] -rotate-2 rounded-md shadow-md md:-rotate-3"
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
             </section>
@@ -438,7 +444,7 @@ const AboutPage = async () => {
           </div>
         </section>
       </div>
-    </MotionDiv>
+    </>
   );
 };
 

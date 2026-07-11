@@ -4,6 +4,9 @@ import GalleryImage from "~/models/gallery";
 import { requireAuth } from "~/lib/auth";
 import { createGalleryImageSchema } from "~/lib/validations";
 
+// Public gallery changes infrequently; cache for a minute at the edge.
+export const revalidate = 60;
+
 // GET - Fetch all gallery images (public)
 export async function GET() {
   try {
@@ -13,10 +16,17 @@ export async function GET() {
       .sort({ date: -1, createdAt: -1 })
       .lean();
 
-    return NextResponse.json({
-      success: true,
-      data: images,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data: images,
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+        },
+      },
+    );
   } catch (error) {
     console.error("Error fetching gallery images:", error);
     return NextResponse.json(

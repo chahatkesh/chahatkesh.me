@@ -6,6 +6,7 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { cn } from "~/lib/utils";
+import "~/styles/markdown.css";
 
 interface MarkdownRendererProps {
   content: string;

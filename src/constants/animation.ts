@@ -70,11 +70,3 @@ export const staggerContainer: Variants = {
     },
   },
 };
-
-// --- Scroll progress spring ---
-
-export const SCROLL_SPRING_CONFIG = {
-  stiffness: 100,
-  damping: 30,
-  restDelta: 0.001,
-} as const;

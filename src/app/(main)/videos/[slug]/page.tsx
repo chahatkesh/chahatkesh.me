@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ExternalLink } from "lucide-react";
 import { youtubeVideos } from "~/data/youtube";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { Breadcrumb, MotionDiv } from "~/components/shared";
@@ -116,16 +117,28 @@ export default async function VideoPage({ params }: Props) {
         </div>
 
         <div className="space-y-3 border-b border-border pb-5">
-          <h1
-            className={cn(
-              typo({ variant: "h2" }),
-              "text-balance leading-tight md:text-2xl",
-            )}
-          >
-            {video.title}
-          </h1>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+            <h1
+              className={cn(
+                typo({ variant: "h2" }),
+                "min-w-0 flex-1 leading-tight md:text-2xl",
+              )}
+            >
+              {video.title}
+            </h1>
 
-          <VideoMeta video={video} youtubeUrl={getYouTubeWatchUrl(video.id)} />
+            <a
+              href={getYouTubeWatchUrl(video.id)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="el-focus-styles inline-flex shrink-0 items-center gap-1.5 self-start text-sm font-medium text-ring transition-colors hover:text-ring/80 sm:mt-1"
+            >
+              Watch on YouTube
+              <ExternalLink className="size-3.5 shrink-0" aria-hidden="true" />
+            </a>
+          </div>
+
+          <VideoMeta video={video} />
         </div>
 
         {video.description && (

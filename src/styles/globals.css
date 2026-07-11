@@ -1,6 +1,3 @@
-@import "github-markdown-css/github-markdown-dark.css";
-@import "highlight.js/styles/github-dark.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -147,80 +144,10 @@
     will-change: transform;
   }
 
-  /* Smooth scroll container with portfolio scrollbar styling */
   .smooth-scroll {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-  }
-
-  /* GitHub-like markdown style tuned for this app's dark theme. */
-  .markdown-github.markdown-body {
-    --color-canvas-default: hsl(var(--background));
-    --color-canvas-subtle: hsl(var(--card));
-    --color-border-default: hsl(var(--border));
-    --color-fg-default: hsl(var(--foreground));
-    --color-fg-muted: hsl(var(--muted-foreground));
-    --color-accent-fg: hsl(var(--ring));
-    --color-accent-emphasis: hsl(var(--ring));
-    --color-neutral-muted: hsl(var(--muted) / 0.4);
-    color: hsl(var(--foreground));
-    background-color: transparent;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.975rem;
-    line-height: 1.75;
-    word-wrap: break-word;
-  }
-
-  .markdown-github.markdown-body h1,
-  .markdown-github.markdown-body h2 {
-    border-bottom-color: hsl(var(--border));
-  }
-
-  .markdown-github.markdown-body a {
-    color: hsl(var(--ring));
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-  }
-
-  .markdown-github.markdown-body a:hover {
-    color: hsl(var(--ring) / 0.82);
-  }
-
-  /* Tailwind preflight sets img to block, which stacks badge images vertically. */
-  .markdown-github.markdown-body a > img {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  .markdown-github.markdown-body pre {
-    border: 1px solid hsl(var(--border));
-    border-radius: 0.75rem;
-    padding: 1rem;
-  }
-
-  .markdown-github.markdown-body code,
-  .markdown-github.markdown-body tt {
-    font-size: 0.875em;
-  }
-
-  .markdown-github.markdown-body table {
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    overflow-x: auto;
-    border-radius: 0.5rem;
-  }
-
-  .markdown-github.markdown-body blockquote {
-    color: hsl(var(--muted-foreground));
-    border-left-color: hsl(var(--border));
-  }
-
-  .markdown-github.markdown-body hr {
-    background-color: hsl(var(--border));
   }
 }
