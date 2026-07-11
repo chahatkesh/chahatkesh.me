@@ -12,7 +12,7 @@ import {
 import { Card, CardContent } from "~/components/ui/card";
 import { DiagramEditor } from "~/components/features/diagram";
 import { API_ROUTES } from "~/constants";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { getDiagramSharePath } from "~/lib/diagram-utils";
 import type { DiagramItemApiResponse } from "~/types/diagrams";
 
@@ -28,7 +28,8 @@ function EditDiagramContent() {
 
   const { data, error, isLoading } = useSWR<DiagramItemApiResponse>(
     id ? API_ROUTES.DIAGRAM_BY_ID(id) : null,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [title, setTitle] = useState("");

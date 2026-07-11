@@ -583,6 +583,12 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/places",
+    name: "Places",
+    description: "Interactive world map with location pins and visit notes",
+    renderType: "Static",
+  },
+  {
     path: "/links",
     name: "Links",
     description: "Link-in-bio page with click tracking and featured gallery",
@@ -599,12 +605,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "25,068+",
+    value: "26,619+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "78",
+    value: "80",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -614,12 +620,12 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "API Routes",
-    value: "21",
+    value: "24",
     description: "Auth, Gallery CRUD, Spotify, Visitor tracking",
   },
   {
     label: "Type Definition Files",
-    value: "9",
+    value: "10",
     description: "Window augmentation, gallery, config, gtag, images",
   },
   {
@@ -634,7 +640,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Mongoose Models",
-    value: "8",
+    value: "9",
     description: "Admin, Gallery, Visitor",
   },
 ];

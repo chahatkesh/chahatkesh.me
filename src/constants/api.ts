@@ -16,6 +16,9 @@ export const API_ROUTES = {
   DIAGRAM_BY_ID: (id: string) => `/api/diagrams/${encodeURIComponent(id)}`,
   GISTS: "/api/gists",
   GIST_BY_ID: (id: string) => `/api/gists/${encodeURIComponent(id)}`,
+  PLACES: "/api/places",
+  PLACE_BY_ID: (id: string) => `/api/places/${encodeURIComponent(id)}`,
+  PLACE_REVERSE_GEOCODE: "/api/places/reverse-geocode",
   AUTH_LOGIN: "/api/auth/login",
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>

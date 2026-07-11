@@ -12,7 +12,7 @@ import {
 import { Card, CardContent } from "~/components/ui/card";
 import { GistEditor } from "~/components/features/gist";
 import { API_ROUTES } from "~/constants";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { getGistSharePath } from "~/lib/gist-utils";
 import type { GistItemApiResponse } from "~/types/gists";
 
@@ -28,7 +28,8 @@ function EditGistContent() {
 
   const { data, error, isLoading } = useSWR<GistItemApiResponse>(
     id ? API_ROUTES.GIST_BY_ID(id) : null,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [title, setTitle] = useState("");

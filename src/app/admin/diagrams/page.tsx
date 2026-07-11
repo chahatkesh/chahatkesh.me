@@ -11,7 +11,7 @@ import {
 } from "~/components/admin";
 import { DiagramList } from "~/components/features/diagram";
 import { API_ROUTES } from "~/constants";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { getDiagramSharePath } from "~/lib/diagram-utils";
 import type { DiagramListApiResponse, DiagramPage } from "~/types/diagrams";
 
@@ -23,7 +23,8 @@ const BREADCRUMBS = [
 function AdminDiagramsContent() {
   const { data, error, isLoading } = useSWR<DiagramListApiResponse>(
     API_ROUTES.DIAGRAMS,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [copiedId, setCopiedId] = useState<string | null>(null);

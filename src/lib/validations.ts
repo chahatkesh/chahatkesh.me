@@ -153,6 +153,57 @@ export const updateGistSchema = z
   );
 
 // ---------------------------------------------------------------------------
+// Visited Places
+// ---------------------------------------------------------------------------
+
+const visitedAtSchema = z
+  .string()
+  .min(1, "Visit date is required")
+  .refine((value) => !Number.isNaN(Date.parse(value)), {
+    message: "Visit date is invalid",
+  });
+
+export const createPlaceSchema = z.object({
+  name: z.string().min(1, "Name is required").max(140, "Name is too long"),
+  location: z
+    .string()
+    .min(1, "Location is required")
+    .max(220, "Location is too long"),
+  shortNote: z.string().max(320, "Short note is too long").optional(),
+  visitedAt: visitedAtSchema,
+  latitude: z.coerce
+    .number()
+    .min(-90, "Latitude must be between -90 and 90")
+    .max(90, "Latitude must be between -90 and 90"),
+  longitude: z.coerce
+    .number()
+    .min(-180, "Longitude must be between -180 and 180")
+    .max(180, "Longitude must be between -180 and 180"),
+});
+
+export const updatePlaceSchema = z
+  .object({
+    name: z.string().min(1, "Name is required").max(140).optional(),
+    location: z.string().min(1, "Location is required").max(220).optional(),
+    shortNote: z.string().max(320, "Short note is too long").optional(),
+    visitedAt: visitedAtSchema.optional(),
+    latitude: z.coerce.number().min(-90).max(90).optional(),
+    longitude: z.coerce.number().min(-180).max(180).optional(),
+  })
+  .refine(
+    (value) =>
+      value.name !== undefined ||
+      value.location !== undefined ||
+      value.shortNote !== undefined ||
+      value.visitedAt !== undefined ||
+      value.latitude !== undefined ||
+      value.longitude !== undefined,
+    {
+      message: "At least one field is required",
+    },
+  );
+
+// ---------------------------------------------------------------------------
 // API response helpers
 // ---------------------------------------------------------------------------
 

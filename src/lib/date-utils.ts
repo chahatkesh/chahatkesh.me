@@ -5,22 +5,25 @@ import config from "~/config";
  * Handles both "Month DD, YYYY" and "YYYY-MM-DD" formats
  */
 export function formatDate(dateString: string): string {
+  const normalized = dateString.trim();
+
   // If already in readable format (e.g., "June 26, 2025"), return as is
-  if (dateString.match(/^[A-Za-z]+\s+\d{1,2},\s+\d{4}$/)) {
-    return dateString;
+  if (normalized.match(/^[A-Za-z]+\s+\d{1,2},\s+\d{4}$/)) {
+    return normalized;
   }
 
-  // If in ISO format (YYYY-MM-DD), convert to readable format
-  try {
-    const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone shift
-    return date.toLocaleDateString(config.seo.language, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return dateString; // Return original if parsing fails
-  }
+  const source = /^\d{4}-\d{2}-\d{2}$/.test(normalized)
+    ? `${normalized}T00:00:00`
+    : normalized;
+
+  const date = new Date(source);
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+  return date.toLocaleDateString(config.seo.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 /**

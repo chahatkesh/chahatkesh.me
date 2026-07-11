@@ -2,6 +2,10 @@ import { type NextRequest, NextResponse } from "next/server";
 import dbConnect from "~/lib/mongodb";
 import ExperienceGalleryImage from "~/models/experience-gallery";
 import { requireAuth } from "~/lib/auth";
+import {
+  publicListCacheControl,
+  revalidateExperienceGalleryCache,
+} from "~/lib/revalidate";
 import { createExperienceGalleryImageSchema } from "~/lib/validations";
 
 export const revalidate = 60;
@@ -30,7 +34,10 @@ export async function GET(request: NextRequest) {
       { success: true, data: images },
       {
         headers: {
-          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
+          "Cache-Control": publicListCacheControl(
+            request,
+            "public, s-maxage=60, stale-while-revalidate=300",
+          ),
         },
       },
     );
@@ -73,6 +80,8 @@ export async function POST(request: NextRequest) {
       ...parsed.data,
       order: count,
     });
+
+    revalidateExperienceGalleryCache();
 
     return NextResponse.json(
       { success: true, data: newImage },

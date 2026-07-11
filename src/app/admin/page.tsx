@@ -1,7 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import type { LucideIcon } from "lucide-react";
+import {
+  AlertCircle,
+  Briefcase,
+  File,
+  FileText,
+  Image,
+  Loader2,
+  LogIn,
+  LogOut,
+  MapPinned,
+  Workflow,
+} from "lucide-react";
 import { Card, CardContent } from "~/components/ui/card";
 import { Button } from "~/components/ui";
 import { Input } from "~/components/ui";
@@ -9,9 +21,58 @@ import { Label } from "~/components/ui";
 import { MotionDiv } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
+import { AdminDashboardCard } from "~/components/admin";
+
+const DASHBOARD_LINKS: Array<{
+  href: string;
+  title: string;
+  description: string;
+  icon: LucideIcon;
+}> = [
+  {
+    href: "/admin/gallery",
+    title: "Gallery",
+    description:
+      "Upload, organize, and manage your image gallery with Cloudinary integration",
+    icon: Image,
+  },
+  {
+    href: "/admin/places",
+    title: "Places",
+    description:
+      "Add visited locations with exact coordinates for your public interactive places map",
+    icon: MapPinned,
+  },
+  {
+    href: "/admin/files",
+    title: "Files",
+    description:
+      "Upload any file and instantly get a shareable URL to send to anyone",
+    icon: File,
+  },
+  {
+    href: "/admin/diagrams",
+    title: "Diagrams",
+    description:
+      "Build Mermaid diagram pages with live preview and copyable public teaching links",
+    icon: Workflow,
+  },
+  {
+    href: "/admin/gists",
+    title: "Gists",
+    description:
+      "Write markdown notes and share them publicly as clean, readable document pages",
+    icon: FileText,
+  },
+  {
+    href: "/admin/experience",
+    title: "Experience Gallery",
+    description: "Upload and manage highlight images for each work experience",
+    icon: Briefcase,
+  },
+];
 
 export default function AdminPage() {
-  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
@@ -20,7 +81,6 @@ export default function AdminPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Check if already authenticated
     checkSession();
   }, []);
 
@@ -80,36 +140,36 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[80vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <Loader2 className="size-12 animate-spin text-muted-foreground/30" />
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-[80vh] px-4">
+      <div className="flex min-h-[80vh] items-center justify-center px-4">
         <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="w-full max-w-md"
         >
-          <div className="mb-8 text-center space-y-2">
+          <div className="mb-8 space-y-2 text-center">
             <h1 className={cn(typo({ variant: "h2" }), "text-2xl font-bold")}>
               Admin Access
             </h1>
             <p
               className={cn(
                 typo({ variant: "paragraph" }),
-                "text-muted-foreground text-sm",
+                "text-sm text-muted-foreground",
               )}
             >
               Sign in to manage your portfolio
             </p>
           </div>
 
-          <Card className="border-border bg-card/50 backdrop-blur-sm shadow-xl">
+          <Card className="border-border bg-card/50 shadow-xl backdrop-blur-sm">
             <CardContent className="pt-6">
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-2">
@@ -122,7 +182,7 @@ export default function AdminPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter your username"
-                    className="bg-card/50 border-border h-11 focus:border-muted-foreground/30 transition-colors"
+                    className="h-11 border-border bg-card/50 transition-colors focus:border-muted-foreground/30"
                     required
                     disabled={isSubmitting}
                     autoComplete="username"
@@ -138,7 +198,7 @@ export default function AdminPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="bg-card/50 border-border h-11 focus:border-muted-foreground/30 transition-colors"
+                    className="h-11 border-border bg-card/50 transition-colors focus:border-muted-foreground/30"
                     required
                     disabled={isSubmitting}
                     autoComplete="current-password"
@@ -149,75 +209,26 @@ export default function AdminPage() {
                   <MotionDiv
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
-                    className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20"
+                    className="flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 p-3"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-red-500 flex-shrink-0"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="12" x2="12" y1="8" y2="12" />
-                      <line x1="12" x2="12.01" y1="16" y2="16" />
-                    </svg>
+                    <AlertCircle className="size-4 flex-shrink-0 text-red-500" />
                     <p className="text-sm text-red-500">{error}</p>
                   </MotionDiv>
                 )}
 
                 <Button
                   type="submit"
-                  className="w-full h-11 font-medium"
+                  className="h-11 w-full font-medium"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
+                      <Loader2 className="mr-2 size-4 animate-spin" />
                       Signing in...
                     </>
                   ) : (
                     <>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-2"
-                      >
-                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                        <polyline points="10 17 15 12 10 7" />
-                        <line x1="15" x2="3" y1="12" y2="12" />
-                      </svg>
+                      <LogIn className="mr-2 size-[18px]" />
                       Sign in
                     </>
                   )}
@@ -233,12 +244,11 @@ export default function AdminPage() {
   return (
     <div className="min-h-[80vh] px-4 py-8">
       <MotionDiv
-        className="max-w-4xl mx-auto space-y-8"
+        className="mx-auto max-w-4xl space-y-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h1 className={cn(typo({ variant: "h2" }), "text-3xl font-bold")}>
@@ -254,289 +264,26 @@ export default function AdminPage() {
             </p>
           </div>
           <Button variant="outline" onClick={handleLogout} className="gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" x2="9" y1="12" y2="12" />
-            </svg>
+            <LogOut className="size-4" />
             Logout
           </Button>
         </div>
 
-        {/* Content Management Grid */}
         <div className="grid gap-4 md:grid-cols-2">
-          {/* Gallery Card */}
-          <Card
-            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
-            onClick={() => router.push("/admin/gallery")}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-foreground/80"
-                  >
-                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                    <circle cx="9" cy="9" r="2" />
-                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-                  </svg>
-                </div>
-                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Gallery</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Upload, organize, and manage your image gallery with
-                  Cloudinary integration
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Files Card */}
-          <Card
-            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
-            onClick={() => router.push("/admin/files")}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-foreground/80"
-                  >
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </div>
-                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Files</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Upload any file and instantly get a shareable URL to send to
-                  anyone
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Diagrams Card */}
-          <Card
-            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
-            onClick={() => router.push("/admin/diagrams")}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-foreground/80"
-                  >
-                    <path d="M9 3h6l6 6-6 6H9L3 9l6-6z" />
-                    <path d="M12 9v6" />
-                    <path d="M9.5 10.5 12 9l2.5 1.5" />
-                  </svg>
-                </div>
-                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Diagrams</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Build Mermaid diagram pages with live preview and copyable
-                  public teaching links
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Gists Card */}
-          <Card
-            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
-            onClick={() => router.push("/admin/gists")}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-foreground/80"
-                  >
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                    <polyline points="14 2 14 8 20 8" />
-                    <line x1="8" y1="13" x2="16" y2="13" />
-                    <line x1="8" y1="17" x2="13" y2="17" />
-                  </svg>
-                </div>
-                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Gists</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Write markdown notes and share them publicly as clean,
-                  readable document pages
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Experience Gallery Card */}
-          <Card
-            className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
-            onClick={() => router.push("/admin/experience")}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CardContent className="p-6 relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-muted to-card group-hover:from-muted-foreground/30 group-hover:to-muted transition-all shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-foreground/80"
-                  >
-                    <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                  </svg>
-                </div>
-                <div className="p-2 rounded-lg bg-card/50 group-hover:bg-muted/50 transition-all">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground/70 group-hover:text-muted-foreground group-hover:translate-x-0.5 transition-all"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Experience Gallery</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Upload and manage highlight images for each work experience
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {DASHBOARD_LINKS.map((item) => {
+            const Icon = item.icon;
+            return (
+              <AdminDashboardCard
+                key={item.href}
+                href={item.href}
+                title={item.title}
+                description={item.description}
+                icon={
+                  <Icon className="size-6 text-foreground/80" strokeWidth={2} />
+                }
+              />
+            );
+          })}
         </div>
       </MotionDiv>
     </div>

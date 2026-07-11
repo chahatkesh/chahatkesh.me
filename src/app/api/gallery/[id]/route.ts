@@ -3,6 +3,7 @@ import dbConnect from "~/lib/mongodb";
 import GalleryImage from "~/models/gallery";
 import { cloudinary } from "~/lib/cloudinary";
 import { requireAuth } from "~/lib/auth";
+import { revalidateGalleryCache } from "~/lib/revalidate";
 import { updateGalleryImageSchema } from "~/lib/validations";
 
 type Params = {
@@ -73,6 +74,8 @@ export async function PUT(request: NextRequest, { params }: Params) {
       );
     }
 
+    revalidateGalleryCache();
+
     return NextResponse.json({
       success: true,
       data: updatedImage,
@@ -114,6 +117,8 @@ export async function DELETE(request: NextRequest, { params }: Params) {
 
     // Delete from database
     await GalleryImage.findByIdAndDelete(id);
+
+    revalidateGalleryCache();
 
     return NextResponse.json({
       success: true,

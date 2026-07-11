@@ -25,3 +25,9 @@ export type {
   GistListApiResponse,
   GistItemApiResponse,
 } from "./gists";
+
+export type {
+  VisitedPlace,
+  PlaceListApiResponse,
+  PlaceItemApiResponse,
+} from "./places";

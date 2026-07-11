@@ -32,7 +32,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_OPTIONS,
 } from "~/constants/cloudinary";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
 const BREADCRUMBS = [
@@ -43,7 +43,8 @@ const BREADCRUMBS = [
 function AdminGalleryContent() {
   const { data, error, isLoading } = useSWR<GalleryApiResponse>(
     API_ROUTES.GALLERY,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [formData, setFormData] = useState({

@@ -25,3 +25,6 @@ export type { IDiagram } from "./diagram";
 
 export { default as Gist } from "./gist";
 export type { IGist } from "./gist";
+
+export { default as Place } from "./place";
+export type { IPlace } from "./place";

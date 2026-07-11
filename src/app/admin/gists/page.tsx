@@ -11,7 +11,7 @@ import {
 } from "~/components/admin";
 import { GistList } from "~/components/features/gist";
 import { API_ROUTES } from "~/constants";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { getGistSharePath } from "~/lib/gist-utils";
 import type { GistDocument, GistListApiResponse } from "~/types/gists";
 
@@ -23,7 +23,8 @@ const BREADCRUMBS = [
 function AdminGistsContent() {
   const { data, error, isLoading } = useSWR<GistListApiResponse>(
     API_ROUTES.GISTS,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [copiedId, setCopiedId] = useState<string | null>(null);

@@ -23,5 +23,8 @@ export * from "./diagram";
 // Gists
 export * from "./gist";
 
+// Places
+export * from "./place";
+
 // Videos
 export * from "./video";

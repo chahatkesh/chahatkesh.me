@@ -29,7 +29,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_OPTIONS,
 } from "~/constants/cloudinary";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
 const BREADCRUMBS = [
@@ -48,7 +48,8 @@ function formatBytes(bytes: number): string {
 function AdminFilesContent() {
   const { data, error, isLoading } = useSWR<SharedFileApiResponse>(
     API_ROUTES.FILES,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [uploading, setUploading] = useState(false);
