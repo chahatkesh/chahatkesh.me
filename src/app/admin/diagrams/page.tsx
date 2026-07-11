@@ -90,7 +90,7 @@ function AdminDiagramsContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Mermaid Diagram Pages"
+        title="Diagrams"
         subtitle="Create, edit, and share clean architecture diagrams with public URLs"
       />
 

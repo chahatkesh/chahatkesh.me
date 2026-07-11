@@ -328,7 +328,7 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
-          {/* File Sharing Card */}
+          {/* Files Card */}
           <Card
             className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
             onClick={() => router.push("/admin/files")}
@@ -371,7 +371,7 @@ export default function AdminPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-semibold">File Sharing</h3>
+                <h3 className="text-xl font-semibold">Files</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Upload any file and instantly get a shareable URL to send to
                   anyone
@@ -380,7 +380,7 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
-          {/* Mermaid Diagram Card */}
+          {/* Diagrams Card */}
           <Card
             className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
             onClick={() => router.push("/admin/diagrams")}
@@ -433,7 +433,7 @@ export default function AdminPage() {
             </CardContent>
           </Card>
 
-          {/* Gists / Documents Card */}
+          {/* Gists Card */}
           <Card
             className="border-border bg-card/50 backdrop-blur-sm hover:border-muted-foreground/30 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden relative"
             onClick={() => router.push("/admin/gists")}
@@ -478,7 +478,7 @@ export default function AdminPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-semibold">Gists / Docs</h3>
+                <h3 className="text-xl font-semibold">Gists</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   Write markdown notes and share them publicly as clean,
                   readable document pages

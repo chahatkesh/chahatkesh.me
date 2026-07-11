@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { Check, Copy, PencilLine, Trash2, ExternalLink } from "lucide-react";
+import { Check, Copy, Pencil, Trash2, FileText } from "lucide-react";
+import {
+  AdminListCard,
+  AdminListCreateTile,
+  AdminListMeta,
+  adminListActionClassName,
+  adminListDangerActionClassName,
+  adminListIconActionClassName,
+} from "~/components/admin";
 import { Button } from "~/components/ui";
-import { MotionDiv } from "~/components/shared";
 import { formatRelativeDate } from "~/lib/date-utils";
 import type { GistDocument } from "~/types/gists";
 import { getGistSharePath } from "~/lib/gist-utils";
@@ -27,68 +34,45 @@ export function GistList({
 }: GistListProps) {
   return (
     <div className="space-y-3">
-      <Link
-        href={createHref}
-        className="flex w-full items-center gap-4 rounded-lg border border-dashed border-border bg-muted/20 p-4 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground"
-      >
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-border bg-background">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="12" x2="12" y1="5" y2="19" />
-            <line x1="5" x2="19" y1="12" y2="12" />
-          </svg>
-        </div>
-        <span className="text-sm font-medium">Add document</span>
-      </Link>
+      <AdminListCreateTile href={createHref} label="Add document" />
 
       {gists.map((gist, index) => {
         const isDeleting = deletingId === gist._id;
+        const sharePath = getGistSharePath(gist.slug);
 
         return (
-          <MotionDiv
+          <AdminListCard
             key={gist._id}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.04 }}
-            className="rounded-lg border border-border bg-background p-4"
-          >
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="min-w-0">
-                <p className="truncate text-base font-medium">{gist.title}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  /gists/{gist.slug}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Updated {formatRelativeDate(gist.updatedAt)}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
+            index={index}
+            disabled={isDeleting}
+            href={sharePath}
+            icon={<FileText className="size-5" strokeWidth={1.75} />}
+            title={gist.title}
+            meta={
+              <AdminListMeta
+                items={["Markdown", formatRelativeDate(gist.updatedAt)]}
+                title={sharePath}
+              />
+            }
+            actions={
+              <>
                 <Button
                   type="button"
                   size="sm"
                   variant="outline"
                   onClick={() => onCopyLink(gist)}
                   disabled={isDeleting}
+                  className={adminListActionClassName}
                 >
                   {copiedId === gist._id ? (
                     <>
-                      <Check className="mr-1.5 size-3.5" />
+                      <Check className="mr-1 size-3" />
                       Copied
                     </>
                   ) : (
                     <>
-                      <Copy className="mr-1.5 size-3.5" />
-                      Copy Link
+                      <Copy className="mr-1 size-3" />
+                      Copy
                     </>
                   )}
                 </Button>
@@ -98,29 +82,16 @@ export function GistList({
                   size="sm"
                   variant="outline"
                   disabled={isDeleting}
+                  className={adminListIconActionClassName}
                 >
-                  <Link href={`/admin/gists/${gist._id}/edit`}>
-                    <PencilLine className="mr-1.5 size-3.5" />
-                    Edit
+                  <Link
+                    href={`/admin/gists/${gist._id}/edit`}
+                    aria-label="Edit document"
+                    title="Edit"
+                  >
+                    <Pencil className="size-3.5" />
                   </Link>
                 </Button>
-
-                <a
-                  href={getGistSharePath(gist.slug)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex"
-                >
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    disabled={isDeleting}
-                  >
-                    <ExternalLink className="mr-1.5 size-3.5" />
-                    Open
-                  </Button>
-                </a>
 
                 <Button
                   type="button"
@@ -128,14 +99,15 @@ export function GistList({
                   variant="outline"
                   onClick={() => onDeleteGist(gist)}
                   disabled={isDeleting}
-                  className="border-red-500/25 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                  aria-label="Delete document"
+                  title="Delete"
+                  className={adminListDangerActionClassName}
                 >
-                  <Trash2 className="mr-1.5 size-3.5" />
-                  {isDeleting ? "Deleting..." : "Delete"}
+                  <Trash2 className="size-3.5" />
                 </Button>
-              </div>
-            </div>
-          </MotionDiv>
+              </>
+            }
+          />
         );
       })}
     </div>

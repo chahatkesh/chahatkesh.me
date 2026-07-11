@@ -20,7 +20,7 @@ export * from "./project";
 // Diagrams
 export * from "./diagram";
 
-// Gists / Documents
+// Gists
 export * from "./gist";
 
 // Videos

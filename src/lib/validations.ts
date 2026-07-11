@@ -125,7 +125,7 @@ export const updateDiagramSchema = z
   );
 
 // ---------------------------------------------------------------------------
-// Markdown Gist/Document Pages
+// Markdown Gist Pages
 // ---------------------------------------------------------------------------
 
 export const createGistSchema = z.object({
