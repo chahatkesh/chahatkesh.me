@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Check, Copy, PencilLine, Trash2, ExternalLink } from "lucide-react";
 import { Button } from "~/components/ui";
-import { Card, CardContent } from "~/components/ui/card";
 import { MotionDiv } from "~/components/shared";
 import { formatRelativeDate } from "~/lib/date-utils";
 import type { GistDocument } from "~/types/gists";
@@ -11,6 +10,7 @@ import { getGistSharePath } from "~/lib/gist-utils";
 
 interface GistListProps {
   gists: GistDocument[];
+  createHref: string;
   copiedId: string | null;
   deletingId: string | null;
   onCopyLink: (gist: GistDocument) => void;
@@ -19,26 +19,37 @@ interface GistListProps {
 
 export function GistList({
   gists,
+  createHref,
   copiedId,
   deletingId,
   onCopyLink,
   onDeleteGist,
 }: GistListProps) {
-  if (gists.length === 0) {
-    return (
-      <Card className="border-border bg-background">
-        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-          <h3 className="text-lg font-semibold">No documents yet</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Create your first markdown document to generate a shareable URL.
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <div className="space-y-3">
+      <Link
+        href={createHref}
+        className="flex w-full items-center gap-4 rounded-lg border border-dashed border-border bg-muted/20 p-4 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground"
+      >
+        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-dashed border-border bg-background">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="12" x2="12" y1="5" y2="19" />
+            <line x1="5" x2="19" y1="12" y2="12" />
+          </svg>
+        </div>
+        <span className="text-sm font-medium">Add document</span>
+      </Link>
+
       {gists.map((gist, index) => {
         const isDeleting = deletingId === gist._id;
 

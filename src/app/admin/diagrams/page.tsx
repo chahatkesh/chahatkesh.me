@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { Plus } from "lucide-react";
 import useSWR, { mutate } from "swr";
-import { Button } from "~/components/ui";
 import {
   AdminErrorState,
   AdminLoadingState,
@@ -97,17 +94,9 @@ function AdminDiagramsContent() {
         subtitle="Create, edit, and share clean architecture diagrams with public URLs"
       />
 
-      <div className="flex justify-end">
-        <Button asChild>
-          <Link href="/admin/diagrams/new">
-            <Plus className="mr-2 size-4" />
-            New Diagram
-          </Link>
-        </Button>
-      </div>
-
       <DiagramList
         diagrams={data.data}
+        createHref="/admin/diagrams/new"
         copiedId={copiedId}
         deletingId={deletingId}
         onCopyLink={handleCopyLink}

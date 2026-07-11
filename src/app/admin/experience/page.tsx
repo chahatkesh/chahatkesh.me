@@ -7,13 +7,7 @@ import {
   type CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
 import { Button } from "~/components/ui";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import {
@@ -22,6 +16,10 @@ import {
   AdminConfirmDialog,
 } from "~/components/admin";
 import { experiences, type Experience } from "~/data/experience";
+import {
+  getCompanyRolesDisplay,
+  type CompanyRolesDisplay,
+} from "~/lib/experience-utils";
 import { API_ROUTES } from "~/constants";
 import {
   CLOUDINARY_UPLOAD_PRESET,
@@ -106,6 +104,34 @@ function groupExperiencesByCompany(exps: Experience[]): CompanyGroup[] {
   return Array.from(map.values());
 }
 
+function CompanyRolesLine({ display }: { display: CompanyRolesDisplay }) {
+  if (display.segments.length === 0) return null;
+
+  return (
+    <p
+      className="mt-0.5 truncate text-sm leading-snug"
+      title={display.fullTitle}
+    >
+      {display.segments.map((segment, index) => (
+        <span key={`${segment.role}-${segment.dateRange}`}>
+          {index > 0 && (
+            <span aria-hidden className="mx-1.5 text-muted-foreground/35">
+              ·
+            </span>
+          )}
+          <span className="text-muted-foreground">{segment.role}</span>
+          <span aria-hidden className="mx-1.5 text-muted-foreground/35">
+            ·
+          </span>
+          <span className="text-xs text-muted-foreground/55">
+            {segment.dateRange}
+          </span>
+        </span>
+      ))}
+    </p>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
@@ -180,7 +206,7 @@ function CompanyGalleryCard({
 
   const images = data?.data ?? [];
   const logoSrc = typeof logo === "string" ? logo : logo.src;
-  const isMultiRole = roles.length > 1;
+  const rolesDisplay = getCompanyRolesDisplay(roles);
 
   return (
     <Card className="overflow-hidden border-border bg-background">
@@ -191,10 +217,10 @@ function CompanyGalleryCard({
         className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background"
         aria-expanded={isExpanded}
       >
-        <CardHeader className="pb-3">
-          <div className="flex items-start gap-4">
+        <CardHeader className="gap-0 space-y-0 px-4 py-3">
+          <div className="flex items-center gap-3">
             {/* Logo */}
-            <div className="mt-0.5 flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/50">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-muted/50">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logoSrc}
@@ -205,38 +231,15 @@ function CompanyGalleryCard({
 
             {/* Company + roles */}
             <div className="min-w-0 flex-1">
-              <CardTitle className="truncate text-base text-foreground">
+              <CardTitle className="truncate text-base font-semibold leading-snug text-foreground">
                 {employer}
               </CardTitle>
 
-              {isMultiRole ? (
-                /* Multiple roles — list them all */
-                <ul className="mt-1 space-y-0.5">
-                  {roles.map((r) => (
-                    <li key={r.slug} className="flex items-center gap-1.5">
-                      <span className="h-1 w-1 flex-shrink-0 rounded-full bg-muted-foreground/50" />
-                      <CardDescription className="truncate text-xs text-muted-foreground">
-                        {r.role}
-                        <span className="ml-1.5 text-muted-foreground/50">
-                          {r.start_date} – {r.end_date}
-                        </span>
-                      </CardDescription>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                /* Single role — show inline */
-                <CardDescription className="mt-0.5 truncate text-sm text-muted-foreground">
-                  {roles[0].role}
-                  <span className="ml-1.5 text-muted-foreground/50 text-xs">
-                    {roles[0].start_date} – {roles[0].end_date}
-                  </span>
-                </CardDescription>
-              )}
+              <CompanyRolesLine display={rolesDisplay} />
             </div>
 
             {/* Right side */}
-            <div className="flex flex-shrink-0 items-center gap-3">
+            <div className="flex flex-shrink-0 items-center gap-2.5">
               {isExpanded && images.length > 0 && (
                 <span className="hidden items-center rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground sm:inline-flex">
                   {images.length} image{images.length !== 1 ? "s" : ""}
@@ -267,46 +270,14 @@ function CompanyGalleryCard({
 
       {/* Expanded content */}
       {isExpanded && (
-        <CardContent className="border-t border-border pt-0">
-          <div className="space-y-6 pt-5">
-            {isMultiRole && (
-              <p className="rounded-md border border-border bg-card/50 px-3 py-2 text-xs text-muted-foreground/70">
-                Images uploaded here are shared across all{" "}
-                <span className="text-foreground/80">{employer}</span> roles.
-              </p>
-            )}
-
-            {/* Upload zone */}
-            <UploadSection
+        <CardContent className="border-t border-border px-4 pb-4 pt-0">
+          <div className="pt-4">
+            <CompanyGalleryGrid
               gallerySlug={gallerySlug}
+              images={images}
+              isLoading={isLoading}
               onSaved={() => mutate(apiUrl)}
             />
-
-            {/* Saved images */}
-            {isLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-muted-foreground/30" />
-              </div>
-            ) : images.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-border py-6 text-center text-sm text-muted-foreground/70">
-                No images yet — upload your first highlight above.
-              </p>
-            ) : (
-              <div className="space-y-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
-                  Saved ({images.length})
-                </p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                  {images.map((img) => (
-                    <GalleryImageTile
-                      key={img._id}
-                      image={img}
-                      onChanged={() => mutate(apiUrl)}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </CardContent>
       )}
@@ -315,15 +286,24 @@ function CompanyGalleryCard({
 }
 
 // ---------------------------------------------------------------------------
-// Upload section — multi-file staging queue
+// Gallery grid — upload tile + pending queue + saved images
 // ---------------------------------------------------------------------------
 
-interface UploadSectionProps {
+const GALLERY_TILE_WIDTH = "w-44 flex-shrink-0";
+
+interface CompanyGalleryGridProps {
   gallerySlug: string;
+  images: ExperienceGalleryImage[];
+  isLoading: boolean;
   onSaved: () => void;
 }
 
-function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
+function CompanyGalleryGrid({
+  gallerySlug,
+  images,
+  isLoading,
+  onSaved,
+}: CompanyGalleryGridProps) {
   const [pendingItems, setPendingItems] = useState<PendingItem[]>([]);
   const baseId = useId();
 
@@ -410,82 +390,101 @@ function UploadSection({ gallerySlug, onSaved }: UploadSectionProps) {
 
   const hasPending = pendingItems.length > 0;
 
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-foreground/80">Add Images</p>
-        {hasPending && (
-          <span className="text-xs text-muted-foreground/70">
-            {pendingItems.length} pending
-          </span>
-        )}
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-muted-foreground/30" />
       </div>
+    );
+  }
 
-      <CldUploadWidget
-        uploadPreset={CLOUDINARY_UPLOAD_PRESET}
-        onSuccess={handleUploadSuccess}
-        onError={(error) => console.error("Upload error:", error)}
-        options={CLOUDINARY_UPLOAD_OPTIONS.EXPERIENCE(gallerySlug)}
-      >
-        {({ open }) => (
-          <button
+  return (
+    <div className="space-y-3">
+      {hasPending && (
+        <div className="flex justify-end">
+          <Button
             type="button"
-            onClick={() => open()}
-            className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border py-6 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:text-muted-foreground"
+            size="sm"
+            onClick={saveAll}
+            disabled={pendingItems.every((i) => i.saving)}
           >
+            Save all ({pendingItems.length})
+          </Button>
+        </div>
+      )}
+
+      <div
+        className="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth pb-1"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <UploadTile
+          gallerySlug={gallerySlug}
+          onUploadSuccess={handleUploadSuccess}
+        />
+        {pendingItems.map((item) => (
+          <PendingImageTile
+            key={item.clientId}
+            item={item}
+            onCaptionChange={(c) => updateCaption(item.clientId, c)}
+            onSave={() => saveOne(item.clientId)}
+            onDiscard={() => removePending(item.clientId)}
+          />
+        ))}
+        {images.map((img) => (
+          <GalleryImageTile key={img._id} image={img} onChanged={onSaved} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface UploadTileProps {
+  gallerySlug: string;
+  onUploadSuccess: (result: CloudinaryUploadWidgetResults) => void;
+}
+
+function UploadTile({ gallerySlug, onUploadSuccess }: UploadTileProps) {
+  return (
+    <CldUploadWidget
+      uploadPreset={CLOUDINARY_UPLOAD_PRESET}
+      onSuccess={onUploadSuccess}
+      onError={(error) => console.error("Upload error:", error)}
+      options={CLOUDINARY_UPLOAD_OPTIONS.EXPERIENCE(gallerySlug)}
+    >
+      {({ open }) => (
+        <button
+          type="button"
+          onClick={() => open()}
+          className={cn(
+            "flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-background text-left",
+            GALLERY_TILE_WIDTH,
+          )}
+          aria-label="Upload images"
+        >
+          <div className="flex aspect-[3/4] w-full items-center justify-center border-b border-dashed border-border bg-muted/20 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
+              width="28"
+              height="28"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.75"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="17 8 12 3 7 8" />
-              <line x1="12" x2="12" y1="3" y2="15" />
+              <line x1="12" x2="12" y1="5" y2="19" />
+              <line x1="5" x2="19" y1="12" y2="12" />
             </svg>
-            <span className="text-sm font-medium">Click to upload images</span>
-            <span className="text-xs">
-              JPG, PNG, WebP — up to 10 MB each, up to 20 at once
-            </span>
-          </button>
-        )}
-      </CldUploadWidget>
-
-      {hasPending && (
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
-              Review & add captions
+          </div>
+          <div className="px-2 pb-2">
+            <p className="text-xs font-medium text-muted-foreground/80">
+              Add image
             </p>
-            <Button
-              type="button"
-              size="sm"
-              onClick={saveAll}
-              disabled={pendingItems.every((i) => i.saving)}
-            >
-              Save all ({pendingItems.length})
-            </Button>
           </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-            {pendingItems.map((item) => (
-              <PendingImageTile
-                key={item.clientId}
-                item={item}
-                onCaptionChange={(c) => updateCaption(item.clientId, c)}
-                onSave={() => saveOne(item.clientId)}
-                onDiscard={() => removePending(item.clientId)}
-              />
-            ))}
-          </div>
-        </div>
+        </button>
       )}
-    </div>
+    </CldUploadWidget>
   );
 }
 
@@ -507,7 +506,12 @@ function PendingImageTile({
   onDiscard,
 }: PendingImageTileProps) {
   return (
-    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-card/40">
+    <div
+      className={cn(
+        "flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-card/40",
+        GALLERY_TILE_WIDTH,
+      )}
+    >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -614,7 +618,12 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-background">
+    <div
+      className={cn(
+        "flex flex-col gap-2 overflow-hidden rounded-lg border border-border bg-background",
+        GALLERY_TILE_WIDTH,
+      )}
+    >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -672,13 +681,13 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
           <>
             <p
               className={cn(
-                "min-h-[1rem] cursor-pointer text-xs line-clamp-2",
+                "cursor-pointer truncate text-xs",
                 image.caption
                   ? "text-muted-foreground hover:text-foreground/80"
                   : "italic text-muted-foreground/50 hover:text-muted-foreground/70",
               )}
               onClick={startEdit}
-              title="Click to edit caption"
+              title={image.caption ?? "Click to edit caption"}
             >
               {image.caption ?? "Add caption…"}
             </p>

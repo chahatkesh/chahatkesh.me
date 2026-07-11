@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { Plus } from "lucide-react";
 import useSWR, { mutate } from "swr";
-import { Button } from "~/components/ui";
 import {
   AdminConfirmDialog,
   AdminErrorState,
@@ -97,17 +94,9 @@ function AdminGistsContent() {
         subtitle="Create markdown documents and share them publicly with clean read-only pages"
       />
 
-      <div className="flex justify-end">
-        <Button asChild>
-          <Link href="/admin/gists/new">
-            <Plus className="mr-2 size-4" />
-            New Document
-          </Link>
-        </Button>
-      </div>
-
       <GistList
         gists={data.data}
+        createHref="/admin/gists/new"
         copiedId={copiedId}
         deletingId={deletingId}
         onCopyLink={handleCopyLink}

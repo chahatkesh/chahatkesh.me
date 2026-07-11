@@ -10,13 +10,6 @@ import { Button } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { Label } from "~/components/ui";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
-import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -24,7 +17,6 @@ import {
   SheetTitle,
 } from "~/components/ui/sheet";
 import { MotionDiv } from "~/components/shared";
-import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import {
   ProtectedRoute,
@@ -75,6 +67,7 @@ function AdminGalleryContent() {
   });
 
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [originalEditData, setOriginalEditData] = useState<GalleryImage | null>(
     null,
@@ -82,14 +75,30 @@ function AdminGalleryContent() {
   const [deleteTarget, setDeleteTarget] = useState<GalleryImage | null>(null);
   const [uploading, setUploading] = useState(false);
 
+  const resetFormData = () => ({
+    title: "",
+    location: "",
+    date: new Date().toISOString().split("T")[0],
+    aspectRatio: "square" as const,
+    isFeatured: false,
+    imageUrl: "",
+    publicId: "",
+  });
+
   const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
     const upload = parseCloudinaryUploadResult(result);
     if (!upload) return;
-    setFormData((prev) => ({
-      ...prev,
+    setFormData({
+      ...resetFormData(),
       imageUrl: upload.imageUrl,
       publicId: upload.publicId,
-    }));
+    });
+    setIsAddModalOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setIsAddModalOpen(false);
+    setFormData(resetFormData());
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,29 +106,15 @@ function AdminGalleryContent() {
     setUploading(true);
 
     try {
-      const url = editingId ? `/api/gallery/${editingId}` : "/api/gallery";
-      const method = editingId ? "PUT" : "POST";
-
-      const response = await fetch(url, {
-        method,
+      const response = await fetch("/api/gallery", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        // Reset form
-        setFormData({
-          title: "",
-          location: "",
-          date: new Date().toISOString().split("T")[0],
-          aspectRatio: "square",
-          isFeatured: false,
-          imageUrl: "",
-          publicId: "",
-        });
-        setEditingId(null);
-
-        // Revalidate SWR cache
+        setFormData(resetFormData());
+        setIsAddModalOpen(false);
         mutate("/api/gallery");
       }
     } catch (error) {
@@ -230,151 +225,238 @@ function AdminGalleryContent() {
         subtitle="Upload, edit, and manage your gallery images"
       />
 
-      {/* Upload Form */}
+      {/* Gallery Grid */}
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <Card className="border-border bg-background">
-          <CardHeader>
-            <CardTitle className="text-xl">Add New Image</CardTitle>
-            <CardDescription>
-              Upload a new image to your gallery collection
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Image Upload */}
-              <div className="space-y-3">
-                <Label htmlFor="image" className="text-sm font-medium">
-                  Image *
-                </Label>
-                <CldUploadWidget
-                  uploadPreset={CLOUDINARY_UPLOAD_PRESET}
-                  onSuccess={handleUploadSuccess}
-                  onError={(error) => {
-                    console.error("Upload error:", error);
-                    alert(
-                      "Failed to upload image. Please check your Cloudinary settings.",
-                    );
-                  }}
-                  options={CLOUDINARY_UPLOAD_OPTIONS.GALLERY}
-                >
-                  {({ open }) => (
-                    <div className="space-y-3">
-                      <Button
-                        type="button"
-                        onClick={() => open()}
-                        className="w-full"
-                        variant="outline"
+        <div className="grid w-full auto-rows-[200px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <GalleryUploadTile onUploadSuccess={handleUploadSuccess} />
+          {data?.data?.map((image, index) => (
+            <MotionDiv
+              key={image._id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className={cn(
+                "group relative overflow-hidden rounded-lg border border-border bg-background hover:border-muted-foreground/30 transition-colors duration-300",
+                {
+                  "md:col-span-2": image.aspectRatio === "landscape",
+                  "row-span-2": image.aspectRatio === "portrait",
+                  "md:col-span-2 row-span-2":
+                    image.aspectRatio === "big-square",
+                  "col-span-1 row-span-1": image.aspectRatio === "square",
+                },
+              )}
+            >
+              <div className="relative h-full w-full overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={image.imageUrl}
+                  alt={image.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Bottom left corner black overlay */}
+                <div className="absolute bottom-0 left-0 z-10 h-1/3 bg-black/70 rounded-tr-2xl" />
+                {/* Hover overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent opacity-100 transition-opacity duration-300" />
+                {/* Default gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+
+                {/* Featured Badge */}
+                {image.isFeatured && (
+                  <div className="absolute top-3 right-3 z-20">
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/90 text-black backdrop-blur-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="mr-1"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="mr-2"
-                        >
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                          <polyline points="17 8 12 3 7 8" />
-                          <line x1="12" x2="12" y1="3" y2="15" />
-                        </svg>
-                        {formData.imageUrl ? "Change Image" : "Upload Image"}
-                      </Button>
-                      {formData.imageUrl && (
-                        <div className="relative group">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={formData.imageUrl}
-                            alt="Preview"
-                            className="w-full h-64 object-cover rounded-lg border border-border"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                            <p className="text-white text-sm">
-                              Click 'Change Image' to replace
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </CldUploadWidget>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Title */}
-                <div className="space-y-2">
-                  <Label htmlFor="title" className="text-sm font-medium">
-                    Title *
-                  </Label>
-                  <Input
-                    id="title"
-                    placeholder="e.g., Sunset at the Beach"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        title: e.target.value,
-                      }))
-                    }
-                    required
-                    className="bg-card border-border"
-                  />
-                </div>
-
-                {/* Location */}
-                <div className="space-y-2">
-                  <Label htmlFor="location" className="text-sm font-medium">
-                    Location *
-                  </Label>
-                  <Input
-                    id="location"
-                    placeholder="e.g., Goa, India"
-                    value={formData.location}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        location: e.target.value,
-                      }))
-                    }
-                    required
-                    className="bg-card border-border"
-                  />
-                </div>
-
-                {/* Date */}
-                <div className="space-y-2">
-                  <Label htmlFor="date" className="text-sm font-medium">
-                    Date *
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="date"
-                      type="date"
-                      value={formData.date}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          date: e.target.value,
-                        }))
-                      }
-                      required
-                      className="bg-card border-border [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                    />
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                      Featured
+                    </span>
                   </div>
+                )}
+
+                {/* Image Info */}
+                <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
+                  <h3 className="text-base font-medium text-white">
+                    {image.title}, {image.location}
+                  </h3>
+                  <p className="mt-1 text-sm text-foreground/80">
+                    {formatDate(image.date)}
+                  </p>
+                </div>
+
+                {/* Action Buttons - Show on hover */}
+                <div className="absolute top-3 left-3 z-20 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEdit(image)}
+                    className="h-8 px-2.5 bg-white/95 hover:bg-white text-black border-0 backdrop-blur-sm text-xs"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mr-1"
+                    >
+                      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                      <path d="m15 5 4 4" />
+                    </svg>
+                    Edit
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setDeleteTarget(image)}
+                    className="h-8 px-2.5 bg-red-500/95 hover:bg-red-600 text-white border-0 backdrop-blur-sm text-xs"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 6h18" />
+                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                    </svg>
+                  </Button>
                 </div>
               </div>
+            </MotionDiv>
+          ))}
+        </div>
+      </MotionDiv>
 
-              {/* Aspect Ratio */}
+      <AdminConfirmDialog
+        open={Boolean(deleteTarget)}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+        title="Delete image?"
+        description={
+          deleteTarget
+            ? `This will permanently delete "${deleteTarget.title}" from your gallery.`
+            : ""
+        }
+        confirmLabel="Delete Image"
+        onConfirm={confirmDelete}
+        confirmDisabled={!deleteTarget}
+      />
+
+      {/* Add Image Modal */}
+      <Sheet
+        open={isAddModalOpen}
+        onOpenChange={(open) => {
+          if (!open) handleCloseAddModal();
+        }}
+      >
+        <SheetContent
+          side="right"
+          className="w-full overflow-y-auto sm:max-w-lg"
+        >
+          <SheetHeader>
+            <SheetTitle>Add New Image</SheetTitle>
+            <SheetDescription>
+              Fill in the details for your uploaded image
+            </SheetDescription>
+          </SheetHeader>
+
+          <form onSubmit={handleSubmit} className="mt-6 space-y-6">
+            {formData.imageUrl && (
+              <div className="space-y-3">
+                <Label className="text-sm font-medium">Uploaded Image</Label>
+                <div className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={formData.imageUrl}
+                    alt="Preview"
+                    className="h-48 w-full rounded-lg border border-border object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="title" className="text-sm font-medium">
+                  Title *
+                </Label>
+                <Input
+                  id="title"
+                  placeholder="e.g., Sunset at the Beach"
+                  value={formData.title}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }))
+                  }
+                  required
+                  className="border-border bg-card"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="location" className="text-sm font-medium">
+                  Location *
+                </Label>
+                <Input
+                  id="location"
+                  placeholder="e.g., Goa, India"
+                  value={formData.location}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      location: e.target.value,
+                    }))
+                  }
+                  required
+                  className="border-border bg-card"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="date" className="text-sm font-medium">
+                  Date *
+                </Label>
+                <Input
+                  id="date"
+                  type="date"
+                  value={formData.date}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      date: e.target.value,
+                    }))
+                  }
+                  required
+                  className="border-border bg-card [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:filter hover:[&::-webkit-calendar-picker-indicator]:opacity-100"
+                />
+              </div>
+
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Aspect Ratio *</Label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
                   {[
                     { value: "square", label: "Square" },
                     { value: "portrait", label: "Portrait" },
@@ -395,7 +477,7 @@ function AdminGalleryContent() {
                         }))
                       }
                       className={cn(
-                        "px-4 py-2.5 rounded-md border text-sm font-medium transition-all duration-200",
+                        "rounded-md border px-4 py-2.5 text-sm font-medium transition-all duration-200",
                         formData.aspectRatio === option.value
                           ? "border-muted-foreground bg-background text-foreground"
                           : "border-border text-muted-foreground hover:border-muted-foreground/30 hover:text-foreground/80",
@@ -407,8 +489,7 @@ function AdminGalleryContent() {
                 </div>
               </div>
 
-              {/* Featured Toggle */}
-              <div className="flex items-center space-x-3 p-4 bg-card rounded-lg border border-border">
+              <div className="flex items-center space-x-3 rounded-lg border border-border bg-card p-4">
                 <input
                   id="isFeatured"
                   type="checkbox"
@@ -419,232 +500,37 @@ function AdminGalleryContent() {
                       isFeatured: e.target.checked,
                     }))
                   }
-                  className="w-4 h-4 rounded border-muted-foreground/30 bg-muted text-foreground focus:ring-2 focus:ring-ring"
+                  className="h-4 w-4 rounded border-muted-foreground/30 bg-muted text-foreground focus:ring-2 focus:ring-ring"
                 />
-                <div>
-                  <Label
-                    htmlFor="isFeatured"
-                    className="text-sm font-medium cursor-pointer"
-                  >
-                    Featured Image
-                  </Label>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
-                <Button
-                  type="submit"
-                  disabled={uploading || !formData.imageUrl}
-                  className="w-full"
+                <Label
+                  htmlFor="isFeatured"
+                  className="cursor-pointer text-sm font-medium"
                 >
-                  {uploading ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      Uploading...
-                    </>
-                  ) : (
-                    "Add Image"
-                  )}
-                </Button>
+                  Featured Image
+                </Label>
               </div>
-            </form>
-          </CardContent>
-        </Card>
-      </MotionDiv>
+            </div>
 
-      {/* Gallery Grid */}
-      <MotionDiv
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="space-y-6"
-      >
-        <div>
-          <h2 className={cn(typo({ variant: "h2" }), "text-xl")}>
-            Gallery Images ({data?.data?.length || 0})
-          </h2>
-          <p className={cn(typo({ variant: "paragraph" }))}>
-            Manage your existing gallery collection
-          </p>
-        </div>
-
-        {data?.data && data.data.length === 0 ? (
-          <Card className="border-border bg-background">
-            <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="64"
-                height="64"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-muted-foreground/50 mb-4"
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCloseAddModal}
+                className="flex-1"
               >
-                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
-                <circle cx="9" cy="9" r="2" />
-                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-              </svg>
-              <h3 className="text-lg font-semibold mb-2">No images yet</h3>
-              <p className="text-muted-foreground mb-4">
-                Start building your gallery by uploading your first image above
-              </p>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="grid w-full auto-rows-[200px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {data?.data?.map((image, index) => (
-              <MotionDiv
-                key={image._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                className={cn(
-                  "group relative overflow-hidden rounded-lg border border-border bg-background hover:border-muted-foreground/30 transition-colors duration-300",
-                  {
-                    "md:col-span-2": image.aspectRatio === "landscape",
-                    "row-span-2": image.aspectRatio === "portrait",
-                    "md:col-span-2 row-span-2":
-                      image.aspectRatio === "big-square",
-                    "col-span-1 row-span-1": image.aspectRatio === "square",
-                  },
-                )}
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={uploading || !formData.imageUrl}
+                className="flex-1"
               >
-                <div className="relative h-full w-full overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={image.imageUrl}
-                    alt={image.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Bottom left corner black overlay */}
-                  <div className="absolute bottom-0 left-0 z-10 h-1/3 bg-black/70 rounded-tr-2xl" />
-                  {/* Hover overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent opacity-100 transition-opacity duration-300" />
-                  {/* Default gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-
-                  {/* Featured Badge */}
-                  {image.isFeatured && (
-                    <div className="absolute top-3 right-3 z-20">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/90 text-black backdrop-blur-sm">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="mr-1"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                        Featured
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Image Info */}
-                  <div className="absolute bottom-4 left-4 z-10 transition-opacity duration-300">
-                    <h3 className="text-base font-medium text-white">
-                      {image.title}, {image.location}
-                    </h3>
-                    <p className="mt-1 text-sm text-foreground/80">
-                      {formatDate(image.date)}
-                    </p>
-                  </div>
-
-                  {/* Action Buttons - Show on hover */}
-                  <div className="absolute top-3 left-3 z-20 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleEdit(image)}
-                      className="h-8 px-2.5 bg-white/95 hover:bg-white text-black border-0 backdrop-blur-sm text-xs"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-1"
-                      >
-                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                        <path d="m15 5 4 4" />
-                      </svg>
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => setDeleteTarget(image)}
-                      className="h-8 px-2.5 bg-red-500/95 hover:bg-red-600 text-white border-0 backdrop-blur-sm text-xs"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M3 6h18" />
-                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                      </svg>
-                    </Button>
-                  </div>
-                </div>
-              </MotionDiv>
-            ))}
-          </div>
-        )}
-      </MotionDiv>
-
-      <AdminConfirmDialog
-        open={Boolean(deleteTarget)}
-        onOpenChange={(open) => {
-          if (!open) setDeleteTarget(null);
-        }}
-        title="Delete image?"
-        description={
-          deleteTarget
-            ? `This will permanently delete "${deleteTarget.title}" from your gallery.`
-            : ""
-        }
-        confirmLabel="Delete Image"
-        onConfirm={confirmDelete}
-        confirmDisabled={!deleteTarget}
-      />
+                {uploading ? "Adding..." : "Add Image"}
+              </Button>
+            </div>
+          </form>
+        </SheetContent>
+      </Sheet>
 
       {/* Edit Modal */}
       <Sheet open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
@@ -847,6 +733,49 @@ function AdminGalleryContent() {
         </SheetContent>
       </Sheet>
     </div>
+  );
+}
+
+interface GalleryUploadTileProps {
+  onUploadSuccess: (result: CloudinaryUploadWidgetResults) => void;
+}
+
+function GalleryUploadTile({ onUploadSuccess }: GalleryUploadTileProps) {
+  return (
+    <CldUploadWidget
+      uploadPreset={CLOUDINARY_UPLOAD_PRESET}
+      onSuccess={onUploadSuccess}
+      onError={(error) => {
+        console.error("Upload error:", error);
+        alert("Failed to upload image. Please check your Cloudinary settings.");
+      }}
+      options={CLOUDINARY_UPLOAD_OPTIONS.GALLERY}
+    >
+      {({ open }) => (
+        <button
+          type="button"
+          onClick={() => open()}
+          className="col-span-1 row-span-1 flex h-full min-h-[200px] flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border border-dashed border-border bg-muted/20 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground"
+          aria-label="Upload image"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="12" x2="12" y1="5" y2="19" />
+            <line x1="5" x2="19" y1="12" y2="12" />
+          </svg>
+          <span className="text-xs font-medium">Add image</span>
+        </button>
+      )}
+    </CldUploadWidget>
   );
 }
 
