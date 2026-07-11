@@ -7,13 +7,11 @@ import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
   title: "Places",
-  description:
-    "An interactive map of places I have visited, with notes and timelines behind each pin.",
+  description: "Places I've visited — dates and short notes on each pin.",
   canonicalUrlRelative: "/places",
   openGraph: {
-    title: `Places | ${config.appName}`,
-    description:
-      "A minimal, interactive map of places I have visited, each pin carrying a short memory.",
+    title: `Places — ${config.appName}`,
+    description: "Pins on the map — places I've visited with dates and notes.",
   },
 });
 

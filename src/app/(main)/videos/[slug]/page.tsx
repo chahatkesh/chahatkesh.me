@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const description =
     video.description.substring(0, MAX_VIDEO_DESCRIPTION_LENGTH) || video.title;
+  const openGraphDescription = `Watch on YouTube · ${video.durationFormatted} — ${description}`;
 
   return getSEOTags({
     title: video.title,
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ],
     openGraph: {
       title: video.title,
-      description,
+      description: openGraphDescription,
       images: [
         {
           url: video.thumbnailUrl,

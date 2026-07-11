@@ -5,7 +5,7 @@ import dbConnect from "~/lib/mongodb";
 import Gist from "~/models/gist";
 import { getSEOTags } from "~/lib/seo";
 import { MarkdownRenderer } from "~/components/features/gist";
-import { getGistSharePath } from "~/lib/gist-utils";
+import { getGistSharePath, markdownToSnippet } from "~/lib/gist-utils";
 import config from "~/config";
 
 type Params = {
@@ -40,14 +40,16 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     });
   }
 
+  const description = markdownToSnippet(gist.markdownContent);
+
   return getSEOTags({
-    title: `${gist.title} | Document`,
-    description: `Shared markdown document: ${gist.title}`,
+    title: gist.title,
+    description,
     canonicalUrlRelative: getGistSharePath(gist.slug),
     noIndex: true,
     openGraph: {
-      title: `${gist.title} | Document`,
-      description: `Shared markdown document: ${gist.title}`,
+      title: `${gist.title} — Gist`,
+      description,
     },
   });
 }

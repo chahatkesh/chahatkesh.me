@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import dbConnect from "~/lib/mongodb";
 import Gist from "~/models/gist";
+import { markdownToSnippet } from "~/lib/gist-utils";
 import { generateOGImageResponse, OG_IMAGE_SIZE } from "~/lib/og-template";
 
 export const size = OG_IMAGE_SIZE;
@@ -18,20 +19,6 @@ type GistLean = {
   markdownContent: string;
 };
 
-function markdownToSnippet(markdown: string): string {
-  const snippet = markdown
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/`[^`]*`/g, " ")
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
-    .replace(/\[[^\]]*\]\([^)]*\)/g, "$1")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/[#>*_~\-|]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  return snippet || "Shared markdown document";
-}
-
 export default async function Image({ params }: Props) {
   const { slug } = await params;
 
@@ -44,9 +31,9 @@ export default async function Image({ params }: Props) {
 
   return generateOGImageResponse({
     title: gist.title,
-    subtitle: "Shared document",
+    subtitle: "Markdown gist",
     description: markdownToSnippet(gist.markdownContent),
     badge: "Gist",
-    tags: ["Markdown", "Public"],
+    tags: ["Gist", "Markdown"],
   });
 }

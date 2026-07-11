@@ -96,6 +96,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/places`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
+    {
       url: `${baseUrl}/about/journey/btech`,
       lastModified: siteCreationDate,
       changeFrequency: "yearly",

@@ -5,11 +5,11 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "About Me",
-    subtitle: "Chahat Kesharwani",
+    title: "About",
+    subtitle: "Engineer · Builder · Explorer",
     description:
-      "Engineer, builder, and explorer. Building AI-powered products, shipping fast, and caring deeply about craft. The story behind the code.",
+      "I build AI-powered products, ship production systems, and care about craft across product, design, and engineering.",
     badge: "About",
-    tags: ["Engineer", "Builder", "Explorer"],
+    tags: ["Layr", "Zenbase", "NIT Jalandhar"],
   });
 }

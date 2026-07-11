@@ -26,10 +26,11 @@ import { getLinkIcon } from "~/lib/link-icons";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
-  description: `Everything in one place. GitHub, socials, resume, and ways to reach ${config.appName}.`,
+  description:
+    "GitHub, socials, resume, and ways to reach me — pick your platform.",
   openGraph: {
-    title: `Links - ${config.appName}`,
-    description: `Every place I exist online. Pick your platform.`,
+    title: `Links — ${config.appName}`,
+    description: "Every place I exist online — pick your platform.",
   },
   canonicalUrlRelative: "/links",
 });

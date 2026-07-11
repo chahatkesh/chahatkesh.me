@@ -9,11 +9,13 @@ import { GalleryContent } from "~/components/features/gallery";
 
 export const metadata: Metadata = getSEOTags({
   title: "Gallery",
-  description: `Moments that mattered. Trips, meet-ups, hackathons, places. Captured as they happened.`,
+  description:
+    "Trips, meet-ups, hackathons, and places — captured as they happened.",
   canonicalUrlRelative: "/gallery",
   openGraph: {
-    title: `Gallery | ${config.appName}`,
-    description: `This gallery shows moments, projects, and memories that matter to me. Each picture shares a small part of my story, how I see, feel, and create.`,
+    title: `Gallery — ${config.appName}`,
+    description:
+      "Moments that mattered — trips, meet-ups, hackathons, and places.",
   },
 });
 

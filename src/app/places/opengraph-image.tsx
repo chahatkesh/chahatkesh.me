@@ -6,10 +6,9 @@ export const contentType = "image/png";
 export default async function Image() {
   return generateOGImageResponse({
     title: "Places",
-    subtitle: "Visited Pins Across The Map",
-    description:
-      "A minimal interactive map of places I have visited, with dates and short notes on each pin.",
+    subtitle: "Pins on the map",
+    description: "Places I've visited — dates and short notes on each pin.",
     badge: "Places",
-    tags: ["Map", "Travel", "Pins", "Notes"],
+    tags: ["Map", "Travel"],
   });
 }

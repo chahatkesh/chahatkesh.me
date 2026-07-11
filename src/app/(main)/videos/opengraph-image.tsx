@@ -6,10 +6,10 @@ export const contentType = "image/png";
 export default async function Image() {
   return generateOGImageResponse({
     title: "Videos",
-    subtitle: "Tutorials, Talks & Builds",
+    subtitle: "Tutorials, talks & builds",
     description:
-      "Watch developer tutorials, tech talks, and behind-the-scenes of building real products.",
+      "Developer tutorials, tech talks, and behind-the-scenes of shipping real products.",
     badge: "Videos",
-    tags: ["YouTube", "Tutorials", "Developer", "Tech"],
+    tags: ["YouTube", "Tutorials"],
   });
 }

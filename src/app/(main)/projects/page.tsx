@@ -9,7 +9,8 @@ import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
   title: "Projects",
-  description: `Things I've built and shipped. From AI tools to production platforms, each project is a chapter in figuring out what I can make.`,
+  description:
+    "Web apps, tools, and experiments — from AI products to infrastructure and open-source builds.",
   canonicalUrlRelative: "/projects",
   keywords: [
     "JavaScript",
@@ -21,8 +22,9 @@ export const metadata: Metadata = getSEOTags({
     "Software Engineering",
   ],
   openGraph: {
-    title: `Projects by ${config.appName}`,
-    description: `Production-grade projects built with React, Next.js, TypeScript, and a lot of late nights. Explore the work.`,
+    title: `Projects — ${config.appName}`,
+    description:
+      "Things I've built and shipped — from AI products to infrastructure and open-source builds.",
   },
 });
 

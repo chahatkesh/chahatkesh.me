@@ -26,3 +26,20 @@ export function slugifyGistTitle(title: string): string {
 export function getGistSharePath(slug: string): string {
   return `/gists/${encodeURIComponent(slug)}`;
 }
+
+/**
+ * Strip markdown syntax and return a plain-text preview for SEO/OG copy.
+ */
+export function markdownToSnippet(markdown: string): string {
+  const snippet = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[[^\]]*\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[#>*_~\-|]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return snippet || "Markdown gist shared on chahatkesh.me";
+}

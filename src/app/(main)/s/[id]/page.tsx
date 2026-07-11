@@ -43,6 +43,14 @@ async function getFile(id: string): Promise<SharedFileLean | null> {
   return SharedFile.findById(id).lean<SharedFileLean>();
 }
 
+function formatBytes(bytes: number): string {
+  if (!bytes || bytes <= 0) return "";
+  const units = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  const value = bytes / Math.pow(1024, i);
+  return `${value.toFixed(value >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const file = await getFile(id);
@@ -51,14 +59,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return getSEOTags({ title: "File not found", noIndex: true });
   }
 
+  const format = (file.format || "").toUpperCase();
+  const formattedSize = formatBytes(file.bytes);
+  const description =
+    format && formattedSize
+      ? `${format} · ${formattedSize} — shared by ${config.appName}.`
+      : `A file shared by ${config.appName}.`;
+
   return getSEOTags({
     title: file.fileName,
-    description: `A file shared by ${config.appName}.`,
+    description,
     canonicalUrlRelative: `/s/${id}`,
     noIndex: true,
     openGraph: {
-      title: `${file.fileName} | ${config.appName}`,
-      description: `A file shared by ${config.appName}.`,
+      title: file.fileName,
+      description,
     },
   });
 }

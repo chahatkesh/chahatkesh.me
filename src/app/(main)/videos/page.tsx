@@ -9,7 +9,8 @@ import { VideoList, VideosListJsonLd } from "~/components/features/video";
 
 export const metadata: Metadata = getSEOTags({
   title: "Videos",
-  description: `Watch ${config.appName}'s videos — tutorials, talks, and behind-the-scenes of building products.`,
+  description:
+    "Developer tutorials, tech talks, and behind-the-scenes of shipping real products.",
   canonicalUrlRelative: "/videos",
   keywords: [
     "YouTube",
@@ -20,8 +21,8 @@ export const metadata: Metadata = getSEOTags({
     config.appName,
   ],
   openGraph: {
-    title: `Videos by ${config.appName}`,
-    description: `Tutorials, talks, and builds — watch ${config.appName} on YouTube.`,
+    title: `Videos — ${config.appName}`,
+    description: "Tutorials, talks & builds from Chahat Kesharwani on YouTube.",
   },
 });
 

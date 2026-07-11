@@ -9,10 +9,12 @@ import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
   title: "My Storyline",
-  description: `The moments that shaped me. Projects, hackathons, travel, community work, and everything in between. Laid out as it happened.`,
+  description:
+    "Projects, hackathons, travel, community, and the moments that shaped how I build.",
   openGraph: {
-    title: `My Storyline - ${config.appName}`,
-    description: `A timeline of the key moments, builds, and experiences that define who I am. Not just the wins.`,
+    title: `My Storyline — ${config.appName}`,
+    description:
+      "Projects, hackathons, travel, community, and the moments that shaped how I build. Not just the wins.",
   },
   canonicalUrlRelative: "/about/journey",
 });

@@ -42,13 +42,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   }
 
   return getSEOTags({
-    title: `${diagram.title} | Diagram`,
-    description: `Shared Mermaid diagram: ${diagram.title}`,
+    title: diagram.title,
+    description: `${diagram.title} — interactive Mermaid diagram from chahatkesh.me`,
     canonicalUrlRelative: getDiagramSharePath(diagram.slug),
     noIndex: true,
     openGraph: {
-      title: `${diagram.title} | Diagram`,
-      description: `Shared Mermaid diagram: ${diagram.title}`,
+      title: `${diagram.title} — Diagram`,
+      description: `${diagram.title} — interactive Mermaid diagram from chahatkesh.me`,
     },
   });
 }

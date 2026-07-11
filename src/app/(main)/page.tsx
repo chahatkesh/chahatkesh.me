@@ -34,10 +34,10 @@ const Skills = dynamic(() => import("~/components/sections/skills"), {
 // title ("Chahat Kesharwani - Engineer · Builder · Explorer") rather than a
 // generic "Home | ..." prefix. Canonical falls through to the root URL.
 export const metadata: Metadata = getSEOTags({
-  description: `${config.appName} - ${config.appDesignation}. Explore my portfolio featuring projects, skills, and professional experience.`,
+  description: config.seo.defaultDescription,
   openGraph: {
     title: `${config.appName} - ${config.appDesignation}`,
-    description: `Welcome to ${config.appName}'s portfolio. Discover my projects, skills, and professional experience as a ${config.appDesignation}.`,
+    description: config.seo.defaultDescription,
   },
 });
 

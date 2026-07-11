@@ -5,11 +5,10 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "My Journey",
-    subtitle: "Timeline & Milestones",
+    title: "My Storyline",
+    subtitle: "Not just the wins",
     description:
-      "Follow my journey through education, projects, and professional growth in the world of software development.",
+      "Projects, hackathons, travel, community, and the moments that shaped how I build.",
     badge: "Journey",
-    tags: ["Timeline", "Growth", "Milestones"],
   });
 }

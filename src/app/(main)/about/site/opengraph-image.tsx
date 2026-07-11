@@ -6,9 +6,9 @@ export const contentType = "image/png";
 export default async function Image() {
   return generateOGImageResponse({
     title: "About This Site",
-    subtitle: "Built with Modern Technologies",
+    subtitle: "How chahatkesh.me is built",
     description:
-      "Discover the tech stack, features, and design decisions behind this portfolio website.",
+      "Stack, features, and design decisions behind this portfolio — Next.js, React, TypeScript, MongoDB.",
     badge: "Site Info",
     tags: ["Next.js 15", "React 19", "TypeScript", "MongoDB"],
   });

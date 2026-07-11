@@ -14,10 +14,12 @@ const BtechCoursesClient = dynamic(() => import("./page.client"), {
 
 export const metadata: Metadata = getSEOTags({
   title: "BTech at NIT Jalandhar",
-  description: `Everything I studied during my B.Tech in Instrumentation and Control Engineering at NIT Jalandhar. Courses, syllabi, and semesters.`,
+  description:
+    "Every course and syllabus from my undergraduate degree in Instrumentation and Control Engineering — semester by semester.",
   openGraph: {
-    title: `BTech Courses - ${config.appName}`,
-    description: `A complete record of my undergraduate coursework. ICE at NIT Jalandhar, semester by semester.`,
+    title: `BTech at NIT Jalandhar — ${config.appName}`,
+    description:
+      "Every course and syllabus from my undergraduate degree — semester by semester.",
   },
   canonicalUrlRelative: "/about/journey/btech",
 });

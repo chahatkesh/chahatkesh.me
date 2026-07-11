@@ -30,7 +30,7 @@ export default async function Image({ params }: Props) {
   return generateOGImageResponse({
     title: diagram.title,
     subtitle: "Shared Mermaid diagram",
-    description: "Interactive diagram shared from chahatkesh.me",
+    description: `${diagram.title} — interactive Mermaid diagram from chahatkesh.me`,
     badge: "Diagram",
     tags: ["Mermaid", "Public"],
   });

@@ -48,11 +48,11 @@ const MetricsChart = dynamic(
 export const metadata: Metadata = getSEOTags({
   title: "About This Site",
   description:
-    "A deep technical breakdown of this portfolio — architecture, design patterns, performance strategies, and codebase metrics.",
+    "Stack, features, and design decisions behind this portfolio — Next.js, React, TypeScript, MongoDB.",
   openGraph: {
-    title: `About This Site - ${config.appName}`,
+    title: `About This Site — ${config.appName}`,
     description:
-      "Explore the architecture, design patterns, codebase metrics, and engineering decisions behind this portfolio.",
+      "How chahatkesh.me is built — architecture, stack, and engineering decisions.",
   },
   canonicalUrlRelative: "/about/site",
 });

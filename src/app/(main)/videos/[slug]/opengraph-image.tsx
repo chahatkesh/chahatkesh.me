@@ -20,7 +20,7 @@ export default async function Image({ params }: Props) {
 
   return generateOGImageResponse({
     title: video.title,
-    subtitle: video.durationFormatted,
+    subtitle: `Watch on YouTube · ${video.durationFormatted}`,
     description: video.description,
     badge: "Video",
     tags: video.tags.slice(0, OG_MAX_TAGS),

@@ -27,11 +27,13 @@ import {
 } from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
-  title: "About Me",
-  description: `Learn more about ${config.appName}, a ${config.appDesignation} with experience in web development and product design. Discover my journey, skills, and interests.`,
+  title: "About",
+  description:
+    "I build AI-powered products, ship production systems, and care about craft across product, design, and engineering.",
   openGraph: {
-    title: `About ${config.appName} - ${config.appDesignation}`,
-    description: `Learn more about my background, skills, and journey as a ${config.appDesignation}. Get to know the person behind the code.`,
+    title: `About ${config.appName} — ${config.appDesignation}`,
+    description:
+      "I build AI-powered products, ship production systems, and care about craft across product, design, and engineering.",
   },
   canonicalUrlRelative: "/about",
 });

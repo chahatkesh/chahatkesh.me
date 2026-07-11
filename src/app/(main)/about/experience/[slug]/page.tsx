@@ -1,7 +1,6 @@
 import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import config from "~/config";
 import { experiences } from "~/data/experience";
 import { getOgImageUrlsForLinks } from "~/lib/og";
 import ExperienceDetailClient from "./page.client";
@@ -31,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${experience.role} at ${experience.employer}`,
     description: experience.tagline,
     openGraph: {
-      title: `${experience.role} - ${config.appName}`,
-      description: experience.description,
+      title: `${experience.role} at ${experience.employer}`,
+      description: experience.tagline,
     },
     canonicalUrlRelative: `/about/experience/${experience.slug}`,
   });

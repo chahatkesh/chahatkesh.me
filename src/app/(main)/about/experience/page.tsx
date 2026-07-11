@@ -8,11 +8,13 @@ import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
-  title: "Professional Experience",
-  description: `Where I've shipped. Every role, what I built, what I learned, and what came out of it. A complete look at ${config.appName}'s professional journey.`,
+  title: "Experience",
+  description:
+    "Founding Frontend Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
   openGraph: {
-    title: `Experience - ${config.appName}`,
-    description: `Founding Frontend Engineer at Zenbase, former EIR at IIT Ropar. Here's the full story of every role I've held and what I built along the way.`,
+    title: `Experience — ${config.appName}`,
+    description:
+      "Where I've shipped. Every role, what I built, what I learned, and what came out of it.",
   },
   canonicalUrlRelative: "/about/experience",
 });

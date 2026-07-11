@@ -6,10 +6,9 @@ export const contentType = "image/png";
 export default async function Image() {
   return generateOGImageResponse({
     title: "Gallery",
-    subtitle: "Visual Moments & Memories",
+    subtitle: "Moments that mattered",
     description:
-      "Browse through a curated collection of photos, screenshots, and visual highlights from my journey.",
+      "Trips, meet-ups, hackathons, and places — captured as they happened.",
     badge: "Gallery",
-    tags: ["Photos", "Moments", "Memories"],
   });
 }

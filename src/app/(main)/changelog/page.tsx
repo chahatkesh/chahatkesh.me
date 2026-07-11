@@ -17,7 +17,8 @@ import {
 
 export const metadata: Metadata = getSEOTags({
   title: "Changelog",
-  description: `Everything new, improved, and fixed on ${config.appName}'s portfolio — a monthly log of features, refinements, and fixes.`,
+  description:
+    "A monthly log of every feature, refinement, and fix shipped to this portfolio.",
   canonicalUrlRelative: "/changelog",
   keywords: [
     "changelog",
@@ -29,7 +30,8 @@ export const metadata: Metadata = getSEOTags({
   ],
   openGraph: {
     title: `Changelog — ${config.appName}`,
-    description: `A monthly log of everything new, improved, and fixed on ${config.appName}'s portfolio.`,
+    description:
+      "Shipped to this portfolio — what's new, improved, and fixed each month.",
   },
 });
 
