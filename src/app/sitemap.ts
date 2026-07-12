@@ -102,6 +102,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.55,
     },
     {
+      url: `${baseUrl}/about/reading`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/about/gym`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/about/designing`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/about/journey/btech`,
       lastModified: siteCreationDate,
       changeFrequency: "yearly",

@@ -2,11 +2,11 @@ import { type ReactNode } from "react";
 import {
   FaBook,
   FaRunning,
-  FaYoutube,
   FaLaptop,
   FaHeadphones,
   FaMobileAlt,
   FaPenFancy,
+  FaPlaneDeparture,
 } from "react-icons/fa";
 
 // ── Current Projects / Work ───────────────────────────────────────
@@ -42,6 +42,7 @@ export interface Hobby {
   title: string;
   description: string;
   icon: ReactNode;
+  href: string;
 }
 
 export const hobbies: Hobby[] = [
@@ -50,24 +51,28 @@ export const hobbies: Hobby[] = [
     description:
       "Non-fiction is my default. Psychology, systems thinking, startup stories. I read to understand how things work beyond the surface.",
     icon: <FaBook className="text-amber-500" />,
+    href: "/about/reading",
   },
   {
     title: "Gym",
     description:
       "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
     icon: <FaRunning className="text-green-400" />,
+    href: "/about/gym",
   },
   {
     title: "Designing",
     description:
       "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
     icon: <FaPenFancy className="text-blue-300" />,
+    href: "/about/designing",
   },
   {
-    title: "Content Creation",
+    title: "Travelling",
     description:
-      "Sharing what I build and what I learn. It started as a way to document things, and now it keeps me honest about making progress.",
-    icon: <FaYoutube className="text-red-500" />,
+      "I like exploring new places and observing how people live, build, and move through cities. It resets my perspective every time.",
+    icon: <FaPlaneDeparture className="text-cyan-400" />,
+    href: "/places",
   },
 ];
 
@@ -108,6 +113,7 @@ export const portfolioVersions: PortfolioVersion[] = [
   {
     version: "v4.0",
     label: "Next.js - Current Version",
+    url: "/changelog",
     isCurrent: true,
   },
   {

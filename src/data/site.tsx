@@ -528,6 +528,24 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/about/reading",
+    name: "Reading",
+    description: "Books, notes, and reflections from outside the screen",
+    renderType: "Static",
+  },
+  {
+    path: "/about/gym",
+    name: "Gym",
+    description: "Training logs, routines, and lessons from consistency",
+    renderType: "Static",
+  },
+  {
+    path: "/about/designing",
+    name: "Designing",
+    description: "Design explorations, UI studies, and visual thinking",
+    renderType: "Static",
+  },
+  {
     path: "/about/journey",
     name: "Journey",
     description: "Interactive timeline of life events",
@@ -605,7 +623,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "26,659+",
+    value: "26,916+",
     description: "TypeScript + TSX + CSS",
   },
   {

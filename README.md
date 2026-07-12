@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, and an admin panel for gallery and file management.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, and an admin panel for gallery, places, diagrams, gists, files, and experience management.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -39,6 +39,9 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Coding Activity:** Unified GitHub and LeetCode contribution calendars
 - **Spotify Integration:** Live now-playing widget displaying current music
 - **Image Gallery:** Curated photo gallery with optimized image delivery
+- **Places Map:** Interactive visited-places map with pins, dates, and notes
+- **Public Diagrams:** Shareable Mermaid diagram pages with zoomable read-only views
+- **Public Gists:** Shareable markdown document pages with clean reading layout
 - **Videos:** YouTube video catalog with individual video pages
 - **Changelog:** Monthly release notes documenting site updates
 - **Journey:** Personal and professional journey documentation, including BTech course details
@@ -53,6 +56,9 @@ This portfolio website serves as a professional showcase for projects, skills, a
 
 - **Protected Admin Panel:** JWT-based authentication system
 - **Gallery Management:** Upload, organize, and manage gallery images via Cloudinary
+- **Places Management:** Add and manage visited locations for the interactive public map
+- **Diagram Management:** Create and edit Mermaid diagram pages with public share links
+- **Gist Management:** Create and edit markdown note pages with clean public views
 - **Experience Gallery Management:** Manage images for individual experience entries
 - **File Sharing:** Upload files and generate shareable public URLs
 - **Session Management:** Secure token-based authentication
@@ -71,8 +77,8 @@ This portfolio website serves as a professional showcase for projects, skills, a
 src/
 ├── app/                    # Next.js app router pages
 │   ├── (main)/            # Public pages (home, about, projects, gallery, videos, changelog)
-│   ├── admin/             # Protected admin panel (gallery, files, experience)
-│   ├── api/               # API routes (auth, gallery, files, spotify, visitors, coding-activity)
+│   ├── admin/             # Protected admin panel (gallery, places, diagrams, gists, files, experience)
+│   ├── api/               # API routes (auth, content CRUD, spotify, visitors, coding-activity)
 │   └── links/             # Social links hub page
 ├── assets/                # Static image assets
 ├── components/
@@ -88,7 +94,7 @@ src/
 ├── data/                  # Static data (projects, experience, changelog, site metadata)
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utilities (auth, MongoDB, SEO, Spotify, GitHub, LeetCode, etc.)
-├── models/                # MongoDB models (admin, gallery, visitor, experience-gallery, shared-file)
+├── models/                # MongoDB models (admin, gallery, place, diagram, gist, visitor, experience-gallery, shared-file)
 ├── providers/             # React context providers
 ├── styles/                # Global styles
 ├── types/                 # TypeScript type definitions
@@ -138,7 +144,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - **Experience:** Edit `src/data/experience.ts`
 - **Skills/Stack:** Edit `src/data/stack.tsx`
 - **Timeline:** Edit `src/data/timeline.ts`
-- **About:** Edit `src/data/about.ts`
+- **About:** Edit `src/data/about.tsx`
 - **Links:** Edit `src/data/links.ts`
 - **YouTube Videos:** Edit `src/data/youtube.ts` or run `pnpm update-youtube`
 - **Changelog:** Edit `src/data/changelog.ts`

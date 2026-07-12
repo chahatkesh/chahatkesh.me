@@ -345,9 +345,10 @@ const AboutPage = async () => {
               <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-2">
                 {hobbies.map((hobby) => (
-                  <div
+                  <Link
                     key={hobby.title}
-                    className="group rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
+                    href={hobby.href}
+                    className="el-focus-styles group block rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
                   >
                     <div className="mb-3 flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-transform duration-300 group-hover:rotate-6">
@@ -360,7 +361,7 @@ const AboutPage = async () => {
                     <p className="text-sm text-muted-foreground">
                       {hobby.description}
                     </p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -386,29 +387,22 @@ const AboutPage = async () => {
                       <>
                         <div
                           className={cn(
-                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-background",
+                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-background transition-all duration-300",
                             v.isCurrent
-                              ? "bg-ring shadow-lg shadow-ring/20"
-                              : "bg-muted group-hover:bg-muted-foreground/30 transition-colors",
+                              ? "bg-ring shadow-lg shadow-ring/20 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-ring/30"
+                              : "bg-muted group-hover:bg-muted-foreground/30",
                           )}
                         />
                         <div className="flex-1 md:space-y-1">
-                          <span
-                            className={cn(
-                              "block font-ubuntu text-sm font-medium",
-                              v.isCurrent
-                                ? "text-foreground"
-                                : "text-foreground group-hover:text-ring transition-colors",
-                            )}
-                          >
+                          <span className="block font-ubuntu text-sm font-medium text-foreground transition-colors group-hover:text-ring">
                             {v.version}
                           </span>
                           <span
                             className={cn(
-                              "block text-xs",
+                              "block text-xs transition-colors",
                               v.isCurrent
-                                ? "text-ring"
-                                : "text-muted-foreground group-hover:text-foreground/80 transition-colors",
+                                ? "text-ring group-hover:text-ring/80"
+                                : "text-muted-foreground group-hover:text-foreground/80",
                             )}
                           >
                             {v.label}
