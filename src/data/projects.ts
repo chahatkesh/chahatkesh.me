@@ -386,36 +386,67 @@ const projects: Project[] = [
     title: `Webmark`,
     slug: "webmark",
     description:
-      "A full-stack bookmark management solution for organizing and categorizing Web links.",
+      "A full-stack bookmark operating system with hardened OAuth session flows, server-rendered bookmark capture, and AI plus import workflows for multi-device knowledge management.",
     detailedDescription:
-      "Webmark is a modern bookmark management platform I developed to solve the challenge of organizing online resources across multiple devices and browsers. The application provides users with a centralized hub to store, categorize, and efficiently access their important web links through an intuitive drag-and-drop interface. With features like customizable categories, real-time search functionality, and usage analytics that track time savings, Webmark transforms the traditional bookmarking experience into a productivity tool. Built with React, Node.js, and MongoDB, the platform combines responsive design with performance optimizations to deliver a seamless user experience across all devices while maintaining accessibility standards through Radix UI components.",
-    tagline: "Master Your Bookmarks with Webmark",
-    task: "Developed Webmark, a sophisticated full-stack bookmark management platform that enables users to organize web links into customizable categories with an intuitive drag-and-drop interface. The application features real-time search capabilities, cross-device synchronization, user analytics that track time saved, and a performance-optimized architecture built with React, Node.js, MongoDB, and modern web technologies like React Query and Radix UI. This implementation demonstrates expertise in both frontend and backend development, with particular strengths in state management, performance optimization, and user experience design.",
+      "Webmark is a production-grade bookmark platform built as a pnpm monorepo with a React 18 + Vite frontend and an Express + MongoDB API deployed on Vercel (static client plus serverless backend). It replaces scattered browser bookmarks with structured, fast retrieval workflows built around category theming, bookmark notes, and drag-and-drop organization across categories. Authentication is Google OAuth only, implemented with signed OAuth state, httpOnly `wm_access` and `wm_refresh` cookies, refresh rotation with grace handling, and a strict two-active-session limit that supports pending-login conflict resolution and remote session revocation. The platform includes a server-rendered bookmarklet save endpoint with silent refresh support, Chrome and Firefox HTML import pipelines with quota controls, credit-based AI bulk sorting and one-step revert snapshots, profile analytics with click trends, and daily public metrics aggregation via protected cron. Additional engineering includes URL safety validation, endpoint-level rate limiting, SEO metadata and structured data generation, and layered frontend error handling for resilient UX.",
+    tagline: "From Tab Chaos to Structured Knowledge",
+    task: "Architected and developed Webmark as an end-to-end bookmark operating system using a pnpm workspace architecture, React 18 + Vite frontend, and Express + MongoDB backend. Implemented Google OAuth session infrastructure with signed state validation, access and refresh cookies, single-flight token refresh on 401, refresh-token rotation, and two-session account limits with pending-login recovery and remote revoke controls. Built the core product layer with category and bookmark CRUD, cross-category drag-and-drop persistence, multi-term in-memory search, one-click bookmarklet capture, browser bookmark import (Chrome/Firefox), and profile analytics dashboards. Added AI categorization workflows using OpenAI for single-save and bulk sort modes, plus snapshot-based revert and credit accounting tied to monthly import bonuses. Hardened the system with URL validation, granular rate limits, structured API error codes, SEO automation (robots, sitemap, JSON-LD), and multi-layer frontend error handling. Delivered CI/CD pipelines with GitHub Actions and production deployment on Vercel with cron-driven stats aggregation.",
     timelineDescription:
-      "Created Webmark, a full-stack bookmark manager that combines drag-and-drop organization, fast search, cross-device sync, and usage analytics to help users capture and retrieve links with less friction.",
+      "Built and iterated Webmark from a bookmark organizer into a production workflow system with secure cookie-session auth, pending-login session governance, bookmarklet capture, browser-import pipelines, AI-assisted sorting, and analytics-backed product operations.",
     features: [
-      "Intuitive drag-and-drop organization",
-      "Advanced search and filtering",
-      "Tag-based categorization system",
-      "One-click bookmark saving",
-      "Cross-device synchronization",
+      "Google OAuth-only auth with signed state and httpOnly access and refresh cookies",
+      "Refresh-token rotation with grace-window support and single-flight client refresh on 401",
+      "Two active sessions per account with pending-login conflict resolution and remote revoke",
+      "Emoji and color themed category system with bookmark notes and ownership isolation",
+      "Cross-category drag-and-drop persistence with optimistic state and layout diff updates",
+      "Instant multi-term search across bookmark names, links, notes, and category titles",
+      "Server-rendered bookmarklet popup save endpoint with optional AI single-item categorization",
+      "Chrome and Firefox bookmark HTML import with folder and total-item quota limits",
+      "AI bulk sort modes (all or uncategorized), credit tracking, and one-step snapshot revert",
+      "URL safety validation blocking localhost and private-network targets",
+      "Profile analytics with 7d or 30d click trends, top bookmarks, and credit visibility",
+      "Public stats API with cache TTL and daily bearer-protected cron aggregation",
+      "SEO system with Helmet metadata, JSON-LD helpers, and generated sitemap and robots",
+      "Layered frontend error handling with global handlers, boundaries, and structured API codes",
     ],
-    stacks: ["React.js", "Tailwind CSS", "Node.js", "MongoDB", "Radix UI"],
+    stacks: [
+      "React.js",
+      "Vite",
+      "Tailwind CSS",
+      "Radix UI",
+      "SWR",
+      "@dnd-kit",
+      "Framer Motion",
+      "Recharts",
+      "React Helmet",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Mongoose",
+      "Passport.js",
+      "JWT",
+      "OpenAI API",
+      "pnpm Workspaces",
+      "GitHub Actions",
+      "Vercel",
+    ],
     mermaidDefinition: `flowchart LR
       user(["User"])
-      app["React SPA<br/>(SWR · DnD · Recharts)"]
-      api["Express REST API<br/>(bookmarks · clicks · stats)"]
-      auth["JWT · Google OAuth"]
-      ai["OpenAI<br/>(auto-categorize)"]
-      cron["node-cron<br/>(stats + email)"]
-      db[("MongoDB")]
+      bookmarklet(["Bookmarklet"])
+      app["React 18 + Vite SPA<br/>(SWR · DnD)"]
+      api["Express API<br/>(user · bookmarks · stats)"]
+      oauth["Google OAuth + cookie sessions<br/>(access/refresh rotation)"]
+      ai["OpenAI<br/>(bulk sort + categorization)"]
+      cron["Vercel Cron<br/>(daily metrics)"]
+      db[("MongoDB<br/>(users · categories · bookmarks · stats)")]
 
       user --> app
+      bookmarklet --> api
       app --> api
-      api --> auth
+      api --> oauth
       api --> ai
       api --> db
-      cron --> db
+      cron --> api
     `,
     cover: webmark,
     isRepo: true,
@@ -423,7 +454,7 @@ const projects: Project[] = [
     deployedURL: "https://webmark.chahatkesh.me/",
     datePublished: "2024-11-05",
     dateStarted: "2024-07-09",
-    dateModified: "2026-04-14",
+    dateModified: "2026-07-12",
     isFeatured: true,
   },
   {
