@@ -20,6 +20,21 @@ export interface YouTubeVideo {
 
 export const youtubeVideos: YouTubeVideo[] = [
   {
+    id: "ubd_wQAHtjw",
+    slug: "simplify-your-bookmark-management-with-webmark-ubd_wQAHtjw",
+    title: "Simplify Your Bookmark Management - with Webmark",
+    description:
+      "Webmark\nA modern bookmark manager with categories, drag-and-drop organization, browser import, a one-click bookmarklet, AI-powered sorting, and multi-device sessions.\n\nLive: webmark.chahatkesh.me\n\nFeatures\n• Google sign-in: OAuth with httpOnly cookies, refresh rotation, and rate-limited auth\n• Device limit: Up to 2 active sessions (any device type); revoke from Profile or during sign-in\n• Categories: Custom names, emoji icons, and color themes\n• Bookmarks: Add, edit, notes, delete, and reorder (within and across categories)\n• Search: Instant client-side filtering across names, URLs, notes, and categories\n• Bookmarklet: Save any page from the toolbar; AI can assign a category\n• Import: Chrome/Firefox HTML exports with monthly quotas\n• AI sort: Bulk reorganize with OpenAI (credit-gated; revert supported)\n• Onboarding: Username setup with seeded starter categories\n• Profile: Display name, credits, click analytics, top bookmarks, devices\n\nBuilt by https://chahatkesh.me",
+    publishedAt: "2026-07-15T10:32:50Z",
+    thumbnailUrl: "https://i.ytimg.com/vi/ubd_wQAHtjw/maxresdefault.jpg",
+    duration: "PT1M11S",
+    durationFormatted: "1:11",
+    viewCount: 7,
+    likeCount: 0,
+    tags: [],
+    channelTitle: "Chahat Kesharwani",
+  },
+  {
     id: "7b81tJgCdBM",
     slug: "minor-project-intelligent-pesticide-sprinkling-system-7b81tJgCdBM",
     title: "Minor Project: Intelligent Pesticide Sprinkling System",
@@ -29,7 +44,7 @@ export const youtubeVideos: YouTubeVideo[] = [
     thumbnailUrl: "https://i.ytimg.com/vi/7b81tJgCdBM/maxresdefault.jpg",
     duration: "PT1M16S",
     durationFormatted: "1:16",
-    viewCount: 26,
+    viewCount: 28,
     likeCount: 2,
     tags: [],
     channelTitle: "Chahat Kesharwani",

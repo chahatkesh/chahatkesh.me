@@ -47,11 +47,11 @@ export interface Hobby {
 
 export const hobbies: Hobby[] = [
   {
-    title: "Reading",
+    title: "Writing",
     description:
-      "Non-fiction is my default. Psychology, systems thinking, startup stories. I read to understand how things work beyond the surface.",
+      "Lessons, open questions, and ideas shaped by building, reading, work, and everything in between.",
     icon: <FaBook className="text-amber-500" />,
-    href: "/about/reading",
+    href: "/about/writing",
   },
   {
     title: "Gym",

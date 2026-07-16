@@ -5,11 +5,11 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "Reading",
-    subtitle: "Notes from books and ideas",
+    title: "Writing",
+    subtitle: "Ideas worth carrying forward",
     description:
-      "Non-fiction, systems thinking, psychology, and startup stories that shape how I build.",
-    badge: "Reading",
-    tags: ["Books", "Psychology", "Systems Thinking"],
+      "Lessons, open questions, and reflections shaped by building, reading, work, and experience.",
+    badge: "Writing",
+    tags: ["Learning", "Building", "Reflection"],
   });
 }
