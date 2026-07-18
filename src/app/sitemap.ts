@@ -134,7 +134,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/about/site`,
+      url: `${baseUrl}/site`,
       lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.5,

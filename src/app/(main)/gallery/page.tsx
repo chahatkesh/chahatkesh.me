@@ -1,10 +1,7 @@
 import { type Metadata } from "next";
-import { MotionDiv } from "~/components/shared";
-import { typo } from "~/components/ui";
-import { Breadcrumb } from "~/components/shared";
+import { PageHeader } from "~/components/shared";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
-import { cn } from "~/lib/utils";
 import { GalleryContent } from "~/components/features/gallery";
 
 export const metadata: Metadata = getSEOTags({
@@ -26,26 +23,16 @@ export default function GalleryPage() {
         { name: "Home", url: "/" },
         { name: "Gallery", url: "/gallery" },
       ])}
-      <Breadcrumb
-        items={[
+
+      <PageHeader
+        breadcrumbs={[
           { name: "Home", url: "/" },
           { name: "Gallery", url: "/gallery" },
         ]}
+        title="Captured Moments"
+        subtitle="Trips, events, and in-between. The parts of life that don't fit in a resume."
       />
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }))}>Captured Moments</h1>
-        <p className={cn(typo({ variant: "paragraph" }))}>
-          Trips, events, and in-between. The parts of life that don&apos;t fit
-          in a resume.
-        </p>
-      </MotionDiv>
 
-      {/* Gallery Content with SWR */}
       <GalleryContent />
     </div>
   );

@@ -1,6 +1,7 @@
 // Shared Components
 export { default as Breadcrumb } from "./breadcrumb";
 export type { BreadcrumbItem } from "./breadcrumb";
+export { default as PageHeader } from "./page-header";
 export { ScrollButtons } from "./scroll-buttons";
 export { default as SearchInput } from "./search-input";
 export { default as Socials } from "./socials";

@@ -47,8 +47,8 @@ const BtechCoursesClient = () => {
   const isSearching = searchQuery.trim().length > 0;
 
   return (
-    <MotionDiv>
-      <div className="space-y-8">
+    <div className="space-y-8">
+      <header className="space-y-2">
         <Breadcrumb
           items={[
             { name: "Home", url: "/" },
@@ -58,12 +58,11 @@ const BtechCoursesClient = () => {
           ]}
         />
 
-        {/* Header */}
         <MotionDiv
           className="space-y-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
         >
           <div className="space-y-1">
             <h1 className={cn(typo({ variant: "h2" }))}>
@@ -133,37 +132,37 @@ const BtechCoursesClient = () => {
             </p>
           )}
         </MotionDiv>
+      </header>
 
-        {/* Semesters */}
-        {filteredSemesters.length === 0 ? (
-          <div className="text-center py-16 space-y-3">
-            <p className="text-sm text-muted-foreground">
-              No courses found matching &quot;{searchQuery}&quot;
-            </p>
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="text-sm text-ring hover:text-ring/80 transition-colors el-focus-styles"
-            >
-              Clear search
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-12">
-            {filteredSemesters.map((semester, index) => (
-              <SemesterSection
-                key={semester.id}
-                semester={semester}
-                index={index}
-              />
-            ))}
-          </div>
-        )}
+      {/* Semesters */}
+      {filteredSemesters.length === 0 ? (
+        <div className="text-center py-16 space-y-3">
+          <p className="text-sm text-muted-foreground">
+            No courses found matching &quot;{searchQuery}&quot;
+          </p>
+          <button
+            type="button"
+            onClick={() => setSearchQuery("")}
+            className="text-sm text-ring hover:text-ring/80 transition-colors el-focus-styles"
+          >
+            Clear search
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-12">
+          {filteredSemesters.map((semester, index) => (
+            <SemesterSection
+              key={semester.id}
+              semester={semester}
+              index={index}
+            />
+          ))}
+        </div>
+      )}
 
-        {/* Thank You — Professors */}
-        {!searchQuery && <ProfessorsSection />}
-      </div>
-    </MotionDiv>
+      {/* Thank You — Professors */}
+      {!searchQuery && <ProfessorsSection />}
+    </div>
   );
 };
 

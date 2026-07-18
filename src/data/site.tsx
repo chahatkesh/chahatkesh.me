@@ -570,7 +570,7 @@ export const pages: PageEntry[] = [
     renderType: "SSG",
   },
   {
-    path: "/about/site",
+    path: "/site",
     name: "About This Site",
     description: "The page you're reading — meta technical deep-dive",
     renderType: "ISR",
@@ -623,12 +623,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "27,531+",
+    value: "27,575+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "81",
+    value: "85",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

@@ -53,21 +53,23 @@ const AboutPage = async () => {
         { name: "Home", url: "/" },
         { name: "About Me", url: "/about" },
       ])}
-      <div className="space-y-12">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About Me", url: "/about" },
-          ]}
-        />
+      <div className="space-y-8">
+        <header className="space-y-2">
+          <Breadcrumb
+            items={[
+              { name: "Home", url: "/" },
+              { name: "About Me", url: "/about" },
+            ]}
+          />
+          <h1 className="font-ubuntu text-2xl font-semibold text-foreground sm:text-3xl">
+            Chahat, 20
+          </h1>
+        </header>
+
         <section className="space-y-4">
           {/* Hero Section */}
-          <div className="!mt-8 space-y-14">
+          <div className="space-y-14">
             <section aria-label="About Me">
-              <h1 className="font-ubuntu text-2xl font-semibold text-foreground sm:text-3xl mb-4 sm:mb-5">
-                Chahat, 20
-              </h1>
-
               <div className="grid gap-6 sm:gap-6 md:grid-cols-3 md:items-stretch">
                 <div className="order-2 space-y-4 sm:order-1 md:col-span-2">
                   <p className={typo({ variant: "paragraph", font: "sans" })}>

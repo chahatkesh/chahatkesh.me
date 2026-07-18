@@ -1,4 +1,8 @@
-import type { ChangelogChange, ChangelogChangeType } from "~/data/changelog";
+import type {
+  ChangelogChange,
+  ChangelogChangeType,
+  MonthlyChangelog,
+} from "~/data/changelog";
 import config from "~/config";
 
 export const TYPE_CONFIG: Record<
@@ -51,15 +55,44 @@ export function formatMonthShort(month: string): string {
   );
 }
 
-/** Three-letter month label only ("Jun"), with no year. */
-export function formatMonthAbbr(month: string): string {
-  const [year, monthIndex] = month.split("-").map(Number);
-  return new Date(year, monthIndex - 1).toLocaleDateString(
-    config.seo.language,
-    {
-      month: "short",
-    },
-  );
+/** Dovetail-style log date: "15 JUL 2026". */
+export function formatChangelogDate(iso: string): string {
+  const date = new Date(iso);
+  const day = date.getDate();
+  const month = date
+    .toLocaleDateString(config.seo.language, { month: "short" })
+    .toUpperCase();
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
+/** 24h time label: "14:00". */
+export function formatChangelogTime(iso: string): string {
+  const date = new Date(iso);
+  return date.toLocaleTimeString(config.seo.language, {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
+/** Combined metadata line for detail pages. */
+export function formatChangelogDateTime(iso: string): string {
+  return `${formatChangelogDate(iso)} • ${formatChangelogTime(iso)}`;
+}
+
+export function getChangelogPreview(
+  entry: MonthlyChangelog,
+): string | undefined {
+  if (entry.preview) return entry.preview;
+  return `/changelog/${entry.month}/opengraph-image`;
+}
+
+/** Hero image for detail pages — custom preview only, not the OG card. */
+export function getChangelogHeroImage(
+  entry: MonthlyChangelog,
+): string | undefined {
+  return entry.preview;
 }
 
 export function groupByType(

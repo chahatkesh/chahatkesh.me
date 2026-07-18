@@ -13,6 +13,8 @@ export interface ChangelogStats {
 
 export interface MonthlyChangelog {
   month: string;
+  publishedAt: string;
+  preview?: string;
   title: string;
   summary: string;
   overview: string;
@@ -23,6 +25,7 @@ export interface MonthlyChangelog {
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
     month: "2026-06",
+    publishedAt: "2026-06-23T12:04:11+05:30",
     title: "BTech Journey, Shared Files & Richer Interactions",
     summary:
       "A month about depth — the people behind the degree, a proper file-sharing layer, and a gallery that finally feels alive.",
@@ -124,6 +127,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-05",
+    publishedAt: "2026-05-20T10:18:56+05:30",
     title: "A Quiet, Deliberate Copy Refresh",
     summary:
       "Not every month ships a feature — one small, intentional pass to keep the Zenbase and internship story current.",
@@ -141,6 +145,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-04",
+    publishedAt: "2026-04-24T14:30:00+05:30",
     title: "Videos Go Live & the UI Gets a Design System",
     summary:
       "The biggest release in a while: a native videos section, a full move to design tokens, and accessibility cleaned up end to end.",
@@ -200,6 +205,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-02",
+    publishedAt: "2026-02-23T22:07:32+05:30",
     title: "Hardening the Foundations",
     summary:
       "An engineering-heavy month: validation everywhere, safer auth, and a codebase organized for the long haul.",
@@ -265,6 +271,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-01",
+    publishedAt: "2026-01-29T04:56:40+05:30",
     title: "Routing, Open Graph & Smoother Navigation",
     summary:
       "Metadata and movement: dynamic social cards for every route, smooth scrolling, and proper breadcrumb navigation.",
@@ -312,6 +319,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-12",
+    publishedAt: "2025-12-30T13:11:51+05:30",
     title: "The Big Build — Admin, Analytics & Growing Up",
     summary:
       "The most ambitious month yet: an admin system, cloud media, analytics, and a wave of new pages and content.",
@@ -371,6 +379,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-11",
+    publishedAt: "2025-11-29T13:47:43+05:30",
     title: "A Journey Worth Navigating",
     summary:
       "Built the journey timeline system, made it filterable, and tidied discovery with a smarter sitemap.",
@@ -418,6 +427,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-10",
+    publishedAt: "2025-10-29T22:05:16+05:30",
     title: "The College Journey Takes Shape",
     summary:
       "First real structure for the academic journey, plus unified experience data for consistent storytelling.",
@@ -447,6 +457,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-07",
+    publishedAt: "2025-07-26T00:57:57+05:30",
     title: "Gallery-First & a Sharper Visual Brand",
     summary:
       "Gallery interactions, refined social imagery, and a round of brand-consistency fixes.",
@@ -488,6 +499,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-04",
+    publishedAt: "2025-04-21T04:08:20+05:30",
     title: "From One Page to Many",
     summary:
       "The first multi-page architecture — dedicated product pages, structured sections, and routing primitives.",
@@ -529,6 +541,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-03",
+    publishedAt: "2025-03-27T20:33:06+05:30",
     title: "Where It All Started",
     summary:
       "The first commits — React, Tailwind, and the baseline the whole site grew from.",

@@ -78,7 +78,7 @@ Scans your codebase and updates the following metrics:
 
 ### When to run
 
-Run this script whenever you want to update the metrics displayed on your `/about/site` page:
+Run this script whenever you want to update the metrics displayed on your `/site` page:
 
 - Before deploying a new version
 - After adding/removing major features

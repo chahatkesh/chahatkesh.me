@@ -28,3 +28,5 @@ export * from "./place";
 
 // Videos
 export * from "./video";
+
+export * from "./changelog";

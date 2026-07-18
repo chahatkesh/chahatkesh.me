@@ -1,11 +1,7 @@
 import { type Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { MotionDiv } from "~/components/shared";
-import { Breadcrumb } from "~/components/shared";
-import { TimelineComponent } from "~/components/shared";
+import { PageHeader, TimelineComponent } from "~/components/shared";
 import config from "~/config";
-import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui";
 
 export const metadata: Metadata = getSEOTags({
   title: "My Storyline",
@@ -21,35 +17,25 @@ export const metadata: Metadata = getSEOTags({
 
 const JourneyPage = () => {
   return (
-    <MotionDiv>
+    <div className="space-y-8">
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "About Me", url: "/about" },
         { name: "Journey", url: "/about/journey" },
       ])}
 
-      <div className="space-y-8">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About Me", url: "/about" },
-            { name: "Journey", url: "/about/journey" },
-          ]}
-        />
-        <MotionDiv
-          className="space-y-1"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className={cn(typo({ variant: "h2" }))}>My Storyline</h1>
-          <p className={cn(typo({ variant: "paragraph" }))}>
-            The moments that shaped me. Not just the wins.
-          </p>
-        </MotionDiv>
-        <TimelineComponent />
-      </div>
-    </MotionDiv>
+      <PageHeader
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About Me", url: "/about" },
+          { name: "Journey", url: "/about/journey" },
+        ]}
+        title="My Storyline"
+        subtitle="The moments that shaped me. Not just the wins."
+      />
+
+      <TimelineComponent />
+    </div>
   );
 };
 

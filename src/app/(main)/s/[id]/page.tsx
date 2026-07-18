@@ -5,8 +5,8 @@ import { Download, ExternalLink, File as FileIcon } from "lucide-react";
 import dbConnect from "~/lib/mongodb";
 import SharedFile from "~/models/shared-file";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { Breadcrumb, MotionDiv } from "~/components/shared";
-import { typo, buttonVariants } from "~/components/ui";
+import { PageHeader, MotionDiv } from "~/components/shared";
+import { buttonVariants } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { formatRelativeDate } from "~/lib/date-utils";
 import config from "~/config";
@@ -99,33 +99,27 @@ export default async function SharedFilePage({ params }: Params) {
         { name: "Home", url: "/" },
         { name: "Shared file", url: `/s/${id}` },
       ])}
-      <Breadcrumb
-        items={[
+      <PageHeader
+        breadcrumbs={[
           { name: "Home", url: "/" },
           { name: "Shared file", url: `/s/${id}` },
         ]}
+        title={file.fileName}
+        titleClassName="break-words text-xl"
+        subtitle={
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+            {format && (
+              <span className="font-medium uppercase tracking-wide">
+                {format}
+              </span>
+            )}
+            {format && (
+              <span className="text-muted-foreground/40">&middot;</span>
+            )}
+            <span>shared {formatRelativeDate(file.createdAt)}</span>
+          </span>
+        }
       />
-
-      {/* Header */}
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }), "break-words text-xl")}>
-          {file.fileName}
-        </h1>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-          {format && (
-            <span className="font-medium uppercase tracking-wide">
-              {format}
-            </span>
-          )}
-          {format && <span className="text-muted-foreground/40">&middot;</span>}
-          <span>shared {formatRelativeDate(file.createdAt)}</span>
-        </div>
-      </MotionDiv>
 
       {/* Preview */}
       <MotionDiv

@@ -24,40 +24,43 @@ export default async function WritingPage() {
   const [featuredEntry, ...archiveEntries] = entries;
 
   return (
-    <div className="space-y-10 font-poem">
+    <div className="space-y-8 font-poem">
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "About Me", url: "/about" },
         { name: "Writing", url: "/about/writing" },
       ])}
 
-      <Breadcrumb
-        items={[
-          { name: "Home", url: "/" },
-          { name: "About Me", url: "/about" },
-          { name: "Writing", url: "/about/writing" },
-        ]}
-      />
+      <header className="space-y-2">
+        <Breadcrumb
+          items={[
+            { name: "Home", url: "/" },
+            { name: "About Me", url: "/about" },
+            { name: "Writing", url: "/about/writing" },
+          ]}
+        />
 
-      <MotionDiv
-        className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-      >
-        <div className="max-w-2xl space-y-3">
-          <h1 className="text-4xl font-semibold leading-none text-foreground sm:text-5xl">
-            Writing
-          </h1>
-          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Reflections on what I am learning, building, reading, and becoming.
+        <MotionDiv
+          className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+        >
+          <div className="max-w-2xl space-y-3">
+            <h1 className="text-4xl font-semibold leading-none text-foreground sm:text-5xl">
+              Writing
+            </h1>
+            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+              Reflections on what I am learning, building, reading, and
+              becoming.
+            </p>
+          </div>
+          <p className="shrink-0 font-sans text-xs text-muted-foreground">
+            {entries.length.toString().padStart(2, "0")} published{" "}
+            {entries.length === 1 ? "piece" : "pieces"}
           </p>
-        </div>
-        <p className="shrink-0 font-sans text-xs text-muted-foreground">
-          {entries.length.toString().padStart(2, "0")} published{" "}
-          {entries.length === 1 ? "piece" : "pieces"}
-        </p>
-      </MotionDiv>
+        </MotionDiv>
+      </header>
 
       {featuredEntry ? (
         <div className="space-y-12">
