@@ -35,12 +35,9 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    slug: generateExperienceSlug(
-      "Zenbase Technologies",
-      "Founding Frontend Engineer",
-    ),
+    slug: generateExperienceSlug("Zenbase Technologies", "Founding Engineer"),
     employer: "Zenbase Technologies",
-    role: "Founding Frontend Engineer",
+    role: "Founding Engineer",
     type: "Full-time",
     location: "Singapore, Remote",
     start_date: "Dec 2025",
@@ -183,9 +180,9 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    slug: generateExperienceSlug("Level SuperMind", "Fullstack Developer"),
+    slug: generateExperienceSlug("Level SuperMind", "Full-stack Intern"),
     employer: "Level SuperMind",
-    role: "Fullstack Developer",
+    role: "Full-stack Intern",
     type: "Internship",
     location: "Mumbai, Remote",
     start_date: "Jan 2025",
@@ -193,7 +190,7 @@ export const experiences: Experience[] = [
     tagline:
       "Built 15+ reusable UI components and integrated 5+ APIs with 30% faster load times.",
     description:
-      "Worked as a Fullstack Developer Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
+      "Worked as a Full-stack Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
     logo: LevelSuperMindLogo,
     about:
       "Level SuperMind is a consumer wellness and mindfulness platform that combines neuroscience-backed practices, guided meditation, and AI-powered personalization to help users improve focus, emotional well-being, and daily mental performance through structured digital experiences.",

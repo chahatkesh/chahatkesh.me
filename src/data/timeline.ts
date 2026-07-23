@@ -149,9 +149,9 @@ export const timelineEvents: TimelineEvent[] = [
     id: "timeline-2025-12-14-founding-frontend-engineer-at-zenbase",
     startDate: "2025-12-14",
     endDate: "2026-05-13",
-    title: "Founding Frontend Engineer at Zenbase",
+    title: "Founding Engineer at Zenbase",
     description:
-      "Joined Zenbase as a Founding Frontend Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",
+      "Joined Zenbase as a Founding Engineer, working remotely with the Singapore-based team. Building the platform from scratch while handling frontend development and UI/UX design. The product focuses on transforming real estate agents into high performers using AI co-pilots for autonomous lead outreach, 24/7 follow-ups, intelligent appointment booking, and conversation management.",
     category: "work",
     location: "Remote (Singapore)",
   },
@@ -379,9 +379,9 @@ export const timelineEvents: TimelineEvent[] = [
     id: "timeline-2025-01-25-frontend-internship-at-level-supermind",
     startDate: "2025-01-25",
     endDate: "2025-02-25",
-    title: "Frontend Internship at Level SuperMind",
+    title: "Full-stack Intern at Level SuperMind",
     description:
-      "Worked as a Frontend Development Intern at Level SuperMind, building features for a large-scale religious services platform using Next.js. The internship focused on real-world product development, agile workflows, and integrating frontend components into a fast-moving production environment.",
+      "Worked as a Full-stack Intern at Level SuperMind, building product features across frontend and API-integrated workflows for a large-scale religious services platform using Next.js. The internship focused on real-world product development, agile workflows, and shipping features in a fast-moving production environment.",
     category: "work",
     links: [
       {

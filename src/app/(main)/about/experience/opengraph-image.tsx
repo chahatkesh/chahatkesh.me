@@ -8,7 +8,7 @@ export default async function Image() {
     title: "Experience",
     subtitle: "Where I've shipped",
     description:
-      "Founding Frontend Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
+      "Founding Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
     badge: "Experience",
     tags: ["Zenbase", "Annam.ai", "Level SuperMind", "NITJ"],
   });

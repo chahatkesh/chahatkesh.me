@@ -7,7 +7,7 @@ import { ExperienceTimeline } from "~/components/features/experience";
 export const metadata: Metadata = getSEOTags({
   title: "Experience",
   description:
-    "Founding Frontend Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
+    "Founding Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
   openGraph: {
     title: `Experience — ${config.appName}`,
     description:

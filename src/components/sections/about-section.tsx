@@ -34,10 +34,10 @@ const AboutSection = () => {
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Previously, I was a Founding Frontend Engineer at Zenbase and an EIR
-            and AI researcher at Annam.ai, a Centre of Excellence by the
-            Ministry of Education at IIT Ropar. I prefer working close to the
-            problem and thinking in systems, not just shipping features.
+            Previously, I was a Founding Engineer at Zenbase and an EIR and AI
+            researcher at Annam.ai, a Centre of Excellence by the Ministry of
+            Education at IIT Ropar. I prefer working close to the problem and
+            thinking in systems, not just shipping features.
           </p>
 
           <p
