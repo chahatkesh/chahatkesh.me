@@ -4,6 +4,7 @@ import { type LinkIconType } from "~/lib/link-icons";
 
 // Import logos
 import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
+import LayrLogo from "../assets/images/experience/Layr.svg";
 import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
 import XceedLogo from "../assets/images/experience/Xceed.png";
 import ZenbaseLogo from "../assets/images/experience/Zenbase.png";
@@ -34,6 +35,60 @@ export type Experience = {
 };
 
 export const experiences: Experience[] = [
+  {
+    slug: generateExperienceSlug("Layr", "Building Layr"),
+    employer: "Layr",
+    role: "Building Layr",
+    type: "Self-employed",
+    location: "Remote",
+    start_date: "Apr 08, 2026",
+    end_date: "present",
+    tagline:
+      "Building a product decision engine that turns fragmented customer evidence into clear, cited answers on what product teams should build next.",
+    description:
+      "Building Layr, a B2B product-intelligence platform for small product teams. Layr connects the tools where customer feedback, delivery context, and past decisions live, then transforms those signals into structured product understanding, evidence-backed recommendations, execution-ready specifications, and reviewed task drafts.",
+    logo: LayrLogo,
+    about:
+      "Layr is a workspace-based SaaS product for founders, product managers, and engineering leads whose product context has outgrown manual synthesis. It closes the loop from customer signal to product decision and execution while keeping every recommendation traceable to its source.",
+    contributions: [
+      "Designed and built the end-to-end product workflow from connected signals and structured understanding to cited decisions, specifications, and execution drafts",
+      "Developed scoped integrations for Slack, Jira, Linear, Notion, and Intercom with source selection, synchronization, and human-controlled publishing",
+      "Built a continuously updated product memory graph that connects customer signals, recurring problems, features, and past decisions with source provenance",
+      "Implemented Ask Layr using graph retrieval and semantic search to produce grounded answers with supporting evidence and citations",
+      "Created evidence-backed opportunity prioritization and specification workflows that turn product insight into reviewable Jira, Linear, and Notion drafts",
+      "Built the multi-workspace product experience, public website, and customer documentation as a cohesive platform",
+    ],
+    techStack: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Qdrant",
+      "Redis",
+      "BullMQ",
+      "Anthropic",
+      "AWS",
+    ],
+    links: [
+      {
+        title: "Layr Website",
+        url: "https://uselayr.com/",
+        icon: "website",
+      },
+      {
+        title: "Layr Documentation",
+        url: "https://docs.uselayr.com/",
+        icon: "website",
+      },
+      {
+        title: "Layr LinkedIn",
+        url: "https://www.linkedin.com/company/uselayrr",
+        icon: "linkedin",
+      },
+    ],
+  },
   {
     slug: generateExperienceSlug("Zenbase Technologies", "Founding Engineer"),
     employer: "Zenbase Technologies",

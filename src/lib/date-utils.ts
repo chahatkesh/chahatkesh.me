@@ -27,7 +27,7 @@ export function formatDate(dateString: string): string {
 }
 
 /**
- * Parse a date string in "MMM YYYY" format (e.g., "Oct 2025") to a Date object.
+ * Parse a date string in "MMM YYYY" or "MMM DD, YYYY" format to a Date object.
  * Also handles "present" as the current date.
  */
 const MONTH_MAP: Record<string, number> = {
@@ -50,19 +50,26 @@ export function parseMonthYear(dateStr: string): Date {
     return new Date();
   }
 
-  const parts = dateStr.trim().split(" ");
-  if (parts.length !== 2) return new Date("");
+  const match = dateStr
+    .trim()
+    .match(/^([A-Za-z]{3})\s+(?:(\d{1,2}),\s+)?(\d{4})$/);
+  if (!match) return new Date("");
 
-  const [monthStr, yearStr] = parts;
+  const [, monthStr, dayStr, yearStr] = match;
   const year = parseInt(yearStr, 10);
   const month = MONTH_MAP[monthStr.toLowerCase()];
+  const day = dayStr ? parseInt(dayStr, 10) : 1;
 
-  if (month === undefined || isNaN(year)) return new Date("");
-  return new Date(year, month, 1);
+  if (month === undefined || isNaN(year) || day < 1 || day > 31) {
+    return new Date("");
+  }
+
+  const date = new Date(year, month, day);
+  return date.getMonth() === month ? date : new Date("");
 }
 
 /**
- * Calculate human-readable duration between two "MMM YYYY" dates.
+ * Calculate human-readable duration between two supported experience dates.
  * Example: "Oct 2025" to "present" → "4 months"
  */
 /**
