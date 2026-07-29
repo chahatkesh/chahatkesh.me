@@ -4,9 +4,11 @@ import { projects } from "~/data/projects";
 import { experiences } from "~/data/experience";
 import { youtubeVideos } from "~/data/youtube";
 import { monthlyChangelog } from "~/data/changelog";
+import { getWritingEntries } from "~/lib/writing";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = `https://${config.domainName}`;
+  const writingEntries = await getWritingEntries();
 
   // Derive honest "last modified" dates from real content so the signal is
   // truthful rather than reporting "now" on every build.
@@ -34,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const changelogLastModified = new Date(
     latestOf(
       monthlyChangelog.map((entry) => `${entry.month}-01`),
+      siteCreationDate,
+    ),
+  ).toISOString();
+  const writingLastModified = new Date(
+    latestOf(
+      writingEntries.map((entry) => entry.updated ?? entry.date),
       siteCreationDate,
     ),
   ).toISOString();
@@ -96,13 +104,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${baseUrl}/places`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    },
+    {
+      url: `${baseUrl}/about/writing`,
+      lastModified: writingLastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/about/gym`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/about/designing`,
+      lastModified: siteCreationDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/about/journey/btech`,
       lastModified: siteCreationDate,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/about/site`,
+      url: `${baseUrl}/site`,
       lastModified: siteCreationDate,
       changeFrequency: "monthly",
       priority: 0.5,
@@ -147,11 +179,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
+  const writingPages: MetadataRoute.Sitemap = writingEntries.map((entry) => ({
+    url: `${baseUrl}/about/writing/${entry.slug}`,
+    lastModified: new Date(entry.updated ?? entry.date).toISOString(),
+    changeFrequency: "monthly" as const,
+    priority: 0.55,
+  }));
+
   return [
     ...staticPages,
     ...projectPages,
     ...experiencePages,
     ...videoPages,
     ...changelogPages,
+    ...writingPages,
   ];
 }

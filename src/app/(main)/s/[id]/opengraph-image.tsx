@@ -41,12 +41,17 @@ export default async function Image({ params }: Props) {
   }
 
   const format = (file.format || "").toUpperCase();
-  const tags = [format, formatBytes(file.bytes)].filter(Boolean);
+  const formattedSize = formatBytes(file.bytes);
+  const tags = [format, formattedSize].filter(Boolean);
+  const description =
+    format && formattedSize
+      ? `${format} · ${formattedSize} — shared by ${config.appName}.`
+      : `A file shared by ${config.appName}.`;
 
   return generateOGImageResponse({
     title: file.fileName,
     subtitle: format ? `${format} file` : "Shared file",
-    description: `A file shared by ${config.appName}.`,
+    description,
     badge: "Shared file",
     tags,
   });

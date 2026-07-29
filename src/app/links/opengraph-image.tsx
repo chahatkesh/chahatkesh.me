@@ -5,10 +5,10 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "Quick Links",
-    subtitle: "Connect with Chahat Kesharwani",
+    title: "Links",
+    subtitle: "Every place I exist online",
     description:
-      "Find all my social profiles, projects, and contact information in one place.",
+      "GitHub, socials, resume, and ways to reach me — pick your platform.",
     badge: "Links",
     tags: ["GitHub", "LinkedIn", "Twitter", "Email"],
   });

@@ -3,7 +3,7 @@ import { type ConfigProps } from "./types/config";
 export const config = {
   appName: "Chahat Kesharwani",
   appDesignation: "Engineer · Builder · Explorer",
-  appDescription: `I'm Chahat, an engineer who builds products people actually use. I care deeply about architecture, ship fast, and find the most satisfaction in systems that just work. Previously building AI-powered products at Zenbase, Singapore.`,
+  appDescription: `I'm Chahat, an engineer and co-founder of Layr. I build AI-powered products, care deeply about architecture and craft, and look for meaningful problems where product thinking, design, and engineering can make a real difference.`,
   domainName: "chahatkesh.me",
   resumeUrl: process.env.NEXT_PUBLIC_RESUME_URL,
   author: {
@@ -19,11 +19,13 @@ export const config = {
     titleTemplate: "%s | Chahat Kesharwani",
     defaultTitle: "Chahat Kesharwani - Engineer · Builder · Explorer",
     defaultDescription:
-      "Engineer, builder, and explorer from India. I build AI-powered products, ship production-grade frontends, and care deeply about craft. Previously at Zenbase (Singapore). Explore my projects, experience, and journey.",
+      "Engineer and co-founder of Layr from India. I build AI-powered products, ship production-grade systems, and contribute across product, design, and engineering.",
     defaultKeywords: [
       "Chahat Kesharwani",
       "chahatkesh",
       "engineer builder explorer",
+      "Layr co-founder",
+      "product engineer",
       "product builder",
       "startup engineer",
       "frontend engineer",

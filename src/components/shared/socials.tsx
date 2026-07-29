@@ -1,3 +1,5 @@
+"use client";
+
 import { type ClassValue } from "clsx";
 import { Linkedin } from "lucide-react";
 import { FaInstagram, FaYoutube, FaXTwitter } from "react-icons/fa6";
@@ -5,6 +7,7 @@ import { FiGithub } from "react-icons/fi";
 import { TbBrandDiscord } from "react-icons/tb";
 import { SiBuymeacoffee } from "react-icons/si";
 import config from "~/config";
+import { useIsClient } from "~/hooks";
 import { cn } from "~/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui";
 
@@ -61,30 +64,45 @@ const socialsIcons = [
   },
 ];
 
+type SocialItem = (typeof socialsIcons)[number];
+
+const SocialAnchor = ({ social }: { social: SocialItem }) => {
+  return (
+    <a
+      href={social.href}
+      className={cn(
+        "el-focus-styles flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:text-accent-foreground",
+        social.className,
+      )}
+      aria-label={social.label}
+      title={social.label}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {social.icon}
+    </a>
+  );
+};
+
 const Socials = () => {
+  const isClient = useIsClient();
+
   return (
     <ul className="flex items-center gap-2">
       {socialsIcons.map((social) => (
         <li key={social.id}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <a
-                href={social.href}
-                className={cn(
-                  "el-focus-styles flex size-9 items-center justify-center rounded-md border border-input bg-background transition-colors hover:text-accent-foreground",
-                  social.className,
-                )}
-                aria-label={social.label}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {social.icon}
-              </a>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              <span>{social.label}</span>
-            </TooltipContent>
-          </Tooltip>
+          {isClient ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <SocialAnchor social={social} />
+              </TooltipTrigger>
+              <TooltipContent side="bottom">
+                <span>{social.label}</span>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <SocialAnchor social={social} />
+          )}
         </li>
       ))}
     </ul>

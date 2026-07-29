@@ -144,11 +144,48 @@
     will-change: transform;
   }
 
-  /* Smooth scroll container with portfolio scrollbar styling */
   .smooth-scroll {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
   }
+}
+
+/* Changelog — frosted glass text selection (outside layers to override global ::selection) */
+.changelog-surface {
+  --changelog-selection-bg: linear-gradient(
+    135deg,
+    hsl(182.7 100% 88% / 0.22) 0%,
+    hsl(182.7 90% 72% / 0.14) 48%,
+    hsl(182.7 100% 92% / 0.2) 100%
+  );
+  --changelog-selection-text: hsl(var(--ring));
+  --changelog-selection-shadow: none;
+}
+
+.changelog-surface ::selection,
+.changelog-surface ::-moz-selection {
+  background: var(--changelog-selection-bg);
+  color: var(--changelog-selection-text);
+  text-shadow: var(--changelog-selection-shadow);
+  -webkit-text-fill-color: var(--changelog-selection-text);
+}
+
+.changelog-surface :is(a, button).bg-white ::selection,
+.changelog-surface :is(a, button).bg-white ::-moz-selection,
+.changelog-surface
+  :is(a, button)[class*="hover:bg-white"]:is(:hover, :focus-visible)
+  ::selection,
+.changelog-surface
+  :is(a, button)[class*="hover:bg-white"]:is(:hover, :focus-visible)
+  ::-moz-selection {
+  --changelog-selection-bg: linear-gradient(
+    135deg,
+    hsl(182.7 100% 42% / 0.16) 0%,
+    hsl(182.7 90% 38% / 0.1) 48%,
+    hsl(182.7 100% 48% / 0.14) 100%
+  );
+  --changelog-selection-text: hsl(var(--ring));
+  --changelog-selection-shadow: none;
 }

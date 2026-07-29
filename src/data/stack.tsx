@@ -42,8 +42,18 @@ import {
   SiAwslambda,
   SiAmazons3,
   SiAmazondynamodb,
+  SiSwr,
+  SiPassport,
+  SiPnpm,
 } from "react-icons/si";
-import { TbApi, TbBrandFramerMotion } from "react-icons/tb";
+import {
+  TbApi,
+  TbBrandFramerMotion,
+  TbDragDrop2,
+  TbHelmet,
+  TbChartBar,
+  TbShieldLock,
+} from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
 import { BsRobot, BsVectorPen } from "react-icons/bs";
 import { FaFlutter } from "react-icons/fa6";
@@ -76,15 +86,18 @@ export const FRONTEND_STACKS: stacksProps = {
   CSS3: { Icon: SiCss3, className: "text-blue-500" },
   React: { Icon: SiReact, className: "text-sky-500" },
   "React.js": { Icon: SiReact, className: "text-sky-500" },
+  "@dnd-kit": { Icon: TbDragDrop2, className: "text-sky-500" },
   "Next.js": { Icon: SiNextdotjs, className: "text-foreground/70" },
   Vite: { Icon: SiVite, className: "text-purple-500" },
   "Tailwind CSS": { Icon: SiTailwindcss, className: "text-cyan-300" },
   "Chakra UI": { Icon: SiChakraui, className: "text-teal-500" },
-  "ShadCN UI": { Icon: SiShadcnui, className: "text-foreground/90" },
-  "Shadcn UI": { Icon: SiShadcnui, className: "text-foreground/90" },
+  "shadcn/ui": { Icon: SiShadcnui, className: "text-foreground/90" },
   "Aceternity UI": { Icon: SiFramer, className: "text-purple-400" },
   "Framer Motion": { Icon: TbBrandFramerMotion, className: "text-purple-500" },
   "React Toastify": { Icon: SiReact, className: "text-yellow-400" },
+  "React Helmet": { Icon: TbHelmet, className: "text-sky-500" },
+  Recharts: { Icon: TbChartBar, className: "text-emerald-500" },
+  SWR: { Icon: SiSwr, className: "text-foreground/80" },
   "GitHub API": { Icon: FaGithub, className: "text-foreground/80" },
   "Retrieval-Augmented Generation": {
     Icon: BsRobot,
@@ -126,10 +139,14 @@ export const BACKEND_DEVOPS: stacksProps = {
   "OpenAI API": { Icon: SiOpenai, className: "text-teal-500" },
   LangChain: { Icon: SiLangchain, className: "text-teal-500" },
   "Vector Databases": { Icon: BsVectorPen, className: "text-purple-500" },
+  Qdrant: { Icon: BsVectorPen, className: "text-red-500" },
   Stripe: { Icon: SiStripe, className: "text-purple-600" },
   JWT: { Icon: SiJsonwebtokens, className: "text-pink-500" },
+  "NextAuth.js": { Icon: TbShieldLock, className: "text-orange-400" },
+  "Passport.js": { Icon: SiPassport, className: "text-green-500" },
   "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
   Redis: { Icon: SiRedis, className: "text-red-500" },
+  "pnpm Workspaces": { Icon: SiPnpm, className: "text-orange-500" },
   LiveKit: { Icon: TbApi, className: "text-cyan-400" },
   FastAPI: { Icon: SiFastapi, className: "text-green-500" },
   "AWS Lambda": { Icon: SiAwslambda, className: "text-orange-400" },

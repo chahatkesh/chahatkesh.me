@@ -5,11 +5,11 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "BTech Course Details",
-    subtitle: "NIT Jalandhar",
+    title: "BTech at NIT Jalandhar",
+    subtitle: "Instrumentation & Control",
     description:
-      "Comprehensive overview of courses, syllabi, and academic journey throughout the BTech degree in Instrumentation and Control Engineering.",
+      "Every course and syllabus from my undergraduate degree — semester by semester.",
     badge: "Education",
-    tags: ["BTech", "NIT Jalandhar", "ICE", "Coursework"],
+    tags: ["ICE", "NIT Jalandhar", "Coursework"],
   });
 }

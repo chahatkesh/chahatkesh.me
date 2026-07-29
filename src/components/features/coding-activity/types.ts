@@ -1,6 +1,14 @@
-import { type CodingActivityData } from "~/app/api/coding-activity/route";
-
-export type { CodingActivityData };
+/** Formats a Date as a UTC `YYYY-MM-DD` string. */
+export type CodingActivityData = {
+  githubCountByDate: Record<string, number>;
+  leetcodeCountByDate: Record<string, number>;
+  /** Years that have any activity, most recent first. */
+  availableYears: number[];
+  /** Most recent day to display (today, as a UTC `YYYY-MM-DD` string). */
+  latestDate: string;
+  /** Lifetime GitHub contribution total from the contributions API. */
+  githubTotalContributions: number;
+};
 
 /** Default range: the trailing 12 months rather than a fixed calendar year. */
 export const LAST_YEAR = "last" as const;
@@ -31,3 +39,20 @@ export type HoveredDay = {
   leetcode: number;
   rect: DOMRect;
 } | null;
+
+export const STATUS_BAR_DAYS = 90;
+
+export type StatusBarDay = {
+  date: string;
+  github: number;
+  leetcode: number;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+};
+
+export type StatusBarView = {
+  days: StatusBarDay[];
+  activeDays: number;
+  totalDays: number;
+  isBuildingToday: boolean;
+};

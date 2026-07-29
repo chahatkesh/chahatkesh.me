@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getLeetCodeSubmissionCounts } from "~/lib/leetcode";
 import { EXTERNAL_APIS } from "~/constants";
 import config from "~/config";
+import type { CodingActivityData } from "~/components/features/coding-activity/types";
 
 export const revalidate = 3600;
 
@@ -11,20 +12,7 @@ type GithubContributionsResponse = {
   contributions: Array<{ date: string; count: number; level: number }>;
 };
 
-/**
- * Per-day activity counts for both sources, keyed by `YYYY-MM-DD`. Only days
- * that actually have activity are included; the client treats missing days as
- * zero. The client filters this data by year and builds the heatmap itself, so
- * it can size the intensity levels relative to whichever range is in view.
- */
-export type CodingActivityData = {
-  githubCountByDate: Record<string, number>;
-  leetcodeCountByDate: Record<string, number>;
-  /** Years that have any activity, most recent first. */
-  availableYears: number[];
-  /** Most recent day to display (today, as a UTC `YYYY-MM-DD` string). */
-  latestDate: string;
-};
+export type { CodingActivityData };
 
 /** Formats a Date as a UTC `YYYY-MM-DD` string. */
 function toIsoDate(date: Date): string {
@@ -36,6 +24,7 @@ const EMPTY_RESPONSE: CodingActivityData = {
   leetcodeCountByDate: {},
   availableYears: [],
   latestDate: toIsoDate(new Date()),
+  githubTotalContributions: 0,
 };
 
 export async function GET() {
@@ -80,11 +69,16 @@ export async function GET() {
     }
     const availableYears = [...years].sort((a, b) => b - a);
 
+    const githubTotalContributions = Object.values(
+      githubJson.total || {},
+    ).reduce((sum, yearContributions) => sum + (yearContributions || 0), 0);
+
     const result: CodingActivityData = {
       githubCountByDate: githubCounts,
       leetcodeCountByDate: leetcodeCounts,
       availableYears,
       latestDate,
+      githubTotalContributions,
     };
 
     return NextResponse.json(result);

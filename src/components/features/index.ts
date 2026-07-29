@@ -1,5 +1,6 @@
 // Feature Components
 export { default as CodingActivity } from "./coding-activity";
+export { CodingActivityStatusBar } from "./coding-activity";
 export { default as SpotifyNowPlaying } from "./spotify-now-playing";
 export { default as VisitorCounter } from "./visitor-counter";
 export { default as LinkStats } from "./link-stats";
@@ -15,3 +16,17 @@ export * from "./gallery";
 
 // Projects
 export * from "./project";
+
+// Diagrams
+export * from "./diagram";
+
+// Gists
+export * from "./gist";
+
+// Places
+export * from "./place";
+
+// Videos
+export * from "./video";
+
+export * from "./changelog";

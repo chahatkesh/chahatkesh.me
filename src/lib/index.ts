@@ -9,7 +9,13 @@
 export { cn, formatDate, getBasePath } from "./utils";
 
 // Fetcher utilities
-export { fetcher, postFetcher } from "./fetcher";
+export {
+  fetcher,
+  postFetcher,
+  simpleFetcher,
+  adminFetcher,
+  ADMIN_SWR_CONFIG,
+} from "./fetcher";
 
 // Date utilities
 export {
@@ -60,6 +66,10 @@ export {
   loginSchema,
   createGalleryImageSchema,
   updateGalleryImageSchema,
+  createDiagramSchema,
+  updateDiagramSchema,
+  createGistSchema,
+  updateGistSchema,
   uploadFileSchema,
   apiSuccess,
   apiError,

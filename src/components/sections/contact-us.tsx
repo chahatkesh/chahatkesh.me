@@ -1,8 +1,23 @@
+import dynamic from "next/dynamic";
 import config from "~/config";
 import { Socials } from "~/components/shared";
 import { typo } from "~/components/ui";
-import { SpotifyNowPlaying } from "~/components/features";
 import { cn } from "~/lib/utils";
+
+const SpotifyNowPlaying = dynamic(
+  () => import("~/components/features/spotify-now-playing"),
+  {
+    loading: () => (
+      <div className="flex gap-3 animate-pulse" aria-hidden="true">
+        <div className="h-16 w-16 rounded bg-muted" />
+        <div className="flex-1 space-y-2">
+          <div className="h-3 w-3/4 rounded bg-muted" />
+          <div className="h-2 w-1/2 rounded bg-muted" />
+        </div>
+      </div>
+    ),
+  },
+);
 
 const ContactUs = () => {
   return (

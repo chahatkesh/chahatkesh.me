@@ -417,19 +417,19 @@ export const fonts: FontEntry[] = [
   {
     family: "Outfit",
     usage: "Body text, paragraphs, descriptions",
-    weights: "300–500",
+    weights: "400–500",
     className: "font-sans",
   },
   {
     family: "League Spartan",
     usage: "Headings, section titles, nav labels",
-    weights: "400, 500, 600, 700, 800, 900",
+    weights: "500, 600, 700",
     className: "font-ubuntu",
   },
   {
     family: "Lora",
     usage: "Poem section, italic accents, personal notes",
-    weights: "400, 500, 600 (normal + italic)",
+    weights: "400, 600 (normal + italic)",
     className: "font-poem",
   },
   {
@@ -528,6 +528,24 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/about/writing",
+    name: "Writing",
+    description: "Essays about lessons, ideas, and questions worth keeping",
+    renderType: "SSG",
+  },
+  {
+    path: "/about/gym",
+    name: "Gym",
+    description: "Training logs, routines, and lessons from consistency",
+    renderType: "Static",
+  },
+  {
+    path: "/about/designing",
+    name: "Designing",
+    description: "Design explorations, UI studies, and visual thinking",
+    renderType: "Static",
+  },
+  {
     path: "/about/journey",
     name: "Journey",
     description: "Interactive timeline of life events",
@@ -552,7 +570,7 @@ export const pages: PageEntry[] = [
     renderType: "SSG",
   },
   {
-    path: "/about/site",
+    path: "/site",
     name: "About This Site",
     description: "The page you're reading — meta technical deep-dive",
     renderType: "ISR",
@@ -583,6 +601,12 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/places",
+    name: "Places",
+    description: "Interactive world map with location pins and visit notes",
+    renderType: "Static",
+  },
+  {
     path: "/links",
     name: "Links",
     description: "Link-in-bio page with click tracking and featured gallery",
@@ -599,12 +623,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "21,823+",
+    value: "27,751+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "63",
+    value: "85",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -614,12 +638,12 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "API Routes",
-    value: "17",
+    value: "24",
     description: "Auth, Gallery CRUD, Spotify, Visitor tracking",
   },
   {
     label: "Type Definition Files",
-    value: "7",
+    value: "10",
     description: "Window augmentation, gallery, config, gtag, images",
   },
   {
@@ -634,7 +658,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Mongoose Models",
-    value: "6",
+    value: "9",
     description: "Admin, Gallery, Visitor",
   },
 ];

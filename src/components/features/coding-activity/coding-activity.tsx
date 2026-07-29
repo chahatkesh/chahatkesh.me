@@ -45,21 +45,39 @@ const CodingActivity = () => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [range, setRange] = useState<ActivityRange>(LAST_YEAR);
   const [hovered, setHovered] = useState<HoveredDay>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const element = containerRef.current;
     if (!element) return;
-    const observer = new ResizeObserver((entries) => {
+
+    const resizeObserver = new ResizeObserver((entries) => {
       setContainerWidth(entries[0]?.contentRect.width ?? 0);
     });
-    observer.observe(element);
-    return () => observer.disconnect();
+    resizeObserver.observe(element);
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          intersectionObserver.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    intersectionObserver.observe(element);
+
+    return () => {
+      resizeObserver.disconnect();
+      intersectionObserver.disconnect();
+    };
   }, []);
 
   const { data, isLoading } = useQuery<CodingActivityData>({
     queryKey: ["coding-activity"],
     queryFn: () => fetcher<CodingActivityData>(API_ROUTES.CODING_ACTIVITY),
     staleTime: LEETCODE_STALE_TIME_MS,
+    enabled: isVisible,
   });
 
   const view = useMemo(() => {

@@ -5,8 +5,8 @@ import { Download, ExternalLink, File as FileIcon } from "lucide-react";
 import dbConnect from "~/lib/mongodb";
 import SharedFile from "~/models/shared-file";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { Breadcrumb, MotionDiv } from "~/components/shared";
-import { typo, buttonVariants } from "~/components/ui";
+import { PageHeader, MotionDiv } from "~/components/shared";
+import { buttonVariants } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { formatRelativeDate } from "~/lib/date-utils";
 import config from "~/config";
@@ -43,6 +43,14 @@ async function getFile(id: string): Promise<SharedFileLean | null> {
   return SharedFile.findById(id).lean<SharedFileLean>();
 }
 
+function formatBytes(bytes: number): string {
+  if (!bytes || bytes <= 0) return "";
+  const units = ["B", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  const value = bytes / Math.pow(1024, i);
+  return `${value.toFixed(value >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const file = await getFile(id);
@@ -51,14 +59,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return getSEOTags({ title: "File not found", noIndex: true });
   }
 
+  const format = (file.format || "").toUpperCase();
+  const formattedSize = formatBytes(file.bytes);
+  const description =
+    format && formattedSize
+      ? `${format} · ${formattedSize} — shared by ${config.appName}.`
+      : `A file shared by ${config.appName}.`;
+
   return getSEOTags({
     title: file.fileName,
-    description: `A file shared by ${config.appName}.`,
+    description,
     canonicalUrlRelative: `/s/${id}`,
     noIndex: true,
     openGraph: {
-      title: `${file.fileName} | ${config.appName}`,
-      description: `A file shared by ${config.appName}.`,
+      title: file.fileName,
+      description,
     },
   });
 }
@@ -84,33 +99,27 @@ export default async function SharedFilePage({ params }: Params) {
         { name: "Home", url: "/" },
         { name: "Shared file", url: `/s/${id}` },
       ])}
-      <Breadcrumb
-        items={[
+      <PageHeader
+        breadcrumbs={[
           { name: "Home", url: "/" },
           { name: "Shared file", url: `/s/${id}` },
         ]}
+        title={file.fileName}
+        titleClassName="break-words text-xl"
+        subtitle={
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+            {format && (
+              <span className="font-medium uppercase tracking-wide">
+                {format}
+              </span>
+            )}
+            {format && (
+              <span className="text-muted-foreground/40">&middot;</span>
+            )}
+            <span>shared {formatRelativeDate(file.createdAt)}</span>
+          </span>
+        }
       />
-
-      {/* Header */}
-      <MotionDiv
-        className="space-y-1"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className={cn(typo({ variant: "h2" }), "break-words text-xl")}>
-          {file.fileName}
-        </h1>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-          {format && (
-            <span className="font-medium uppercase tracking-wide">
-              {format}
-            </span>
-          )}
-          {format && <span className="text-muted-foreground/40">&middot;</span>}
-          <span>shared {formatRelativeDate(file.createdAt)}</span>
-        </div>
-      </MotionDiv>
 
       {/* Preview */}
       <MotionDiv

@@ -14,6 +14,7 @@ export const MAX_RELATED_PROJECTS = 3;
 // YouTube video display limits
 export const MAX_RELATED_VIDEOS = 3;
 export const MAX_VIDEO_DESCRIPTION_LENGTH = 300;
+export const VIDEO_DESCRIPTION_COLLAPSE_LENGTH = 280;
 export const MAX_VIDEO_TAGS = 5;
 
 // Experience display limits

@@ -4,6 +4,7 @@ import { type LinkIconType } from "~/lib/link-icons";
 
 // Import logos
 import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
+import LayrLogo from "../assets/images/experience/Layr.svg";
 import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
 import XceedLogo from "../assets/images/experience/Xceed.png";
 import ZenbaseLogo from "../assets/images/experience/Zenbase.png";
@@ -35,12 +36,63 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    slug: generateExperienceSlug(
-      "Zenbase Technologies",
-      "Founding Frontend Engineer",
-    ),
+    slug: generateExperienceSlug("Layr", "Building Layr"),
+    employer: "Layr",
+    role: "Building Layr",
+    type: "Self-employed",
+    location: "Remote",
+    start_date: "Apr 08, 2026",
+    end_date: "present",
+    tagline:
+      "Building a product decision engine that turns fragmented customer evidence into clear, cited answers on what product teams should build next.",
+    description:
+      "Building Layr, a B2B product-intelligence platform for small product teams. Layr connects the tools where customer feedback, delivery context, and past decisions live, then transforms those signals into structured product understanding, evidence-backed recommendations, execution-ready specifications, and reviewed task drafts.",
+    logo: LayrLogo,
+    about:
+      "Layr is a workspace-based SaaS product for founders, product managers, and engineering leads whose product context has outgrown manual synthesis. It closes the loop from customer signal to product decision and execution while keeping every recommendation traceable to its source.",
+    contributions: [
+      "Designed and built the end-to-end product workflow from connected signals and structured understanding to cited decisions, specifications, and execution drafts",
+      "Developed scoped integrations for Slack, Jira, Linear, Notion, and Intercom with source selection, synchronization, and human-controlled publishing",
+      "Built a continuously updated product memory graph that connects customer signals, recurring problems, features, and past decisions with source provenance",
+      "Implemented Ask Layr using graph retrieval and semantic search to produce grounded answers with supporting evidence and citations",
+      "Created evidence-backed opportunity prioritization and specification workflows that turn product insight into reviewable Jira, Linear, and Notion drafts",
+      "Built the multi-workspace product experience, public website, and customer documentation as a cohesive platform",
+    ],
+    techStack: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Qdrant",
+      "Redis",
+      "BullMQ",
+      "Anthropic",
+      "AWS",
+    ],
+    links: [
+      {
+        title: "Layr Website",
+        url: "https://uselayr.com/",
+        icon: "website",
+      },
+      {
+        title: "Layr Documentation",
+        url: "https://docs.uselayr.com/",
+        icon: "website",
+      },
+      {
+        title: "Layr LinkedIn",
+        url: "https://www.linkedin.com/company/uselayrr",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    slug: generateExperienceSlug("Zenbase Technologies", "Founding Engineer"),
     employer: "Zenbase Technologies",
-    role: "Founding Frontend Engineer",
+    role: "Founding Engineer",
     type: "Full-time",
     location: "Singapore, Remote",
     start_date: "Dec 2025",
@@ -183,9 +235,9 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    slug: generateExperienceSlug("Level SuperMind", "Fullstack Developer"),
+    slug: generateExperienceSlug("Level SuperMind", "Full-stack Intern"),
     employer: "Level SuperMind",
-    role: "Fullstack Developer",
+    role: "Full-stack Intern",
     type: "Internship",
     location: "Mumbai, Remote",
     start_date: "Jan 2025",
@@ -193,7 +245,7 @@ export const experiences: Experience[] = [
     tagline:
       "Built 15+ reusable UI components and integrated 5+ APIs with 30% faster load times.",
     description:
-      "Worked as a Fullstack Developer Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
+      "Worked as a Full-stack Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
     logo: LevelSuperMindLogo,
     about:
       "Level SuperMind is a consumer wellness and mindfulness platform that combines neuroscience-backed practices, guided meditation, and AI-powered personalization to help users improve focus, emotional well-being, and daily mental performance through structured digital experiences.",
@@ -208,7 +260,7 @@ export const experiences: Experience[] = [
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Shadcn UI",
+      "shadcn/ui",
       "LiveKit",
       "Framer Motion",
       "REST APIs",

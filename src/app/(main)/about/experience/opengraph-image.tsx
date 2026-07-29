@@ -5,11 +5,11 @@ export const contentType = "image/png";
 
 export default async function Image() {
   return generateOGImageResponse({
-    title: "Professional Experience",
-    subtitle: "Career Journey & Achievements",
+    title: "Experience",
+    subtitle: "Where I've shipped",
     description:
-      "Explore my professional journey through various roles in full-stack development, UI/UX design, and entrepreneurship.",
+      "Founding Engineer at Zenbase. Former EIR at Annam.ai / IIT Ropar. Roles, builds, and what came out of them.",
     badge: "Experience",
-    tags: ["Annam.ai", "IIT Ropar", "Full Stack", "UI/UX"],
+    tags: ["Zenbase", "Annam.ai", "Level SuperMind", "NITJ"],
   });
 }

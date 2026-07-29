@@ -12,7 +12,7 @@ const AboutSection = () => {
         Chahat, 20
       </h1>
 
-      <div className="grid gap-8 sm:gap-4 md:grid-cols-3">
+      <div className="grid gap-6 sm:gap-4 md:grid-cols-3 md:items-stretch md:gap-6">
         <div className="order-2 space-y-3 sm:order-1 md:col-span-2">
           <p className={typo({ variant: "paragraph", font: "sans" })}>
             I build things. Sometimes because someone needs them, sometimes
@@ -22,23 +22,22 @@ const AboutSection = () => {
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Right now I&apos;m looking for a summer internship. I previously
-            worked at{" "}
+            Right now I&apos;m co-founding{" "}
             <Link
-              href="/about/experience/zenbase-technologies-founding-frontend-engineer"
+              href="https://uselayr.com"
               className="text-foreground link-inline"
             >
-              Zenbase
-            </Link>{" "}
-            as a Founding Frontend Engineer, building Ninja, an AI platform that
-            turns real estate agents into high performers.
+              Layr
+            </Link>
+            , an AI product decision layer that turns scattered customer signals
+            into evidence-backed priorities, specs, and task drafts.
           </p>
 
           <p className={typo({ variant: "paragraph", font: "sans" })}>
-            Before this, I was an EIR and AI researcher at Annam.ai, a Centre of
-            Excellence by the Ministry of Education at IIT Ropar. I prefer
-            working close to the problem and thinking in systems, not just
-            shipping features.
+            Previously, I was a Founding Engineer at Zenbase and an EIR and AI
+            researcher at Annam.ai, a Centre of Excellence by the Ministry of
+            Education at IIT Ropar. I prefer working close to the problem and
+            thinking in systems, not just shipping features.
           </p>
 
           <p
@@ -47,7 +46,9 @@ const AboutSection = () => {
               "sm:!mt-3",
             )}
           >
-            I love sharing what I&apos;m building on{" "}
+            I&apos;m looking to contribute to meaningful work where product
+            thinking, design, and engineering can create something genuinely
+            useful. I also share what I&apos;m building on{" "}
             <a
               target="_blank"
               rel="noopener noreferrer"
@@ -72,15 +73,22 @@ const AboutSection = () => {
           </p>
         </div>
 
-        <div className="relative order-1 block aspect-square sm:order-2 sm:hidden md:block">
-          <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
-          <Image
-            alt="Profile picture of Chahat Kesharwani"
-            src={chahat}
-            placeholder="blur"
-            className="size-full -rotate-3 transform rounded-md shadow-md"
-            priority
-          />
+        <div className="order-1 w-full sm:order-2 md:h-full">
+          <div className="relative aspect-[4/5] w-full md:aspect-auto md:h-full">
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-10 rounded-md bg-brand"
+            />
+            <Image
+              alt="Profile picture of Chahat Kesharwani"
+              src={chahat}
+              fill
+              placeholder="blur"
+              sizes="(min-width: 768px) 280px, 100vw"
+              className="object-cover object-[center_18%] -rotate-2 rounded-md shadow-md md:-rotate-3"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>

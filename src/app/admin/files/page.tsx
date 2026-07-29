@@ -6,22 +6,21 @@ import {
   CldUploadWidget,
   type CloudinaryUploadWidgetResults,
 } from "next-cloudinary";
+import { Check, Copy, File, Loader2, Pencil, Trash2 } from "lucide-react";
 import { Button, Input } from "~/components/ui";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
 import { MotionDiv } from "~/components/shared";
-import { typo } from "~/components/ui";
-import { cn } from "~/lib/utils";
 import {
   ProtectedRoute,
   AdminPageHeader,
   AdminLoadingState,
   AdminErrorState,
+  AdminConfirmDialog,
+  AdminListCard,
+  AdminListCreateTile,
+  AdminListMeta,
+  adminListActionClassName,
+  adminListDangerActionClassName,
+  adminListIconActionClassName,
 } from "~/components/admin";
 import { formatRelativeDate } from "~/lib/date-utils";
 import type { SharedFile, SharedFileApiResponse } from "~/types/files";
@@ -30,7 +29,7 @@ import {
   CLOUDINARY_UPLOAD_PRESET,
   CLOUDINARY_UPLOAD_OPTIONS,
 } from "~/constants/cloudinary";
-import { simpleFetcher as fetcher } from "~/lib/fetcher";
+import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
 import { parseCloudinaryUploadResult } from "~/lib/cloudinary-upload";
 
 const BREADCRUMBS = [
@@ -49,12 +48,14 @@ function formatBytes(bytes: number): string {
 function AdminFilesContent() {
   const { data, error, isLoading } = useSWR<SharedFileApiResponse>(
     API_ROUTES.FILES,
-    fetcher,
+    adminFetcher,
+    ADMIN_SWR_CONFIG,
   );
 
   const [uploading, setUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<SharedFile | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
   const [savingRename, setSavingRename] = useState(false);
@@ -115,12 +116,12 @@ function AdminFilesContent() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this file?")) return;
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
 
-    setDeletingId(id);
+    setDeletingId(deleteTarget._id);
     try {
-      const response = await fetch(`${API_ROUTES.FILES}/${id}`, {
+      const response = await fetch(`${API_ROUTES.FILES}/${deleteTarget._id}`, {
         method: "DELETE",
       });
 
@@ -134,6 +135,7 @@ function AdminFilesContent() {
       alert("Failed to delete the file. Please try again.");
     } finally {
       setDeletingId(null);
+      setDeleteTarget(null);
     }
   };
 
@@ -195,171 +197,33 @@ function AdminFilesContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="File Sharing"
+        title="Files"
         subtitle="Upload files and instantly get a shareable URL you can send to anyone"
       />
 
-      {/* Upload Card */}
       <MotionDiv
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <Card className="border-border bg-background">
-          <CardHeader>
-            <CardTitle className="text-xl">Upload a File</CardTitle>
-            <CardDescription>
-              Images, PDFs, and documents up to 20MB. The shareable link is
-              generated automatically.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <CldUploadWidget
-              uploadPreset={CLOUDINARY_UPLOAD_PRESET}
-              onSuccess={handleUploadSuccess}
-              onError={(err) => {
-                console.error("Upload error:", err);
-                alert(
-                  "Failed to upload file. Please check your Cloudinary settings.",
-                );
-              }}
-              options={CLOUDINARY_UPLOAD_OPTIONS.FILES}
-            >
-              {({ open }) => (
-                <Button
-                  type="button"
-                  onClick={() => open()}
-                  className="w-full"
-                  variant="outline"
-                  disabled={uploading}
-                >
-                  {uploading ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        />
-                      </svg>
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-2"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" x2="12" y1="3" y2="15" />
-                      </svg>
-                      Upload File
-                    </>
-                  )}
-                </Button>
-              )}
-            </CldUploadWidget>
-          </CardContent>
-        </Card>
-      </MotionDiv>
+        <div className="space-y-3">
+          <FilesUploadTile
+            onUploadSuccess={handleUploadSuccess}
+            uploading={uploading}
+          />
+          {files.map((file, index) => {
+            const isDeleting = deletingId === file._id;
+            const isRenaming = renamingId === file._id;
 
-      {/* Files List */}
-      <MotionDiv
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="space-y-6"
-      >
-        <div>
-          <h2 className={cn(typo({ variant: "h2" }), "text-xl")}>
-            Uploaded Files ({files.length})
-          </h2>
-          <p className={cn(typo({ variant: "paragraph" }))}>
-            Copy a link to share, or delete files you no longer need
-          </p>
-        </div>
-
-        {files.length === 0 ? (
-          <Card className="border-border bg-background">
-            <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="64"
-                height="64"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-muted-foreground/50 mb-4"
-              >
-                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                <polyline points="14 2 14 8 20 8" />
-              </svg>
-              <h3 className="text-lg font-semibold mb-2">No files yet</h3>
-              <p className="text-muted-foreground mb-4">
-                Upload your first file above to get a shareable link
-              </p>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="space-y-3">
-            {files.map((file, index) => (
-              <MotionDiv
+            return (
+              <AdminListCard
                 key={file._id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.04 }}
-                className={cn(
-                  "group flex items-center gap-4 rounded-lg border border-border bg-background p-4 transition-all duration-300 hover:border-muted-foreground/30",
-                  deletingId === file._id && "opacity-60",
-                )}
-              >
-                {/* File icon */}
-                <div className="flex-shrink-0 p-2.5 rounded-lg bg-card">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-muted-foreground"
-                  >
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
-                </div>
-
-                {/* File meta */}
-                <div className="min-w-0 flex-1">
-                  {renamingId === file._id ? (
+                index={index}
+                disabled={isDeleting}
+                href={isRenaming ? undefined : `/s/${file._id}`}
+                icon={<File className="size-5" strokeWidth={1.75} />}
+                content={
+                  isRenaming ? (
                     <Input
                       value={renameValue}
                       autoFocus
@@ -375,66 +239,31 @@ function AdminFilesContent() {
                       }}
                       className="h-8 border-border bg-card text-sm"
                     />
-                  ) : (
-                    <>
-                      <p className="truncate text-sm font-medium text-foreground">
-                        {file.fileName}
-                      </p>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {file.format ? `${file.format.toUpperCase()} · ` : ""}
-                        {formatBytes(file.bytes)} ·{" "}
-                        {formatRelativeDate(file.createdAt)}
-                      </p>
-                    </>
-                  )}
-                </div>
-
-                {/* Actions */}
-                <div className="flex flex-shrink-0 items-center gap-1.5">
-                  {renamingId === file._id ? (
+                  ) : undefined
+                }
+                title={file.fileName}
+                meta={
+                  <AdminListMeta
+                    items={[
+                      file.format ? file.format.toUpperCase() : null,
+                      formatBytes(file.bytes),
+                      formatRelativeDate(file.createdAt),
+                    ]}
+                  />
+                }
+                actions={
+                  isRenaming ? (
                     <>
                       <Button
                         size="sm"
                         onClick={() => saveRename(file)}
                         disabled={savingRename || !renameValue.trim()}
-                        className="h-8 px-2.5 text-xs"
+                        className={adminListActionClassName}
                       >
                         {savingRename ? (
-                          <svg
-                            className="mr-1 h-3 w-3 animate-spin"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
+                          <Loader2 className="mr-1 size-3 animate-spin" />
                         ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="mr-1"
-                          >
-                            <polyline points="20 6 9 17 4 12" />
-                          </svg>
+                          <Check className="mr-1 size-3" />
                         )}
                         Save
                       </Button>
@@ -443,7 +272,7 @@ function AdminFilesContent() {
                         variant="outline"
                         onClick={cancelRename}
                         disabled={savingRename}
-                        className="h-8 px-2.5 text-xs"
+                        className={adminListActionClassName}
                       >
                         Cancel
                       </Button>
@@ -454,51 +283,17 @@ function AdminFilesContent() {
                         size="sm"
                         variant="outline"
                         onClick={() => handleCopy(file)}
-                        disabled={deletingId === file._id}
-                        className="h-8 px-2.5 text-xs"
+                        disabled={isDeleting}
+                        className={adminListActionClassName}
                       >
                         {copiedId === file._id ? (
                           <>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="mr-1"
-                            >
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
+                            <Check className="mr-1 size-3" />
                             Copied
                           </>
                         ) : (
                           <>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="mr-1"
-                            >
-                              <rect
-                                width="14"
-                                height="14"
-                                x="8"
-                                y="8"
-                                rx="2"
-                                ry="2"
-                              />
-                              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-                            </svg>
+                            <Copy className="mr-1 size-3" />
                             Copy
                           </>
                         )}
@@ -507,111 +302,82 @@ function AdminFilesContent() {
                         size="sm"
                         variant="outline"
                         onClick={() => startRename(file)}
-                        disabled={deletingId === file._id}
-                        className="h-8 px-2 text-xs"
+                        disabled={isDeleting}
+                        className={adminListIconActionClassName}
                         aria-label="Rename file"
                         title="Rename"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-                          <path d="m15 5 4 4" />
-                        </svg>
+                        <Pencil className="size-3.5" />
                       </Button>
-                      <a
-                        href={`/s/${file._id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Open shared page"
-                        title="Open"
-                        className={cn(
-                          "inline-flex h-8 items-center rounded-md border border-border px-2 text-xs font-medium transition-colors hover:bg-card",
-                          deletingId === file._id &&
-                            "pointer-events-none opacity-50",
-                        )}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M15 3h6v6" />
-                          <path d="M10 14 21 3" />
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        </svg>
-                      </a>
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleDelete(file._id)}
-                        disabled={deletingId === file._id}
+                        onClick={() => setDeleteTarget(file)}
+                        disabled={isDeleting}
                         aria-label="Delete file"
                         title="Delete"
-                        className="h-8 px-2 text-xs border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                        className={adminListDangerActionClassName}
                       >
-                        {deletingId === file._id ? (
-                          <svg
-                            className="h-3 w-3 animate-spin"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
+                        {isDeleting ? (
+                          <Loader2 className="size-3.5 animate-spin" />
                         ) : (
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M3 6h18" />
-                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                          </svg>
+                          <Trash2 className="size-3.5" />
                         )}
                       </Button>
                     </>
-                  )}
-                </div>
-              </MotionDiv>
-            ))}
-          </div>
-        )}
+                  )
+                }
+              />
+            );
+          })}
+        </div>
       </MotionDiv>
+
+      <AdminConfirmDialog
+        open={Boolean(deleteTarget)}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTarget(null);
+        }}
+        title="Delete file?"
+        description={
+          deleteTarget
+            ? `This will permanently delete "${deleteTarget.fileName}".`
+            : ""
+        }
+        confirmLabel="Delete File"
+        onConfirm={confirmDelete}
+        confirmDisabled={!deleteTarget || deletingId === deleteTarget?._id}
+        loading={Boolean(deleteTarget && deletingId === deleteTarget._id)}
+      />
     </div>
+  );
+}
+
+interface FilesUploadTileProps {
+  onUploadSuccess: (result: CloudinaryUploadWidgetResults) => void;
+  uploading: boolean;
+}
+
+function FilesUploadTile({ onUploadSuccess, uploading }: FilesUploadTileProps) {
+  return (
+    <CldUploadWidget
+      uploadPreset={CLOUDINARY_UPLOAD_PRESET}
+      onSuccess={onUploadSuccess}
+      onError={(err) => {
+        console.error("Upload error:", err);
+        alert("Failed to upload file. Please check your Cloudinary settings.");
+      }}
+      options={CLOUDINARY_UPLOAD_OPTIONS.FILES}
+    >
+      {({ open }) => (
+        <AdminListCreateTile
+          label="Add file"
+          loadingLabel="Saving..."
+          loading={uploading}
+          onClick={() => open()}
+        />
+      )}
+    </CldUploadWidget>
   );
 }
 

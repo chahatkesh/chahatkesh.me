@@ -6,9 +6,9 @@ export const contentType = "image/png";
 export default async function Image() {
   return generateOGImageResponse({
     title: "Projects",
-    subtitle: "Building Innovative Solutions",
+    subtitle: "Things I've built and shipped",
     description:
-      "Explore my portfolio of web applications, tools, and innovative projects built with modern technologies.",
+      "Web apps, tools, and experiments — from AI products to infrastructure and open-source builds.",
     badge: "Projects",
     tags: ["Next.js", "React", "TypeScript", "Full Stack"],
   });

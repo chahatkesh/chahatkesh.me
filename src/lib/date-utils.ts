@@ -5,26 +5,29 @@ import config from "~/config";
  * Handles both "Month DD, YYYY" and "YYYY-MM-DD" formats
  */
 export function formatDate(dateString: string): string {
+  const normalized = dateString.trim();
+
   // If already in readable format (e.g., "June 26, 2025"), return as is
-  if (dateString.match(/^[A-Za-z]+\s+\d{1,2},\s+\d{4}$/)) {
-    return dateString;
+  if (normalized.match(/^[A-Za-z]+\s+\d{1,2},\s+\d{4}$/)) {
+    return normalized;
   }
 
-  // If in ISO format (YYYY-MM-DD), convert to readable format
-  try {
-    const date = new Date(dateString + "T00:00:00"); // Add time to avoid timezone shift
-    return date.toLocaleDateString(config.seo.language, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return dateString; // Return original if parsing fails
-  }
+  const source = /^\d{4}-\d{2}-\d{2}$/.test(normalized)
+    ? `${normalized}T00:00:00`
+    : normalized;
+
+  const date = new Date(source);
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+  return date.toLocaleDateString(config.seo.language, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 /**
- * Parse a date string in "MMM YYYY" format (e.g., "Oct 2025") to a Date object.
+ * Parse a date string in "MMM YYYY" or "MMM DD, YYYY" format to a Date object.
  * Also handles "present" as the current date.
  */
 const MONTH_MAP: Record<string, number> = {
@@ -47,19 +50,26 @@ export function parseMonthYear(dateStr: string): Date {
     return new Date();
   }
 
-  const parts = dateStr.trim().split(" ");
-  if (parts.length !== 2) return new Date("");
+  const match = dateStr
+    .trim()
+    .match(/^([A-Za-z]{3})\s+(?:(\d{1,2}),\s+)?(\d{4})$/);
+  if (!match) return new Date("");
 
-  const [monthStr, yearStr] = parts;
+  const [, monthStr, dayStr, yearStr] = match;
   const year = parseInt(yearStr, 10);
   const month = MONTH_MAP[monthStr.toLowerCase()];
+  const day = dayStr ? parseInt(dayStr, 10) : 1;
 
-  if (month === undefined || isNaN(year)) return new Date("");
-  return new Date(year, month, 1);
+  if (month === undefined || isNaN(year) || day < 1 || day > 31) {
+    return new Date("");
+  }
+
+  const date = new Date(year, month, day);
+  return date.getMonth() === month ? date : new Date("");
 }
 
 /**
- * Calculate human-readable duration between two "MMM YYYY" dates.
+ * Calculate human-readable duration between two supported experience dates.
  * Example: "Oct 2025" to "present" → "4 months"
  */
 /**

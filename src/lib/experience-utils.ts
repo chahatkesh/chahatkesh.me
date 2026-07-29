@@ -47,6 +47,120 @@ function getEarlierStart(a: string, b: string): string {
   return dateA <= dateB ? a : b;
 }
 
+function toMonthIndex(dateStr: string): number {
+  const date = parseMonthYear(dateStr);
+  return date.getFullYear() * 12 + date.getMonth();
+}
+
+/**
+ * True when role periods overlap or touch with no month gap between them.
+ */
+function areRolesContinuous(
+  roles: { start_date: string; end_date: string }[],
+): boolean {
+  if (roles.length <= 1) return true;
+
+  const intervals = roles
+    .map((role) => ({
+      start: toMonthIndex(role.start_date),
+      end: toMonthIndex(role.end_date),
+    }))
+    .sort((a, b) => a.start - b.start);
+
+  const merged = [{ ...intervals[0] }];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const current = intervals[i];
+    const last = merged[merged.length - 1];
+
+    if (current.start <= last.end + 1) {
+      last.end = Math.max(last.end, current.end);
+    } else {
+      merged.push({ ...current });
+    }
+  }
+
+  return merged.length === 1;
+}
+
+type RoleSummary = {
+  role: string;
+  start_date: string;
+  end_date: string;
+};
+
+export type CompanyRolesSegment = {
+  role: string;
+  dateRange: string;
+};
+
+export type CompanyRolesDisplay = {
+  segments: CompanyRolesSegment[];
+  fullTitle: string;
+};
+
+function formatSegmentsTitle(segments: CompanyRolesSegment[]): string {
+  return segments
+    .map((segment) => `${segment.role} · ${segment.dateRange}`)
+    .join(" · ");
+}
+
+/**
+ * Structured role/date parts for UI rendering.
+ */
+export function getCompanyRolesDisplay(
+  roles: RoleSummary[],
+): CompanyRolesDisplay {
+  if (roles.length === 0) {
+    return { segments: [], fullTitle: "" };
+  }
+
+  if (roles.length === 1) {
+    const role = roles[0];
+    const segments = [
+      {
+        role: role.role,
+        dateRange: `${role.start_date} – ${role.end_date}`,
+      },
+    ];
+    return { segments, fullTitle: formatSegmentsTitle(segments) };
+  }
+
+  if (areRolesContinuous(roles)) {
+    const rolesLabel = roles.map((role) => role.role).join(" & ");
+    const earliestStart = roles.reduce(
+      (earliest, role) => getEarlierStart(earliest, role.start_date),
+      roles[0].start_date,
+    );
+    const latestEnd = roles.reduce(
+      (latest, role) => getLaterEnd(latest, role.end_date),
+      roles[0].end_date,
+    );
+    const segments = [
+      {
+        role: rolesLabel,
+        dateRange: `${earliestStart} – ${latestEnd}`,
+      },
+    ];
+    return { segments, fullTitle: formatSegmentsTitle(segments) };
+  }
+
+  const segments = roles.map((role) => ({
+    role: role.role,
+    dateRange: `${role.start_date} – ${role.end_date}`,
+  }));
+
+  return { segments, fullTitle: formatSegmentsTitle(segments) };
+}
+
+/**
+ * Compact one-line summary for one or more roles at the same employer.
+ * Continuous timelines merge roles and dates; gaps keep per-role date ranges.
+ */
+export function formatCompanyRolesSummary(roles: RoleSummary[]): string {
+  return getCompanyRolesDisplay(roles).fullTitle;
+}
+
 // ---------------------------------------------------------------------------
 // Public API
 // ---------------------------------------------------------------------------

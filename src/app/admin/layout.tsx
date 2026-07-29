@@ -4,6 +4,9 @@ import Footer from "~/components/layout/footer";
 import Navbar from "~/components/layout/nav";
 import { SkipContent } from "~/components/ui";
 
+// Admin must always reflect the latest writes — never serve a static shell.
+export const dynamic = "force-dynamic";
+
 // Keep the entire admin area out of search indexes regardless of robots.txt.
 export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true },

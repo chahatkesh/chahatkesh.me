@@ -2,10 +2,17 @@ import { type NextRequest, NextResponse } from "next/server";
 import dbConnect from "~/lib/mongodb";
 import GalleryImage from "~/models/gallery";
 import { requireAuth } from "~/lib/auth";
+import {
+  publicListCacheControl,
+  revalidateGalleryCache,
+} from "~/lib/revalidate";
 import { createGalleryImageSchema } from "~/lib/validations";
 
+// Public gallery changes infrequently; cache for a minute at the edge.
+export const revalidate = 60;
+
 // GET - Fetch all gallery images (public)
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     await dbConnect();
 
@@ -13,10 +20,20 @@ export async function GET() {
       .sort({ date: -1, createdAt: -1 })
       .lean();
 
-    return NextResponse.json({
-      success: true,
-      data: images,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        data: images,
+      },
+      {
+        headers: {
+          "Cache-Control": publicListCacheControl(
+            request,
+            "public, s-maxage=60, stale-while-revalidate=300",
+          ),
+        },
+      },
+    );
   } catch (error) {
     console.error("Error fetching gallery images:", error);
     return NextResponse.json(
@@ -51,6 +68,8 @@ export async function POST(request: NextRequest) {
       ...parsed.data,
       order: 0,
     });
+
+    revalidateGalleryCache();
 
     return NextResponse.json(
       { success: true, data: newImage },

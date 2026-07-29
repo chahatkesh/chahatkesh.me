@@ -2,8 +2,9 @@ import type {
   CodingActivityData,
   CodingActivityView,
   ActivityRange,
+  StatusBarView,
 } from "./types";
-import { LAST_YEAR } from "./types";
+import { LAST_YEAR, STATUS_BAR_DAYS } from "./types";
 
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const EMPTY_DATE_SET: ReadonlySet<string> = new Set<string>();
@@ -137,5 +138,58 @@ export function buildActivityView(
     label,
     startIso,
     endIso,
+  };
+}
+
+/** Builds a fixed 90-day trailing view for the compact status bar. */
+export function buildStatusBarView(
+  data: CodingActivityData,
+  zeroContributionDates: ReadonlySet<string> = EMPTY_DATE_SET,
+): StatusBarView {
+  const endIso = data.latestDate;
+  const start = parseIsoDate(endIso);
+  start.setDate(start.getDate() - (STATUS_BAR_DAYS - 1));
+  const startIso = formatIsoDate(start);
+
+  const days: StatusBarView["days"] = [];
+  let activeDays = 0;
+  let busiestDayCount = 0;
+
+  const cursor = parseIsoDate(startIso);
+  const end = parseIsoDate(endIso);
+  while (cursor <= end) {
+    const date = formatIsoDate(cursor);
+    const rawGithub = data.githubCountByDate[date] ?? 0;
+    const rawLeetcode = data.leetcodeCountByDate[date] ?? 0;
+    const isForcedZero = zeroContributionDates.has(date);
+    const github = isForcedZero ? 0 : rawGithub;
+    const leetcode = isForcedZero ? 0 : rawLeetcode;
+    const count = github + leetcode;
+
+    busiestDayCount = Math.max(busiestDayCount, count);
+    if (count > 0) activeDays += 1;
+
+    days.push({
+      date,
+      github,
+      leetcode,
+      count,
+      level: 0,
+    });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  for (const day of days) {
+    day.level = classifyIntensityLevel(day.count, busiestDayCount);
+  }
+
+  const today = days.at(-1);
+  const isBuildingToday = (today?.count ?? 0) > 0;
+
+  return {
+    days,
+    activeDays,
+    totalDays: STATUS_BAR_DAYS,
+    isBuildingToday,
   };
 }

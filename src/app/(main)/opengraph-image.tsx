@@ -9,6 +9,6 @@ export default async function Image() {
     title: config.appName,
     subtitle: config.appDesignation,
     description: config.seo.defaultDescription,
-    badge: "Portfolio",
+    badge: "Layr · Portfolio",
   });
 }

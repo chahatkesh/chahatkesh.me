@@ -7,7 +7,6 @@ import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import illustration from "~/assets/images/illustration.png";
 import { Breadcrumb } from "~/components/shared";
-import { MotionDiv } from "~/components/shared";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import {
@@ -28,11 +27,13 @@ import {
 } from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
-  title: "About Me",
-  description: `Learn more about ${config.appName}, a ${config.appDesignation} with experience in web development and product design. Discover my journey, skills, and interests.`,
+  title: "About",
+  description:
+    "I build AI-powered products, ship production systems, and care about craft across product, design, and engineering.",
   openGraph: {
-    title: `About ${config.appName} - ${config.appDesignation}`,
-    description: `Learn more about my background, skills, and journey as a ${config.appDesignation}. Get to know the person behind the code.`,
+    title: `About ${config.appName} — ${config.appDesignation}`,
+    description:
+      "I build AI-powered products, ship production systems, and care about craft across product, design, and engineering.",
   },
   canonicalUrlRelative: "/about",
 });
@@ -47,27 +48,29 @@ const AboutPage = async () => {
     await getOgImageUrlsForLinks(visibleProjects);
 
   return (
-    <MotionDiv>
+    <>
       {renderBreadcrumbSchema([
         { name: "Home", url: "/" },
         { name: "About Me", url: "/about" },
       ])}
-      <div className="space-y-12">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About Me", url: "/about" },
-          ]}
-        />
+      <div className="space-y-8">
+        <header className="space-y-2">
+          <Breadcrumb
+            items={[
+              { name: "Home", url: "/" },
+              { name: "About Me", url: "/about" },
+            ]}
+          />
+          <h1 className="font-ubuntu text-2xl font-semibold text-foreground sm:text-3xl">
+            Chahat, 20
+          </h1>
+        </header>
+
         <section className="space-y-4">
           {/* Hero Section */}
-          <div className="!mt-8 space-y-14">
+          <div className="space-y-14">
             <section aria-label="About Me">
-              <h1 className="font-ubuntu text-2xl font-semibold text-foreground sm:text-3xl mb-4 sm:mb-5">
-                Chahat, 20
-              </h1>
-
-              <div className="grid gap-8 sm:gap-6 md:grid-cols-3">
+              <div className="grid gap-6 sm:gap-6 md:grid-cols-3 md:items-stretch">
                 <div className="order-2 space-y-4 sm:order-1 md:col-span-2">
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
                     I&apos;ve been building since before I had a good reason to.
@@ -78,10 +81,10 @@ const AboutPage = async () => {
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
                     Late-night side projects, AI research at IIT Ropar,
-                    hackathon wins, and now a founding engineer role at a
-                    Singapore-based startup. Each step was less about the
-                    destination and more about how much I could learn before the
-                    next one.
+                    hackathon wins, a founding engineer role at a
+                    Singapore-based startup, and now co-founding Layr. Each step
+                    has been less about the destination and more about how much
+                    I could learn before the next one.
                   </p>
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
@@ -93,10 +96,11 @@ const AboutPage = async () => {
                   </p>
 
                   <p className={typo({ variant: "paragraph", font: "sans" })}>
-                    I&apos;m working towards building AI products that reduce
-                    unnecessary human effort, and learning something new every
-                    day along the way. If you want the full picture, start with
-                    my{" "}
+                    I want to build AI products that reduce unnecessary human
+                    effort, and I&apos;m looking to contribute to meaningful
+                    problems where I can work across product, design, and
+                    engineering—not just execute tickets. If you want the full
+                    picture, start with my{" "}
                     <Link
                       href="/resume"
                       target="_blank"
@@ -113,15 +117,22 @@ const AboutPage = async () => {
                   </p>
                 </div>
 
-                <div className="relative order-1 block aspect-square sm:order-2">
-                  <div className="absolute inset-0 -z-10 size-full rounded-md bg-brand"></div>
-                  <Image
-                    alt="Chahat Kesharwani profile picture"
-                    src={chahat}
-                    placeholder="blur"
-                    className="size-full -rotate-3 transform rounded-md shadow-md"
-                    priority
-                  />
+                <div className="order-1 w-full sm:order-2 md:h-full">
+                  <div className="relative aspect-[4/5] w-full md:aspect-auto md:h-full">
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 -z-10 rounded-md bg-brand"
+                    />
+                    <Image
+                      alt="Chahat Kesharwani profile picture"
+                      src={chahat}
+                      fill
+                      placeholder="blur"
+                      sizes="(min-width: 768px) 280px, 100vw"
+                      className="object-cover object-[center_18%] -rotate-2 rounded-md shadow-md md:-rotate-3"
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
             </section>
@@ -336,9 +347,10 @@ const AboutPage = async () => {
               <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-2">
                 {hobbies.map((hobby) => (
-                  <div
+                  <Link
                     key={hobby.title}
-                    className="group rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
+                    href={hobby.href}
+                    className="el-focus-styles group block rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
                   >
                     <div className="mb-3 flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-transform duration-300 group-hover:rotate-6">
@@ -351,7 +363,7 @@ const AboutPage = async () => {
                     <p className="text-sm text-muted-foreground">
                       {hobby.description}
                     </p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -377,29 +389,22 @@ const AboutPage = async () => {
                       <>
                         <div
                           className={cn(
-                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-background",
+                            "relative z-10 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border-2 border-background transition-all duration-300",
                             v.isCurrent
-                              ? "bg-ring shadow-lg shadow-ring/20"
-                              : "bg-muted group-hover:bg-muted-foreground/30 transition-colors",
+                              ? "bg-ring shadow-lg shadow-ring/20 group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-ring/30"
+                              : "bg-muted group-hover:bg-muted-foreground/30",
                           )}
                         />
                         <div className="flex-1 md:space-y-1">
-                          <span
-                            className={cn(
-                              "block font-ubuntu text-sm font-medium",
-                              v.isCurrent
-                                ? "text-foreground"
-                                : "text-foreground group-hover:text-ring transition-colors",
-                            )}
-                          >
+                          <span className="block font-ubuntu text-sm font-medium text-foreground transition-colors group-hover:text-ring">
                             {v.version}
                           </span>
                           <span
                             className={cn(
-                              "block text-xs",
+                              "block text-xs transition-colors",
                               v.isCurrent
-                                ? "text-ring"
-                                : "text-muted-foreground group-hover:text-foreground/80 transition-colors",
+                                ? "text-ring group-hover:text-ring/80"
+                                : "text-muted-foreground group-hover:text-foreground/80",
                             )}
                           >
                             {v.label}
@@ -437,7 +442,7 @@ const AboutPage = async () => {
           </div>
         </section>
       </div>
-    </MotionDiv>
+    </>
   );
 };
 

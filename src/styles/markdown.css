@@ -1,0 +1,152 @@
+@import "github-markdown-css/github-markdown-dark.css";
+@import "highlight.js/styles/github-dark.css";
+
+/* GitHub-like markdown style tuned for this app's dark theme. */
+.markdown-github.markdown-body {
+  --color-canvas-default: hsl(var(--background));
+  --color-canvas-subtle: hsl(var(--card));
+  --color-border-default: hsl(var(--border));
+  --color-fg-default: hsl(var(--foreground));
+  --color-fg-muted: hsl(var(--muted-foreground));
+  --color-accent-fg: hsl(var(--ring));
+  --color-accent-emphasis: hsl(var(--ring));
+  --color-neutral-muted: hsl(var(--muted) / 0.4);
+  color: hsl(var(--foreground));
+  background-color: transparent;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.975rem;
+  line-height: 1.75;
+  word-wrap: break-word;
+}
+
+.markdown-github.markdown-body.writing-prose {
+  font-family: var(--font-poem), ui-serif, Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.markdown-github.markdown-body.writing-prose h1,
+.markdown-github.markdown-body.writing-prose h2,
+.markdown-github.markdown-body.writing-prose h3,
+.markdown-github.markdown-body.writing-prose h4 {
+  font-family: var(--font-poem), ui-serif, Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.markdown-github.markdown-body.writing-prose h2 {
+  margin-top: 2.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom-width: 1px;
+}
+
+.markdown-github.markdown-body.writing-prose p,
+.markdown-github.markdown-body.writing-prose ul,
+.markdown-github.markdown-body.writing-prose ol {
+  margin-bottom: 1.35rem;
+}
+
+.markdown-github.markdown-body ul {
+  list-style-type: disc;
+}
+
+.markdown-github.markdown-body ol {
+  list-style-type: decimal;
+}
+
+.markdown-github.markdown-body.writing-prose li + li {
+  margin-top: 0.4rem;
+}
+
+.markdown-github.markdown-body.writing-prose li::marker {
+  color: hsl(var(--ring));
+}
+
+.markdown-github.markdown-body.writing-prose strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.markdown-github.markdown-body.writing-prose blockquote {
+  margin: 2rem 0;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  border-left: 2px solid hsl(var(--ring));
+  font-size: 1.1em;
+  font-style: italic;
+}
+
+.markdown-github.markdown-body.writing-prose p:has(> img:only-child) {
+  margin: 2.5rem 0 0.75rem;
+}
+
+.markdown-github.markdown-body.writing-prose img {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  background-color: hsl(var(--card));
+}
+
+.markdown-github.markdown-body.writing-prose
+  p:has(> img:only-child)
+  + p:has(> em:only-child) {
+  margin: 0 auto 2.5rem;
+  font-family: var(--font-sans), ui-sans-serif, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+}
+
+.markdown-github.markdown-body h1,
+.markdown-github.markdown-body h2 {
+  border-bottom-color: hsl(var(--border));
+}
+
+.markdown-github.markdown-body a {
+  color: hsl(var(--ring));
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.markdown-github.markdown-body a:hover {
+  color: hsl(var(--ring) / 0.82);
+}
+
+/* Tailwind preflight sets img to block, which stacks badge images vertically. */
+.markdown-github.markdown-body a > img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.markdown-github.markdown-body pre {
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.markdown-github.markdown-body code,
+.markdown-github.markdown-body tt {
+  font-size: 0.875em;
+}
+
+.markdown-github.markdown-body table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+}
+
+.markdown-github.markdown-body blockquote {
+  color: hsl(var(--muted-foreground));
+  border-left-color: hsl(var(--border));
+}
+
+.markdown-github.markdown-body hr {
+  background-color: hsl(var(--border));
+}

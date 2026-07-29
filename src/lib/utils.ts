@@ -25,7 +25,7 @@ export const getBasePath = (path: string) =>
  * a consistent naming convention.
  *
  * @example
- * generateExperienceSlug("Zenbase Technologies", "Founding Engineer (Frontend)")
+ * generateExperienceSlug("Zenbase Technologies", "Founding Engineer")
  * // → "zenbase-technologies-founding-engineer-frontend"
  *
  * NOTE: Never change an existing slug — it's a stable public URL.

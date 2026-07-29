@@ -3,6 +3,7 @@ import dbConnect from "~/lib/mongodb";
 import ExperienceGalleryImage from "~/models/experience-gallery";
 import { cloudinary } from "~/lib/cloudinary";
 import { requireAuth } from "~/lib/auth";
+import { revalidateExperienceGalleryCache } from "~/lib/revalidate";
 import { updateExperienceGalleryImageSchema } from "~/lib/validations";
 
 type Params = { params: Promise<{ id: string }> };
@@ -42,6 +43,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
       );
     }
 
+    revalidateExperienceGalleryCache();
+
     return NextResponse.json({ success: true, data: updated });
   } catch (error) {
     console.error("Error updating experience gallery image:", error);
@@ -76,6 +79,8 @@ export async function DELETE(request: NextRequest, { params }: Params) {
     }
 
     await image.deleteOne();
+
+    revalidateExperienceGalleryCache();
 
     return NextResponse.json({
       success: true,

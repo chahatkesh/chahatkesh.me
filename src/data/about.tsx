@@ -2,11 +2,11 @@ import { type ReactNode } from "react";
 import {
   FaBook,
   FaRunning,
-  FaYoutube,
   FaLaptop,
   FaHeadphones,
   FaMobileAlt,
   FaPenFancy,
+  FaPlaneDeparture,
 } from "react-icons/fa";
 
 // ── Current Projects / Work ───────────────────────────────────────
@@ -22,8 +22,8 @@ export const currentProjects: CurrentProject[] = [
   {
     title: "Layr",
     description:
-      "Building Layr, a product decision layer for AI-native teams. It connects Slack, Jira, Linear, customer calls, support tickets, and docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts. Kind of like Cursor for PMs: less context hunting, faster decisions, and cleaner handoffs to engineering.",
-    url: "https://www.uselayr.com/",
+      "Co-founding Layr, the AI product decision layer for founders, product managers, and engineering leaders. It connects Slack, Jira, Linear, customer calls, support tickets, and product docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts.",
+    url: "https://uselayr.com/",
     showInLinks: true,
     showInAbout: true,
   },
@@ -42,32 +42,37 @@ export interface Hobby {
   title: string;
   description: string;
   icon: ReactNode;
+  href: string;
 }
 
 export const hobbies: Hobby[] = [
   {
-    title: "Reading",
+    title: "Writing",
     description:
-      "Non-fiction is my default. Psychology, systems thinking, startup stories. I read to understand how things work beyond the surface.",
+      "Lessons, open questions, and ideas shaped by building, reading, work, and everything in between.",
     icon: <FaBook className="text-amber-500" />,
+    href: "/about/writing",
   },
   {
     title: "Gym",
     description:
       "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
     icon: <FaRunning className="text-green-400" />,
+    href: "/about/gym",
   },
   {
     title: "Designing",
     description:
       "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
     icon: <FaPenFancy className="text-blue-300" />,
+    href: "/about/designing",
   },
   {
-    title: "Content Creation",
+    title: "Travelling",
     description:
-      "Sharing what I build and what I learn. It started as a way to document things, and now it keeps me honest about making progress.",
-    icon: <FaYoutube className="text-red-500" />,
+      "I like exploring new places and observing how people live, build, and move through cities. It resets my perspective every time.",
+    icon: <FaPlaneDeparture className="text-cyan-400" />,
+    href: "/places",
   },
 ];
 
@@ -108,6 +113,7 @@ export const portfolioVersions: PortfolioVersion[] = [
   {
     version: "v4.0",
     label: "Next.js - Current Version",
+    url: "/changelog",
     isCurrent: true,
   },
   {

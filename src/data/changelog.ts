@@ -13,6 +13,8 @@ export interface ChangelogStats {
 
 export interface MonthlyChangelog {
   month: string;
+  publishedAt: string;
+  preview?: string;
   title: string;
   summary: string;
   overview: string;
@@ -22,7 +24,110 @@ export interface MonthlyChangelog {
 
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
+    month: "2026-07",
+    publishedAt: "2026-07-29T11:30:00+05:30",
+    title: "Diagrams, Places & Words of My Own",
+    summary:
+      "The busiest month here yet — four new sections, an admin panel rebuilt to run them, and a faster site underneath it all.",
+    overview:
+      "July was about giving things a place to live. Diagrams and gists became publishable in their own right, a map went up for the places I've actually been, and a writing section finally gave long-form thoughts somewhere to sit that isn't a tweet. The hobbies on the About page grew into real pages too. Running all of that meant the admin side had to grow up — shared list cards, dashboard tiles, and a proper confirm dialog replaced a lot of copy-pasted screens — while a performance pass moved heavy components behind dynamic imports and put caching in front of the slower API routes. The month closed the way it started: quietly correcting the record, with truer role titles and a new chapter at Layr.",
+    stats: { commits: 15, files: 295 },
+    changes: [
+      {
+        type: "added",
+        title: "Diagrams with an address of their own",
+        description:
+          "A full Mermaid-backed diagram system — write one in the admin editor with live preview, and it publishes to its own page with a zoomable canvas and a dedicated Open Graph card. Architecture is now something I can link to instead of describe.",
+      },
+      {
+        type: "added",
+        title: "Gists, hosted here",
+        description:
+          "Markdown snippets get the same treatment: an editor, a managed list, and public pages that render properly — so a useful bit of code doesn't have to live on someone else's platform to be shareable.",
+      },
+      {
+        type: "added",
+        title: "A map of where I've been",
+        description:
+          "A public places map with admin CRUD behind it, reverse geocoding that turns raw coordinates into real place names, and cache revalidation so a new pin shows up the moment it's saved.",
+      },
+      {
+        type: "added",
+        title: "Somewhere to write properly",
+        description:
+          "A writing section built on MDX, opening with three essays, custom components for the prose, and its own typography — the first part of this site that's about words rather than work.",
+      },
+      {
+        type: "added",
+        title: "The hobbies got rooms",
+        description:
+          "Reading, gym, and designing each grew from a card on the About page into a page of its own, complete with social cards and sitemap entries.",
+      },
+      {
+        type: "added",
+        title: "Ninety days at a glance",
+        description:
+          "A compact coding-activity status bar landed on the Links page — a small, honest signal of what the last three months actually looked like.",
+      },
+      {
+        type: "added",
+        title: "A new chapter at Layr",
+        description:
+          "Added the Layr role with its logo and details, alongside date handling that reads correctly for a position that's still ongoing.",
+      },
+      {
+        type: "improved",
+        title: "An admin that repeats itself less",
+        description:
+          "Shared list cards, dashboard tiles, page headers, and a proper confirm dialog now back every admin screen. The files, gallery, and experience pages were rebuilt on top of them, and uploading a file finally feels like a designed flow rather than a form.",
+      },
+      {
+        type: "improved",
+        title: "Lighter on first load",
+        description:
+          "Heavy client components moved behind dynamic imports, the slower API routes picked up caching, and the scroll-progress bar and top loader were retired — less machinery running for the same experience.",
+      },
+      {
+        type: "improved",
+        title: "Every page shares the same way",
+        description:
+          "A pass across all public routes aligned Open Graph images, metadata, and canonical URLs, with the newer sections added to the sitemap — so no matter which page gets shared, it arrives looking like it belongs to the same site.",
+      },
+      {
+        type: "improved",
+        title: "The changelog, rebuilt",
+        description:
+          "This section moved out of the shared layout into a shell of its own, with new list, row, and detail components and a reusable page header now used across the site. Same story, told in a format that reads better.",
+      },
+      {
+        type: "improved",
+        title: "Videos that read better",
+        description:
+          "The long-running videos UI branch finally merged, bringing reusable components and a cleaner list and detail experience.",
+      },
+      {
+        type: "improved",
+        title: "A fuller Webmark record",
+        description:
+          "Expanded the project's metadata with proper stack mappings, so what it's built on is described as precisely as what it does.",
+      },
+      {
+        type: "fixed",
+        title: "Roles, named correctly",
+        description:
+          "Corrected the Zenbase and Level SuperMind titles across experience, timeline, and social cards — details worth getting right when someone's reading your history.",
+      },
+      {
+        type: "fixed",
+        title: "An accurate curriculum",
+        description:
+          "Updated course codes and credits in the B.Tech data so the academic record matches what's actually on the transcript.",
+      },
+    ],
+  },
+  {
     month: "2026-06",
+    publishedAt: "2026-06-23T12:04:11+05:30",
     title: "BTech Journey, Shared Files & Richer Interactions",
     summary:
       "A month about depth — the people behind the degree, a proper file-sharing layer, and a gallery that finally feels alive.",
@@ -124,6 +229,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-05",
+    publishedAt: "2026-05-20T10:18:56+05:30",
     title: "A Quiet, Deliberate Copy Refresh",
     summary:
       "Not every month ships a feature — one small, intentional pass to keep the Zenbase and internship story current.",
@@ -141,6 +247,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-04",
+    publishedAt: "2026-04-24T14:30:00+05:30",
     title: "Videos Go Live & the UI Gets a Design System",
     summary:
       "The biggest release in a while: a native videos section, a full move to design tokens, and accessibility cleaned up end to end.",
@@ -200,6 +307,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-02",
+    publishedAt: "2026-02-23T22:07:32+05:30",
     title: "Hardening the Foundations",
     summary:
       "An engineering-heavy month: validation everywhere, safer auth, and a codebase organized for the long haul.",
@@ -265,6 +373,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2026-01",
+    publishedAt: "2026-01-29T04:56:40+05:30",
     title: "Routing, Open Graph & Smoother Navigation",
     summary:
       "Metadata and movement: dynamic social cards for every route, smooth scrolling, and proper breadcrumb navigation.",
@@ -312,6 +421,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-12",
+    publishedAt: "2025-12-30T13:11:51+05:30",
     title: "The Big Build — Admin, Analytics & Growing Up",
     summary:
       "The most ambitious month yet: an admin system, cloud media, analytics, and a wave of new pages and content.",
@@ -371,6 +481,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-11",
+    publishedAt: "2025-11-29T13:47:43+05:30",
     title: "A Journey Worth Navigating",
     summary:
       "Built the journey timeline system, made it filterable, and tidied discovery with a smarter sitemap.",
@@ -418,6 +529,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-10",
+    publishedAt: "2025-10-29T22:05:16+05:30",
     title: "The College Journey Takes Shape",
     summary:
       "First real structure for the academic journey, plus unified experience data for consistent storytelling.",
@@ -447,6 +559,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-07",
+    publishedAt: "2025-07-26T00:57:57+05:30",
     title: "Gallery-First & a Sharper Visual Brand",
     summary:
       "Gallery interactions, refined social imagery, and a round of brand-consistency fixes.",
@@ -488,6 +601,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-04",
+    publishedAt: "2025-04-21T04:08:20+05:30",
     title: "From One Page to Many",
     summary:
       "The first multi-page architecture — dedicated product pages, structured sections, and routing primitives.",
@@ -529,6 +643,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   },
   {
     month: "2025-03",
+    publishedAt: "2025-03-27T20:33:06+05:30",
     title: "Where It All Started",
     summary:
       "The first commits — React, Tailwind, and the baseline the whole site grew from.",

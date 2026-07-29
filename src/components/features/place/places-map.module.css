@@ -1,0 +1,25 @@
+.canvas :global(.maplibregl-canvas) {
+  filter: grayscale(1) saturate(0.26) brightness(1.05) contrast(1.16);
+}
+
+.canvas :global(.maplibregl-ctrl-group) {
+  border: 1px solid rgb(255 255 255 / 0.18);
+  background: rgb(7 7 7 / 0.82);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.56);
+}
+
+.canvas :global(.maplibregl-ctrl-group button) {
+  width: 34px;
+  height: 34px;
+  color: rgb(231 231 231);
+}
+
+.canvas :global(.maplibregl-ctrl-group button:hover) {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.canvas :global(.maplibregl-ctrl-group button:focus-visible) {
+  outline: 2px solid rgb(229 229 229 / 0.72);
+  outline-offset: -2px;
+}
