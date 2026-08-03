@@ -44,6 +44,7 @@ export interface ConfigProps {
     youtube: string;
     twitter: string;
     buymeacoffee: string;
+    cal: string;
   };
 
   colors: {

@@ -69,6 +69,7 @@ export const config = {
     youtube: "https://www.youtube.com/@chahatkesh",
     twitter: "https://x.com/chahatkesh",
     buymeacoffee: "https://buymeacoffee.com/chahatkesh",
+    cal: "https://cal.com/chahatkesh/",
   },
 } as ConfigProps;
 

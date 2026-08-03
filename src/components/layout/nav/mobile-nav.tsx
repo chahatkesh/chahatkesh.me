@@ -1,40 +1,25 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { FiGithub } from "react-icons/fi";
-import { Linkedin } from "lucide-react";
-import { FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { navData } from "./_nav-mock";
+import { isPublicNavActive, navData, type NavItemData } from "./_nav-mock";
 import { cn } from "~/lib/utils";
-import config from "~/config";
-
-const socialLinks = [
-  { label: "GitHub", Icon: FiGithub, href: config.social.github },
-  { label: "LinkedIn", Icon: Linkedin, href: config.social.linkedin },
-  { label: "Twitter", Icon: FaXTwitter, href: config.social.twitter },
-  { label: "Instagram", Icon: FaInstagram, href: config.social.instagram },
-];
-
-const isNavActive = (path: string, pathname: string): boolean => {
-  if (path === "/") return pathname === "/";
-  if (path === "/projects")
-    return pathname === "/projects" || pathname.startsWith("/projects/");
-  if (path === "/videos")
-    return pathname === "/videos" || pathname.startsWith("/videos/");
-  if (path === "/about")
-    return (
-      pathname.startsWith("/about/") && !pathname.startsWith("/about/journey")
-    );
-  return pathname === path;
-};
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-const MobileNav = () => {
+interface MobileNavProps {
+  items?: NavItemData[];
+  isActive?: (path: string, pathname: string) => boolean;
+}
+
+const MobileNav = ({
+  items = navData,
+  isActive: isActiveFn = isPublicNavActive,
+}: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const openButtonRef = useRef<HTMLButtonElement>(null);
@@ -143,8 +128,8 @@ const MobileNav = () => {
               className="flex flex-1 flex-col justify-center px-6"
             >
               <ol role="list" className="space-y-0">
-                {navData.map((item, index) => {
-                  const active = isNavActive(item.path, pathname);
+                {items.map((item, index) => {
+                  const active = isActiveFn(item.path, pathname);
                   return (
                     <motion.li
                       key={item.id}
@@ -179,7 +164,7 @@ const MobileNav = () => {
                           <span className="size-[7px] shrink-0 rounded-full bg-ring" />
                         )}
                       </Link>
-                      {index < navData.length - 1 && (
+                      {index < items.length - 1 && (
                         <div className="ml-10 h-px bg-border/25" />
                       )}
                     </motion.li>
@@ -187,32 +172,6 @@ const MobileNav = () => {
                 })}
               </ol>
             </nav>
-
-            {/* Footer — tagline + socials */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.58, duration: 0.4, ease: "easeOut" }}
-              className="border-t border-border/30 px-6 py-5"
-            >
-              <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/50">
-                {config.appDesignation}
-              </p>
-              <div className="flex items-center gap-2">
-                {socialLinks.map(({ label, Icon, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="el-focus-styles flex size-9 items-center justify-center rounded-md border border-border/40 text-muted-foreground/60 transition-colors hover:border-ring/40 hover:text-ring"
-                  >
-                    <Icon className="size-4" />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

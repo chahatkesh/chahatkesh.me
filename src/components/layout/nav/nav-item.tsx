@@ -1,14 +1,23 @@
 "use client";
+
 import Link from "next/link";
 import React, { type Dispatch, type SetStateAction } from "react";
-import { type NavType } from "./_nav-mock";
 import { usePathname } from "next/navigation";
-import { cn } from "~/lib/utils";
 import { MotionSpan } from "~/components/shared";
+import { cn } from "~/lib/utils";
+import { isPublicNavActive, type NavItemData } from "./_nav-mock";
 
-const NavItem: React.FC<
-  NavType[0] & { setOpen?: Dispatch<SetStateAction<boolean>> }
-> = ({ label, path, setOpen }) => {
+type NavItemProps = NavItemData & {
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+  isActive?: (path: string, pathname: string) => boolean;
+};
+
+const NavItem: React.FC<NavItemProps> = ({
+  label,
+  path,
+  setOpen,
+  isActive: isActiveFn = isPublicNavActive,
+}) => {
   const pathname = usePathname();
 
   const onClickHandler = () => {
@@ -17,18 +26,7 @@ const NavItem: React.FC<
     }
   };
 
-  const isProjectDetailPage =
-    path === "/projects" && pathname.startsWith("/projects/");
-  const isAboutSubPage =
-    path === "/about" &&
-    pathname.startsWith("/about/") &&
-    !pathname.startsWith("/about/journey");
-  const isVideoSubPage = path === "/videos" && pathname.startsWith("/videos/");
-  const isActive =
-    pathname === path ||
-    isProjectDetailPage ||
-    isAboutSubPage ||
-    isVideoSubPage;
+  const isActive = isActiveFn(path, pathname);
 
   return (
     <li

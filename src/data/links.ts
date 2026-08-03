@@ -136,7 +136,7 @@ export const links: LinkItem[] = [
     id: 12,
     title: "Book a Call",
     description: "Schedule a 1:1 meeting with me",
-    href: "https://cal.com/chahatkesh/",
+    href: config.social.cal,
     icon: "Calendar",
     iconSize: "md",
     type: "action",
