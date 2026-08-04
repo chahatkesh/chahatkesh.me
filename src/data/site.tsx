@@ -96,7 +96,7 @@ export interface CodebaseMetric {
 export const techStack: TechItem[] = [
   {
     name: "Next.js",
-    version: "16.2",
+    version: "16.3",
     icon: SiNextdotjs,
     color: "text-foreground/80",
     description: "App Router, RSC, ISR, Edge Runtime",
@@ -147,7 +147,7 @@ export const techStack: TechItem[] = [
   },
   {
     name: "MongoDB",
-    version: "9.1",
+    version: "9.9",
     icon: SiMongodb,
     color: "text-green-500",
     description: "Mongoose ODM, connection pooling, indexed queries",
@@ -623,12 +623,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "32,907+",
+    value: "34,028+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "99",
+    value: "101",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -638,7 +638,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "API Routes",
-    value: "30",
+    value: "32",
     description: "Auth, Gallery CRUD, Spotify, Visitor tracking",
   },
   {
@@ -658,7 +658,7 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Mongoose Models",
-    value: "11",
+    value: "12",
     description: "Admin, Gallery, Visitor",
   },
 ];
