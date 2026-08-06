@@ -31,3 +31,25 @@ export type {
   PlaceListApiResponse,
   PlaceItemApiResponse,
 } from "./places";
+
+export type {
+  WorkoutSetEntry,
+  WorkoutExercise,
+  WorkoutSession,
+  WorkoutListApiResponse,
+  WorkoutItemApiResponse,
+  GymDaySummary,
+  GymGroupStat,
+  GymWeekSummary,
+  GymSummary,
+  GymSummaryApiResponse,
+  ExerciseHistoryEntry,
+  ExerciseHistoryApiResponse,
+  GymExercise,
+  GymExerciseListApiResponse,
+  GymExerciseItemApiResponse,
+  GymProgressPhoto,
+  GymProgressPhotoListApiResponse,
+  GymProgressPhotoItemApiResponse,
+} from "./gym";
+export { toGymProgressPhoto } from "./gym";

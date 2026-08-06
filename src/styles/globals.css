@@ -136,6 +136,11 @@
     filter: brightness(1.35) saturate(1.1);
   }
 
+  /* Gym rest days — blue, distinct from the green training ramp */
+  .coding-activity-calendar rect[data-rest="true"] {
+    fill: #5b8fd4 !important;
+  }
+
   /* GPU acceleration for smooth animations */
   .gpu-accelerated {
     transform: translateZ(0);

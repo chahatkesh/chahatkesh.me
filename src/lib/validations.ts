@@ -5,6 +5,12 @@
 
 import { z } from "zod/v4";
 
+import {
+  CARDIO_TYPES,
+  MAX_SETS_PER_EXERCISE,
+  MUSCLE_GROUPS,
+} from "~/constants/gym";
+
 // ---------------------------------------------------------------------------
 // Auth
 // ---------------------------------------------------------------------------
@@ -202,6 +208,167 @@ export const updatePlaceSchema = z
       message: "At least one field is required",
     },
   );
+
+// ---------------------------------------------------------------------------
+// Gym workouts
+// ---------------------------------------------------------------------------
+
+const workoutDateSchema = z
+  .string()
+  .min(1, "Workout date is required")
+  .refine((value) => !Number.isNaN(Date.parse(value)), {
+    message: "Workout date is invalid",
+  });
+
+const workoutSetSchema = z.object({
+  reps: z.coerce.number().min(0, "Reps cannot be negative").max(1_000),
+  weight: z.coerce.number().min(0, "Weight cannot be negative").max(1_000),
+});
+
+const workoutExerciseSchema = z.object({
+  exerciseId: z.string().optional(),
+  group: z.enum(MUSCLE_GROUPS),
+  name: z
+    .string()
+    .min(1, "Exercise name is required")
+    .max(80, "Exercise name is too long"),
+  sets: z.coerce.number().min(0).max(50).optional(),
+  reps: z.coerce.number().min(0).max(1_000).optional(),
+  weight: z.coerce.number().min(0).max(1_000).optional(),
+  setDetails: z
+    .array(workoutSetSchema)
+    .max(
+      MAX_SETS_PER_EXERCISE,
+      `A maximum of ${MAX_SETS_PER_EXERCISE} sets can be logged per exercise`,
+    )
+    .optional(),
+  cardioType: z.enum(CARDIO_TYPES).optional(),
+  distanceKm: z.coerce.number().min(0).max(1_000).optional(),
+  durationMin: z.coerce.number().min(0).max(1_440).optional(),
+});
+
+export const createExerciseSchema = z.object({
+  name: z
+    .string()
+    .min(1, "Exercise name is required")
+    .max(80, "Exercise name is too long"),
+  group: z.enum(MUSCLE_GROUPS),
+  sortOrder: z.coerce.number().min(0).max(10_000).optional(),
+});
+
+export const updateExerciseSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, "Exercise name is required")
+      .max(80, "Exercise name is too long")
+      .optional(),
+    group: z.enum(MUSCLE_GROUPS).optional(),
+    sortOrder: z.coerce.number().min(0).max(10_000).optional(),
+  })
+  .refine(
+    (value) =>
+      value.name !== undefined ||
+      value.group !== undefined ||
+      value.sortOrder !== undefined,
+    { message: "At least one field is required" },
+  );
+
+export const createWorkoutSchema = z
+  .object({
+    date: workoutDateSchema,
+    groups: z.array(z.enum(MUSCLE_GROUPS)).default([]),
+    durationMin: z.coerce
+      .number({ error: "Duration is required" })
+      .min(0, "Duration cannot be negative")
+      .max(1_440, "Duration cannot exceed 24 hours"),
+    exercises: z.array(workoutExerciseSchema).max(60).default([]),
+    isRestDay: z.boolean().optional().default(false),
+  })
+  .superRefine((value, ctx) => {
+    if (value.isRestDay) return;
+    if (value.durationMin < 1) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["durationMin"],
+        message: "Duration must be at least 1 minute",
+      });
+    }
+    if (value.groups.length === 0) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["groups"],
+        message: "Select at least one muscle group",
+      });
+    }
+  })
+  .transform((value) => {
+    if (!value.isRestDay) return value;
+    return {
+      ...value,
+      isRestDay: true,
+      groups: [],
+      exercises: [],
+      durationMin: 0,
+    };
+  });
+
+export const updateWorkoutSchema = z
+  .object({
+    date: workoutDateSchema.optional(),
+    groups: z.array(z.enum(MUSCLE_GROUPS)).optional(),
+    durationMin: z.coerce
+      .number({ error: "Duration is required" })
+      .min(0, "Duration cannot be negative")
+      .max(1_440, "Duration cannot exceed 24 hours")
+      .optional(),
+    exercises: z.array(workoutExerciseSchema).max(60).optional(),
+    isRestDay: z.boolean().optional(),
+  })
+  .refine(
+    (value) =>
+      value.date !== undefined ||
+      value.groups !== undefined ||
+      value.durationMin !== undefined ||
+      value.exercises !== undefined ||
+      value.isRestDay !== undefined,
+    {
+      message: "At least one field is required",
+    },
+  )
+  .superRefine((value, ctx) => {
+    if (value.isRestDay === true) return;
+    if (value.durationMin !== undefined && value.durationMin < 1) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["durationMin"],
+        message: "Duration must be at least 1 minute",
+      });
+    }
+  });
+
+// ---------------------------------------------------------------------------
+// Gym progress photos
+// ---------------------------------------------------------------------------
+
+const gymProgressPhotoDateSchema = z
+  .string()
+  .min(1, "Date is required")
+  .refine((value) => /^\d{4}-\d{2}-\d{2}$/.test(value), {
+    message: "Date must be YYYY-MM-DD",
+  });
+
+export const createGymProgressPhotoSchema = z.object({
+  date: gymProgressPhotoDateSchema,
+  imageUrl: z.url("Invalid image URL"),
+  publicId: z.string().min(1, "Cloudinary public ID is required"),
+});
+
+export const updateGymProgressPhotoSchema = z.object({
+  date: gymProgressPhotoDateSchema.optional(),
+  imageUrl: z.url("Invalid image URL").optional(),
+  publicId: z.string().min(1, "Cloudinary public ID is required").optional(),
+});
 
 // ---------------------------------------------------------------------------
 // API response helpers

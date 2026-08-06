@@ -19,6 +19,15 @@ export const API_ROUTES = {
   PLACES: "/api/places",
   PLACE_BY_ID: (id: string) => `/api/places/${encodeURIComponent(id)}`,
   PLACE_REVERSE_GEOCODE: "/api/places/reverse-geocode",
+  GYM: "/api/gym",
+  GYM_BY_ID: (id: string) => `/api/gym/${encodeURIComponent(id)}`,
+  GYM_SUMMARY: "/api/gym/summary",
+  GYM_EXERCISE_HISTORY: "/api/gym/exercise-history",
+  GYM_EXERCISES: "/api/gym/exercises",
+  GYM_EXERCISE_BY_ID: (id: string) =>
+    `/api/gym/exercises/${encodeURIComponent(id)}`,
+  GYM_PHOTOS: "/api/gym/photos",
+  GYM_PHOTO_BY_ID: (id: string) => `/api/gym/photos/${encodeURIComponent(id)}`,
   AUTH_LOGIN: "/api/auth/login",
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>

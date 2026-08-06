@@ -10,6 +10,8 @@ interface AdminConfirmDialogProps {
   description?: string;
   confirmLabel?: string;
   cancelLabel?: string;
+  /** Shown on the confirm button while `loading` is true. */
+  loadingLabel?: string;
   onConfirm: () => void | Promise<void>;
   confirmDisabled?: boolean;
   loading?: boolean;
@@ -23,6 +25,7 @@ export function AdminConfirmDialog({
   description,
   confirmLabel = "Delete",
   cancelLabel = "Cancel",
+  loadingLabel,
   onConfirm,
   confirmDisabled = false,
   loading = false,
@@ -32,16 +35,19 @@ export function AdminConfirmDialog({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-[1px] data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-5 shadow-2xl data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
+        <Dialog.Content
+          className="fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-border bg-background p-5 shadow-2xl data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+          {...(description ? {} : { "aria-describedby": undefined })}
+        >
           <Dialog.Title className="text-base font-semibold text-foreground">
             {title}
           </Dialog.Title>
 
-          {description && (
+          {description ? (
             <Dialog.Description className="mt-2 text-sm text-muted-foreground">
               {description}
             </Dialog.Description>
-          )}
+          ) : null}
 
           <div className="mt-5 flex justify-end gap-2">
             <Dialog.Close asChild>
@@ -57,7 +63,10 @@ export function AdminConfirmDialog({
               }}
               disabled={confirmDisabled || loading}
             >
-              {loading ? "Deleting..." : confirmLabel}
+              {loading
+                ? (loadingLabel ??
+                  (destructive ? "Deleting..." : "Please wait..."))
+                : confirmLabel}
             </Button>
           </div>
         </Dialog.Content>
