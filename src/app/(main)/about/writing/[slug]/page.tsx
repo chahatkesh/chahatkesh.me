@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock3 } from "lucide-react";
 import config from "~/config";
-import { Breadcrumb } from "~/components/shared";
+import { PageHeader } from "~/components/shared";
+import { pageHeaderSubtitle } from "~/lib/page-header-subtitle";
 import { formatDate } from "~/lib/date-utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { getWritingEntries, getWritingEntry } from "~/lib/writing";
@@ -88,52 +89,46 @@ export default async function WritingEntryPage({ params }: Props) {
         }}
       />
 
-      <header className="space-y-2">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "Writing", url: "/about/writing" },
-            { name: entry.title, url: `/about/writing/${entry.slug}` },
-          ]}
-        />
+      <PageHeader
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Writing", url: "/about/writing" },
+          { name: entry.title, url: `/about/writing/${entry.slug}` },
+        ]}
+        title={entry.title}
+        titleClassName="font-poem"
+        subtitle={pageHeaderSubtitle(entry.description)}
+      />
 
-        <div className="space-y-4 border-b border-border pb-8">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            <time dateTime={entry.date}>{formatDate(entry.date)}</time>
-            <span aria-hidden>·</span>
-            <span className="flex items-center gap-1">
-              <Clock3 aria-hidden className="size-3" />
-              {entry.readingTime} min read
-            </span>
-            {entry.updated && (
-              <>
-                <span aria-hidden>·</span>
-                <span>Updated {formatDate(entry.updated)}</span>
-              </>
-            )}
-          </div>
-
-          <h1 className="text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
-            {entry.title}
-          </h1>
-          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-            {entry.description}
-          </p>
-
-          {entry.tags.length > 0 && (
-            <ul
-              className="flex flex-wrap gap-x-3 gap-y-1 pt-1"
-              aria-label="Topics"
-            >
-              {entry.tags.map((tag) => (
-                <li key={tag} className="text-xs text-ring/90">
-                  #{tag.toLowerCase().replaceAll(" ", "-")}
-                </li>
-              ))}
-            </ul>
+      <div className="space-y-4 border-b border-border pb-8 font-poem">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+          <time dateTime={entry.date}>{formatDate(entry.date)}</time>
+          <span aria-hidden>·</span>
+          <span className="flex items-center gap-1">
+            <Clock3 aria-hidden className="size-3" />
+            {entry.readingTime} min read
+          </span>
+          {entry.updated && (
+            <>
+              <span aria-hidden>·</span>
+              <span>Updated {formatDate(entry.updated)}</span>
+            </>
           )}
         </div>
-      </header>
+
+        {entry.tags.length > 0 && (
+          <ul
+            className="flex flex-wrap justify-center gap-x-3 gap-y-1 pt-1"
+            aria-label="Topics"
+          >
+            {entry.tags.map((tag) => (
+              <li key={tag} className="text-xs text-ring/90">
+                #{tag.toLowerCase().replaceAll(" ", "-")}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <article className="markdown-body markdown-github writing-prose w-full">
         {entry.content}

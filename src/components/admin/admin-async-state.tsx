@@ -1,4 +1,4 @@
-import { Breadcrumb } from "~/components/shared";
+import { Breadcrumb, PageBanner } from "~/components/shared";
 
 interface BreadcrumbItem {
   name: string;
@@ -19,7 +19,13 @@ export const AdminLoadingState = ({
   breadcrumbs,
 }: Pick<AdminAsyncStateProps, "breadcrumbs">) => (
   <div className="space-y-8">
-    <Breadcrumb items={breadcrumbs} />
+    <PageBanner>
+      <Breadcrumb
+        items={breadcrumbs}
+        align="center"
+        className="relative z-[1] text-xs tracking-wide text-muted-foreground/60"
+      />
+    </PageBanner>
     <div className="flex items-center justify-center min-h-[400px]">
       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
     </div>
@@ -34,7 +40,13 @@ export const AdminErrorState = ({
   errorMessage,
 }: AdminAsyncStateProps) => (
   <div className="space-y-8">
-    <Breadcrumb items={breadcrumbs} />
+    <PageBanner>
+      <Breadcrumb
+        items={breadcrumbs}
+        align="center"
+        className="relative z-[1] text-xs tracking-wide text-muted-foreground/60"
+      />
+    </PageBanner>
     <div className="flex items-center justify-center min-h-[400px]">
       <p className="text-destructive">{errorMessage}</p>
     </div>

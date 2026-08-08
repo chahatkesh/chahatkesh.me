@@ -145,8 +145,8 @@ function EditDiagramContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Edit Mermaid Diagram"
-        subtitle="Update your diagram and keep the public page in sync"
+        title="Edit Diagram"
+        subtitle="Update the source and keep the public page in sync."
       />
 
       {actionError && (

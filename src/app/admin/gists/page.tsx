@@ -91,8 +91,8 @@ function AdminGistsContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Gists"
-        subtitle="Create markdown documents and share them publicly with clean read-only pages"
+        title="Markdown Gists"
+        subtitle="Write documents and publish clean read-only pages."
       />
 
       <GistList

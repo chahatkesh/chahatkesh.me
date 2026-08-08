@@ -145,8 +145,8 @@ function EditGistContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Edit Markdown Document"
-        subtitle="Update your document and keep the public page in sync"
+        title="Edit Document"
+        subtitle="Update the content and keep the public page in sync."
       />
 
       {actionError && (

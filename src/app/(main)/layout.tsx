@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <>
       <BookCallStrip />
       <div className="container relative flex min-h-dvh flex-col space-y-4 py-2">
-        <div className="!mb-6 space-y-4">
+        <div className="!mb-6">
           <SkipContent />
           <Navbar />
           <main id="main-content">{children}</main>

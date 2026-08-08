@@ -158,8 +158,8 @@ function AdminExperienceGalleryContent() {
           { name: "Admin", url: "/admin" },
           { name: "Experience Gallery", url: "/admin/experience" },
         ]}
-        title="Experience Gallery"
-        subtitle="Upload and manage highlight images per company. Multiple roles at the same company share one gallery."
+        title="Experience Photos"
+        subtitle="Upload and manage gallery images for each company."
       />
 
       <MotionDiv

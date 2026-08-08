@@ -71,8 +71,8 @@ function NewGistContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Create Markdown Document"
-        subtitle="Write markdown, preview it live, and publish a public share link"
+        title="New Document"
+        subtitle="Write markdown, preview live, and publish a share link."
       />
 
       {errorMessage && (

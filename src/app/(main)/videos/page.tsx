@@ -43,8 +43,8 @@ const VideosPage = () => {
           { name: "Home", url: "/" },
           { name: "Videos", url: "/videos" },
         ]}
-        title="Videos"
-        subtitle="Tutorials, talks, and behind-the-scenes."
+        title="On Camera"
+        subtitle="Demos, tutorials, and the stories behind what I ship."
       />
 
       <VideoList videos={sortedVideos} />

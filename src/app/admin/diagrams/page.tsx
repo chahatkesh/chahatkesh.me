@@ -91,8 +91,8 @@ function AdminDiagramsContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Diagrams"
-        subtitle="Create, edit, and share clean architecture diagrams with public URLs"
+        title="Diagram Library"
+        subtitle="Create diagrams and share them with clean public URLs."
       />
 
       <DiagramList

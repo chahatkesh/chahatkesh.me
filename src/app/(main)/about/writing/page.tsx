@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Clock3 } from "lucide-react";
 import config from "~/config";
-import { Breadcrumb, MotionDiv, RevealSection } from "~/components/shared";
+import { PageHeader, RevealSection } from "~/components/shared";
 import { formatDate } from "~/lib/date-utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { getWritingEntries } from "~/lib/writing";
@@ -31,36 +31,21 @@ export default async function WritingPage() {
         { name: "Writing", url: "/about/writing" },
       ])}
 
-      <header className="space-y-2">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About Me", url: "/about" },
-            { name: "Writing", url: "/about/writing" },
-          ]}
-        />
+      <PageHeader
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About Me", url: "/about" },
+          { name: "Writing", url: "/about/writing" },
+        ]}
+        title="What I Write"
+        titleClassName="font-poem"
+        subtitle="Reflections on building, learning, and ideas worth keeping."
+      />
 
-        <MotionDiv
-          className="flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          <div className="max-w-2xl space-y-3">
-            <h1 className="text-4xl font-semibold leading-none text-foreground sm:text-5xl">
-              Writing
-            </h1>
-            <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Reflections on what I am learning, building, reading, and
-              becoming.
-            </p>
-          </div>
-          <p className="shrink-0 font-sans text-xs text-muted-foreground">
-            {entries.length.toString().padStart(2, "0")} published{" "}
-            {entries.length === 1 ? "piece" : "pieces"}
-          </p>
-        </MotionDiv>
-      </header>
+      <p className="-mt-4 text-center font-sans text-xs text-muted-foreground">
+        {entries.length.toString().padStart(2, "0")} published{" "}
+        {entries.length === 1 ? "piece" : "pieces"}
+      </p>
 
       {featuredEntry ? (
         <div className="space-y-12">

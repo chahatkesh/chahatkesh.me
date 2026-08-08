@@ -425,8 +425,8 @@ function AdminPlacesContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Places"
-        subtitle="Add visited places with coordinates and show them publicly on your map page"
+        title="Places Map"
+        subtitle="Add visited places and show them on your public map."
       />
 
       <div className="space-y-3">

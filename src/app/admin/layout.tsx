@@ -25,14 +25,16 @@ const AdminLayout = async ({ children }: { children: ReactNode }) => {
     );
   }
 
-  // Match public pages: document scrolls (scrollbar at viewport edge), not an
-  // inner overflow container (which pinned the scrollbar to the container).
+  // Match public layout: no space-y between nav and main — AdminPageHeader
+  // banner owns the top gap (same as public PageHeader).
   return (
-    <div className="container relative flex min-h-dvh flex-col gap-4 py-2">
-      <SkipContent />
-      <AdminNavbar />
-      <div id="main-content" className="flex flex-1 flex-col">
-        {children}
+    <div className="container relative flex min-h-dvh flex-col py-2">
+      <div className="flex flex-1 flex-col">
+        <SkipContent />
+        <AdminNavbar />
+        <div id="main-content" className="flex flex-1 flex-col">
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -222,8 +222,8 @@ function AdminGalleryContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Gallery Management"
-        subtitle="Upload, edit, and manage your gallery images"
+        title="Gallery Admin"
+        subtitle="Upload, edit, and manage your public gallery images."
       />
 
       {/* Gallery Grid */}

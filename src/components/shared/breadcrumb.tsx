@@ -11,9 +11,10 @@ export interface BreadcrumbItem {
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
   className?: string;
+  align?: "start" | "center";
 }
 
-const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
+const Breadcrumb = ({ items, className, align = "start" }: BreadcrumbProps) => {
   const displayName = (name: string, url: string) =>
     url === "/" ? "chahat" : name.toLowerCase();
 
@@ -29,7 +30,11 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn("flex items-center text-sm min-w-0", className)}
+      className={cn(
+        "flex items-center text-sm min-w-0",
+        align === "center" && "justify-center",
+        className,
+      )}
     >
       {/*
        * Mobile: single-line, show "… › parent › current" for 3+ levels.
@@ -37,7 +42,12 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
        * navigable item; home is always reachable via logo/back.
        * "…" signals that ancestors exist above without cluttering the trail.
        */}
-      <ol className="flex sm:hidden items-center gap-1.5 min-w-0 w-full overflow-hidden">
+      <ol
+        className={cn(
+          "flex sm:hidden items-center gap-1.5 min-w-0 overflow-hidden",
+          align === "center" ? "justify-center" : "w-full",
+        )}
+      >
         {items.length === 1 ? (
           <li className="truncate text-muted-foreground font-medium min-w-0">
             {displayName(last.name, last.url)}
@@ -76,7 +86,12 @@ const Breadcrumb = ({ items, className }: BreadcrumbProps) => {
       </ol>
 
       {/* Desktop: full trail, wrapping allowed */}
-      <ol className="hidden sm:flex items-center gap-2 flex-wrap">
+      <ol
+        className={cn(
+          "hidden sm:flex items-center gap-2 flex-wrap",
+          align === "center" && "justify-center",
+        )}
+      >
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (

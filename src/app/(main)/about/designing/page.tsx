@@ -29,8 +29,8 @@ export default function DesigningPage() {
           { name: "About Me", url: "/about" },
           { name: "Designing", url: "/about/designing" },
         ]}
-        title="Designing"
-        subtitle="Design explorations, UI studies, and visual thinking."
+        title="How I Design"
+        subtitle="UI studies, visual explorations, and how I think about craft."
       />
 
       <section className="rounded-lg border border-border bg-card/50 p-6 sm:p-8">

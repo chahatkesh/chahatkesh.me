@@ -22,10 +22,7 @@ const Navbar = ({ variant = "public", items }: NavbarProps) => {
   const isActive = variant === "admin" ? isAdminNavActive : isPublicNavActive;
 
   return (
-    <nav
-      className="mb-4 mt-2 flex items-center justify-end gap-4"
-      role="navigation"
-    >
+    <nav className="mt-2 flex items-center justify-end gap-4" role="navigation">
       <div className="hidden sm:block">
         <NavList items={resolvedItems} isActive={isActive} />
       </div>
