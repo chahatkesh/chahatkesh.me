@@ -1,8 +1,3 @@
-import { fileURLToPath } from "node:url";
-import createJiti from "jiti";
-const jiti = createJiti(fileURLToPath(import.meta.url));
-const config = jiti("./src/config.ts").default;
-
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -46,11 +41,6 @@ const nextConfig = {
   },
   redirects: async () => {
     return [
-      {
-        source: "/resume",
-        destination: config.resumeUrl,
-        permanent: true,
-      },
       {
         source: "/linkedin",
         destination: "https://www.linkedin.com/in/chahatkesharwani/",
