@@ -1,9 +1,12 @@
 import { type Metadata } from "next";
 import dynamic from "next/dynamic";
-import { AboutSection, ProfessionalExperience } from "~/components/sections";
+import {
+  AboutSection,
+  ContactUs,
+  ProfessionalExperience,
+} from "~/components/sections";
 import { ProjectList } from "~/components/features/project";
 import { projects } from "~/data/projects";
-import { ContactUs } from "~/components/sections";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { HomeJsonLd } from "~/components/seo";

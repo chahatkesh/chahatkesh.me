@@ -57,7 +57,7 @@ const ContactUs = () => {
           </div>
 
           {/* Right Column - Spotify Now Playing */}
-          <div>
+          <div className="min-w-0">
             <SpotifyNowPlaying />
           </div>
         </div>
