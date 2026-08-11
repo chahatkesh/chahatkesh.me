@@ -160,24 +160,31 @@ export const experiences: Experience[] = [
     start_date: "Oct 2025",
     end_date: "Mar 2026",
     tagline:
-      "Innovation-driven research and startup ideation under IIT Ropar's incubation ecosystem.",
+      "Built production AI infrastructure for agricultural RAG, multilingual speech, semantic caching, and media workflows using Python and FastAPI.",
     description:
-      "Led AI and agri-tech product development at Annam.ai (IIT Ropar), working on production systems and startup initiatives within the incubation ecosystem. Built and shipped AI-powered solutions addressing real-world agricultural challenges, collaborating with researchers and mentors.",
+      "Led product development and contributed to KM Engine, a Python and FastAPI agricultural knowledge platform composed of nine backend services for RAG chat, query classification, semantic caching, search, speech, and media processing. Developed an audio workflow connecting Whisper STT, contextual RAG, and Edge Text-to-Speech, with TTS voices configured for 12 languages. Worked with researchers, mentors, and startups to move AI prototypes toward scalable, cloud-ready products.",
     logo: AnnamAILogo,
     about:
       "Annam.ai is an AI-driven agricultural technology platform incubated at IIT Ropar, focused on transforming agriculture through intelligent systems and data-driven solutions.",
     contributions: [
-      "Led product development and system architecture for AI-powered agri-tech solutions",
-      "Collaborated with research team, mentors and startups within the IIT Ropar ecosystem",
-      "Built and shipped production AI systems addressing real-world agricultural challenges",
-      "Applied cloud technologies and scalable architecture for societal-impact solutions",
+      "Contributed to a Python and FastAPI monorepo spanning nine independently runnable backend services for RAG chat, classification, caching, search, speech, image analysis, and video generation",
+      "Developed an authenticated audio-to-audio workflow that orchestrates Whisper STT, the contextual RAG pipeline, and Text-to-Speech while returning transcript, response text, and encoded audio",
+      "Configured Edge TTS voices for 12 languages, including Tamil, Telugu, Malayalam, Kannada, and Marathi, with streaming synthesis and multiple audio formats",
+      "Developed asynchronous REST integrations for the classify-cache-LLM flow, including semantic retrieval, provider fallbacks, and per-stage timing instrumentation",
+      "Worked with MongoDB for conversation persistence, Redis for session and response caching, and Qdrant for vector retrieval across the AI pipeline",
+      "Presented AI-powered agri-tech solutions to delegates from the Government of India, MeitY, and IIT Ropar during a strategic product showcase",
     ],
     techStack: [
-      "Artificial Intelligence",
-      "Machine Learning",
       "Python",
-      "Data Modeling",
-      "Research & Development",
+      "FastAPI",
+      "REST APIs",
+      "MongoDB",
+      "Redis",
+      "Qdrant",
+      "Artificial Intelligence",
+      "AI Pipelines",
+      "Machine Learning",
+      "Docker",
     ],
     links: [
       {
@@ -202,17 +209,17 @@ export const experiences: Experience[] = [
     start_date: "May 2025",
     end_date: "Oct 2025",
     tagline:
-      "Developed AI engine with modular pipelines for classification and inference.",
+      "Developed modular Python pipelines for agricultural query classification, inference, and retrieval-backed responses.",
     description:
-      "Contributed to the development of an internal AI engine with modular pipelines for classification and inference. Built domain-specific classifiers and optimized data modeling strategies to improve AI inference accuracy.",
+      "Contributed to the foundations of an agricultural AI engine through reusable Python pipelines for query classification and inference. Built domain-specific classification logic, structured evaluation fixtures, and service-oriented components that supported retrieval-backed answer generation and later production integration.",
     logo: AnnamAILogo,
     about:
       "Annam.ai is an AI-driven agricultural technology platform incubated at IIT Ropar, focused on transforming agriculture through intelligent systems and data-driven solutions.",
     contributions: [
-      "Developed internal AI engine with modular pipelines for classification and inference",
-      "Built domain-specific classifiers for agricultural data",
-      "Optimized data modeling strategies to improve AI inference accuracy",
-      "Collaborated with research team on AI system architecture",
+      "Developed reusable Python pipelines for agricultural query classification and AI inference",
+      "Built domain-specific classifiers spanning crop health, weather, market, finance, government schemes, and general agricultural queries",
+      "Created structured multilingual evaluation fixtures to validate classifier behavior across supported query categories",
+      "Collaborated with researchers on service boundaries, data modeling, and retrieval-backed AI system architecture",
     ],
     techStack: [
       "Python",
@@ -220,6 +227,7 @@ export const experiences: Experience[] = [
       "AI Pipelines",
       "Data Modeling",
       "Classification Algorithms",
+      "Qdrant",
     ],
     achievements: [
       "Successfully improved AI inference accuracy through optimized data modeling",
