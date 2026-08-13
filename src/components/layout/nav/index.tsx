@@ -22,7 +22,11 @@ const Navbar = ({ variant = "public", items }: NavbarProps) => {
   const isActive = variant === "admin" ? isAdminNavActive : isPublicNavActive;
 
   return (
-    <nav className="mt-2 flex items-center justify-end gap-4" role="navigation">
+    <nav
+      className="flex h-14 items-center justify-end gap-4"
+      role="navigation"
+      aria-label={variant === "admin" ? "Admin navigation" : "Main"}
+    >
       <div className="hidden sm:block">
         <NavList items={resolvedItems} isActive={isActive} />
       </div>

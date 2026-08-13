@@ -3,6 +3,7 @@ export * from "./button";
 export * from "./card";
 export { default as ContentNotFound } from "./content-not-found";
 export * from "./fonts";
+export * from "./grid-feature-cards";
 export * from "./input";
 export * from "./label";
 export * from "./sheet";

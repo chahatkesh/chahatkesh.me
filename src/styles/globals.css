@@ -7,10 +7,12 @@
     --scrollbar-thumb: hsl(var(--border) / 0.9);
     --scrollbar-thumb-hover: hsl(var(--muted-foreground) / 0.55);
     --scrollbar-track: hsl(var(--background) / 0.72);
+    --header-height: 3.5rem;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
     scrollbar-gutter: stable;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

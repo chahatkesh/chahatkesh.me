@@ -247,7 +247,7 @@ const SemesterSection = ({ semester, index }: SemesterSectionProps) => {
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       {/* Sticky header — semester info + column labels */}
-      <div className="sticky top-0 z-10 -mx-3 px-3 pt-3 border-b border-border bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
+      <div className="sticky top-[var(--header-height)] z-10 -mx-3 px-3 pt-3 border-b border-border bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
         {/* Semester Header — single line */}
         <div className="flex items-baseline justify-between gap-4 pb-3">
           <div className="flex items-baseline gap-3 min-w-0">

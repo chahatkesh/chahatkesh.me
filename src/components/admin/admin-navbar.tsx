@@ -1,6 +1,6 @@
-import Navbar from "~/components/layout/nav";
+import SiteHeader from "~/components/layout/site-header";
 
-/** Admin navbar — same UI as the public navbar, with admin routes. */
+/** Admin navbar — same sticky chrome as the public navbar, with admin routes. */
 export function AdminNavbar() {
-  return <Navbar variant="admin" />;
+  return <SiteHeader variant="admin" />;
 }

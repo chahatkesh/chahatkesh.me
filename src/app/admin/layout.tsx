@@ -25,13 +25,12 @@ const AdminLayout = async ({ children }: { children: ReactNode }) => {
     );
   }
 
-  // Match public layout: no space-y between nav and main — AdminPageHeader
-  // banner owns the top gap (same as public PageHeader).
+  // Match public layout: sticky header, then AdminPageHeader owns the top gap.
   return (
-    <div className="container relative flex min-h-dvh flex-col py-2">
-      <div className="flex flex-1 flex-col">
-        <SkipContent />
-        <AdminNavbar />
+    <div className="flex min-h-dvh flex-col">
+      <SkipContent />
+      <AdminNavbar />
+      <div className="container relative flex flex-1 flex-col">
         <div id="main-content" className="flex flex-1 flex-col">
           {children}
         </div>

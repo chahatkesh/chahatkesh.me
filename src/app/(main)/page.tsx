@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import {
   AboutSection,
   ContactUs,
+  OutsideTheScreen,
   ProfessionalExperience,
 } from "~/components/sections";
 import { ProjectList } from "~/components/features/project";
@@ -61,6 +62,7 @@ const HomePage = () => {
           showFeatured={true}
         />
         <Skills />
+        <OutsideTheScreen variant="minimal" />
         <ContactUs />
       </div>
     </>

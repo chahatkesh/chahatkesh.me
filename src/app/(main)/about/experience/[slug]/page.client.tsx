@@ -94,16 +94,6 @@ const ExperienceDetailClient = ({
             />
           </div>
         </div>
-
-        {/* Tagline */}
-        <p
-          className={cn(
-            typo({ variant: "paragraph" }),
-            "text-center text-foreground/80 text-lg",
-          )}
-        >
-          {experience.tagline}
-        </p>
       </MotionDiv>
 
       {/* Content Sections */}

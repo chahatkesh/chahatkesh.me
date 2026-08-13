@@ -2,7 +2,10 @@ import Image from "next/image";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { ProfessionalExperience } from "~/components/sections";
+import {
+  OutsideTheScreen,
+  ProfessionalExperience,
+} from "~/components/sections";
 import chahat from "~/assets/images/chahat.jpeg";
 import workspaceImage from "~/assets/images/workspace-desk.jpg";
 import illustration from "~/assets/images/illustration.png";
@@ -19,12 +22,7 @@ import { type Metadata } from "next";
 import config from "~/config";
 import { LinkPreviewImage } from "~/components/features";
 import { getOgImageUrlsForLinks } from "~/lib/og";
-import {
-  currentProjects,
-  hobbies,
-  deskSetup,
-  portfolioVersions,
-} from "~/data/about";
+import { currentProjects, deskSetup, portfolioVersions } from "~/data/about";
 
 export const metadata: Metadata = getSEOTags({
   title: "About",
@@ -336,31 +334,7 @@ const AboutPage = async () => {
             </div>
           </section>
 
-          {/* Beyond Code Section */}
-          <section className="mt-10 space-y-6" aria-label="Beyond Code">
-            <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
-            <div className="mt-4 grid gap-6 sm:grid-cols-2">
-              {hobbies.map((hobby) => (
-                <Link
-                  key={hobby.title}
-                  href={hobby.href}
-                  className="el-focus-styles group block rounded-lg border border-border bg-card/50 p-6 transition-all duration-300 hover:border-muted-foreground/30 hover:shadow-lg hover:shadow-black/20"
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-transform duration-300 group-hover:rotate-6">
-                      {hobby.icon}
-                    </div>
-                    <h3 className="font-ubuntu text-base font-medium text-foreground">
-                      {hobby.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {hobby.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <OutsideTheScreen />
 
           {/* Portfolio Evolution Section */}
           <section className="mt-10 space-y-6" aria-label="Portfolio Evolution">

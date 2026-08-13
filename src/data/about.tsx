@@ -1,13 +1,17 @@
 import { type ReactNode } from "react";
 import {
-  FaBook,
-  FaRunning,
   FaLaptop,
   FaHeadphones,
   FaMobileAlt,
   FaPenFancy,
-  FaPlaneDeparture,
 } from "react-icons/fa";
+import {
+  BookOpen,
+  Dumbbell,
+  PenTool,
+  Plane,
+  type LucideIcon,
+} from "lucide-react";
 
 // ── Current Projects / Work ───────────────────────────────────────
 export interface CurrentProject {
@@ -40,38 +44,44 @@ export const currentProjects: CurrentProject[] = [
 // ── Hobbies ───────────────────────────────────────────────────────
 export interface Hobby {
   title: string;
+  /** Short line used on the compact (home) variant */
+  label: string;
   description: string;
-  icon: ReactNode;
+  icon: LucideIcon;
   href: string;
 }
 
 export const hobbies: Hobby[] = [
   {
     title: "Writing",
+    label: "Essays & notes",
     description:
       "Lessons, open questions, and ideas shaped by building, reading, work, and everything in between.",
-    icon: <FaBook className="text-amber-500" />,
+    icon: BookOpen,
     href: "/about/writing",
   },
   {
     title: "Gym",
+    label: "Training logs",
     description:
       "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
-    icon: <FaRunning className="text-green-400" />,
+    icon: Dumbbell,
     href: "/about/gym",
   },
   {
     title: "Designing",
+    label: "Visual craft",
     description:
       "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
-    icon: <FaPenFancy className="text-blue-300" />,
+    icon: PenTool,
     href: "/about/designing",
   },
   {
     title: "Travelling",
+    label: "Places I've been",
     description:
       "I like exploring new places and observing how people live, build, and move through cities. It resets my perspective every time.",
-    icon: <FaPlaneDeparture className="text-cyan-400" />,
+    icon: Plane,
     href: "/places",
   },
 ];

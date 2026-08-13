@@ -5,3 +5,4 @@ export { usePageTracking, PageTrackingWrapper } from "./use-page-tracking";
 export { useScrollTo } from "./use-lenis";
 export { useHorizontalScroll } from "./use-horizontal-scroll";
 export { useDebouncedValue } from "./use-debounced-value";
+export { useScrolled } from "./use-scrolled";
