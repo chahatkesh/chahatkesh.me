@@ -52,6 +52,7 @@ export const config = {
     city: "India",
     country: "India",
     countryCode: "IN",
+    timeZone: "Asia/Kolkata",
   },
 
   colors: {

@@ -32,6 +32,7 @@ export interface ConfigProps {
     city: string;
     country: string;
     countryCode: string;
+    timeZone: string;
   };
 
   social: {

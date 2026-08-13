@@ -1,33 +1,31 @@
 import { type Metadata } from "next";
-import Image from "next/image";
-import {
-  Mail,
-  FileText,
-  FolderGit2,
-  Home,
-  ChevronRight,
-  Calendar,
-  Briefcase,
-} from "lucide-react";
-import { GiJourney } from "react-icons/gi";
-import { SiBuymeacoffee } from "react-icons/si";
+import Link from "next/link";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { MotionDiv } from "~/components/shared";
-import chahat from "~/assets/images/chahat.jpg";
-import { Card } from "~/components/ui";
-import { LinkStats, CodingActivityStatusBar } from "~/components/features";
-import { links, type LinkItem } from "~/data/links";
+import { CodingActivityStatusBar } from "~/components/features";
+import {
+  startLinks,
+  workLinks,
+  allWritingLink,
+  elsewhereLinks,
+  footerSupportLink,
+  type LinkItem,
+} from "~/data/links";
 import { LinksFeaturedGallery } from "~/components/features/gallery";
-import { experiences } from "~/data/experience";
-import { currentProjects } from "~/data/about";
-import { getLinkIcon } from "~/lib/link-icons";
+import {
+  LinkGroup,
+  LinkRow,
+  LinksHero,
+  LinksAnimatedSection,
+} from "~/components/features/links";
+import { SOCIAL_BRAND_COLORS } from "~/constants/theme";
+import { getWritingEntries } from "~/lib/writing";
 
 export const metadata: Metadata = getSEOTags({
   title: "Links",
   description:
-    "GitHub, socials, resume, and ways to reach me — pick your platform.",
+    "Resume, writing, projects, socials, and ways to reach me — all in one place.",
   openGraph: {
     title: `Links — ${config.appName}`,
     description: "Every place I exist online — pick your platform.",
@@ -35,171 +33,27 @@ export const metadata: Metadata = getSEOTags({
   canonicalUrlRelative: "/links",
 });
 
-// Icon mapping
-const iconMap: Record<string, React.ReactNode> = {
-  FileText: <FileText className="size-6" />,
-  FolderGit2: <FolderGit2 className="size-6" />,
-  Home: <Home className="size-6" />,
-  Mail: <Mail className="size-5" />,
-  SiBuymeacoffee: <SiBuymeacoffee className="size-5" />,
-  Journey: <GiJourney className="size-6" />,
-  Calendar: <Calendar className="size-6" />,
-  Briefcase: <Briefcase className="size-6" />,
-};
+/** Container width shared by the hero and every list below it. */
+const COLUMN = "mx-auto w-full max-w-2xl px-4";
 
-// LinkCard Component - Mobile-optimized with large touch targets
-const LinkCard = ({ link, index }: { link: LinkItem; index: number }) => {
-  const isPrimary = link.type === "primary";
-  const isSupport = link.type === "support";
-  const icon =
-    iconMap[link.icon] ??
-    getLinkIcon(link.icon, {
-      default: link.iconSize === "sm" ? 20 : 24,
-      globe: link.iconSize === "sm" ? 20 : 24,
-      file: link.iconSize === "sm" ? 20 : 24,
-    });
+async function getWritingLinks(): Promise<LinkItem[]> {
+  const [latest] = await getWritingEntries();
+  if (!latest) return [allWritingLink];
 
-  return (
-    <MotionDiv
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-    >
-      <a
-        href={link.href}
-        target={link.href.startsWith("/") ? "_self" : "_blank"}
-        rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}
-        className="el-focus-styles group block h-full rounded-xl"
-      >
-        <Card
-          className={cn(
-            "h-full transition-all duration-300 border border-border hover:border-muted-foreground/30",
-            "active:scale-[0.98]",
-            link.hoverColor,
-            isPrimary && "p-4 md:p-5",
-            !isPrimary && "min-h-[64px] p-4",
-            isSupport &&
-              "border-yellow-500/30 bg-yellow-500/5 hover:border-yellow-500/50",
-          )}
-        >
-          {/* Primary Links - Vertical layout on mobile, horizontal on desktop */}
-          {isPrimary ? (
-            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 h-full">
-              {/* Icon */}
-              <div
-                className={cn(
-                  "flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg",
-                  "size-12 md:size-12 bg-primary/10 group-hover:bg-primary/15",
-                  "self-center md:self-auto",
-                )}
-              >
-                <div
-                  className={cn(
-                    "flex items-center justify-center",
-                    link.gradient &&
-                      `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
-                  )}
-                >
-                  {icon}
-                </div>
-              </div>
+  return [
+    {
+      id: 21,
+      title: latest.title,
+      href: `/about/writing/${latest.slug}`,
+      icon: "PenLine",
+      meta: `${latest.readingTime} min`,
+    },
+    allWritingLink,
+  ];
+}
 
-              {/* Content - Centered on mobile, left-aligned on desktop */}
-              <div className="flex-1 min-w-0 text-center md:text-left">
-                <h3
-                  className={cn(
-                    "font-semibold tracking-tight transition-colors",
-                    "text-sm md:text-lg mb-0.5 md:mb-0",
-                  )}
-                >
-                  {link.title}
-                </h3>
-                <p className="hidden md:block text-xs md:text-sm text-muted-foreground line-clamp-2 md:truncate">
-                  {link.description}
-                </p>
-              </div>
-
-              {/* Arrow indicator - Hidden on mobile, shown on desktop */}
-              <div className="hidden md:flex flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
-                <ChevronRight className="size-5" />
-              </div>
-            </div>
-          ) : (
-            /* Non-Primary Links - Keep horizontal layout */
-            <div className="flex items-center gap-4">
-              {/* Icon */}
-              <div
-                className={cn(
-                  "flex-shrink-0 flex items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110",
-                  "size-10 bg-primary/5",
-                )}
-              >
-                <div
-                  className={cn(
-                    link.gradient &&
-                      `bg-gradient-to-r ${link.gradient} bg-clip-text text-transparent`,
-                  )}
-                >
-                  {icon}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base font-semibold tracking-tight transition-colors">
-                  {link.title}
-                </h3>
-                <p className="text-sm text-muted-foreground truncate">
-                  {link.description}
-                </p>
-              </div>
-
-              {/* Arrow indicator */}
-              <div className="flex-shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1">
-                <ChevronRight className="size-5" />
-              </div>
-            </div>
-          )}
-        </Card>
-      </a>
-    </MotionDiv>
-  );
-};
-
-const LinksPage = () => {
-  const primaryLinks = links.filter((link) => link.type === "primary");
-  const socialLinks = links.filter((link) => link.type === "social");
-  const supportLinks = links.filter((link) => link.type === "support");
-  const actionLinks = links.filter((link) => link.type === "action");
-
-  // Dynamically create current work links from experiences with end_date as "present"
-  const currentExperiences = experiences.filter(
-    (exp) => exp.end_date.toLowerCase() === "present",
-  );
-
-  const currentLinks: LinkItem[] = currentExperiences.map((exp, index) => ({
-    id: 1000 + index, // Use high IDs to avoid conflicts
-    title: exp.role,
-    description: `${exp.employer} • ${exp.type}`,
-    href: `/about/experience/${exp.slug}`,
-    icon: "Briefcase",
-    iconSize: "md" as const,
-    type: "current" as const,
-    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
-  }));
-
-  const currentProjectLinks: LinkItem[] = currentProjects
-    .filter((project) => project.showInLinks)
-    .map((project, index) => ({
-      id: 2000 + index,
-      title: project.title,
-      description: project.description,
-      href: project.url,
-      icon: "FolderGit2",
-      iconSize: "md" as const,
-      type: "current" as const,
-      hoverColor: "hover:border-ring/50 hover:bg-ring/5",
-    }));
+const LinksPage = async () => {
+  const writingLinks = await getWritingLinks();
 
   return (
     <>
@@ -208,217 +62,75 @@ const LinksPage = () => {
         { name: "Links", url: "/links" },
       ])}
 
-      <div className="max-w-2xl mx-auto px-4 py-16 md:py-20">
-        {/* Hero Section */}
-        <MotionDiv
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 md:mb-12"
-        >
-          <div className="grid grid-cols-[auto_1fr] items-stretch gap-4 md:gap-6">
-            {/* Square photo: height follows the text column, width follows height */}
-            <div className="relative h-full w-fit min-h-0">
-              <div className="relative aspect-square h-full min-h-[7.5rem]">
-                <Image
-                  src={chahat}
-                  alt={config.appName}
-                  fill
-                  className="rounded-2xl border-2 border-border object-cover shadow-lg"
-                  sizes="(max-width: 768px) 120px, 160px"
-                  priority
-                />
-              </div>
-            </div>
+      <header className={cn(COLUMN, "pt-14 pb-10 md:pt-20 md:pb-12")}>
+        <LinksAnimatedSection>
+          <LinksHero />
+        </LinksAnimatedSection>
+      </header>
 
-            {/* Right - Name, description, and stats */}
-            <div className="flex min-w-0 flex-col space-y-3">
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight mb-1.5">
-                  {config.appName}
-                </h1>
-                <p className="block md:hidden text-sm md:text-base text-muted-foreground leading-relaxed">
-                  {config.appDesignation}
-                </p>
-                <p className="hidden md:block text-sm md:text-base text-muted-foreground leading-relaxed">
-                  {config.appDescription}
-                </p>
-              </div>
-
-              {/* Stats */}
-              <LinkStats />
-            </div>
-          </div>
-        </MotionDiv>
-
-        {/* Coding Activity Status */}
-        <MotionDiv
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-6"
-        >
+      <div className={cn(COLUMN, "space-y-8 pb-16")}>
+        <LinksAnimatedSection delay={0.05}>
           <CodingActivityStatusBar />
-        </MotionDiv>
+        </LinksAnimatedSection>
 
-        {/* Primary Links */}
-        <div className="grid grid-cols-2 gap-2.5 md:gap-3 mb-6">
-          {primaryLinks.map((link, index) => (
-            <LinkCard key={link.id} link={link} index={index} />
-          ))}
-        </div>
-
-        {/* Let's Connect - Book a Call */}
-        <div className="mb-6">
-          <MotionDiv
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.15 }}
-          >
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-              Let&apos;s Connect
-            </h2>
-          </MotionDiv>
-          <div className="space-y-3">
-            {actionLinks.map((link, index) => (
-              <LinkCard
-                key={link.id}
-                link={link}
-                index={index + primaryLinks.length}
-              />
+        <LinksAnimatedSection inView>
+          <LinkGroup label="Start here">
+            {startLinks.map((item) => (
+              <LinkRow key={item.id} item={item} emphasis />
             ))}
-          </div>
-        </div>
+          </LinkGroup>
+        </LinksAnimatedSection>
 
-        {/* Gallery Carousel - Moments */}
-        <div className="mb-6">
-          <MotionDiv
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
-          >
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-              Moments
-            </h2>
-          </MotionDiv>
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-          >
-            <LinksFeaturedGallery />
-          </MotionDiv>
-        </div>
-
-        {/* Current Work */}
-        {currentLinks.length > 0 && (
-          <div className="mb-6">
-            <MotionDiv
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.3 }}
-            >
-              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-                Current Work
-              </h2>
-            </MotionDiv>
-            <div className="space-y-3">
-              {currentLinks.map((link, index) => (
-                <LinkCard
-                  key={link.id}
-                  link={link}
-                  index={index + primaryLinks.length + actionLinks.length}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Beyond Coding */}
-        {currentProjectLinks.length > 0 && (
-          <div className="mb-6">
-            <MotionDiv
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.35 }}
-            >
-              <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-                Beyond Coding
-              </h2>
-            </MotionDiv>
-            <div className="space-y-3">
-              {currentProjectLinks.map((link, index) => (
-                <LinkCard
-                  key={link.id}
-                  link={link}
-                  index={
-                    index +
-                    primaryLinks.length +
-                    actionLinks.length +
-                    currentLinks.length
-                  }
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Social Links */}
-        <div className="mb-6">
-          <MotionDiv
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-              Social
-            </h2>
-          </MotionDiv>
-          <div className="space-y-3">
-            {socialLinks.map((link, index) => (
-              <LinkCard
-                key={link.id}
-                link={link}
-                index={
-                  index +
-                  primaryLinks.length +
-                  actionLinks.length +
-                  currentProjectLinks.length +
-                  currentLinks.length
-                }
-              />
+        <LinksAnimatedSection inView>
+          <LinkGroup label="Latest writing">
+            {writingLinks.map((item) => (
+              <LinkRow key={item.id} item={item} />
             ))}
-          </div>
-        </div>
+          </LinkGroup>
+        </LinksAnimatedSection>
 
-        {/* Support */}
-        <div className="mb-8">
-          <MotionDiv
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.45 }}
-          >
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-1">
-              Support
-            </h2>
-          </MotionDiv>
-          <div className="space-y-3">
-            {supportLinks.map((link, index) => (
-              <LinkCard
-                key={link.id}
-                link={link}
-                index={
-                  index +
-                  primaryLinks.length +
-                  actionLinks.length +
-                  currentProjectLinks.length +
-                  currentLinks.length +
-                  socialLinks.length
-                }
-              />
+        <LinksAnimatedSection inView>
+          <LinkGroup label="Work">
+            {workLinks.map((item) => (
+              <LinkRow key={item.id} item={item} />
             ))}
-          </div>
-        </div>
+          </LinkGroup>
+        </LinksAnimatedSection>
+
+        <LinksAnimatedSection inView>
+          <LinkGroup label="Elsewhere">
+            {elsewhereLinks.map((item) => (
+              <LinkRow key={item.id} item={item} />
+            ))}
+          </LinkGroup>
+        </LinksAnimatedSection>
+
+        <LinksFeaturedGallery />
+
+        <footer className="flex flex-nowrap items-center justify-center gap-x-3 border-t border-border/50 pt-8 text-xs text-muted-foreground/70 sm:text-sm">
+          <Link
+            href="/"
+            className="shrink-0 rounded-sm transition-colors duration-150 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            chahatkesh.me
+          </Link>
+          <span aria-hidden className="shrink-0 text-border">
+            ·
+          </span>
+          <a
+            href={footerSupportLink.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "shrink-0 rounded-sm transition-colors duration-150",
+              SOCIAL_BRAND_COLORS.buymeacoffeeText,
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            )}
+          >
+            {footerSupportLink.title}
+            <span className="sr-only"> (opens in new tab)</span>
+          </a>
+        </footer>
       </div>
     </>
   );

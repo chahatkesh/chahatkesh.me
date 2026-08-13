@@ -18,7 +18,6 @@ export interface CurrentProject {
   title: string;
   description: string;
   url: string;
-  showInLinks: boolean;
   showInAbout: boolean;
 }
 
@@ -28,7 +27,6 @@ export const currentProjects: CurrentProject[] = [
     description:
       "Co-founding Layr, the AI product decision layer for founders, product managers, and engineering leaders. It connects Slack, Jira, Linear, customer calls, support tickets, and product docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts.",
     url: "https://uselayr.com/",
-    showInLinks: true,
     showInAbout: true,
   },
   {
@@ -36,7 +34,6 @@ export const currentProjects: CurrentProject[] = [
     description:
       "Building the frontend for Ninja, an AI platform for real estate agents. The system handles autonomous lead outreach, real-time conversation management, voice calls, WhatsApp follow-ups, and appointment scheduling. Production-grade architecture, fast iteration, and a lot of fun engineering problems.",
     url: "https://silentninja.tech/",
-    showInLinks: false,
     showInAbout: false,
   },
 ];

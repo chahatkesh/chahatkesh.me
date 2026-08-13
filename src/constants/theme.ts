@@ -33,4 +33,5 @@ export const SOCIAL_BRAND_COLORS = {
   discord: "hover:bg-[#5865F2]",
   email: "hover:bg-[#EA4335]",
   buymeacoffee: "hover:bg-[#FFDD00]",
+  buymeacoffeeText: "hover:text-[#FFDD00]",
 } as const;

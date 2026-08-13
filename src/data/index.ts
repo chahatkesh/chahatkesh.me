@@ -2,7 +2,7 @@
  * Barrel export for all data modules.
  *
  * Import from "~/data" instead of individual files:
- *   import { projects, experiences, links } from "~/data";
+ *   import { projects, experiences, startLinks } from "~/data";
  */
 
 // About page data
@@ -24,7 +24,13 @@ export { experiences } from "./experience";
 export type { Experience } from "./experience";
 
 // Links page data
-export { links } from "./links";
+export {
+  startLinks,
+  workLinks,
+  allWritingLink,
+  elsewhereLinks,
+  footerSupportLink,
+} from "./links";
 export type { LinkItem } from "./links";
 
 // Projects data

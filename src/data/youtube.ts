@@ -30,7 +30,7 @@ export const youtubeVideos: YouTubeVideo[] = [
     duration: "PT47S",
     durationFormatted: "0:47",
     viewCount: 21,
-    likeCount: 2,
+    likeCount: 1,
     tags: [],
     channelTitle: "Chahat Kesharwani",
   },
