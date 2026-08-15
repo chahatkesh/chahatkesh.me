@@ -71,10 +71,14 @@
 
 .markdown-github.markdown-body.writing-prose blockquote {
   margin: 2rem 0;
-  padding: 0.25rem 0 0.25rem 1.25rem;
+  padding: 0 0 0 1.25rem;
   border-left: 2px solid hsl(var(--ring));
   font-size: 1.1em;
   font-style: italic;
+}
+
+.markdown-github.markdown-body.writing-prose blockquote > * {
+  margin: 0;
 }
 
 .markdown-github.markdown-body.writing-prose p:has(> img:only-child) {
@@ -149,4 +153,50 @@
 
 .markdown-github.markdown-body hr {
   background-color: hsl(var(--border));
+}
+
+.markdown-github.markdown-body.writing-prose .writing-folder-explorer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-folder-explorer li {
+  margin: 0;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-folder-explorer p,
+.markdown-github.markdown-body.writing-prose .writing-folder-explorer dd {
+  margin: 0;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-folder-explorer h3 {
+  border: 0;
+  padding: 0;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-backend-roadmap ul {
+  list-style-type: disc;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-backend-roadmap li {
+  margin: 0;
+}
+
+.markdown-github.markdown-body.writing-prose
+  .writing-backend-roadmap
+  li::marker {
+  color: hsl(var(--ring));
+}
+
+.markdown-github.markdown-body.writing-prose .writing-backend-roadmap p {
+  margin: 0;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-backend-roadmap h3,
+.markdown-github.markdown-body.writing-prose .writing-backend-roadmap h4 {
+  border: 0;
+  padding: 0;
 }

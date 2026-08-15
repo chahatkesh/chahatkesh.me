@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock3 } from "lucide-react";
 import config from "~/config";
 import { PageHeader } from "~/components/shared";
-import { pageHeaderSubtitle } from "~/lib/page-header-subtitle";
+import { WritingCover } from "~/components/features/writing";
 import { formatDate } from "~/lib/date-utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { getWritingEntries, getWritingEntry } from "~/lib/writing";
@@ -79,6 +79,7 @@ export default async function WritingEntryPage({ params }: Props) {
             datePublished: entry.date,
             dateModified: entry.updated ?? entry.date,
             url: `https://${config.domainName}/about/writing/${entry.slug}`,
+            image: `https://${config.domainName}/about/writing/${entry.slug}/opengraph-image`,
             author: {
               "@type": "Person",
               name: config.appName,
@@ -96,37 +97,26 @@ export default async function WritingEntryPage({ params }: Props) {
           { name: entry.title, url: `/about/writing/${entry.slug}` },
         ]}
         title={entry.title}
-        titleClassName="font-poem"
-        subtitle={pageHeaderSubtitle(entry.description)}
+        titleClassName="font-poem max-w-3xl text-balance"
+        subtitle={entry.subtitle}
       />
 
-      <div className="space-y-4 border-b border-border pb-8 font-poem">
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-          <time dateTime={entry.date}>{formatDate(entry.date)}</time>
-          <span aria-hidden>·</span>
-          <span className="flex items-center gap-1">
-            <Clock3 aria-hidden className="size-3" />
-            {entry.readingTime} min read
-          </span>
-          {entry.updated && (
-            <>
-              <span aria-hidden>·</span>
-              <span>Updated {formatDate(entry.updated)}</span>
-            </>
-          )}
-        </div>
+      <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-border/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] sm:aspect-[2.2/1] sm:rounded-2xl">
+        <WritingCover slug={entry.slug} title={entry.title} />
+      </div>
 
-        {entry.tags.length > 0 && (
-          <ul
-            className="flex flex-wrap justify-center gap-x-3 gap-y-1 pt-1"
-            aria-label="Topics"
-          >
-            {entry.tags.map((tag) => (
-              <li key={tag} className="text-xs text-ring/90">
-                #{tag.toLowerCase().replaceAll(" ", "-")}
-              </li>
-            ))}
-          </ul>
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 border-b border-border pb-8 font-poem text-xs text-muted-foreground">
+        <time dateTime={entry.date}>{formatDate(entry.date)}</time>
+        <span aria-hidden>·</span>
+        <span className="flex items-center gap-1">
+          <Clock3 aria-hidden className="size-3" />
+          {entry.readingTime} min read
+        </span>
+        {entry.updated && (
+          <>
+            <span aria-hidden>·</span>
+            <span>Updated {formatDate(entry.updated)}</span>
+          </>
         )}
       </div>
 

@@ -79,6 +79,14 @@ export type {
   ChangelogStats,
 } from "./changelog";
 
+// Writing — backend roadmap
+export { backendRoadmap, backendRoadmapSectionStart } from "./backend-roadmap";
+export type {
+  RoadmapModule,
+  RoadmapSection,
+  RoadmapTopic,
+} from "./backend-roadmap";
+
 // Site metadata & tech data
 export {
   techStack,

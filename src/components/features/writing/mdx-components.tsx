@@ -1,4 +1,6 @@
 import { type AnchorHTMLAttributes, type ReactNode } from "react";
+import { FolderStructures } from "./folder-structures";
+import { BackendRoadmap } from "./backend-roadmap";
 import Link from "next/link";
 import { Info, Lightbulb, TriangleAlert } from "lucide-react";
 import { cn } from "~/lib/utils";
@@ -90,4 +92,6 @@ export const writingMdxComponents = {
   a: MdxLink,
   Callout,
   Details,
+  FolderStructures,
+  BackendRoadmap,
 };

@@ -13,8 +13,12 @@ const WRITING_DIRECTORY = path.join(process.cwd(), "src/content/writing");
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const frontmatterSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+  /** Header + card title. Keep to ~2 lines in the page banner (≤48). */
+  title: z.string().min(1).max(48),
+  /** Header subtitle. Must fit the banner without clipping (≤72). */
+  subtitle: z.string().min(1).max(72),
+  /** SEO / Open Graph description. */
+  description: z.string().min(1).max(160),
   date: z.iso.date(),
   updated: z.iso.date().optional(),
   tags: z.array(z.string().min(1)).default([]),

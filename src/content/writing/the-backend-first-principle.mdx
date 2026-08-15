@@ -1,0 +1,47 @@
+---
+title: "The Backend First Principle"
+subtitle: "How I learn the server before I decorate the UI."
+description: "A modular roadmap for learning backend — follow the request, then earn the next module."
+date: "2026-05-12"
+tags:
+  - Backend
+  - Learning
+  - Engineering
+---
+
+I could ship a screen before I could explain where the POST went.
+
+That is not a flex. For a long time my loop looked like this: open Figma, build the form, wire `fetch`, pray the status code is 200, move on. The UI looked finished. The system was a rumor.
+
+Backend first, for me, is not "skip the frontend." It is an order of curiosity. Before I decorate a view, I want to walk with the request — from the socket to the handler to the row in the database and back. If I cannot tell that story, I do not actually know the feature. I only know the costume.
+
+<Callout tone="idea" title="The principle">
+  Follow the request. Name every stop. Do not skip a stop because it is unglamorous.
+</Callout>
+
+I learned this the hard way. Open source backends made it obvious — the good ones read like a path, not a pile. Shipping this site's APIs, and later the messier insides of real products, made it personal. A pretty empty state does not help you at 1am when a webhook fired twice and charged someone twice.
+
+So I stopped "learning backend" as a vibe and gave it a spine. Eight modules. Same walk every time I am new to a stack, or lost in one I thought I knew.
+
+<BackendRoadmap />
+
+## How I walk it
+
+I do not finish module eight before I write a line of code. That would be school. I do a thin slice.
+
+Foundations first, always. HTTP verbs, status codes, what a route even is. Then I take one use case — say, create a resource — and drag it through data flow, a small API, a real database, one auth check, one log line, one test. Scaling waits until something actually hurts. Email waits until a user needs a message. Docker waits until "works on my machine" becomes a lie I am tired of telling.
+
+The roadmap is a map, not a prison. When I skip ahead to Redis because a page is slow, I come back and ask: did I even index the query? Module 4 before module 6. The request still has a first stop.
+
+<Callout tone="note" title="A loop that works">
+  Foundations → one vertical slice through the rest → return to the module
+  that just bit you. Repeat until the system feels honest.
+</Callout>
+
+Frontend is still how people touch the thing. I care about that. I just refuse to let the interface be the only part of the product I can explain.
+
+If the request can tell its own story — who sent it, what we checked, what we stored, what we returned, how we will know if it failed — then I have learned enough backend for today. Tomorrow there is another module. There always is.
+
+Still learning. Still growing. Still here.
+
+[**@chahatkesh**](/)
