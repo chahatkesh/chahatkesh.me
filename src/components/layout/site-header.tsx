@@ -49,7 +49,7 @@ const SiteHeader = ({ variant = "public" }: SiteHeaderProps) => {
         "sticky top-0 z-40 pt-[env(safe-area-inset-top)] transition-colors duration-300",
         scrolled
           ? "bg-background/75 backdrop-blur-md supports-[backdrop-filter]:bg-background/60"
-          : "bg-background",
+          : "bg-transparent",
       )}
     >
       {showStrip && (

@@ -15,8 +15,8 @@ interface PageHeaderProps {
 
 /**
  * Canonical page header: centered title + subtitle on grid banner,
- * breadcrumb below subtitle. `mt-8` keeps top spacing consistent even when
- * a JSON-LD script is not a preceding sibling inside the parent `space-y-8`.
+ * breadcrumb below subtitle. `!mt-0` cancels parent `space-y-8` when a
+ * JSON-LD script is the preceding sibling.
  */
 const PageHeader = ({
   breadcrumbs,
@@ -26,7 +26,7 @@ const PageHeader = ({
   className,
 }: PageHeaderProps) => {
   return (
-    <header className={cn("mt-8 mb-2", className)}>
+    <header className={cn("!mt-0 mb-2", className)}>
       <PageBanner>
         <MotionDiv
           className="flex w-full flex-col items-center space-y-3"
@@ -50,7 +50,7 @@ const PageHeader = ({
         <Breadcrumb
           items={breadcrumbs}
           align="center"
-          className="relative z-[1] mt-8 text-xs tracking-wide text-muted-foreground/60"
+          className="relative z-[1] mt-4 text-xs tracking-wide text-muted-foreground/60"
         />
       </PageBanner>
     </header>
