@@ -196,17 +196,17 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "Pages (routes)",
         detail: "App Router file-based routing",
-        count: 15,
+        count: 38,
       },
       {
         label: "Components",
         detail: "Atomic design: ui → shared → features → sections",
-        count: 51,
+        count: 110,
       },
       {
         label: "Layouts",
         detail: "Nested layouts with route groups",
-        count: 3,
+        count: 4,
       },
       {
         label: "OG Images",
@@ -222,13 +222,16 @@ export const architectureLayers: ArchitectureLayer[] = [
     items: [
       {
         label: "React Query",
-        detail: "Spotify polling, visitor counter, link stats",
+        detail: "Spotify polling, coding activity, gym summary, link stats",
       },
-      { label: "SWR", detail: "Gallery data with optimistic UI" },
+      {
+        label: "SWR",
+        detail: "Gallery, places, admin CRUD with optimistic UI",
+      },
       {
         label: "Custom Hooks",
         detail: "useHorizontalScroll, useDebouncedValue, useScrollTo",
-        count: 7,
+        count: 8,
       },
       { label: "URL State", detail: "Search params for gallery filters" },
     ],
@@ -240,23 +243,24 @@ export const architectureLayers: ArchitectureLayer[] = [
     items: [
       {
         label: "API Routes",
-        detail: "RESTful endpoints (auth, gallery CRUD, Spotify, visitors)",
-        count: 9,
+        detail:
+          "Auth, gallery, places, gym, diagrams, gists, Spotify, visitors",
+        count: 32,
       },
       {
         label: "Mongoose Models",
-        detail: "Admin, Gallery, Visitor with typed schemas",
-        count: 3,
+        detail: "Admin, gallery, places, gym, diagrams, gists, shared files",
+        count: 12,
       },
       {
         label: "Data Modules",
-        detail: "Projects, experience, timeline, stack definitions",
-        count: 7,
+        detail: "Projects, experience, timeline, stack, courses, site metadata",
+        count: 12,
       },
       {
         label: "Constants",
         detail: "Brand tokens, API paths, animation presets, limits",
-        count: 5,
+        count: 8,
       },
     ],
   },
@@ -324,6 +328,13 @@ export const designPatterns: DesignPattern[] = [
     example:
       "const src = getImageSrc(project) // handles StaticImport | string | undefined",
   },
+  {
+    name: "Unified Loading Language",
+    description:
+      "One Skeleton primitive (bg-muted/40 pulse) for in-page placeholders, one PageLoader (brand-tip ring) for route and admin waits, Loader2 only on mutations. Shape-matched skeletons mirror real layouts so content never jumps.",
+    example:
+      '<Skeleton className="h-10 w-full" /> · <PageLoader minHeight="page" />',
+  },
 ];
 
 export const performanceStrategies: PerformanceMetric[] = [
@@ -345,8 +356,15 @@ export const performanceStrategies: PerformanceMetric[] = [
     label: "Code Splitting",
     value: "Route-based",
     description:
-      "Next.js automatic code splitting per route. Heavy dependencies (react-icons, framer-motion) only load on pages that use them.",
+      "Next.js automatic code splitting per route. Heavy widgets (coding activity, skills, metrics, maps) load via dynamic() with shape-matched Skeleton fallbacks.",
     impact: 80,
+  },
+  {
+    label: "Loading UX",
+    value: "Skeleton + PageLoader",
+    description:
+      "Route loading.tsx files and admin chrome share PageLoader. Async sections use layout-faithful Skeleton compositions — gym rings, gallery grids, contribution graphs — instead of generic blobs.",
+    impact: 78,
   },
   {
     label: "Data Fetching",
@@ -536,7 +554,7 @@ export const pages: PageEntry[] = [
   {
     path: "/about/gym",
     name: "Gym",
-    description: "Training logs, routines, and lessons from consistency",
+    description: "Training logs, rings, heatmap, and progress photos",
     renderType: "Static",
   },
   {
@@ -583,6 +601,12 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/changelog/[month]",
+    name: "Changelog Month",
+    description: "Dedicated monthly release notes with change details",
+    renderType: "SSG",
+  },
+  {
     path: "/projects",
     name: "Projects",
     description: "Full project list with search and filters",
@@ -613,9 +637,39 @@ export const pages: PageEntry[] = [
     renderType: "Static",
   },
   {
+    path: "/videos",
+    name: "Videos",
+    description: "YouTube catalog with listing and detail pages",
+    renderType: "SSG",
+  },
+  {
+    path: "/videos/[slug]",
+    name: "Video Detail",
+    description: "Individual video page with SEO and embed",
+    renderType: "SSG",
+  },
+  {
+    path: "/diagrams/[slug]",
+    name: "Diagram",
+    description: "Public Mermaid diagram with zoomable canvas",
+    renderType: "SSR",
+  },
+  {
+    path: "/gists/[slug]",
+    name: "Gist",
+    description: "Public markdown note with clean reading layout",
+    renderType: "SSR",
+  },
+  {
+    path: "/s/[id]",
+    name: "Shared File",
+    description: "Short public URL for uploaded shared files",
+    renderType: "SSR",
+  },
+  {
     path: "/admin",
     name: "Admin",
-    description: "Protected dashboard with JWT auth, gallery management",
+    description: "Protected dashboard with JWT auth and content management",
     renderType: "Static",
   },
 ];
@@ -623,12 +677,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "35,995+",
+    value: "36,321+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "108",
+    value: "110",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -639,7 +693,8 @@ export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "API Routes",
     value: "32",
-    description: "Auth, Gallery CRUD, Spotify, Visitor tracking",
+    description:
+      "Auth, gallery, places, gym, diagrams, gists, Spotify, visitors",
   },
   {
     label: "Type Definition Files",
@@ -659,6 +714,6 @@ export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Mongoose Models",
     value: "12",
-    description: "Admin, Gallery, Visitor",
+    description: "Admin, gallery, places, gym, diagrams, gists, shared files",
   },
 ];

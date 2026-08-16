@@ -2,19 +2,36 @@
 
 import useSWR from "swr";
 import { FeaturedCarousel } from "./featured-carousel";
+import { Skeleton } from "~/components/ui";
 import { API_ROUTES, SWR_DEDUPING_INTERVAL_MS } from "~/constants";
 import type { GalleryApiResponse, GalleryItem } from "~/types/gallery";
 import { toGalleryItem } from "~/types/gallery";
 import { simpleFetcher as fetcher } from "~/lib/fetcher";
 
 export function LinksFeaturedGallery() {
-  const { data } = useSWR<GalleryApiResponse>(API_ROUTES.GALLERY, fetcher, {
-    revalidateOnFocus: false,
-    dedupingInterval: SWR_DEDUPING_INTERVAL_MS,
-  });
+  const { data, isLoading } = useSWR<GalleryApiResponse>(
+    API_ROUTES.GALLERY,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: SWR_DEDUPING_INTERVAL_MS,
+    },
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex gap-4 overflow-hidden" aria-busy="true">
+        {[1, 2, 3].map((i) => (
+          <Skeleton
+            key={i}
+            className="aspect-[3/4] w-80 flex-shrink-0 rounded-xl"
+          />
+        ))}
+      </div>
+    );
+  }
 
   const galleryItems: GalleryItem[] = data?.data?.map(toGalleryItem) || [];
-
   const featuredImages = galleryItems.filter((item) => item.isFeatured);
 
   if (featuredImages.length === 0) {

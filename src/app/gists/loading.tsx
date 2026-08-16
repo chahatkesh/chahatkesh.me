@@ -1,5 +1,5 @@
 import { PageLoader } from "~/components/shared";
 
-export default function MainLoading() {
+export default function GistsLoading() {
   return <PageLoader />;
 }

@@ -15,7 +15,7 @@ import {
   Workflow,
 } from "lucide-react";
 import { Button, Input, Label } from "~/components/ui";
-import { MotionDiv } from "~/components/shared";
+import { MotionDiv, PageLoader } from "~/components/shared";
 import { AdminDashboardCard } from "~/components/admin";
 
 const DASHBOARD_LINKS: Array<{
@@ -182,22 +182,11 @@ export default function AdminPage() {
 
   if (isLoading || (isAuthenticated && isSubmitting)) {
     return (
-      <div
-        className={
-          isAuthenticated
-            ? "flex flex-1 items-center justify-center"
-            : "flex h-dvh items-center justify-center"
-        }
-        aria-busy="true"
-      >
-        <Loader2
-          className="size-5 animate-spin text-muted-foreground/40"
-          aria-hidden
-        />
-        <span className="sr-only">
-          {isAuthenticated ? "Loading dashboard" : "Checking session"}
-        </span>
-      </div>
+      <PageLoader
+        minHeight={isAuthenticated ? "none" : "screen"}
+        className={isAuthenticated ? "flex-1" : undefined}
+        label={isAuthenticated ? "Loading dashboard" : "Checking session"}
+      />
     );
   }
 

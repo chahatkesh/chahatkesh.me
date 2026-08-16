@@ -9,6 +9,7 @@ import { API_ROUTES } from "~/constants";
 import { fetcher } from "~/lib/fetcher";
 import { formatDate } from "~/lib/date-utils";
 import { cn } from "~/lib/utils";
+import { Skeleton } from "~/components/ui";
 import type {
   GymProgressPhoto,
   GymProgressPhotoListApiResponse,
@@ -162,7 +163,28 @@ export function GymProgressStrip() {
   const photos = data?.data ?? [];
   const items = photos.map(toLightboxItem);
 
-  if (isLoading || isError || photos.length === 0) {
+  if (isLoading) {
+    return (
+      <section aria-label="Progress photos" aria-busy="true">
+        <Skeleton className="mb-3 h-3 w-16" />
+        <div className="-mx-1 overflow-x-auto px-1 pb-1 scrollbar-hide">
+          <div className="flex w-max gap-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="flex w-[7.5rem] shrink-0 flex-col gap-2 sm:w-[8.5rem]"
+              >
+                <Skeleton className="aspect-[3/4] w-full rounded-md" />
+                <Skeleton className="mx-auto h-3 w-16" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isError || photos.length === 0) {
     return null;
   }
 

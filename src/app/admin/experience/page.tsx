@@ -8,13 +8,14 @@ import {
 } from "next-cloudinary";
 import { Button } from "~/components/ui";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { MotionDiv } from "~/components/shared";
+import { MotionDiv, PageLoader } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import {
   ProtectedRoute,
   AdminPageHeader,
   AdminConfirmDialog,
 } from "~/components/admin";
+import { Loader2 } from "lucide-react";
 import { experiences, type Experience } from "~/data/experience";
 import {
   getCompanyRolesDisplay,
@@ -393,9 +394,7 @@ function CompanyGalleryGrid({
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-8">
-        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-muted-foreground/30" />
-      </div>
+      <PageLoader minHeight="none" className="py-8" label="Loading gallery" />
     );
   }
 
@@ -522,7 +521,7 @@ function PendingImageTile({
         />
         {item.saving && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white" />
+            <Loader2 className="size-5 animate-spin text-white" aria-hidden />
           </div>
         )}
       </div>
@@ -634,7 +633,7 @@ function GalleryImageTile({ image, onChanged }: GalleryImageTileProps) {
         />
         {deleting && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-white" />
+            <Loader2 className="size-5 animate-spin text-white" aria-hidden />
           </div>
         )}
       </div>

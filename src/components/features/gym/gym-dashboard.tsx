@@ -8,6 +8,7 @@ import { WEIGHT_UNIT } from "~/constants/gym";
 import { fetcher } from "~/lib/fetcher";
 import { formatTrainingTimeParts } from "~/lib/gym";
 import { cn } from "~/lib/utils";
+import { Skeleton } from "~/components/ui";
 import type { GymSummary, GymSummaryApiResponse } from "~/types/gym";
 import { GymGroupStrips } from "./gym-group-strips";
 import { GymHeatmap } from "./gym-heatmap";
@@ -27,13 +28,7 @@ export function GymDashboard() {
     });
 
   if (isLoading) {
-    return (
-      <div className="space-y-8" aria-hidden>
-        <div className="h-56 animate-pulse rounded-lg bg-muted/50" />
-        <div className="h-40 animate-pulse rounded-lg bg-muted/50" />
-        <div className="h-64 animate-pulse rounded-lg bg-muted/50" />
-      </div>
-    );
+    return <GymDashboardSkeleton />;
   }
 
   if (isError || !data?.data) {
@@ -123,6 +118,102 @@ function GymDashboardContent({ summary }: { summary: GymSummary }) {
 
       <section>
         <GymRadar summary={summary} />
+      </section>
+    </div>
+  );
+}
+
+function GymDashboardSkeleton() {
+  return (
+    <div className="space-y-10" aria-busy="true">
+      {/* Weekly rings + stats */}
+      <section aria-hidden>
+        <div className="flex justify-center px-1 py-2 sm:py-5">
+          <div className="flex w-full max-w-md flex-col items-stretch gap-7 sm:w-auto sm:max-w-none sm:flex-row sm:items-start sm:gap-8">
+            <div className="order-2 flex flex-col sm:order-1">
+              <Skeleton className="mb-3 h-3 w-20 self-center sm:self-start" />
+              <div className="grid w-full grid-cols-6 gap-x-1.5 gap-y-3.5 sm:w-[268px] sm:gap-x-2">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="flex flex-col items-center gap-1.5">
+                    <Skeleton className="size-8 rounded-full" />
+                    <Skeleton className="h-2 w-7" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="order-1 flex flex-col items-center sm:order-2 sm:items-start">
+              <Skeleton className="size-[156px] rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 grid grid-cols-2 border-y border-border sm:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={i}
+              className={cn(
+                "flex flex-col gap-2 px-4 py-3.5",
+                i % 2 === 1 && "border-l border-border",
+                i > 0 && "sm:border-l sm:border-border",
+                i >= 2 && "border-t border-border sm:border-t-0",
+              )}
+            >
+              <Skeleton className="h-3 w-16" />
+              <Skeleton className="h-6 w-12" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Heatmap */}
+      <section aria-hidden className="space-y-3">
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-4 w-16" />
+        </div>
+        <Skeleton className="h-28 w-full rounded-md" />
+      </section>
+
+      {/* Muscle group strips */}
+      <section aria-hidden className="space-y-3">
+        <Skeleton className="h-3 w-24" />
+        <div className="space-y-2.5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <Skeleton className="h-3 w-14 shrink-0" />
+              <Skeleton className="h-3 flex-1 rounded-sm" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Progress photos */}
+      <section aria-hidden>
+        <Skeleton className="mb-3 h-3 w-16" />
+        <div className="-mx-1 overflow-hidden px-1 pb-1">
+          <div className="flex gap-3">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex w-[7.5rem] shrink-0 flex-col gap-2 sm:w-[8.5rem]"
+              >
+                <Skeleton className="aspect-[3/4] w-full rounded-md" />
+                <Skeleton className="mx-auto h-3 w-16" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Radar */}
+      <section aria-hidden className="flex flex-col items-center gap-4">
+        <div className="flex gap-2">
+          <Skeleton className="h-7 w-12 rounded-md" />
+          <Skeleton className="h-7 w-12 rounded-md" />
+          <Skeleton className="h-7 w-12 rounded-md" />
+        </div>
+        <Skeleton className="size-[300px] max-w-full rounded-full" />
       </section>
     </div>
   );

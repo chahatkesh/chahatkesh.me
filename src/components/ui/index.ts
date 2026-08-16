@@ -7,6 +7,7 @@ export * from "./grid-feature-cards";
 export * from "./input";
 export * from "./label";
 export * from "./sheet";
+export * from "./skeleton";
 export { default as SkipContent } from "./skip-content";
 export { default as SmartLink } from "./smart-link";
 export * from "./tooltip";

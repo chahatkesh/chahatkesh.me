@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, and an admin panel for gallery, places, diagrams, gists, files, and experience management.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -49,6 +49,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Links Hub:** Centralized social links page with profile stats
 - **Shared Files:** Public file sharing via short URLs (`/s/[id]`)
 - **Contact:** Email and social links with Spotify widget
+- **Consistent Loading UX:** Shared `Skeleton` + `PageLoader` primitives with shape-matched placeholders across public and admin surfaces
 - **SEO Optimization:** Comprehensive meta tags, JSON-LD structured data, sitemap, robots.txt
 - **Performance:** Optimized images, code splitting, lazy loading, smooth scrolling
 
@@ -57,6 +58,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Protected Admin Panel:** JWT-based authentication system
 - **Gallery Management:** Upload, organize, and manage gallery images via Cloudinary
 - **Places Management:** Add and manage visited locations for the interactive public map
+- **Gym Management:** Log workouts, exercises, and progress photos
 - **Diagram Management:** Create and edit Mermaid diagram pages with public share links
 - **Gist Management:** Create and edit markdown note pages with clean public views
 - **Experience Gallery Management:** Manage images for individual experience entries
@@ -76,25 +78,29 @@ This portfolio website serves as a professional showcase for projects, skills, a
 ```
 src/
 ├── app/                    # Next.js app router pages
-│   ├── (main)/            # Public pages (home, about, projects, gallery, videos, changelog)
-│   ├── admin/             # Protected admin panel (gallery, places, diagrams, gists, files, experience)
+│   ├── (main)/            # Public pages (home, about, projects, gallery, videos, site)
+│   ├── admin/             # Protected admin panel (gallery, places, gym, diagrams, gists, files)
 │   ├── api/               # API routes (auth, content CRUD, spotify, visitors, coding-activity)
-│   └── links/             # Social links hub page
+│   ├── places/            # Interactive places map
+│   ├── links/             # Social links hub page
+│   ├── diagrams/          # Public Mermaid diagram pages
+│   ├── gists/             # Public markdown gist pages
+│   └── changelog/         # Monthly changelog pages
 ├── assets/                # Static image assets
 ├── components/
-│   ├── admin/             # Admin-specific components
+│   ├── admin/             # Admin-specific components (async states, list cards)
 │   ├── analytics/         # Analytics integrations
-│   ├── features/          # Feature components (coding activity, Spotify, gallery, etc.)
+│   ├── features/          # Feature components (coding activity, Spotify, gallery, gym, etc.)
 │   ├── layout/            # Layout components (nav, footer)
 │   ├── sections/          # Homepage sections
 │   ├── seo/               # SEO components and JSON-LD
-│   ├── shared/            # Reusable components
-│   └── ui/                # UI components (buttons, cards, inputs)
+│   ├── shared/            # Reusable components (PageHeader, PageLoader, breadcrumbs)
+│   └── ui/                # UI primitives (button, card, input, Skeleton)
 ├── constants/             # App constants (API routes, limits, theme tokens)
 ├── data/                  # Static data (projects, experience, changelog, site metadata)
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utilities (auth, MongoDB, SEO, Spotify, GitHub, LeetCode, etc.)
-├── models/                # MongoDB models (admin, gallery, place, diagram, gist, visitor, experience-gallery, shared-file)
+├── models/                # MongoDB models (admin, gallery, place, diagram, gist, gym, visitor, shared-file)
 ├── providers/             # React context providers
 ├── styles/                # Global styles
 ├── types/                 # TypeScript type definitions
@@ -155,7 +161,8 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 
 - Next.js Image optimization with AVIF/WebP formats
 - Static page generation where possible
-- Code splitting and lazy loading
+- Code splitting and lazy loading with shape-matched `Skeleton` fallbacks
+- Shared `PageLoader` for route-level and admin loading states
 - Optimized font loading
 - CDN-based image delivery via Cloudinary
 - Minimal bundle size with tree shaking

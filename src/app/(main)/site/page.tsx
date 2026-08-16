@@ -9,6 +9,7 @@ import {
   RevealSection,
   RevealCard,
 } from "~/components/shared";
+import { Skeleton } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { getCommitCount } from "~/lib/github";
@@ -38,7 +39,17 @@ const MetricsChart = dynamic(
     import("~/components/features/metrics-chart").then((m) => m.MetricsChart),
   {
     loading: () => (
-      <div className="h-48 animate-pulse rounded-lg bg-muted/40" aria-hidden />
+      <div className="space-y-4" aria-busy="true">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-4 w-28" />
+              <Skeleton className="h-4 w-12" />
+            </div>
+            <Skeleton className="h-8 w-full rounded-lg" />
+          </div>
+        ))}
+      </div>
     ),
   },
 );

@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "~/components/ui";
 import { GITHUB_CONTRIBUTION_COLORS } from "~/constants/brand";
 import { API_ROUTES, LEETCODE_STALE_TIME_MS } from "~/constants";
 import { fetcher } from "~/lib/fetcher";
@@ -55,16 +56,22 @@ const CodingActivityStatusBar = () => {
 
   if (isLoading || !view) {
     return (
-      <div aria-hidden>
-        <div className="mb-3 flex items-center justify-between">
-          <div className="h-4 w-28 animate-pulse rounded bg-muted/60" />
-          <div className="h-4 w-16 animate-pulse rounded bg-muted/60" />
+      <div aria-busy="true">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-4 w-16" />
         </div>
-        <div className="h-10 animate-pulse rounded-md bg-muted/50" />
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <div className="h-3 w-16 animate-pulse rounded bg-muted/40" />
-          <div className="h-3 w-20 animate-pulse rounded bg-muted/40" />
-          <div className="h-3 w-10 animate-pulse rounded bg-muted/40" />
+        <div className="flex h-10 items-stretch gap-px overflow-hidden sm:gap-0.5">
+          <Skeleton className="h-full w-full rounded-sm" />
+        </div>
+        <div className="mt-3 flex items-center gap-2">
+          <Skeleton className="h-3 w-16 shrink-0" />
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <div className="h-px flex-1 bg-border" />
+            <Skeleton className="h-3 w-16 shrink-0" />
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <Skeleton className="h-3 w-10 shrink-0" />
         </div>
       </div>
     );

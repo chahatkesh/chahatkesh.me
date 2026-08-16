@@ -4,6 +4,7 @@ import { FaGithub } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import config from "~/config";
+import { Skeleton } from "~/components/ui";
 import { API_ROUTES, LEETCODE_STALE_TIME_MS } from "~/constants";
 import { fetcher } from "~/lib/fetcher";
 import { type LeetCodeStats } from "~/lib/leetcode";
@@ -31,14 +32,14 @@ const LinkStats = () => {
 
   if (ghLoading && lcLoading) {
     return (
-      <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4 animate-pulse">
+      <div className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
         <div className="flex items-center gap-1.5">
-          <div className="h-4 w-4 bg-muted rounded" />
-          <div className="h-4 w-12 bg-muted rounded" />
+          <Skeleton className="h-4 w-4 rounded" />
+          <Skeleton className="h-4 w-12 rounded" />
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="h-4 w-4 bg-muted rounded" />
-          <div className="h-4 w-12 bg-muted rounded" />
+          <Skeleton className="h-4 w-4 rounded" />
+          <Skeleton className="h-4 w-12 rounded" />
         </div>
       </div>
     );

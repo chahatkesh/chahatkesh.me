@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { PageLoader } from "~/components/shared";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -31,11 +32,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }, [checkSession]);
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
-      </div>
-    );
+    return <PageLoader minHeight="section" label="Checking session" />;
   }
 
   if (!isAuthenticated) {

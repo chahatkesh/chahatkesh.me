@@ -7,7 +7,7 @@ import Map, { Marker, type MapRef } from "react-map-gl/maplibre";
 import { MapPinned } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { MotionDiv } from "~/components/shared";
-import { Button } from "~/components/ui";
+import { Button, Skeleton } from "~/components/ui";
 import { API_ROUTES, BRAND_ACCENT_HEX } from "~/constants";
 import { simpleFetcher as fetcher } from "~/lib/fetcher";
 import { cn } from "~/lib/utils";
@@ -301,8 +301,13 @@ export function PlacesMap() {
 
   if (isLoading) {
     return (
-      <div className="flex h-dvh w-full items-center justify-center bg-background px-5">
-        <div className="h-20 w-20 animate-spin rounded-full border-2 border-border border-t-ring" />
+      <div className="relative h-dvh w-full overflow-hidden bg-background">
+        <Skeleton className="h-full w-full rounded-none" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
+        <div className="absolute bottom-6 left-1/2 z-20 flex w-[min(90vw,20rem)] -translate-x-1/2 flex-col items-center gap-2">
+          <Skeleton className="h-4 w-40" />
+          <Skeleton className="h-3 w-56" />
+        </div>
       </div>
     );
   }
