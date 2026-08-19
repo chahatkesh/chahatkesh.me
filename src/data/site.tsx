@@ -196,7 +196,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "Pages (routes)",
         detail: "App Router file-based routing",
-        count: 38,
+        count: 39,
       },
       {
         label: "Components",
@@ -628,6 +628,13 @@ export const pages: PageEntry[] = [
     renderType: "SSR",
   },
   {
+    path: "/timeline",
+    name: "Timeline",
+    description:
+      "Full-page horizontal map of dated work, writing, videos, and life",
+    renderType: "Static",
+  },
+  {
     path: "/stack/[slug]",
     name: "Stack Detail",
     description:
@@ -693,12 +700,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "37,571+",
+    value: "38,689+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "114",
+    value: "115",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

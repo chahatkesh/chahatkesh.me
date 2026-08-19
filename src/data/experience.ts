@@ -41,7 +41,7 @@ export const experiences: Experience[] = [
     role: "Building Layr",
     type: "Self-employed",
     location: "Remote",
-    start_date: "Apr 08, 2026",
+    start_date: "Apr 2026",
     end_date: "present",
     tagline:
       "A product decision engine from customer evidence to cited answers.",

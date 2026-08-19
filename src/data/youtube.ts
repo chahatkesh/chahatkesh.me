@@ -151,7 +151,7 @@ export const youtubeVideos: YouTubeVideo[] = [
     thumbnailUrl: "https://i.ytimg.com/vi/qCr25SQ8Zg8/maxresdefault.jpg",
     duration: "PT9M8S",
     durationFormatted: "9:08",
-    viewCount: 140,
+    viewCount: 141,
     likeCount: 1,
     tags: [],
     channelTitle: "Chahat Kesharwani",

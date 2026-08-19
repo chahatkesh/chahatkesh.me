@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { PageHeader, TimelineComponent } from "~/components/shared";
+import { getWritingEntries } from "~/lib/writing";
 import config from "~/config";
 
 export const metadata: Metadata = getSEOTags({
@@ -15,7 +16,9 @@ export const metadata: Metadata = getSEOTags({
   canonicalUrlRelative: "/about/journey",
 });
 
-const JourneyPage = () => {
+const JourneyPage = async () => {
+  const writing = await getWritingEntries();
+
   return (
     <div className="space-y-8">
       {renderBreadcrumbSchema([
@@ -34,7 +37,15 @@ const JourneyPage = () => {
         subtitle="The moments that shaped me. Not just the wins."
       />
 
-      <TimelineComponent />
+      <TimelineComponent
+        writing={writing.map((entry) => ({
+          slug: entry.slug,
+          title: entry.title,
+          subtitle: entry.subtitle,
+          description: entry.description,
+          date: entry.date,
+        }))}
+      />
     </div>
   );
 };

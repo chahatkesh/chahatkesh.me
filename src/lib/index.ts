@@ -55,6 +55,18 @@ export {
   getRelatedStacks,
 } from "./stack-utils";
 
+// Timeline utilities
+export {
+  buildUnifiedTimeline,
+  getTimelineYears,
+  countByKind,
+} from "./timeline-utils";
+export type {
+  TimelineKind,
+  UnifiedTimelineItem,
+  WritingTimelineInput,
+} from "./timeline-utils";
+
 // Auth
 export {
   createSession,

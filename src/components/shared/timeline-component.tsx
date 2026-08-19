@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   type TimelineEvent,
+  type WritingTimelineSource,
   getAllTimelineEvents,
   categoryColors,
   getEventDuration,
@@ -21,6 +22,7 @@ type CategoryFilter =
   | "project"
   | "achievement"
   | "learning"
+  | "writing"
   | "work"
   | "travel"
   | "hackathon"
@@ -32,6 +34,7 @@ const categories: { value: CategoryFilter; label: string }[] = [
   { value: "project", label: "Project" },
   { value: "achievement", label: "Achievement" },
   { value: "learning", label: "Learning" },
+  { value: "writing", label: "Writing" },
   { value: "work", label: "Work" },
   { value: "travel", label: "Travel" },
   { value: "hackathon", label: "Hackathon" },
@@ -39,8 +42,12 @@ const categories: { value: CategoryFilter; label: string }[] = [
   { value: "other", label: "Other" },
 ];
 
-const TimelineComponent = () => {
-  const allEvents = getAllTimelineEvents();
+const TimelineComponent = ({
+  writing = [],
+}: {
+  writing?: WritingTimelineSource[];
+}) => {
+  const allEvents = getAllTimelineEvents(writing);
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryFilter>("all");
 

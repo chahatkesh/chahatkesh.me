@@ -50,7 +50,11 @@ export {
   formatOngoingDate,
   categoryColors,
 } from "./timeline";
-export type { TimelineEvent, TimelineLink } from "./timeline";
+export type {
+  TimelineEvent,
+  TimelineLink,
+  WritingTimelineSource,
+} from "./timeline";
 
 // BTech courses data
 export {

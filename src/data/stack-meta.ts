@@ -1,6 +1,9 @@
 /**
  * Editorial copy and URL metadata for stack detail pages.
  * Icons live in stack.tsx; this file holds slug, description, and aliases.
+ *
+ * Subtitles and descriptions stay general: how I use the technology.
+ * Project and role mappings are derived from data, not listed here.
  */
 
 export type StackCopyMeta = {
@@ -37,65 +40,67 @@ export const STACK_SUBTITLES: Record<string, string> = {
   JavaScript: "Where I learned the web — browser and server work together.",
   TypeScript: "My daily driver for production apps, APIs, and monorepos.",
   Git: "Branches for experiments, commits as narrative, history I trust.",
-  GitHub: "Public repos behind this portfolio, OpenLearn, and Swasya AI.",
-  Slack: "Async product work — and a connected signal source at Layr.",
-  Notion: "Notes, specs, and a connected source in Layr's product graph.",
+  GitHub: "Public repos, contributions, and the trail of work I ship.",
+  Slack: "Async product work and a source of structured team signal.",
+  Notion: "Notes, specs, and a place decisions can flow back from.",
   VSCode: "My primary editor across TypeScript, Python, and monorepos.",
   Figma: "UI ideas shared before code — layout and interaction alignment.",
   HTML5: "Semantic, accessible markup — the skeleton of every interface.",
   "HTML5 Canvas":
-    "Bulk certificate rendering at Xceed with pixel-level control.",
-  CSS3: "Layout and polish on Tomato where utilities aren't the whole story.",
+    "Pixel-level rendering when the DOM is not the right surface.",
+  CSS3: "Layout and polish where utilities aren't the whole story.",
   React: "Components and hooks across dashboards, sites, and products.",
   "React.js": "Components and hooks across dashboards, sites, and products.",
-  "@dnd-kit":
-    "Accessible drag-and-drop on Webmark with native-feeling reorder.",
+  "@dnd-kit": "Accessible drag-and-drop that feels native, not bolted on.",
   "Next.js": "Production apps with App Router, RSC, and SEO built in.",
-  Vite: "Fast iteration on OpenLearn, Webmark, GW Infra, and Swasya.",
+  Vite: "Fast SPA iteration with a clean, predictable production build.",
   "Tailwind CSS": "Consistent UI quickly — tokens and utilities site-wide.",
-  "Chakra UI": "Accessible primitives for the Xceed certificate dashboard.",
+  "Chakra UI":
+    "Accessible primitives and theming without reinventing the base.",
   "shadcn/ui": "Radix-backed components I own with accessible defaults.",
-  "Aceternity UI": "Motion-forward hero treatments on this portfolio site.",
+  "Aceternity UI":
+    "Motion-forward treatments that feel intentional, not generic.",
   "Framer Motion":
     "Transitions, hovers, and staggered reveals that feel alive.",
-  "React Toastify": "Non-blocking feedback on Blogger saves and subscriptions.",
-  "React Helmet": "Dynamic metadata for Webmark's client-rendered SPA.",
-  Recharts: "Analytics visuals on Webmark profiles and GW Infra dashboards.",
-  SWR: "Cached client data on Webmark and OpenLearn with revalidation.",
-  "GitHub API": "Live contribution data on this portfolio and GitRoast.",
+  "React Toastify":
+    "Non-blocking feedback for saves, errors, and admin actions.",
+  "React Helmet":
+    "Dynamic titles and Open Graph tags for client-rendered SPAs.",
+  Recharts: "Product metrics that stay readable at a glance.",
+  SWR: "Cached client data with revalidation, without extra state machinery.",
+  "GitHub API": "Live developer data, rate-limit aware and identity-accurate.",
   "Retrieval-Augmented Generation":
     "Grounding LLM answers in retrieved evidence with citations.",
-  "Radix UI":
-    "Accessible dialogs, menus, and controls on Webmark and GW Infra.",
+  "Radix UI": "Accessible dialogs, menus, and controls with keyboard support.",
   "Lucide React": "Consistent stroke icons across shadcn-style interfaces.",
-  Flutter: "Swasya's nurse app — audio capture, scanning, and uploads.",
+  Flutter: "Native mobile workflows for capture, scanning, and uploads.",
   "Artificial Intelligence":
-    "Production pipelines for speech, OCR, classification, and grounded answers.",
+    "Speech, OCR, classification, and grounded answers in production.",
   "Machine Learning":
-    "Agricultural query classification and inference at Annam.ai.",
+    "Domain-specific models, evaluation fixtures, and inference.",
   "AI Pipelines": "Composable STT, retrieval, LLM, and caching stages.",
   "Classification Algorithms":
-    "Routing crop, weather, market, and scheme queries before RAG answers.",
+    "Routing unstructured queries before retrieval can answer.",
   "Full Stack Development":
     "Owning UI, APIs, data models, and deployment together.",
   "Research & Development":
     "Prototypes that earn their place before production.",
   "Data Modeling": "Schemas and evaluation data that keep AI systems legible.",
-  "Node.js": "Express APIs and MongoDB services across most of my backends.",
-  "Express.js":
-    "Modular routes and middleware on GW Infra, Webmark, and Tomato.",
+  "Node.js": "APIs, integrations, and services on the JavaScript runtime.",
+  "Express.js": "Modular routes, middleware, and a lean HTTP surface.",
   MongoDB: "Flexible document storage for blogs, bookmarks, and product data.",
-  Mongoose: "Schemas and validation on Blogger, Webmark, and this portfolio.",
-  Cloudinary: "Optimized uploads and transforms on Blogger and the gallery.",
+  Mongoose: "Schemas, validation, and population on document stores.",
+  Cloudinary:
+    "Optimized uploads and transforms without owning an image pipeline.",
   "REST APIs": "Predictable resources and error shapes for frontend contracts.",
   "API Integration":
     "OAuth, speech, payments, and webhooks wired for production.",
-  Axios: "HTTP client with interceptors on GW Infra and the Xceed module.",
-  PostgreSQL: "Relational data for OpenLearn, Layr, and Zenbase's CRM.",
+  Axios: "HTTP client with interceptors and consistent error handling.",
+  PostgreSQL: "Relational data where integrity, joins, and migrations matter.",
   MySQL: "Normalized schemas when tables fit better than documents.",
-  Docker: "Reproducible environments for OpenLearn, Swasya, and Annam.ai.",
-  "GitHub Actions": "CI pipelines that keep Webmark's monorepo release-ready.",
-  AWS: "Lambda, S3, and IAM for Swasya, OpenLearn email, and Layr.",
+  Docker: "Reproducible environments from local to CI to production.",
+  "GitHub Actions": "CI and deploy pipelines that keep releases honest.",
+  AWS: "Compute, storage, and IAM with production operational discipline.",
   GCP: "Google Cloud services where that stack fits the workload.",
   "Third-Party Integrations":
     "Stripe, OAuth, and messaging with graceful failures.",
@@ -103,32 +108,36 @@ export const STACK_SUBTITLES: Record<string, string> = {
   "RESTful APIs":
     "Predictable resources and error shapes for frontend contracts.",
   "OpenAI API":
-    "GitRoast roasts and Webmark categorization with token budgets.",
+    "Prompt design, token budgets, and error handling for LLM features.",
   Anthropic: "Grounded product intelligence with traceable customer evidence.",
   LangChain: "Structured LLM workflows when raw API calls would sprawl.",
   "Vector Databases": "Embeddings and similarity search before generation.",
-  Qdrant: "Semantic retrieval for Annam.ai RAG and Layr's product memory.",
-  Stripe: "Checkout and webhooks on GW Infra and Tomato.",
-  JWT: "Stateless auth middleware on GW Infra, OpenLearn, and Webmark.",
-  "NextAuth.js": "Session handling for this portfolio's admin surface.",
-  "Passport.js": "Google OAuth orchestration on Webmark's cookie sessions.",
-  "Prisma ORM": "Relational models for OpenLearn, Layr, and Zenbase.",
-  Redis: "Caching and session storage on OpenLearn and Layr.",
-  BullMQ: "Background jobs for ingestion and AI tasks at Layr.",
-  "pnpm Workspaces": "Shared types and coordinated releases in Webmark.",
-  LiveKit: "Real-time communication features at Level SuperMind.",
-  FastAPI: "Async Python APIs for Annam.ai and Swasya's EC2 backend.",
-  "AWS Lambda": "Event-driven transcription and digitization on Swasya.",
-  "AWS S3": "Audio and imaging storage with presigned mobile uploads.",
-  DynamoDB: "Serverless patient records and stream-driven updates on Swasya.",
-  Vercel: "Hosting this portfolio, Webmark, Blogger, and Tomato.",
+  Qdrant: "Semantic retrieval where answers must cite their source chunks.",
+  Stripe: "Checkout, webhooks, and the UX around money moving in production.",
+  JWT: "Stateless auth, refresh patterns, and actually protected routes.",
+  "NextAuth.js":
+    "Session handling without reinventing auth on every Next.js app.",
+  "Passport.js":
+    "OAuth strategies, callbacks, and cookie sessions done strictly.",
+  "Prisma ORM": "Relational models and migrations I can trust in production.",
+  Redis: "Caching, sessions, and queues where latency and async work meet.",
+  BullMQ: "Durable queues, retries, and workers that don't block the product.",
+  "pnpm Workspaces":
+    "Shared packages, isolated deps, and a tree that stays honest.",
+  LiveKit: "Realtime sessions and media without building WebRTC from scratch.",
+  FastAPI: "Async Python APIs with OpenAPI docs and clean service boundaries.",
+  "AWS Lambda": "Event-driven work that scales to zero between bursts.",
+  "AWS S3":
+    "Durable objects, presigned uploads, and trigger-driven processing.",
+  DynamoDB: "Low-latency serverless records with predictable performance.",
+  Vercel: "Edge-friendly Next.js deploys, cron, and low shipping friction.",
 };
 
 export const STACK_COPY: Record<string, StackCopyMeta> = {
   // Languages & Tools
   "C++": {
     description:
-      "I reach for C++ when performance and memory layout matter — competitive programming foundations, systems thinking, and low-level data structures that still shape how I reason about code today.",
+      "I reach for C++ when the calculation has to be exact and owned — native engines, tight memory layout, and a language boundary so numerical work never leaks into the TypeScript layer.",
   },
   C: {
     description:
@@ -136,11 +145,11 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   Python: {
     description:
-      "Python is my default for AI pipelines, FastAPI services, and quick experimentation — from agricultural RAG at Annam.ai to Swasya's backend orchestration.",
+      "Python is my default for AI pipelines, FastAPI services, and quick experimentation — the language I use when retrieval, inference, and orchestration need to move faster than the UI layer.",
   },
   JavaScript: {
     description:
-      "JavaScript is where I learned the web. I still ship it in production — GW Infra runs on Express — and it ties browser and server work together.",
+      "JavaScript is where I learned the web. I still ship it in production on both sides of the network — it is the runtime that ties browser and server work together.",
   },
   TypeScript: {
     description:
@@ -152,15 +161,15 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   GitHub: {
     description:
-      "GitHub is where my work lives publicly — repos, contributions, and the open-source trail behind projects like this portfolio, OpenLearn, and Swasya AI.",
+      "GitHub is where my work lives publicly — repos, contributions, reviews, and the open-source trail that makes a body of work inspectable instead of anecdotal.",
   },
   Slack: {
     description:
-      "Slack keeps async product work moving. At Layr it is one of the signal sources I integrate — customer feedback and team context that has to become structured product understanding.",
+      "Slack keeps async product work moving. I also treat it as a signal source — customer feedback and team context that has to become structured product understanding.",
   },
   Notion: {
     description:
-      "Notion is part of my workflow for notes, specs, and documentation. At Layr it is also a connected source where decisions and context need to flow back into the product graph.",
+      "Notion is part of my workflow for notes, specs, and documentation — and as a connected source where decisions and context need to flow back into a product graph.",
   },
   VSCode: {
     description:
@@ -178,100 +187,100 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   "HTML5 Canvas": {
     description:
-      "I used HTML5 Canvas at Xceed NITJ to render certificates at scale — pixel-level control for bulk generation workflows that had to look polished without a server round-trip per preview.",
+      "I use HTML5 Canvas when the DOM is the wrong surface — pixel-level control for bulk rendering, previews, and generation workflows that have to look polished without a round-trip per frame.",
   },
   CSS3: {
     description:
-      "CSS3 handles layout and polish where a utility framework is not the whole story. On Tomato I leaned on it for responsive styling alongside a Vite-powered React frontend.",
+      "CSS3 handles layout and polish where a utility framework is not the whole story — responsive styling, custom properties, and the cases where cascade still earns its keep.",
   },
   React: {
     description:
-      "React is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces across my portfolio.",
+      "React is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces.",
     aliases: ["React.js"],
   },
   "React.js": {
     description:
-      "React.js is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces across my portfolio.",
+      "React.js is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces.",
     aliases: ["React"],
   },
   "@dnd-kit": {
     slug: "dnd-kit",
     description:
-      "I chose @dnd-kit for Webmark's cross-category drag-and-drop because it stays accessible and composable — optimistic UI with persistence that feels native, not bolted on.",
+      "I reach for @dnd-kit when reorder has to stay accessible and composable — optimistic UI with persistence that feels native, not a library bolted onto the page.",
   },
   "Next.js": {
     description:
-      "Next.js is my default for production web apps — App Router, server components, route handlers, and SEO primitives show up in this portfolio, Blogger, GitRoast, Layr, and Zenbase's CRM frontend.",
+      "Next.js is my default for production web apps — App Router, server components, route handlers, and SEO primitives when the product needs to be fast, crawlable, and deployable as one system.",
   },
   Vite: {
     description:
-      "Vite keeps frontend iteration fast. I use it for SPAs like OpenLearn, Webmark, GW Infra, and Swasya's doctor dashboard where dev-server speed and clean builds matter.",
+      "Vite keeps frontend iteration fast. I use it for SPAs where a sharp dev server and a clean production build matter more than framework ceremony.",
   },
   "Tailwind CSS": {
     description:
-      "Tailwind CSS is how I ship consistent UI quickly — design tokens, responsive utilities, and shadcn-style composition across nearly every project and role in this portfolio.",
+      "Tailwind CSS is how I ship consistent UI quickly — design tokens, responsive utilities, and shadcn-style composition without maintaining a parallel stylesheet language.",
   },
   "Chakra UI": {
     description:
-      "Chakra UI powered the Xceed certificate module — accessible primitives and theming that let a large team ship a dashboard without reinventing base components.",
+      "Chakra UI gives me accessible primitives and theming so a team can ship a dashboard without reinventing base components or fighting focus states.",
   },
   "shadcn/ui": {
     description:
-      "shadcn/ui gives me Radix-backed components I own in the repo. I use it on Level SuperMind and anywhere I want accessible defaults with Tailwind-level control.",
+      "shadcn/ui gives me Radix-backed components I own in the repo — accessible defaults with Tailwind-level control, without a black-box component package.",
   },
   "Aceternity UI": {
     description:
-      "Aceternity UI is part of the motion-forward aesthetic on this site — polished hero treatments and micro-interactions that make marketing surfaces feel intentional, not generic.",
+      "Aceternity UI is part of a motion-forward aesthetic — polished hero treatments and micro-interactions that make marketing surfaces feel intentional, not generic.",
   },
   "Framer Motion": {
     description:
-      "Framer Motion adds deliberate motion — page transitions, hover feedback, and staggered reveals on project cards, experience pages, and product dashboards where UX should feel alive.",
+      "Framer Motion adds deliberate motion — page transitions, hover feedback, and staggered reveals where UX should feel alive without becoming noise.",
   },
   "React Toastify": {
     description:
-      "React Toastify handles non-blocking feedback on Blogger — save confirmations, subscription updates, and admin actions where users need a clear signal without leaving context.",
+      "React Toastify handles non-blocking feedback — save confirmations, subscription updates, and admin actions where users need a clear signal without leaving context.",
   },
   "React Helmet": {
     description:
-      "React Helmet keeps SPA metadata honest on Webmark — dynamic titles, Open Graph tags, and SEO helpers for a client-rendered bookmark product that still needs discoverability.",
+      "React Helmet keeps SPA metadata honest — dynamic titles, Open Graph tags, and SEO helpers for client-rendered products that still need to be discoverable.",
   },
   Recharts: {
     description:
-      "Recharts powers analytics visuals — profile click trends on Webmark and admin dashboards on GW Infra where product metrics need to be readable at a glance.",
+      "Recharts powers analytics visuals — click trends, admin metrics, and dashboards where product numbers need to be readable at a glance rather than dumped as tables.",
   },
   SWR: {
     description:
-      "SWR is my go-to for client-side data that should feel instant — caching, revalidation, and deduplication on Webmark and OpenLearn without over-building state machinery.",
+      "SWR is my go-to for client-side data that should feel instant — caching, revalidation, and deduplication without over-building state machinery.",
   },
   "GitHub API": {
     description:
-      "The GitHub API feeds live data into this portfolio — contribution graphs and profile stats on GitRoast — where third-party developer identity has to be accurate and rate-limit aware.",
+      "The GitHub API feeds live developer data into products — contribution graphs, profile stats, and identity that has to stay accurate and rate-limit aware.",
   },
   "Retrieval-Augmented Generation": {
     description:
-      "RAG is how I ground LLM answers in real evidence — retrieval, citation, and context windows show up in agricultural AI work and product-intelligence flows where hallucination is not acceptable.",
+      "RAG is how I ground LLM answers in real evidence — retrieval, citation, and context windows where hallucination is not acceptable.",
   },
   "Radix UI": {
     description:
-      "Radix UI primitives underpin accessible dialogs, menus, and form controls — especially on Webmark and GW Infra where keyboard support and focus management are non-negotiable.",
+      "Radix UI primitives underpin accessible dialogs, menus, and form controls — keyboard support and focus management as defaults, not afterthoughts.",
   },
   "Lucide React": {
     description:
-      "Lucide React is my icon set for shadcn-style UIs — consistent stroke icons across OpenLearn and GW Infra without bloating bundles with one-off SVG assets.",
+      "Lucide React is my icon set for product UIs — consistent stroke icons without bloating bundles with one-off SVG assets.",
   },
   Flutter: {
     description:
-      "Flutter is how Swasya reaches nurses in the field — native mobile workflows for audio capture, document scanning, and offline-friendly uploads tied to a serverless backend.",
+      "Flutter is how I ship native-feeling mobile workflows — audio capture, document scanning, and offline-friendly uploads tied to a backend that already exists.",
   },
 
   // Backend & DevOps
   "Artificial Intelligence": {
     description:
-      "AI is not a buzzword in my work — it is production pipelines for speech, OCR, classification, and grounded answers. I build systems where models are one stage in a observable, testable flow.",
+      "AI is not a buzzword in my work — it is production pipelines for speech, OCR, classification, and grounded answers. I build systems where models are one stage in an observable, testable flow.",
   },
   "Machine Learning": {
     description:
-      "Machine learning shows up in agricultural query classification and inference at Annam.ai — domain-specific models, evaluation fixtures, and pipelines that had to improve before they shipped.",
+      "Machine learning shows up as domain-specific models, evaluation fixtures, and inference pipelines that had to improve before they shipped — not notebooks that never left the laptop.",
   },
   "AI Pipelines": {
     description:
@@ -279,7 +288,7 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   "Classification Algorithms": {
     description:
-      "Classification is how unstructured agricultural queries become routable — crop health, weather, markets, and schemes each needed distinct handling before RAG could answer reliably.",
+      "Classification is how unstructured queries become routable — distinct handling for different intents before retrieval or generation is allowed to answer.",
   },
   "Full Stack Development": {
     description:
@@ -287,7 +296,7 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   "Research & Development": {
     description:
-      "R&D is where prototypes earn their place — experimenting with retrieval, speech, and service boundaries at Annam.ai before those patterns hardened into production integrations.",
+      "R&D is where prototypes earn their place — experimenting with retrieval, speech, and service boundaries before those patterns harden into production integrations.",
   },
   "Data Modeling": {
     description:
@@ -295,27 +304,27 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   "Node.js": {
     description:
-      "Node.js backs most of my APIs — Express route handlers, MongoDB integrations, and serverless-adjacent services across Webmark, OpenLearn, GW Infra, Blogger, and this portfolio.",
+      "Node.js backs most of my APIs — route handlers, integrations, and serverless-adjacent services where one language across the stack keeps the feedback loop short.",
   },
   "Express.js": {
     description:
-      "Express.js is my pragmatic API layer — modular routes, middleware, and JWT auth on GW Infra, OpenLearn, Webmark, and Tomato where a lean HTTP surface beats framework ceremony.",
+      "Express.js is my pragmatic API layer — modular routes, middleware, and a lean HTTP surface when framework ceremony would get in the way of a clear contract.",
   },
   MongoDB: {
     description:
-      "MongoDB is my document store of choice for product data — flexible schemas for blogs, bookmarks, visitors, and healthcare records where iteration speed matters more than rigid normalization.",
+      "MongoDB is my document store of choice for product data — flexible schemas for content, bookmarks, visitors, and records where iteration speed matters more than rigid normalization.",
   },
   Mongoose: {
     description:
-      "Mongoose adds structure to MongoDB — schemas, validation, and population patterns on Blogger, Webmark, GW Infra, and this portfolio's admin-backed content.",
+      "Mongoose adds structure to MongoDB — schemas, validation, and population patterns so document data still has a contract the rest of the app can trust.",
   },
   Cloudinary: {
     description:
-      "Cloudinary handles media at scale — optimized uploads and transformations on Blogger and this portfolio's gallery without running my own image pipeline.",
+      "Cloudinary handles media at scale — optimized uploads and transformations without running my own image pipeline.",
   },
   "REST APIs": {
     description:
-      "REST APIs are how my frontends talk to backends — predictable resources, clear error shapes, and contracts I can document and test across Zenbase, Annam.ai, and Level SuperMind.",
+      "REST APIs are how my frontends talk to backends — predictable resources, clear error shapes, and contracts I can document and test.",
     aliases: ["RESTful APIs"],
   },
   "API Integration": {
@@ -324,11 +333,11 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   Axios: {
     description:
-      "Axios is my HTTP client on React SPAs — interceptors, typed responses, and consistent error handling on GW Infra and the Xceed certificate module.",
+      "Axios is my HTTP client on React SPAs — interceptors, typed responses, and consistent error handling so every request fails in the same, recoverable way.",
   },
   PostgreSQL: {
     description:
-      "PostgreSQL is my relational store for structured product data — OpenLearn's cohort model, Layr's workspace graph, and Zenbase's CRM entities where integrity and joins matter.",
+      "PostgreSQL is my relational store for structured product data — integrity, joins, and migrations when the model is a graph of entities rather than a bag of documents.",
   },
   MySQL: {
     description:
@@ -336,15 +345,15 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   Docker: {
     description:
-      "Docker keeps environments reproducible — containerized services for OpenLearn, Swasya, and Annam.ai pipelines where dev, staging, and production need to match.",
+      "Docker keeps environments reproducible — app, native binaries, and supporting services packaged so local, CI, and production actually match.",
   },
   "GitHub Actions": {
     description:
-      "GitHub Actions automates CI for Webmark — test, build, and deploy pipelines that keep a monorepo honest without manual release rituals.",
+      "GitHub Actions automates CI and deploy — format, lint, type-check, tests, image builds, and health-gated releases without a manual ritual.",
   },
   AWS: {
     description:
-      "AWS is the cloud backbone for Swasya, OpenLearn email, and Layr — Lambda, S3, IAM, and the operational discipline to run healthcare and product workloads in production.",
+      "AWS is the cloud backbone I reach for when workloads need Lambda, S3, IAM, and the operational discipline to run in production rather than on a laptop.",
   },
   GCP: {
     description:
@@ -360,16 +369,16 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   "RESTful APIs": {
     description:
-      "RESTful APIs are how my frontends talk to backends — predictable resources, clear error shapes, and contracts I can document and test across Zenbase, Annam.ai, and Level SuperMind.",
+      "RESTful APIs are how my frontends talk to backends — predictable resources, clear error shapes, and contracts I can document and test.",
     aliases: ["REST APIs"],
   },
   "OpenAI API": {
     description:
-      "The OpenAI API powers GitRoast's roasts and Webmark's categorization — prompt design, token budgets, and error handling where LLM output is a user-facing feature, not a demo.",
+      "The OpenAI API is how I ship LLM features — prompt design, token budgets, and error handling where model output is a user-facing product, not a demo.",
   },
   Anthropic: {
     description:
-      "Anthropic models power grounded product intelligence at Layr — long-context reasoning and citation-friendly answers where customer evidence has to stay traceable to its source.",
+      "Anthropic models power grounded product intelligence — long-context reasoning and citation-friendly answers where evidence has to stay traceable to its source.",
   },
   LangChain: {
     description:
@@ -381,62 +390,62 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   },
   Qdrant: {
     description:
-      "Qdrant is my vector store for semantic retrieval — agricultural RAG at Annam.ai and Layr's product memory graph where answers must cite the chunks they came from.",
+      "Qdrant is my vector store for semantic retrieval — similarity search where answers must cite the chunks they came from.",
   },
   Stripe: {
     description:
-      "Stripe handles payments on GW Infra and Tomato — checkout flows, webhooks, and the compliance-minded UX around money moving in production.",
+      "Stripe handles payments — checkout flows, webhooks, and the compliance-minded UX around money moving in production.",
   },
   JWT: {
     description:
-      "JWT secures stateless auth on GW Infra, OpenLearn, Webmark, and Tomato — signed tokens, refresh patterns, and middleware that keeps protected routes actually protected.",
+      "JWT secures stateless auth — signed tokens, refresh patterns, and middleware that keeps protected routes actually protected.",
   },
   "NextAuth.js": {
     description:
-      "NextAuth.js guards this portfolio's admin surface — session handling and provider configuration without reinventing auth on every Next.js project.",
+      "NextAuth.js handles session and provider configuration so I do not reinvent auth on every Next.js surface that needs a login.",
   },
   "Passport.js": {
     description:
-      "Passport.js orchestrates Google OAuth on Webmark — strategies, callbacks, and cookie sessions where OAuth-only auth had to be strict and recoverable.",
+      "Passport.js orchestrates OAuth — strategies, callbacks, and cookie sessions where sign-in has to be strict and recoverable.",
   },
   "Prisma ORM": {
     description:
-      "Prisma ORM models complex relational domains — OpenLearn's 25+ entities, Layr's workspace schema, and Zenbase's CRM with migrations I can trust in production.",
+      "Prisma ORM models relational domains I can migrate in production — typed clients, schema as source of truth, and migrations that stay reviewable.",
   },
   Redis: {
     description:
-      "Redis is my cache and queue backbone — session storage, response caching, and BullMQ job processing on OpenLearn and Layr where latency and async work share the same infra.",
+      "Redis is my cache and queue backbone — session storage, response caching, and job processing where latency and async work share the same infra.",
   },
   BullMQ: {
     description:
-      "BullMQ runs background jobs at Layr — durable queues, retries, and worker isolation so ingestion and AI tasks do not block interactive product workflows.",
+      "BullMQ runs background jobs — durable queues, retries, and worker isolation so ingestion and AI tasks do not block interactive product workflows.",
   },
   "pnpm Workspaces": {
     description:
-      "pnpm workspaces structure Webmark's monorepo — shared types, coordinated releases, and dependency deduplication between client and API packages.",
+      "pnpm workspaces keep packages honest — shared types, isolated dependencies, and a tree that stays coordinated instead of a single tangled install.",
   },
   LiveKit: {
     description:
-      "LiveKit enabled real-time communication features at Level SuperMind — live sessions and media workflows integrated into a Next.js product without building WebRTC from scratch.",
+      "LiveKit enables realtime communication — live sessions and media workflows integrated into a product without building WebRTC from scratch.",
   },
   FastAPI: {
     description:
-      "FastAPI is my Python API framework of choice — async routes, OpenAPI docs, and service boundaries for Annam.ai's agricultural engine and Swasya's EC2 backend.",
+      "FastAPI is my Python API framework of choice — async routes, OpenAPI docs, and service boundaries when the backend is inference-heavy rather than CRUD-heavy.",
   },
   "AWS Lambda": {
     description:
-      "AWS Lambda runs Swasya's event-driven pipeline — S3 triggers, transcription, and digitization tasks that scale to zero between clinic uploads.",
+      "AWS Lambda is how I run event-driven work — S3 triggers, transcription, and digitization tasks that should scale to zero between bursts.",
   },
   "AWS S3": {
     description:
-      "AWS S3 stores Swasya's audio and imaging — presigned uploads from mobile, trigger-driven processing, and durable objects behind HIPAA-minded workflows.",
+      "AWS S3 stores durable objects — presigned uploads from clients, trigger-driven processing, and media that should not live on the app server.",
   },
   DynamoDB: {
     description:
-      "DynamoDB backs Swasya's serverless data path — low-latency patient records and stream-driven updates where Lambda and mobile clients need predictable performance.",
+      "DynamoDB backs serverless data paths — low-latency records and stream-driven updates where Lambda and mobile clients need predictable performance.",
   },
   Vercel: {
     description:
-      "Vercel hosts this portfolio, Webmark, Blogger, and Tomato — edge-friendly Next.js deployments, cron jobs, and the DX that keeps shipping friction low.",
+      "Vercel is how I ship Next.js and static frontends — edge-friendly deploys, cron, and the DX that keeps shipping friction low.",
   },
 };

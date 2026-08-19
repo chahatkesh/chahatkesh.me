@@ -9,6 +9,7 @@ import openlearn from "~/assets/images/projects/openlearn.png";
 import swasya from "~/assets/images/projects/swasya.png";
 import gwinfra from "~/assets/images/projects/gwinfra.png";
 import portfolio from "~/assets/images/projects/portfolio.png";
+import astriq from "~/assets/images/projects/astriq.png";
 
 export interface Contributor {
   name: string;
@@ -41,6 +42,76 @@ export interface Project {
 }
 
 const projects: Project[] = [
+  {
+    id: "project-astriq",
+    title: "Astriq",
+    slug: "astriq",
+    description:
+      "A production Next.js app for Vedic birth chart (kundli) generation — guests draft birth details, signed-in users generate Lahiri charts through a native C++17 CSPICE engine, with quota-backed history and a layered TypeScript codebase built to production standards.",
+    detailedDescription:
+      "Astriq is a production Vedic kundli workspace I designed and shipped as a single Next.js App Router product: guests capture date, time, and birthplace on a locale-aware landing page; those details travel through sign-in as a URL draft token; authenticated users generate named charts, reopen history they own, and stay inside a per-user generation cap. The interesting work is how the system is structured. Route handlers stay thin. Domain logic lives in services. Prisma is isolated in a pnpm workspace package. A native C++17 CLI — NAIF CSPICE plus JPL DE442s — is the only calculation backend, spoken to over JSON stdin/stdout so the TypeScript layer never reimplements ephemeris math. Auth is email and password with scrypt hashes and HMAC-signed httpOnly cookies, not a bolted-on auth product. Place search runs offline against a ranked city index. Timezones come from IANA with DST ambiguity rejected rather than guessed. The UI is RSC by default, with client islands for the landing form, workspace, chart paper, and locale switcher, and A4 PDF export happens in the browser from the rendered chart. Quality is treated as part of the product: TypeScript strict mode, ESLint and Prettier, Husky plus lint-staged, Conventional Commits, Vitest plus native engine tests against a JPL Horizons fixture, schema-migration checks, SOPS-encrypted environments, multi-stage Docker, GHCR images, Trivy, and a health-gated EC2 deploy. The result is a small, opinionated astrology product whose architecture, boundaries, and release path look like production software rather than a calculator wrapped in a page.",
+    tagline: "Kundli from first principles, not a black-box API",
+    task: "Architected and built Astriq as a production Next.js 16 App Router app with a layered TypeScript codebase and a native C++17 kundli engine. Implemented guest-to-auth draft handoff, scrypt plus HMAC-cookie sessions, ownership-scoped chart history, and a configurable per-user quota before the engine is spawned. Isolated PostgreSQL access in a Prisma 7 workspace package with migration gating, and confined all ephemeris work to a CSPICE + JPL DE442s CLI (Lahiri sidereal, whole-sign houses, nakshatra and pada). Built offline place search, IANA timezone resolution, 23-locale routing with RTL and English fallbacks, and browser A4 PDF export from the paper chart. Shipped the operational path as first-class work: SOPS secrets, Docker Compose, GitHub Actions CI (format, lint, type-check, unit and engine tests, production build), GHCR images, Trivy, Prisma migrate, and /api/health-gated EC2 deploys.",
+    timelineDescription:
+      "Built Astriq, a production Vedic kundli app with a native C++17 CSPICE engine, signed-in chart history, and a layered Next.js codebase where auth, quotas, and release hygiene are treated as product features.",
+    features: [
+      "Layered architecture: thin App Router handlers, services for workflows, Prisma isolated in packages/database",
+      "Native C++17 kundli-engine using NAIF CSPICE and JPL DE442s over a JSON stdin/stdout contract",
+      "Lahiri sidereal longitudes, whole-sign houses, nine grahas, mean Rahu/Ketu, nakshatra and pada",
+      "Guest draft capture that survives login via a signed-in ?draft= token — guests cannot generate charts",
+      "Email/password auth with scrypt password hashes and HMAC-signed httpOnly session cookies",
+      "Per-user generation quota (MAX_CHARTS_PER_USER) enforced before the engine process is spawned",
+      "Ownership-scoped history of the 20 most recent charts, reopenable only by the owning user",
+      "Paper-style 4×4 house grid and planetary table with single-page A4 PDF download",
+      "Offline city search (~135k places) with ranked matching, plus IANA timezone and DST-ambiguity checks",
+      "23-locale App Router with RTL for Kashmiri, Sindhi, and Urdu, and English dictionary fallbacks",
+      "Typed domain errors mapped to HTTP 400/401/403/502, with engine stderr never leaked to clients",
+      "Strict TypeScript, ESLint, Prettier, Husky, lint-staged, and Conventional Commits as the default path",
+      "Vitest API/service tests plus C++ engine tests and a JPL Horizons Sun/Moon accuracy fixture",
+      "SOPS + age secrets, multi-stage Docker, GHCR, Trivy, Prisma migrate, and /api/health-gated production deploys",
+    ],
+    stacks: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "C++",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Tailwind CSS",
+      "Docker",
+      "GitHub Actions",
+      "pnpm Workspaces",
+      "Node.js",
+      "Lucide React",
+    ],
+    cover: astriq,
+    isRepo: true,
+    repoUrl: "https://github.com/chahatkesh/astriq",
+    deployedURL: "https://astriq.chahatkesh.me",
+    datePublished: "2026-07-20",
+    dateStarted: "2026-05-28",
+    dateModified: "2026-07-20",
+    isFeatured: false,
+    mermaidDefinition: `flowchart LR
+      guest(["Guest"])
+      user(["Signed-in user"])
+      app["Next.js App Router<br/>(RSC + locales)"]
+      api["Route handlers<br/>/api/kundli · /api/auth · /api/places"]
+      svc["TypeScript services"]
+      engine["C++17 kundli-engine<br/>CSPICE + DE442s"]
+      db[("PostgreSQL<br/>Prisma 7")]
+      pdf["Browser PDF<br/>html2canvas + jsPDF"]
+
+      guest -->|draft birth details| app
+      guest -->|login / register| api
+      user --> app
+      app --> api
+      api --> svc
+      svc -->|JSON stdin/stdout| engine
+      svc --> db
+      app --> pdf
+    `,
+  },
   {
     id: "project-portfolio-website",
     title: "Portfolio Website",

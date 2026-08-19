@@ -30,3 +30,5 @@ export * from "./place";
 export * from "./video";
 
 export * from "./changelog";
+
+export * from "./timeline";
