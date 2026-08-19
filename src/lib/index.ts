@@ -45,6 +45,16 @@ export {
 // Project utilities
 export { getImageSrc, ALL_STACKS } from "./project-utils";
 
+// Stack utilities
+export {
+  getAllStacks,
+  getStackBySlug,
+  getStackByName,
+  stackHref,
+  getStackUsage,
+  getRelatedStacks,
+} from "./stack-utils";
+
 // Auth
 export {
   createSession,

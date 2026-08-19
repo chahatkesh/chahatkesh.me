@@ -254,8 +254,9 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Data Modules",
-        detail: "Projects, experience, timeline, stack, courses, site metadata",
-        count: 12,
+        detail:
+          "Projects, experience, timeline, stack, stack-meta, courses, site metadata",
+        count: 14,
       },
       {
         label: "Constants",
@@ -536,7 +537,8 @@ export const pages: PageEntry[] = [
   {
     path: "/",
     name: "Home",
-    description: "Landing with about, skills, projects, experience, contact",
+    description:
+      "Landing with about, clickable skills, projects, experience, contact",
     renderType: "Static",
   },
   {
@@ -619,6 +621,20 @@ export const pages: PageEntry[] = [
     renderType: "SSG",
   },
   {
+    path: "/stack",
+    name: "Stack",
+    description:
+      "Browseable toolkit grouped by category, with search across 76 technologies",
+    renderType: "SSR",
+  },
+  {
+    path: "/stack/[slug]",
+    name: "Stack Detail",
+    description:
+      "Per-technology page with mapped projects, experience, and related stacks",
+    renderType: "SSG",
+  },
+  {
     path: "/gallery",
     name: "Gallery",
     description: "Photo grid with Cloudinary CDN, lightbox, admin uploads",
@@ -677,12 +693,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "36,321+",
+    value: "37,571+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "110",
+    value: "114",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
@@ -708,8 +724,9 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Data Modules",
-    value: "12",
-    description: "Projects, experience, timeline, stack, courses, links, about",
+    value: "13",
+    description:
+      "Projects, experience, timeline, stack, stack-meta, courses, links, about",
   },
   {
     label: "Mongoose Models",

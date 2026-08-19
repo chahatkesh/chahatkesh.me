@@ -35,7 +35,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Responsive Design:** Mobile-first, fully responsive interface
 - **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
 - **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
-- **Skills Visualization:** Interactive tech stack showcase with categorization
+- **Skills Visualization:** Clickable tech stack marquee on home, full `/stack` index, and per-technology detail pages mapped to projects and experience
 - **Coding Activity:** Unified GitHub and LeetCode contribution calendars
 - **Spotify Integration:** Live now-playing widget displaying current music
 - **Image Gallery:** Curated photo gallery with optimized image delivery
@@ -148,7 +148,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 
 - **Projects:** Edit `src/data/projects.ts`
 - **Experience:** Edit `src/data/experience.ts`
-- **Skills/Stack:** Edit `src/data/stack.tsx`
+- **Skills/Stack:** Edit `src/data/stack.tsx` (icons), `src/data/stack-meta.ts` (subtitles, descriptions, slugs), and `src/lib/stack-utils.ts` (usage mapping)
 - **Timeline:** Edit `src/data/timeline.ts`
 - **About:** Edit `src/data/about.tsx`
 - **Links:** Edit `src/data/links.ts`
@@ -179,6 +179,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - Canonical URLs
 - Breadcrumb navigation
 - Per-route Open Graph image generation
+- Stack index and 76 static stack detail pages in sitemap
 
 ## Security
 

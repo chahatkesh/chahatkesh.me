@@ -32,8 +32,14 @@ export { projects } from "./projects";
 export type { Project, Contributor } from "./projects";
 
 // Tech stacks
-export { LANGUAGES_TOOLS, FRONTEND_STACKS, BACKEND_DEVOPS } from "./stack";
-export type { stacksProps } from "./stack";
+export {
+  LANGUAGES_TOOLS,
+  FRONTEND_STACKS,
+  BACKEND_DEVOPS,
+  STACK_CATEGORIES,
+  ALL_STACKS_FLAT,
+} from "./stack";
+export type { stacksProps, StackMeta, StackCategory } from "./stack";
 
 // Timeline data
 export {

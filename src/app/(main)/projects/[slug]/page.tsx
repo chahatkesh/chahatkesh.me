@@ -2,7 +2,6 @@ import { type Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PageHeader, MotionDiv } from "~/components/shared";
-import { pageHeaderSubtitle } from "~/lib/page-header-subtitle";
 import { SmartLink, typo } from "~/components/ui";
 import { projects } from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -88,7 +87,7 @@ export default async function ProjectPage({ params }: Props) {
           { name: project.title, url: `/projects/${project.slug}` },
         ]}
         title={project.title}
-        subtitle={pageHeaderSubtitle(project.description)}
+        subtitle={project.tagline}
       />
 
       <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-border overflow-hidden mb-12 group">

@@ -44,7 +44,7 @@ export const experiences: Experience[] = [
     start_date: "Apr 08, 2026",
     end_date: "present",
     tagline:
-      "Building a product decision engine that turns fragmented customer evidence into clear, cited answers on what product teams should build next.",
+      "A product decision engine from customer evidence to cited answers.",
     description:
       "Building Layr, a B2B product-intelligence platform for small product teams. Layr connects the tools where customer feedback, delivery context, and past decisions live, then transforms those signals into structured product understanding, evidence-backed recommendations, execution-ready specifications, and reviewed task drafts.",
     logo: LayrLogo,
@@ -98,7 +98,7 @@ export const experiences: Experience[] = [
     start_date: "Dec 2025",
     end_date: "May 2026",
     tagline:
-      "Building Ninja, an AI-driven sales automation platform for real-estate agents in Singapore with real-time CRM, autonomous agents, and compliance-first architecture.",
+      "AI sales automation for Singapore real-estate agents and a live CRM.",
     description:
       "Led frontend engineering for Ninja, an AI-powered sales automation and CRM platform built for real-estate agents in Singapore. Developed production-grade, scalable frontend architecture enabling autonomous outreach, real-time lead management, and agent-driven workflows. Architected dashboards, automation controls, and AI agent orchestration using industry-standard practices focused on maintainability, performance, security, and regulatory compliance.",
     logo: ZenbaseLogo,
@@ -160,7 +160,7 @@ export const experiences: Experience[] = [
     start_date: "Oct 2025",
     end_date: "Mar 2026",
     tagline:
-      "Built production AI infrastructure for agricultural RAG, multilingual speech, semantic caching, and media workflows using Python and FastAPI.",
+      "Production AI for agricultural RAG, speech, caching, and media flows.",
     description:
       "Led product development and contributed to KM Engine, a Python and FastAPI agricultural knowledge platform composed of nine backend services for RAG chat, query classification, semantic caching, search, speech, and media processing. Developed an audio workflow connecting Whisper STT, contextual RAG, and Edge Text-to-Speech, with TTS voices configured for 12 languages. Worked with researchers, mentors, and startups to move AI prototypes toward scalable, cloud-ready products.",
     logo: AnnamAILogo,
@@ -209,7 +209,7 @@ export const experiences: Experience[] = [
     start_date: "May 2025",
     end_date: "Oct 2025",
     tagline:
-      "Developed modular Python pipelines for agricultural query classification, inference, and retrieval-backed responses.",
+      "Python pipelines for agricultural query classification and inference.",
     description:
       "Contributed to the foundations of an agricultural AI engine through reusable Python pipelines for query classification and inference. Built domain-specific classification logic, structured evaluation fixtures, and service-oriented components that supported retrieval-backed answer generation and later production integration.",
     logo: AnnamAILogo,
@@ -251,7 +251,7 @@ export const experiences: Experience[] = [
     start_date: "Jan 2025",
     end_date: "Feb 2025",
     tagline:
-      "Built 15+ reusable UI components and integrated 5+ APIs with 30% faster load times.",
+      "15+ UI components, 5+ API integrations, and 30% faster page loads.",
     description:
       "Worked as a Full-stack Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
     logo: LevelSuperMindLogo,
@@ -300,7 +300,7 @@ export const experiences: Experience[] = [
     start_date: "Nov 2024",
     end_date: "present",
     tagline:
-      "Building the developer community at NIT Jalandhar through events, workshops, and open-source work.",
+      "Growing NIT Jalandhar's dev community through events and workshops.",
     description:
       "Served as a core team member at GDG on Campus NIT Jalandhar, driving community initiatives across web development and UI/UX while supporting large-scale events and technical programs. Contributed to HackMol operations, delivered UI/UX knowledge sessions, and helped strengthen the chapter’s open-source ecosystem by organizing and preserving project codebases across multiple editions.",
     logo: GDGCLogo,
@@ -335,8 +335,7 @@ export const experiences: Experience[] = [
     location: "NIT Jalandhar",
     start_date: "Nov 2023",
     end_date: "Jun 2024",
-    tagline:
-      "Built Certificate Module used by 20+ college clubs for streamlined distribution.",
+    tagline: "Certificate module adopted by 20+ college clubs on campus.",
     description:
       "Collaborated with a 22-member team to build a Certificate Module for bulk certificate generation and distribution. Designed and shipped a user dashboard, used by 20+ college clubs for streamlined certificate distribution. Tech stack: React.js, Tailwind CSS, Chakra UI, Axios, Framer Motion, HTML5 Canvas.",
     logo: XceedLogo,

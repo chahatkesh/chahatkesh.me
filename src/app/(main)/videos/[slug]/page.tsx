@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { youtubeVideos } from "~/data/youtube";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { PageHeader, MotionDiv } from "~/components/shared";
-import { pageHeaderSubtitle } from "~/lib/page-header-subtitle";
+import { getVideoPageSubtitle } from "~/lib/video-subtitles";
 import config from "~/config";
 import { MAX_VIDEO_DESCRIPTION_LENGTH, MAX_VIDEO_TAGS } from "~/constants";
 import {
@@ -96,7 +96,7 @@ export default async function VideoPage({ params }: Props) {
           { name: video.title, url: `/videos/${video.slug}` },
         ]}
         title={video.title}
-        subtitle={pageHeaderSubtitle(video.description || video.title)}
+        subtitle={getVideoPageSubtitle(video)}
       />
 
       <MotionDiv
