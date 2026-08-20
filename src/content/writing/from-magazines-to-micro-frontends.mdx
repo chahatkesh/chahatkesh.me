@@ -1,0 +1,511 @@
+---
+title: "From Magazines to Micro Frontends"
+subtitle: "Trade-offs from MVC to SSR, told as the web growing up."
+description: "Senior frontend interviews reward trade-offs, not syntax. How the web went from static pages to SPAs, BFFs, SSR, and micro frontends."
+date: "2026-08-20"
+tags:
+  - Architecture
+  - Frontend
+  - Engineering
+  - Interviews
+---
+
+I used to think a senior frontend interview was a harder React quiz.
+
+Can you explain reconciliation. Can you write a debounce. Can you draw the virtual DOM without looking at a blog post. I practiced those. They are useful. They are also how you sound midlevel with extra vocabulary.
+
+The question that actually sorts people is quieter. Why is this a single page application and not a set of static pages. Why would you _not_ reach for Next.js. When does a backend for frontend stop being a kindness and start being a single point of failure. If you cannot walk that, you can still ship screens. You just cannot yet own the system those screens live in.
+
+This is the story of how we got here. Not a catalog of acronyms. A sequence of constraints. Each architecture is a reply to the last one's pain — and a new pain of its own.
+
+<Callout tone="idea" title="The senior move">
+  Name the architecture you are in. Name why you landed there. Name what you
+  would do next, and what you would refuse to do yet. That is the interview.
+</Callout>
+
+## The web was a magazine
+
+Before frontend was a job, the web was a document.
+
+Tim Berners-Lee's original bet was hypertext: a page of HTML, maybe some CSS, a sprinkle of JavaScript if you were feeling modern. You requested a URL. A server handed you a file. The browser painted it. If you wanted another page, you requested another file. It was a newspaper with links. Fast. Cheap. Almost no interaction.
+
+That is not an insult. Magazines are a great architecture if the product _is_ a magazine. Docs. Marketing. This blog, on a good day. The constraint was honesty: the page did not owe you a conversation. It owed you text and images, delivered before you got bored.
+
+<WritingMermaid
+  title="The first web"
+  caption="A thin client in the original sense: the browser displayed documents. The server stored them. Almost no logic lived on either side of the paint."
+>
+
+```
+flowchart LR
+    reader(["Reader"])
+    browser["Browser"]
+    server["Web server"]
+    files[("HTML / CSS / images")]
+
+    reader -->|"open a URL"| browser
+    browser -->|"HTTP GET"| server
+    server --> files
+    server -->|"a finished page"| browser
+    browser -->|"paint, then wait"| reader
+```
+
+</WritingMermaid>
+
+The product value was reach. Anyone with a browser could read you. The cost was that "read" was the whole product. Forms existed. They posted, the server thought, a new page came back. Every click was a full reload. The UI had no memory of you between paints.
+
+If that sounds primitive, keep it in your pocket. We will return to it on purpose.
+
+## Then the server started mixing the page
+
+The first real architecture style on the web was not React. It was MVC.
+
+Trygve Reenskaug sketched Model-View-Controller in 1979 for Smalltalk, as a way to separate the thing you look at from the thing that is true. Two decades later the web stole the names. Django, Ruby on Rails, ASP.NET, PHP frameworks — they all shipped the same idea. The browser was still a thin client. The interesting work happened on the server. A controller took the request, a model talked to the database, a view template mixed data into HTML, and the user got a page that had never existed as a static file.
+
+That was the revolution of the early 2000s. The magazine could be tailored. A logged-in user saw their name. A cart remembered a quantity. You could implement real logic without asking the browser to be clever.
+
+<WritingMermaid
+  title="Classic web MVC"
+  caption="The view is still HTML. The difference is that a server language mixed it for you on every request. Interactivity meant another round trip and another full page."
+>
+
+```
+flowchart LR
+    browser(["Browser"])
+    ctrl["Controller"]
+    model["Model"]
+    view["View template"]
+    db[("Database")]
+
+    browser -->|"GET /orders/42"| ctrl
+    ctrl --> model
+    model --> db
+    model --> ctrl
+    ctrl --> view
+    view -->|"fresh HTML"| browser
+```
+
+</WritingMermaid>
+
+What you get: dynamic pages, one language for the whole request, a mental model that a junior can hold. What you pay: a reload on every navigation, tight coupling between backend and frontend because they are the same deploy, and genuine framework lock-in. Switching from Rails to Django is not a rewrite of the CSS. It is a rewrite of the product.
+
+Performance was "fine for 2004." Scalability of the _team_ was low — you did not yet need a frontend engineer, because there was barely a frontend. Scalability of the _system_ was the usual server story: more traffic meant more HTML rendering on your metal.
+
+I have shipped this shape without calling it MVC. Any time the server paints the whole page and the browser just displays it, you are in that family. It is still the right answer for a lot of admin tools and internal apps that nobody is going to pretend are products.
+
+## JavaScript happened, and the client got fat
+
+Then Gmail showed up in 2004 and refused to reload. AJAX stopped being a party trick. A few years later we got frameworks that treated the browser like a real runtime: Angular, then React, then Vue. The single page application was not a library choice. It was a relocation of logic.
+
+The old view became an API. JSON instead of HTML. The model on the server shrank toward storage and authorization. Authentication, validation, routing, and state moved into the bundle. For the first time the web could feel like a desktop app: dashboards, editors, infinite canvases, products you sit inside rather than pages you visit.
+
+That is also when the frontend engineer was born. Not because HTML got harder. Because there was finally enough logic on the client to need someone who could own it.
+
+<WritingMermaid
+  title="The SPA split"
+  caption="One download of JavaScript. After that, the page does not die on navigation. The backend is a data plane. The client is where the product lives."
+>
+
+```
+flowchart LR
+    user(["User"])
+    spa["SPA<br/>React / Vue / Angular"]
+    api["Backend API"]
+    db[("Database")]
+
+    user -->|"first visit"| spa
+    spa -->|"JSON"| api
+    api --> db
+    api -->|"JSON"| spa
+    spa -->|"re-render in place"| user
+```
+
+</WritingMermaid>
+
+SPAs scale in the ways MVC did not. You can put the static assets on a CDN. You can have a bigger product team, because the UI is a real surface. You can hold complex client state — a canvas, a spreadsheet, a gym logger that should not flash white on every click.
+
+You also bought two problems that still haunt interviews.
+
+The first is the empty first paint. The browser has to download, parse, and execute a pile of JavaScript before it can show anything honest. Users stare at a shell. Crawlers stare at nothing. SEO suffers unless you add more architecture on top.
+
+The second is the thickness of the client.
+
+<Callout tone="note" title="Thick clients versus thin ones">
+  A thin client delegates most decisions to the server and displays the
+  result. A thick client holds business logic, state, and often auth, and
+  treats the backend more like a database with HTTP. Neither is moral. The
+  question is how much logic you can afford to put in a place that is slow
+  to download, easy to tamper with, and expensive to keep consistent.
+</Callout>
+
+GW Infra, the first full product I built that I would still show someone, is a classic SPA: React talks to Express, JWT in the browser, the admin panel is just more client. It was the right call. Nobody needed Google to index the CMS. The interactivity _was_ the product. If I had started that build with a meta-framework because a thread told me SPAs were dead, I would have been decorating a problem I did not have.
+
+The pendulum is not "SPA bad, server good." It is: we moved from thin to thick because we wanted richer products, and then we spent the next decade putting selected logic back on the server because the thick client was too heavy to lift on a phone.
+
+## Many clients, one Frankenstein API
+
+SPAs solved the desktop web's hunger for interaction. Then we grew phones.
+
+Suddenly the same company had a website, an iOS app, an Android app, maybe a TV client, all asking the same backend for "the user, but in the shape this screen needs." A general-purpose REST API starts as a kindness and dies as a compromise. The mobile payload cannot afford the nested objects the desktop sidebar wants. The web wants a different aggregation than the app. You either overfetch, underfetch, or invent a monster endpoint named `/api/v3/home-screen-but-for-tablet`.
+
+[Sam Newman](https://samnewman.io/patterns/architectural/bff/) wrote this down as **Backends for Frontends**. Phil Calçado coined the name at SoundCloud. The idea is rude and correct: do not have one API that pretends to serve every experience. Have one backend per experience. The web team owns a web BFF. The iOS team owns an iOS BFF. Each BFF sits inside your perimeter, aggregates downstream services, and returns UI-ready data in the shape that client actually needs.
+
+<WritingMermaid
+  title="A backend for each frontend"
+  caption="Downstream services stay shared. The aggregation is not. Each client gets a tailor, not a shared closet. The BFF is usually owned by the team that owns the UI."
+>
+
+```
+flowchart TB
+    web(["Web app"])
+    ios(["iOS app"])
+    android(["Android app"])
+    webBff["Web BFF"]
+    mobileBff["Mobile BFF"]
+    users["Users service"]
+    catalog["Catalog service"]
+    orders["Orders service"]
+
+    web --> webBff
+    ios --> mobileBff
+    android --> mobileBff
+    webBff --> users
+    webBff --> catalog
+    webBff --> orders
+    mobileBff --> users
+    mobileBff --> catalog
+    mobileBff --> orders
+```
+
+</WritingMermaid>
+
+This is why BFF matters in a frontend interview even if you have never named it. The BFF is often _your_ service. Auth happens once. TLS happens once. The messy joins happen once, close to the screen, instead of in a backend team that does not see the UI. Netflix used a version of this so the Android app could evolve its API without waiting for a universal contract.
+
+The trade-offs are the ones people skip when they draw the diagram on a whiteboard.
+
+You added a network hop. Performance is often a little worse, not better. You added a deployable that can go down and take a whole client with it — a single point of failure in front of otherwise healthy services. You coupled the BFF tightly to one UI, which is the point, and also a tax: two experiences that drift slowly will either share a BFF they should have split, or split a BFF they should have shared. Newman himself said the rule is closer to "one BFF per experience," not blindly "one BFF per OS."
+
+And you grew the team. That is the actual win. Backend teams can release user, catalog, and orders on their own cadence. Frontend teams are not blocked on a Frankenstein resource. Product value goes up because people can work in parallel. Upfront cost goes up because you now have more infrastructure and a new kind of engineer: the frontend person who has to think in services.
+
+Swasya forced this lesson on me without a textbook. A Flutter app for nurses and a React dashboard for doctors were never going to want the same payload. If I had shoved both through one "clean" REST surface, I would have been translating in the clients forever. The right shape is: same domain services underneath, different aggregations at the edge. That is a BFF, even if the folder is just called `api/`.
+
+## GraphQL did not delete the problem. It moved it.
+
+While BFFs were spreading, Facebook open-sourced [GraphQL](https://engineering.fb.com/2015/09/14/core-infra/graphql-a-data-query-language/) in 2015 — they had been using it internally since the iOS News Feed work around 2012. The pitch is still the best sentence in API design: the client asks for the graph it needs, and only that graph.
+
+REST overfetches when `/users/1` returns twenty fields for a badge that needed two. REST underfetches when the profile page needs the user, then their posts, then each post's author, and you pay for it with a waterfall of requests. GraphQL lets the screen describe the shape. Behind the GraphQL server you can hide a fleet of microservices. Frontend teams keep moving. Backend teams keep shipping.
+
+The new homework is on the server. Nested resolvers make the **N+1 problem** almost the default: one query for a list of posts, then one query per post for the author. [DataLoader](https://github.com/facebook/DataLoader) exists because Facebook already had this wound. You batch, you cache per request, you think in graphs, you watch your query cost. GraphQL is not "REST but nicer." It is a different way to be wrong, with better tools if you respect them.
+
+<Callout tone="warning" title="What I would say in the interview">
+  GraphQL is a tool for clients that need many shapes of the same graph. It
+  is not a personality. If you have two screens and a stable REST resource,
+  you do not have a GraphQL problem. You have a blog-post problem.
+</Callout>
+
+## We went back to the server to make the first paint honest
+
+BFF and GraphQL patched the _data_ side of the SPA. They did not patch the empty screen.
+
+So the industry did something that looks like time travel if you squint. We took the component model we loved in the browser and ran it on the server again. Not as Django templates. As React, Vue, Svelte — the same tree, a different runtime. Next.js, Nuxt, and the rest of the meta-frameworks are that idea with opinions attached.
+
+Three names get used as if they were one. They are not.
+
+**Static site generation (SSG)** is the magazine, rebuilt with modern tooling. At build time you render HTML, put it on a CDN, and stop thinking. Blazing fast. Almost free. You cannot personalize much, and you cannot change a heading without a rebuild. This writing page wants to be in that family.
+
+**Incremental static regeneration (ISR)** is SSG with a timer. Next.js popularized it: serve the cached page, and if it is older than a TTL, regenerate it in the background and swap the CDN object. Content can move without a full deploy. You still do not have a living session. You have a newspaper that reprints itself.
+
+**Server-side rendering (SSR)** runs the framework per request. The user gets real HTML with real data on the first response. Crawlers see content. Humans see a page instead of a spinner. Then the second half of the trick arrives, and it is the part juniors undersell.
+
+<WritingMermaid
+  title="SSG, ISR, and SSR are not the same server"
+  caption="SSG pays at build time. ISR pays on a schedule. SSR pays on every request. All three can still leave you with a page that looks ready and is not yet a program."
+>
+
+```
+flowchart TB
+    ssg["SSG<br/>render at build, serve from CDN"]
+    isr["ISR<br/>rebuild when the TTL expires"]
+    ssr["SSR<br/>render HTML per request"]
+    hydrate["Hydration<br/>download JS, attach events"]
+    rsc["RSC and islands<br/>ship JS only for what clicks"]
+
+    ssg --> isr
+    isr --> ssr
+    ssr --> hydrate
+    hydrate --> rsc
+```
+
+</WritingMermaid>
+
+Hydration is the reunion. The server sent HTML so the user would see something. The browser still has to download the SPA bundle, boot the framework, rebuild a virtual tree, and stitch event handlers onto the markup that is already on screen. Until that finishes, the page is a painting. Buttons look like buttons. They do not behave like them. That gap — pixels without interactivity — is why "we do SSR" is an incomplete sentence.
+
+<WritingMermaid
+  title="The hydration gap"
+  caption="SSR fixes first contentful paint. It does not, by itself, fix time to interactive. Users can lose a few seconds clicking ghosts. That is not a theoretical problem. It is a product problem."
+>
+
+```
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: open URL
+    Browser->>Server: request page
+    Server->>Browser: pre-rendered HTML
+    Note over User,Browser: something to look at
+    Browser->>Server: download JS bundle
+    Browser->>Browser: boot framework and hydrate
+    Note over User,Browser: something to use
+```
+
+</WritingMermaid>
+
+React Server Components are the next cut. The server can keep the parts of the tree that never needed to be a program — a product description, a footer, a markdown article — and refuse to send their JavaScript. The client tree shrinks to the leaves that actually click, type, or subscribe. Next.js App Router made this the default, which is both a gift and a footgun: you can ship a lot less JS, and you can also spend a week arguing with `'use client'` boundaries you did not mean to create.
+
+Islands architecture — Katie Sylor-Miller named the pattern, [Jason Miller wrote it down](https://jasonformat.com/islands-architecture/), Astro made it default — starts from the other end. The page is static HTML by default. You opt _in_ to interactivity, island by island. A blog with one search box should not download a dashboard runtime. RSC starts from a React tree and opt-outs. Islands start from a document and opt-ins. Same destination, different default.
+
+This site is in that mix on purpose. The writing is content. It wants HTML. The gym logger is a product. It wants a client. Astriq leans on RSC with client islands for the parts that have to be alive. That is not "we use Next.js." That is a rendering strategy with a reason.
+
+<WritingMermaid
+  title="A smaller tree on the client"
+  caption="The server still renders the whole page. The browser only downloads the runtime for the parts that must run there. Everything else can stay HTML."
+>
+
+```
+flowchart TB
+    subgraph serverTree ["Server renders this"]
+      page["Product page"]
+      header["Header"]
+      details["Description"]
+      recs["Recommendations"]
+      cart["Add to cart"]
+      page --> header
+      page --> details
+      page --> recs
+      page --> cart
+    end
+
+    subgraph clientTree ["Browser downloads this"]
+      runtime["Framework runtime"]
+      cartIsland["Add to cart"]
+      runtime --> cartIsland
+    end
+
+    serverTree -.->|"only the interactive leaf"| clientTree
+```
+
+</WritingMermaid>
+
+The catch, and it is a real one: this is the most performant way we currently know to build _public, content-sensitive_ web apps, and it is also more expensive to run, harder to onboard, and more framework-opinionated than a SPA on a CDN. You now need servers, caching semantics, and a team that understands them. SEO gets better. Scalability of the static-asset kind gets worse. Complexity jumps.
+
+I keep a list of teams who adopted Next.js because it was the current costume and then walked it back. [Railway moved a client-heavy product off Next.js](https://dev.to/sarah-railway/moving-railways-frontend-off-nextjs-2hg5) when builds and unused server machinery became the bottleneck. Other products have done the same toward Vite and a boring SPA, because an authenticated dashboard does not need Google to index the settings page. Premature SSR is still architecture. It is just architecture for someone else's constraint.
+
+<Callout tone="warning" title="Only pay for the server if the product needs the server">
+  If the bottleneck is not first paint, SEO, or personalization, a SPA on a
+  CDN is still a senior choice. Meta-frameworks are not a promotion. They
+  are a bill.
+</Callout>
+
+## The SPA got big enough to need walls
+
+Rendering tricks make a page faster. They do not make a codebase smaller.
+
+I have not worked on a 300-person client, but I have worked on frontends that started polite and ended as a hallway of `components/` with no door labels. At that size the architecture question stops being "SPA or SSR" and becomes "how do humans not break each other."
+
+The modular frontend monolith is the honest middle. You still ship one application. You draw boundaries inside it. A platform team owns the design system, auth, data fetching, logging, analytics — the floor. Domain teams own vertical slices: users, payments, catalog. Folders follow the product, not the framework. I wrote about the folder version of this in [The Shape of a Codebase](/about/writing/the-shape-of-a-codebase). The architectural version is the same instinct with more at stake.
+
+<WritingMermaid
+  title="A modular frontend monolith"
+  caption="One deploy, many rooms. Shared platform code is a privilege, not a junk drawer. Domain teams should not need to open each other's folders to ship."
+>
+
+```
+flowchart TB
+    platform["Platform<br/>design system, auth, analytics"]
+    users["Users domain"]
+    payments["Payments domain"]
+    catalog["Catalog domain"]
+
+    platform --> users
+    platform --> payments
+    platform --> catalog
+```
+
+</WritingMermaid>
+
+This is where classical software architecture walks into the frontend and often overstays.
+
+**Clean Architecture**, which [Robert C. Martin published in 2012](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), says source code dependencies point inward. At the center you have entities — User, Order, Cart — the stable business language. Around them, use cases. On the outside, frameworks, databases, UI. Swap React for Vue and the domain should not notice.
+
+**Hexagonal architecture**, Alistair Cockburn's 2005 ports-and-adapters, is the same family with a different drawing. The application is a hexagon so you have room to plug things in from every side. UI is a port. The HTTP API is a port. A test harness is a port. Jeffrey Palermo's onion architecture (2008) is the concentric version of the same bet: the database is not the foundation. It is an outer ring.
+
+<WritingMermaid
+  title="The onion all three of them are drawing"
+  caption="Clean, hexagonal, and onion are cousins. The useful sentence is not the shape. It is that the domain does not import the framework. Everything else is commentary."
+>
+
+```
+flowchart TB
+    infra["Frameworks and drivers<br/>React, Next.js, fetch, Prisma"]
+    adapters["Interface adapters<br/>hooks, route handlers, mappers"]
+    usecases["Use cases<br/>checkout, invite member"]
+    domain["Domain<br/>User, Cart, Permission"]
+
+    infra --> adapters
+    adapters --> usecases
+    usecases --> domain
+```
+
+</WritingMermaid>
+
+I like this as a thinking tool. I am suspicious of it as a default frontend layout.
+
+Most UI frameworks already have opinions. Next.js will tell you where the page goes. The frontend is often thinner than the backend people who invented these diagrams — a lot of "business logic" in a React app is really "what the button does," which belongs next to the button. And the fantasy of swapping frameworks is a fantasy I have almost never seen paid back. If your product will live fifteen years and survive a rewrite of the view layer, invest. If it is a two-year product with eight screens, you are building a museum for a dependency inversion nobody asked to visit.
+
+<Callout tone="idea" title="When I would actually do it">
+  Long-lived domain, fat client, tests that need to run without rendering
+  React, or a real chance the view layer gets replaced. Otherwise I keep
+  the use cases close to the screens and let the framework be the
+  framework. Decoupling is a muscle. Not every file needs to prove it.
+</Callout>
+
+The modular monolith still has costs even without an onion. Global state leaks. Boundaries are social, so they rot. CI gets slow because you still build the world. You can draw domains on a whiteboard and still import payments from catalog "just this once." The architecture is only as real as the discipline — or the lint rule — that enforces it.
+
+## Then the walls became deploys
+
+Micro frontends are what happens when the modular monolith's walls are not thick enough, and the company is large enough to pay for thicker ones.
+
+[Cam Jackson's write-up on Martin Fowler's site](https://martinfowler.com/articles/micro-frontends.html) is still the clean definition: independently deliverable frontend applications, composed into a greater whole. ThoughtWorks put the term on their radar in 2016. The user still sees one site. The header might be one app, the catalog another, checkout a third. A shell owns the shared CSS, the routing, maybe the session, and stitches the rest at runtime. Webpack Module Federation, native federation, import maps, single-spa, server composition, even iframes — those are mechanisms. The architecture is the independent deploy.
+
+<WritingMermaid
+  title="One page, several applications"
+  caption="Vertical slices that own UI and often the BFF behind it. Independent pipelines. A shell that has to be boring, because if the shell is clever, you have a monolith with extra steps."
+>
+
+```
+flowchart TB
+    visitor(["Visitor"])
+    shell["App shell<br/>routing, session, shared CSS"]
+    headerMfe["Header"]
+    catalogMfe["Catalog"]
+    checkoutMfe["Checkout"]
+    accountMfe["Account"]
+
+    visitor --> shell
+    shell --> headerMfe
+    shell --> catalogMfe
+    shell --> checkoutMfe
+    shell --> accountMfe
+```
+
+</WritingMermaid>
+
+This is Conway's Law as a frontend strategy. Teams that ship independently will produce software that deploys independently, or they will spend their lives in merge queues. At a company with hundreds of engineers on one client, you need this, or something that behaves like it. At a company with eight engineers, you will spend six months on orchestration and call it velocity.
+
+The costs are not subtle. Duplicate dependencies unless you are ruthless about sharing. A performance hit when the page is a runtime composition of several bundles. Version skew. A design system that has to survive being a contract between strangers. Operational complexity that looks like backend microservices, because it is. Independent deploys are not atomic, so "we shipped" can mean "half the page shipped."
+
+I would not put micro frontends in a side project to look senior. I would be ready to talk about them, because interviewers at companies that do not need them still ask, the same way people ask about Kubernetes for a to-do app. The senior answer is when, not how. How is Module Federation and a shell. When is: multiple teams, independent release cadence, a product that cannot move as one build anymore, and the engineering maturity to pay the tax.
+
+<Callout tone="note" title="The FOMO test">
+  If you cannot name the team that is currently blocked by a shared
+  pipeline, you do not have a micro frontend problem. You have an
+  architecture catalog, and you are shopping in it.
+</Callout>
+
+## The map, so you can point at it
+
+Every style above is still in production somewhere. The web did not replace MVC with SPAs and burn the tapes. It stacked them. A serious product is often two or three of these at once: SSG for the marketing site, SSR for the product page, a SPA for the signed-in app, a BFF in front of three services, a modular monolith that someone is already calling a future micro frontend.
+
+<WritingMermaid
+  title="How the frontend grew up"
+  caption="Read it as responses to pain, not as a skill tree. You do not unlock micro frontends by collecting the previous badges. You unlock them by running out of the previous architecture."
+>
+
+```
+flowchart TB
+    staticPages["Static pages"]
+    mvc["MVC"]
+    spa["SPA"]
+    bff["BFF plus GraphQL"]
+    render["SSG, ISR, SSR, RSC"]
+    modular["Modular monolith"]
+    mfe["Micro frontends"]
+
+    staticPages --> mvc
+    mvc --> spa
+    spa --> bff
+    spa --> render
+    spa --> modular
+    modular --> mfe
+```
+
+</WritingMermaid>
+
+If you need a sentence per row for a system design round:
+
+| Style | You are optimizing for | You are paying with |
+| --- | --- | --- |
+| Static / SSG | Time to first byte, cost, simplicity | Freshness, personalization |
+| MVC | Server-owned logic, one deploy | Reloads, coupling, team shape |
+| SPA | Interactivity, CDN scale, product richness | First paint, SEO, JS weight |
+| BFF | Client-specific aggregation, parallel teams | Extra hop, another fail point |
+| SSR / RSC | First paint, SEO, less client JS | Servers, complexity, lock-in |
+| Modular monolith | Many people, still one deploy | Boundary rot, slow CI |
+| Micro frontends | Independent deploys at org scale | Performance, ops, coordination |
+
+And if you need a decision that fits on one diagram:
+
+<WritingMermaid
+  title="Start from the bottleneck, not the blog post"
+  caption="People and pixels are different constraints. Solving one with the tool for the other is how you get a dashboard on SSR or a ten-person team on Module Federation."
+>
+
+```
+flowchart TB
+    start["What is actually hurting?"]
+    start --> people{"Too many people in one repo?"}
+    start --> paint{"Too slow to see, or to find in search?"}
+
+    people -->|"a few teams"| modular["Modular monolith"]
+    people -->|"independent deploys, many teams"| mfe["Micro frontends"]
+    paint -->|"public, mostly content"| ssg["SSG or ISR"]
+    paint -->|"public, personalized"| ssr["SSR and RSC"]
+    paint -->|"logged-in product"| spa["SPA and an API"]
+```
+
+</WritingMermaid>
+
+## The architecture audit
+
+This is the part I would do before the next interview, on whatever I am actually shipping. Not on a hypothetical.
+
+Sit down with the repo. Write the answers in a notes app, not in your head.
+
+1. **What style are we in, really?** SPA, SSG, SSR, BFF, modular monolith, some stack of those. "We use React" is not a style. "We use Next.js" is barely one.
+2. **Why did we land here?** SEO, a mobile client, a team that doubled, a founder who liked a tutorial. Honest reasons beat elegant ones.
+3. **Where is the client thick, and where is it thin?** If validation only lives in the browser, that is a security answer waiting to happen. If the server renders everything and the client is a husk, that is a product answer waiting to happen.
+4. **What is the next natural step?** If CI is twenty minutes and four teams ship through one pipeline, the next step might be stricter modules, then maybe micro frontends. If bounce rate is the problem, the next step is probably rendering, not federation.
+5. **What would I refuse?** A BFF for one web client. GraphQL for two endpoints. Clean Architecture for a marketing page. Next.js for an authenticated tool that already has a Go API.
+
+Then you stop saying "we just use React and Next.js" and you start saying something like:
+
+> We serve the marketing pages as static HTML, SSR the product pages that need personalization, and keep the signed-in app as a client-heavy tree with a small BFF in front of the domain services. The repo is a modular monolith. If we doubled the team I would tighten the boundaries before I split deploys.
+
+That paragraph is not smarter CSS. It is proof you can see the system. The rejection that feels like "we went with someone more experienced" is often this gap wearing a polite sentence.
+
+I still get this wrong. I have reached for a server because the ecosystem was loud. I have also shipped a SPA and then been surprised when nobody could share a link that looked like a page. The audit is how you catch yourself.
+
+<Callout tone="idea" title="A line I want in my own mouth">
+  Architecture is the set of trade-offs you can explain without the
+  framework's documentation open. If you can only explain the file tree,
+  you know the costume. If you can explain the last constraint that forced
+  a change, you know the product.
+</Callout>
+
+The web started as a magazine. Then it became a server-side play, then a thick client, then a set of tailored backends, then a server again, then a city of teams. None of those steps were fashion in the way Twitter makes them look. They were answers. Seniors are hired for knowing which answer is still due — and which one would be showing off.
+
+Still learning. Still growing. Still here.
+
+[**@chahatkesh**](/)

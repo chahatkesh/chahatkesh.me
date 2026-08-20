@@ -200,3 +200,51 @@
   border: 0;
   padding: 0;
 }
+
+.markdown-github.markdown-body.writing-prose .writing-mermaid {
+  margin: 2.5rem 0;
+  font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-mermaid svg {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 28rem;
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-mermaid .label,
+.markdown-github.markdown-body.writing-prose .writing-mermaid .nodeLabel,
+.markdown-github.markdown-body.writing-prose .writing-mermaid .edgeLabel,
+.markdown-github.markdown-body.writing-prose .writing-mermaid foreignObject,
+.markdown-github.markdown-body.writing-prose .writing-mermaid foreignObject div,
+.markdown-github.markdown-body.writing-prose .writing-mermaid foreignObject p,
+.markdown-github.markdown-body.writing-prose
+  .writing-mermaid
+  foreignObject
+  span {
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.markdown-github.markdown-body.writing-prose .writing-mermaid figcaption {
+  margin: 0 auto;
+  font-family: var(--font-sans), ui-sans-serif, sans-serif;
+  font-size: 0.8rem;
+  font-style: normal;
+  line-height: 1.5;
+  color: hsl(var(--muted-foreground));
+}

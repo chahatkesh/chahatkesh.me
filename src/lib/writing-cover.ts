@@ -42,6 +42,13 @@ export const WRITING_COVER_PALETTES = {
     mute: "#3e4f50",
     soft: "#1a2424",
   },
+  copper: {
+    bg: "#120c08",
+    paper: "#ead6c0",
+    accent: "#d08a4a",
+    mute: "#4d3826",
+    soft: "#23180f",
+  },
   slate: {
     bg: "#0a0d11",
     paper: "#dce3ea",
@@ -58,6 +65,7 @@ export const WRITING_COVER_MOTIFS = [
   "growth",
   "writing",
   "structure",
+  "architecture",
   "backend",
 ] as const;
 
@@ -75,6 +83,7 @@ const MOTIF_PALETTE: Record<
   growth: "sage",
   writing: "teal",
   structure: "slate",
+  architecture: "copper",
   backend: "teal",
 };
 
@@ -99,6 +108,8 @@ export function inferWritingCoverMotif(title: string): WritingCoverMotif {
   if (/(home|hostel|heart|house)/.test(text)) return "home";
   if (/(company|friend|greatness|together)/.test(text)) return "company";
   if (/(know|anything|uncertain|figured)/.test(text)) return "uncertainty";
+  if (/(architect|monolith|frontend|magazine)/.test(text))
+    return "architecture";
   if (/(shape|codebase|folder|structure)/.test(text)) return "structure";
   if (/(backend|server|request)/.test(text)) return "backend";
   if (/(grow|learn|start)/.test(text)) return "growth";
@@ -215,6 +226,29 @@ function motifMarkup(spec: WritingCoverSpec, width: number, height: number) {
         <rect x="${cx - 280}" y="${cy - 190}" width="560" height="380" rx="18" fill="none" stroke="${palette.paper}" stroke-opacity="0.35" stroke-width="1.5" />
         <rect x="${cx - 180}" y="${cy - 90}" width="240" height="180" rx="12" fill="none" stroke="${palette.paper}" stroke-opacity="0.7" stroke-width="1.5" />
         <rect x="${cx + 90}" y="${cy - 40}" width="90" height="80" rx="8" fill="${palette.accent}" fill-opacity="0.9" />
+      `;
+    }
+    case "architecture": {
+      // A magazine page on the left, independently composed modules on the right.
+      const pageX = cx - 310;
+      const pageY = cy - 175;
+      const pageW = 168;
+      const pageH = 350;
+      const tile = 92;
+      const tileGap = 22;
+      const clusterX = cx + 70;
+      const clusterY = cy - 103;
+
+      return `
+        <rect x="${pageX}" y="${pageY}" width="${pageW}" height="${pageH}" rx="8" fill="none" stroke="${palette.paper}" stroke-opacity="0.82" stroke-width="1.75" />
+        <line x1="${pageX + 30}" y1="${pageY + 52}" x2="${pageX + pageW - 30}" y2="${pageY + 52}" stroke="${palette.mute}" stroke-width="1.25" />
+        <line x1="${pageX + 30}" y1="${pageY + 84}" x2="${pageX + pageW - 52}" y2="${pageY + 84}" stroke="${palette.mute}" stroke-opacity="0.55" stroke-width="1.25" />
+        <line x1="${pageX + 30}" y1="${pageY + 116}" x2="${pageX + pageW - 40}" y2="${pageY + 116}" stroke="${palette.mute}" stroke-opacity="0.4" stroke-width="1.25" />
+        <line x1="${pageX + pageW}" y1="${cy}" x2="${clusterX - 12}" y2="${cy}" stroke="${palette.paper}" stroke-opacity="0.32" stroke-width="1.5" />
+        <rect x="${clusterX}" y="${clusterY}" width="${tile}" height="${tile}" rx="12" fill="none" stroke="${palette.paper}" stroke-opacity="0.7" stroke-width="1.5" />
+        <rect x="${clusterX + tile + tileGap}" y="${clusterY}" width="${tile}" height="${tile}" rx="12" fill="${palette.accent}" />
+        <rect x="${clusterX}" y="${clusterY + tile + tileGap}" width="${tile}" height="${tile}" rx="12" fill="none" stroke="${palette.paper}" stroke-opacity="0.5" stroke-width="1.5" />
+        <rect x="${clusterX + tile + tileGap}" y="${clusterY + tile + tileGap}" width="${tile}" height="${tile}" rx="12" fill="none" stroke="${palette.paper}" stroke-opacity="0.5" stroke-width="1.5" />
       `;
     }
     case "backend": {
