@@ -9,8 +9,10 @@ export const getSEOTags = ({
   extraTags,
   noIndex = false,
   canonicalUrlRelative,
+  markdownUrlRelative,
 }: Metadata & {
   canonicalUrlRelative?: string;
+  markdownUrlRelative?: string;
   extraTags?: Record<string, unknown>;
   noIndex?: boolean;
 } = {}) => {
@@ -34,6 +36,11 @@ export const getSEOTags = ({
     publisher: config.appName,
     alternates: {
       canonical: canonicalUrl,
+      ...(markdownUrlRelative && {
+        types: {
+          "text/markdown": `https://${config.domainName}${markdownUrlRelative}`,
+        },
+      }),
     },
     formatDetection: {
       telephone: true,

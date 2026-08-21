@@ -152,6 +152,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/llms.txt`,
+      lastModified: writingLastModified,
+      changeFrequency: "weekly",
+      priority: 0.4,
+    },
   ];
 
   // Dynamic project pages

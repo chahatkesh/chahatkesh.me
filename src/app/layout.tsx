@@ -1,4 +1,5 @@
 import { fontSans, fontPoem, fontUbuntu } from "~/components/ui";
+import config from "~/config";
 import {
   getSEOTags,
   renderSchemaTags,
@@ -35,6 +36,11 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link
+          rel="describedby"
+          href={`https://${config.domainName}/llms.txt`}
+          type="text/markdown"
+        />
       </head>
       <body
         className={cn(

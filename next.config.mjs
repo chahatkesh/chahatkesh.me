@@ -14,30 +14,38 @@ const nextConfig = {
     ],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'jklrjucnntkajrda.public.blob.vercel-storage.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "jklrjucnntkajrda.public.blob.vercel-storage.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'i.scdn.co',
-        port: '',
-        pathname: '/image/**',
+        protocol: "https",
+        hostname: "i.scdn.co",
+        port: "",
+        pathname: "/image/**",
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'i.ytimg.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        port: "",
+        pathname: "/**",
       },
     ],
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: "/about/writing/:slug.md",
+        destination: "/llms/writing/:slug",
+      },
+    ];
   },
   redirects: async () => {
     return [

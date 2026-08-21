@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: entry.title,
     description: entry.description,
     canonicalUrlRelative: `/about/writing/${entry.slug}`,
+    markdownUrlRelative: `/about/writing/${entry.slug}.md`,
     keywords: [...entry.tags, "reflections", "writing", config.appName],
     openGraph: {
       title: entry.title,
@@ -86,7 +87,9 @@ export default async function WritingEntryPage({ params }: Props) {
               url: `https://${config.domainName}`,
             },
             keywords: entry.tags.join(", "),
-          }),
+            articleBody: entry.markdown,
+            encodingFormat: "text/markdown",
+          }).replace(/</g, "\\u003c"),
         }}
       />
 
@@ -118,6 +121,13 @@ export default async function WritingEntryPage({ params }: Props) {
             <span>Updated {formatDate(entry.updated)}</span>
           </>
         )}
+        <span aria-hidden>·</span>
+        <a
+          href={`/about/writing/${entry.slug}.md`}
+          className="transition-colors hover:text-ring"
+        >
+          Markdown
+        </a>
       </div>
 
       <article className="markdown-body markdown-github writing-prose w-full">

@@ -33,6 +33,9 @@ export function WritingMermaid({
   return (
     <figure className="writing-mermaid my-8 space-y-3 font-sans">
       <MermaidRenderer code={definition} title={title} fit="contain" />
+      {definition ? (
+        <pre className="sr-only">{`${title}\n\n${definition}`}</pre>
+      ) : null}
       {caption ? (
         <figcaption className="mx-auto max-w-2xl text-center font-sans text-sm leading-relaxed text-muted-foreground">
           {caption}

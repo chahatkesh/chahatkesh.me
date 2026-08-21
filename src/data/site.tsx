@@ -554,6 +554,18 @@ export const pages: PageEntry[] = [
     renderType: "SSG",
   },
   {
+    path: "/about/writing/[slug]",
+    name: "Writing Detail",
+    description: "MDX essay with HTML for readers and a .md twin for LLMs",
+    renderType: "SSG",
+  },
+  {
+    path: "/llms.txt",
+    name: "llms.txt",
+    description: "Markdown index of the site for language models",
+    renderType: "SSR",
+  },
+  {
     path: "/about/gym",
     name: "Gym",
     description: "Training logs, rings, heatmap, and progress photos",
@@ -700,7 +712,7 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "38,829+",
+    value: "39,039+",
     description: "TypeScript + TSX + CSS",
   },
   {

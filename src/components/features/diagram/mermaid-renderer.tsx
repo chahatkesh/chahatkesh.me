@@ -53,7 +53,9 @@ export function MermaidRenderer({
   onSvgReady,
 }: MermaidRendererProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [state, setState] = useState<MermaidRenderState>({ status: "idle" });
+  const [state, setState] = useState<MermaidRenderState>(() =>
+    (code ?? "").trim() ? { status: "loading" } : { status: "idle" },
+  );
   const isCanvasMode = mode === "canvas";
   const isContainFit = fit === "contain";
   const renderId = useMemo(
