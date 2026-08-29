@@ -1,4 +1,4 @@
-import { Breadcrumb } from "~/components/shared";
+import { Breadcrumb, PageBanner, PageLoader } from "~/components/shared";
 
 interface BreadcrumbItem {
   name: string;
@@ -13,16 +13,20 @@ interface AdminAsyncStateProps {
 }
 
 /**
- * Full-page loading spinner for admin pages, wrapped with the page breadcrumbs.
+ * Full-page loading state for admin pages, wrapped with the page breadcrumbs.
  */
 export const AdminLoadingState = ({
   breadcrumbs,
 }: Pick<AdminAsyncStateProps, "breadcrumbs">) => (
   <div className="space-y-8">
-    <Breadcrumb items={breadcrumbs} />
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-muted-foreground/30"></div>
-    </div>
+    <PageBanner>
+      <Breadcrumb
+        items={breadcrumbs}
+        align="center"
+        className="relative z-[1] text-xs tracking-wide text-muted-foreground/60"
+      />
+    </PageBanner>
+    <PageLoader minHeight="section" label="Loading admin" />
   </div>
 );
 
@@ -34,8 +38,14 @@ export const AdminErrorState = ({
   errorMessage,
 }: AdminAsyncStateProps) => (
   <div className="space-y-8">
-    <Breadcrumb items={breadcrumbs} />
-    <div className="flex items-center justify-center min-h-[400px]">
+    <PageBanner>
+      <Breadcrumb
+        items={breadcrumbs}
+        align="center"
+        className="relative z-[1] text-xs tracking-wide text-muted-foreground/60"
+      />
+    </PageBanner>
+    <div className="flex min-h-[400px] items-center justify-center">
       <p className="text-destructive">{errorMessage}</p>
     </div>
   </div>

@@ -2,7 +2,7 @@
  * Barrel export for all data modules.
  *
  * Import from "~/data" instead of individual files:
- *   import { projects, experiences, links } from "~/data";
+ *   import { projects, experiences, startLinks } from "~/data";
  */
 
 // About page data
@@ -24,7 +24,13 @@ export { experiences } from "./experience";
 export type { Experience } from "./experience";
 
 // Links page data
-export { links } from "./links";
+export {
+  startLinks,
+  workLinks,
+  allWritingLink,
+  elsewhereLinks,
+  footerSupportLink,
+} from "./links";
 export type { LinkItem } from "./links";
 
 // Projects data
@@ -32,8 +38,14 @@ export { projects } from "./projects";
 export type { Project, Contributor } from "./projects";
 
 // Tech stacks
-export { LANGUAGES_TOOLS, FRONTEND_STACKS, BACKEND_DEVOPS } from "./stack";
-export type { stacksProps } from "./stack";
+export {
+  LANGUAGES_TOOLS,
+  FRONTEND_STACKS,
+  BACKEND_DEVOPS,
+  STACK_CATEGORIES,
+  ALL_STACKS_FLAT,
+} from "./stack";
+export type { stacksProps, StackMeta, StackCategory } from "./stack";
 
 // Timeline data
 export {
@@ -44,7 +56,11 @@ export {
   formatOngoingDate,
   categoryColors,
 } from "./timeline";
-export type { TimelineEvent, TimelineLink } from "./timeline";
+export type {
+  TimelineEvent,
+  TimelineLink,
+  WritingTimelineSource,
+} from "./timeline";
 
 // BTech courses data
 export {
@@ -78,6 +94,14 @@ export type {
   ChangelogChangeType,
   ChangelogStats,
 } from "./changelog";
+
+// Writing — backend roadmap
+export { backendRoadmap, backendRoadmapSectionStart } from "./backend-roadmap";
+export type {
+  RoadmapModule,
+  RoadmapSection,
+  RoadmapTopic,
+} from "./backend-roadmap";
 
 // Site metadata & tech data
 export {

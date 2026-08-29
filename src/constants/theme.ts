@@ -12,6 +12,7 @@ export const CATEGORY_COLORS = {
   project: "bg-blue-500/20 text-blue-400 border-blue-500/30",
   achievement: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
   learning: "bg-green-500/20 text-green-400 border-green-500/30",
+  writing: "bg-amber-500/20 text-amber-400 border-amber-500/30",
   work: "bg-purple-500/20 text-purple-400 border-purple-500/30",
   travel: "bg-pink-500/20 text-pink-400 border-pink-500/30",
   hackathon: "bg-orange-500/20 text-orange-400 border-orange-500/30",
@@ -32,4 +33,5 @@ export const SOCIAL_BRAND_COLORS = {
   discord: "hover:bg-[#5865F2]",
   email: "hover:bg-[#EA4335]",
   buymeacoffee: "hover:bg-[#FFDD00]",
+  buymeacoffeeText: "hover:text-[#FFDD00]",
 } as const;

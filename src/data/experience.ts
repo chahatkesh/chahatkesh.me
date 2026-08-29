@@ -41,10 +41,10 @@ export const experiences: Experience[] = [
     role: "Building Layr",
     type: "Self-employed",
     location: "Remote",
-    start_date: "Apr 08, 2026",
+    start_date: "Apr 2026",
     end_date: "present",
     tagline:
-      "Building a product decision engine that turns fragmented customer evidence into clear, cited answers on what product teams should build next.",
+      "A product decision engine from customer evidence to cited answers.",
     description:
       "Building Layr, a B2B product-intelligence platform for small product teams. Layr connects the tools where customer feedback, delivery context, and past decisions live, then transforms those signals into structured product understanding, evidence-backed recommendations, execution-ready specifications, and reviewed task drafts.",
     logo: LayrLogo,
@@ -98,7 +98,7 @@ export const experiences: Experience[] = [
     start_date: "Dec 2025",
     end_date: "May 2026",
     tagline:
-      "Building Ninja, an AI-driven sales automation platform for real-estate agents in Singapore with real-time CRM, autonomous agents, and compliance-first architecture.",
+      "AI sales automation for Singapore real-estate agents and a live CRM.",
     description:
       "Led frontend engineering for Ninja, an AI-powered sales automation and CRM platform built for real-estate agents in Singapore. Developed production-grade, scalable frontend architecture enabling autonomous outreach, real-time lead management, and agent-driven workflows. Architected dashboards, automation controls, and AI agent orchestration using industry-standard practices focused on maintainability, performance, security, and regulatory compliance.",
     logo: ZenbaseLogo,
@@ -160,24 +160,31 @@ export const experiences: Experience[] = [
     start_date: "Oct 2025",
     end_date: "Mar 2026",
     tagline:
-      "Innovation-driven research and startup ideation under IIT Ropar's incubation ecosystem.",
+      "Production AI for agricultural RAG, speech, caching, and media flows.",
     description:
-      "Led AI and agri-tech product development at Annam.ai (IIT Ropar), working on production systems and startup initiatives within the incubation ecosystem. Built and shipped AI-powered solutions addressing real-world agricultural challenges, collaborating with researchers and mentors.",
+      "Led product development and contributed to KM Engine, a Python and FastAPI agricultural knowledge platform composed of nine backend services for RAG chat, query classification, semantic caching, search, speech, and media processing. Developed an audio workflow connecting Whisper STT, contextual RAG, and Edge Text-to-Speech, with TTS voices configured for 12 languages. Worked with researchers, mentors, and startups to move AI prototypes toward scalable, cloud-ready products.",
     logo: AnnamAILogo,
     about:
       "Annam.ai is an AI-driven agricultural technology platform incubated at IIT Ropar, focused on transforming agriculture through intelligent systems and data-driven solutions.",
     contributions: [
-      "Led product development and system architecture for AI-powered agri-tech solutions",
-      "Collaborated with research team, mentors and startups within the IIT Ropar ecosystem",
-      "Built and shipped production AI systems addressing real-world agricultural challenges",
-      "Applied cloud technologies and scalable architecture for societal-impact solutions",
+      "Contributed to a Python and FastAPI monorepo spanning nine independently runnable backend services for RAG chat, classification, caching, search, speech, image analysis, and video generation",
+      "Developed an authenticated audio-to-audio workflow that orchestrates Whisper STT, the contextual RAG pipeline, and Text-to-Speech while returning transcript, response text, and encoded audio",
+      "Configured Edge TTS voices for 12 languages, including Tamil, Telugu, Malayalam, Kannada, and Marathi, with streaming synthesis and multiple audio formats",
+      "Developed asynchronous REST integrations for the classify-cache-LLM flow, including semantic retrieval, provider fallbacks, and per-stage timing instrumentation",
+      "Worked with MongoDB for conversation persistence, Redis for session and response caching, and Qdrant for vector retrieval across the AI pipeline",
+      "Presented AI-powered agri-tech solutions to delegates from the Government of India, MeitY, and IIT Ropar during a strategic product showcase",
     ],
     techStack: [
-      "Artificial Intelligence",
-      "Machine Learning",
       "Python",
-      "Data Modeling",
-      "Research & Development",
+      "FastAPI",
+      "REST APIs",
+      "MongoDB",
+      "Redis",
+      "Qdrant",
+      "Artificial Intelligence",
+      "AI Pipelines",
+      "Machine Learning",
+      "Docker",
     ],
     links: [
       {
@@ -202,17 +209,17 @@ export const experiences: Experience[] = [
     start_date: "May 2025",
     end_date: "Oct 2025",
     tagline:
-      "Developed AI engine with modular pipelines for classification and inference.",
+      "Python pipelines for agricultural query classification and inference.",
     description:
-      "Contributed to the development of an internal AI engine with modular pipelines for classification and inference. Built domain-specific classifiers and optimized data modeling strategies to improve AI inference accuracy.",
+      "Contributed to the foundations of an agricultural AI engine through reusable Python pipelines for query classification and inference. Built domain-specific classification logic, structured evaluation fixtures, and service-oriented components that supported retrieval-backed answer generation and later production integration.",
     logo: AnnamAILogo,
     about:
       "Annam.ai is an AI-driven agricultural technology platform incubated at IIT Ropar, focused on transforming agriculture through intelligent systems and data-driven solutions.",
     contributions: [
-      "Developed internal AI engine with modular pipelines for classification and inference",
-      "Built domain-specific classifiers for agricultural data",
-      "Optimized data modeling strategies to improve AI inference accuracy",
-      "Collaborated with research team on AI system architecture",
+      "Developed reusable Python pipelines for agricultural query classification and AI inference",
+      "Built domain-specific classifiers spanning crop health, weather, market, finance, government schemes, and general agricultural queries",
+      "Created structured multilingual evaluation fixtures to validate classifier behavior across supported query categories",
+      "Collaborated with researchers on service boundaries, data modeling, and retrieval-backed AI system architecture",
     ],
     techStack: [
       "Python",
@@ -220,6 +227,7 @@ export const experiences: Experience[] = [
       "AI Pipelines",
       "Data Modeling",
       "Classification Algorithms",
+      "Qdrant",
     ],
     achievements: [
       "Successfully improved AI inference accuracy through optimized data modeling",
@@ -243,7 +251,7 @@ export const experiences: Experience[] = [
     start_date: "Jan 2025",
     end_date: "Feb 2025",
     tagline:
-      "Built 15+ reusable UI components and integrated 5+ APIs with 30% faster load times.",
+      "15+ UI components, 5+ API integrations, and 30% faster page loads.",
     description:
       "Worked as a Full-stack Intern at Level SuperMind, where I built scalable product features across frontend and API-integrated workflows. Delivered 15+ reusable UI components, integrated 5+ third-party services, and optimized rendering/data flows to achieve faster page performance. Also restructured onboarding journeys and API interactions to reduce setup friction and improve activation speed for new users.",
     logo: LevelSuperMindLogo,
@@ -290,9 +298,9 @@ export const experiences: Experience[] = [
     type: "Volunteer",
     location: "NIT Jalandhar",
     start_date: "Nov 2024",
-    end_date: "present",
+    end_date: "May 2026",
     tagline:
-      "Building the developer community at NIT Jalandhar through events, workshops, and open-source work.",
+      "Growing NIT Jalandhar's dev community through events and workshops.",
     description:
       "Served as a core team member at GDG on Campus NIT Jalandhar, driving community initiatives across web development and UI/UX while supporting large-scale events and technical programs. Contributed to HackMol operations, delivered UI/UX knowledge sessions, and helped strengthen the chapter’s open-source ecosystem by organizing and preserving project codebases across multiple editions.",
     logo: GDGCLogo,
@@ -327,8 +335,7 @@ export const experiences: Experience[] = [
     location: "NIT Jalandhar",
     start_date: "Nov 2023",
     end_date: "Jun 2024",
-    tagline:
-      "Built Certificate Module used by 20+ college clubs for streamlined distribution.",
+    tagline: "Certificate module adopted by 20+ college clubs on campus.",
     description:
       "Collaborated with a 22-member team to build a Certificate Module for bulk certificate generation and distribution. Designed and shipped a user dashboard, used by 20+ college clubs for streamlined certificate distribution. Tech stack: React.js, Tailwind CSS, Chakra UI, Axios, Framer Motion, HTML5 Canvas.",
     logo: XceedLogo,

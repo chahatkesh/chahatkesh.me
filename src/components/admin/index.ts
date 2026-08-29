@@ -2,6 +2,7 @@
  * Barrel export for admin components.
  */
 export { ProtectedRoute } from "./protected-route";
+export { AdminNavbar } from "./admin-navbar";
 export { AdminPageHeader } from "./admin-page-header";
 export { AdminLoadingState, AdminErrorState } from "./admin-async-state";
 export { AdminConfirmDialog } from "./admin-confirm-dialog";

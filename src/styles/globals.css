@@ -7,10 +7,12 @@
     --scrollbar-thumb: hsl(var(--border) / 0.9);
     --scrollbar-thumb-hover: hsl(var(--muted-foreground) / 0.55);
     --scrollbar-track: hsl(var(--background) / 0.72);
+    --header-height: 3.5rem;
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
     scrollbar-gutter: stable;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -136,6 +138,11 @@
     filter: brightness(1.35) saturate(1.1);
   }
 
+  /* Gym rest days — blue, distinct from the green training ramp */
+  .coding-activity-calendar rect[data-rest="true"] {
+    fill: #5b8fd4 !important;
+  }
+
   /* GPU acceleration for smooth animations */
   .gpu-accelerated {
     transform: translateZ(0);
@@ -149,6 +156,288 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+  }
+
+  /* Premium page header — fine mini-grid, edge accent cells, bottom dissolve */
+  .page-banner-grid {
+    --page-banner-cell: 10px;
+    --page-banner-line: hsl(var(--border) / 0.2);
+    --page-banner-accent-strong: hsl(var(--ring) / 0.26);
+    --page-banner-accent-soft: hsl(var(--ring) / 0.12);
+    position: relative;
+    min-height: min(7rem, 14vh);
+  }
+
+  .page-banner-grid::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: hsl(var(--background));
+    background-image:
+      linear-gradient(
+        var(--page-banner-accent-strong),
+        var(--page-banner-accent-strong)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-strong),
+        var(--page-banner-accent-strong)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-strong),
+        var(--page-banner-accent-strong)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-strong),
+        var(--page-banner-accent-strong)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-strong),
+        var(--page-banner-accent-strong)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(
+        var(--page-banner-accent-soft),
+        var(--page-banner-accent-soft)
+      ),
+      linear-gradient(to right, var(--page-banner-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--page-banner-line) 1px, transparent 1px);
+    background-size:
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell),
+      var(--page-banner-cell) var(--page-banner-cell);
+    background-position:
+      calc(var(--page-banner-cell) * 2) calc(var(--page-banner-cell) * 1),
+      calc(var(--page-banner-cell) * 7) calc(var(--page-banner-cell) * 3),
+      calc(var(--page-banner-cell) * 1) calc(var(--page-banner-cell) * 6),
+      calc(100% - var(--page-banner-cell) * 4) calc(var(--page-banner-cell) * 2),
+      calc(100% - var(--page-banner-cell) * 11)
+        calc(var(--page-banner-cell) * 5),
+      calc(var(--page-banner-cell) * 11) calc(var(--page-banner-cell) * 2),
+      calc(var(--page-banner-cell) * 4) calc(var(--page-banner-cell) * 9),
+      calc(100% - var(--page-banner-cell) * 16)
+        calc(var(--page-banner-cell) * 3),
+      calc(100% - var(--page-banner-cell) * 3) calc(var(--page-banner-cell) * 9),
+      calc(var(--page-banner-cell) * 2) calc(100% - var(--page-banner-cell) * 4),
+      calc(100% - var(--page-banner-cell) * 9)
+        calc(100% - var(--page-banner-cell) * 3),
+      calc(100% - var(--page-banner-cell) * 22)
+        calc(100% - var(--page-banner-cell) * 2),
+      calc(var(--page-banner-cell) * 15)
+        calc(100% - var(--page-banner-cell) * 2),
+      0 0,
+      0 0;
+    background-repeat:
+      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat,
+      repeat;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 70%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+  }
+
+  .page-banner-grid::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(
+        ellipse 75% 85% at 50% 48%,
+        hsl(var(--background) / 0.52) 0%,
+        transparent 68%
+      ),
+      linear-gradient(
+        to right,
+        hsl(var(--background)) 0%,
+        transparent 7%,
+        transparent 93%,
+        hsl(var(--background)) 100%
+      );
+  }
+
+  /* Desktop: spread accents into viewport wings, away from centered text */
+  @media (min-width: 768px) {
+    .page-banner-grid::before {
+      background-image:
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-strong),
+          var(--page-banner-accent-strong)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(
+          var(--page-banner-accent-soft),
+          var(--page-banner-accent-soft)
+        ),
+        linear-gradient(to right, var(--page-banner-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--page-banner-line) 1px, transparent 1px);
+      background-position:
+        2.5% 24%,
+        97.5% 22%,
+        4% 70%,
+        95.5% 68%,
+        14% 14%,
+        86% 12%,
+        24% 52%,
+        76% 50%,
+        8% 38%,
+        92% 42%,
+        6% 84%,
+        94% 80%,
+        18% 28%,
+        82% 26%,
+        20% 62%,
+        80% 58%,
+        10% 8%,
+        90% 76%,
+        0 0,
+        0 0;
+      background-size:
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell),
+        var(--page-banner-cell) var(--page-banner-cell);
+      background-repeat:
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+        repeat, repeat;
+    }
+
+    .page-banner-grid::after {
+      background:
+        radial-gradient(
+          ellipse 52% 85% at 50% 48%,
+          hsl(var(--background) / 0.52) 0%,
+          transparent 68%
+        ),
+        linear-gradient(
+          to right,
+          hsl(var(--background)) 0%,
+          transparent 5%,
+          transparent 95%,
+          hsl(var(--background)) 100%
+        );
+    }
   }
 }
 

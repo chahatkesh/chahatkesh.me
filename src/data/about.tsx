@@ -1,20 +1,23 @@
 import { type ReactNode } from "react";
 import {
-  FaBook,
-  FaRunning,
   FaLaptop,
   FaHeadphones,
   FaMobileAlt,
   FaPenFancy,
-  FaPlaneDeparture,
 } from "react-icons/fa";
+import {
+  BookOpen,
+  Dumbbell,
+  PenTool,
+  Plane,
+  type LucideIcon,
+} from "lucide-react";
 
 // ── Current Projects / Work ───────────────────────────────────────
 export interface CurrentProject {
   title: string;
   description: string;
   url: string;
-  showInLinks: boolean;
   showInAbout: boolean;
 }
 
@@ -24,7 +27,6 @@ export const currentProjects: CurrentProject[] = [
     description:
       "Co-founding Layr, the AI product decision layer for founders, product managers, and engineering leaders. It connects Slack, Jira, Linear, customer calls, support tickets, and product docs, then turns scattered signals into evidence-backed priorities, specs, and task drafts.",
     url: "https://uselayr.com/",
-    showInLinks: true,
     showInAbout: true,
   },
   {
@@ -32,7 +34,6 @@ export const currentProjects: CurrentProject[] = [
     description:
       "Building the frontend for Ninja, an AI platform for real estate agents. The system handles autonomous lead outreach, real-time conversation management, voice calls, WhatsApp follow-ups, and appointment scheduling. Production-grade architecture, fast iteration, and a lot of fun engineering problems.",
     url: "https://silentninja.tech/",
-    showInLinks: false,
     showInAbout: false,
   },
 ];
@@ -40,38 +41,44 @@ export const currentProjects: CurrentProject[] = [
 // ── Hobbies ───────────────────────────────────────────────────────
 export interface Hobby {
   title: string;
+  /** Short line used on the compact (home) variant */
+  label: string;
   description: string;
-  icon: ReactNode;
+  icon: LucideIcon;
   href: string;
 }
 
 export const hobbies: Hobby[] = [
   {
     title: "Writing",
+    label: "Essays & notes",
     description:
       "Lessons, open questions, and ideas shaped by building, reading, work, and everything in between.",
-    icon: <FaBook className="text-amber-500" />,
+    icon: BookOpen,
     href: "/about/writing",
   },
   {
     title: "Gym",
+    label: "Training logs",
     description:
       "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
-    icon: <FaRunning className="text-green-400" />,
+    icon: Dumbbell,
     href: "/about/gym",
   },
   {
     title: "Designing",
+    label: "Visual craft",
     description:
       "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
-    icon: <FaPenFancy className="text-blue-300" />,
+    icon: PenTool,
     href: "/about/designing",
   },
   {
     title: "Travelling",
+    label: "Places I've been",
     description:
       "I like exploring new places and observing how people live, build, and move through cities. It resets my perspective every time.",
-    icon: <FaPlaneDeparture className="text-cyan-400" />,
+    icon: Plane,
     href: "/places",
   },
 ];

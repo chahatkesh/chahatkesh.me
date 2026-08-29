@@ -27,6 +27,6 @@ export const AdminPageHeader = ({
     breadcrumbs={breadcrumbs}
     title={title}
     subtitle={subtitle}
-    titleClassName="text-3xl"
+    titleClassName="text-3xl sm:text-4xl"
   />
 );

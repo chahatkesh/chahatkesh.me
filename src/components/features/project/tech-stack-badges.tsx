@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { MotionDiv } from "~/components/shared";
 import { ALL_STACKS } from "~/lib/project-utils";
+import { stackHref } from "~/lib/stack-utils";
 
 interface TechStackBadgesProps {
   stacks: string[];
@@ -31,18 +33,40 @@ export function TechStackBadges({
         const techInfo = ALL_STACKS[stack];
         const Icon = techInfo?.Icon;
         const className = techInfo?.className || "text-muted-foreground";
+        const href = stackHref(stack);
+
+        const badgeContent = (
+          <>
+            {Icon && <Icon className={className} size={iconSize} aria-hidden />}
+            <span className="whitespace-nowrap">{stack}</span>
+          </>
+        );
+
+        if (href) {
+          return (
+            <MotionDiv
+              key={stack}
+              whileHover={{ y: -2 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link
+                href={href}
+                className={`el-focus-styles flex items-center ${badgeHeight} gap-1.5 rounded-full border border-border bg-card px-3 ${textSize} transition-colors hover:border-muted-foreground/30`}
+              >
+                {badgeContent}
+              </Link>
+            </MotionDiv>
+          );
+        }
 
         return (
           <MotionDiv
             key={stack}
-            className={`flex items-center ${badgeHeight} gap-1.5 px-3 rounded-full bg-card border border-border ${textSize}`}
+            className={`flex items-center ${badgeHeight} gap-1.5 rounded-full border border-border bg-card px-3 ${textSize}`}
             whileHover={{ y: -2 }}
             transition={{ duration: 0.2 }}
           >
-            {Icon && (
-              <Icon className={className} size={iconSize} aria-label={stack} />
-            )}
-            <span className="whitespace-nowrap">{stack}</span>
+            {badgeContent}
           </MotionDiv>
         );
       })}

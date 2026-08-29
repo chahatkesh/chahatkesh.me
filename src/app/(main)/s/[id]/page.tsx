@@ -106,19 +106,7 @@ export default async function SharedFilePage({ params }: Params) {
         ]}
         title={file.fileName}
         titleClassName="break-words text-xl"
-        subtitle={
-          <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
-            {format && (
-              <span className="font-medium uppercase tracking-wide">
-                {format}
-              </span>
-            )}
-            {format && (
-              <span className="text-muted-foreground/40">&middot;</span>
-            )}
-            <span>shared {formatRelativeDate(file.createdAt)}</span>
-          </span>
-        }
+        subtitle={`A shared ${format ?? "file"}. Uploaded ${formatRelativeDate(file.createdAt)}.`}
       />
 
       {/* Preview */}

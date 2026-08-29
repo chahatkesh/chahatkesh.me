@@ -1,15 +1,14 @@
-import { generateOGImageResponse, OG_IMAGE_SIZE } from "~/lib/og-template";
+import { generateWritingOGImage } from "~/lib/writing-og";
+import { OG_IMAGE_SIZE } from "~/lib/og-template";
 
 export const size = OG_IMAGE_SIZE;
 export const contentType = "image/png";
 
 export default async function Image() {
-  return generateOGImageResponse({
+  return generateWritingOGImage({
+    slug: "writing",
     title: "Writing",
-    subtitle: "Ideas worth carrying forward",
-    description:
-      "Lessons, open questions, and reflections shaped by building, reading, work, and experience.",
-    badge: "Writing",
-    tags: ["Learning", "Building", "Reflection"],
+    subtitle:
+      "Lessons, open questions, and reflections worth carrying forward.",
   });
 }

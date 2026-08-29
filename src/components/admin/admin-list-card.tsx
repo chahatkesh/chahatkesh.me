@@ -7,7 +7,7 @@ import { MotionDiv } from "~/components/shared";
 import { cn } from "~/lib/utils";
 
 const cardShell =
-  "group relative flex flex-col gap-3 rounded-lg border border-border bg-background p-4 transition-colors duration-200 hover:border-muted-foreground/30 sm:flex-row sm:items-center sm:gap-4";
+  "group relative flex flex-wrap items-start gap-x-3 gap-y-2.5 rounded-lg border border-border bg-background p-3.5 transition-colors duration-200 hover:border-muted-foreground/30 sm:flex-nowrap sm:items-center sm:gap-4 sm:p-4";
 
 interface AdminListCreateTileProps {
   label: string;
@@ -45,7 +45,7 @@ export function AdminListCreateTile({
   );
 
   const className = cn(
-    "flex w-full items-center gap-4 rounded-lg border border-dashed border-border bg-muted/20 p-4 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground",
+    "flex w-full items-center gap-3.5 rounded-lg border border-dashed border-border bg-muted/20 p-3.5 text-muted-foreground/70 transition-colors hover:border-muted-foreground/40 hover:bg-muted/30 hover:text-muted-foreground sm:gap-4 sm:p-4",
     (disabled || loading) && "cursor-not-allowed opacity-60",
   );
 
@@ -84,7 +84,7 @@ export function AdminListMeta({ items, title }: AdminListMetaProps) {
 
   return (
     <p
-      className="mt-0.5 truncate text-xs text-muted-foreground"
+      className="mt-0.5 text-xs leading-relaxed text-muted-foreground sm:truncate"
       title={title ?? parts.join(" · ")}
     >
       {parts.map((part, i) => (
@@ -156,12 +156,17 @@ export function AdminListCard({
         />
       ) : null}
 
-      <div className="relative z-10 flex min-w-0 flex-1 items-center gap-3.5 pointer-events-none sm:gap-4">
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-muted/40 text-muted-foreground transition-colors group-hover:bg-muted/60 group-hover:text-foreground/80">
+      <div className="relative z-10 flex min-w-0 flex-1 items-start gap-3 pointer-events-none sm:items-center sm:gap-4">
+        <div className="flex size-10 flex-shrink-0 items-center justify-center rounded-lg bg-muted/40 text-muted-foreground transition-colors group-hover:bg-muted/60 group-hover:text-foreground/80">
           {icon}
         </div>
 
-        <div className={cn("min-w-0 flex-1", content && "pointer-events-auto")}>
+        <div
+          className={cn(
+            "min-w-0 flex-1 pt-0.5 sm:pt-0",
+            content && "pointer-events-auto",
+          )}
+        >
           {content ?? (
             <>
               <p className="truncate text-sm font-medium tracking-tight text-foreground">
@@ -174,7 +179,7 @@ export function AdminListCard({
       </div>
 
       {actions ? (
-        <div className="relative z-10 flex flex-shrink-0 flex-wrap items-center gap-1.5 sm:justify-end">
+        <div className="relative z-10 ml-auto flex flex-shrink-0 flex-wrap items-center justify-end gap-1.5">
           {actions}
         </div>
       ) : null}
@@ -183,11 +188,11 @@ export function AdminListCard({
 }
 
 /** Labeled primary action (e.g. Copy). */
-export const adminListActionClassName = "h-8 px-2.5 text-xs";
+export const adminListActionClassName = "h-9 px-2.5 text-xs sm:h-8";
 
 /** Square icon-only secondary action. */
-export const adminListIconActionClassName = "size-8 px-0 text-xs";
+export const adminListIconActionClassName = "size-9 px-0 text-xs sm:size-8";
 
 /** Destructive icon-only action. */
 export const adminListDangerActionClassName =
-  "size-8 px-0 text-xs border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20 hover:text-red-500";
+  "size-9 px-0 text-xs sm:size-8 border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20 hover:text-red-500";

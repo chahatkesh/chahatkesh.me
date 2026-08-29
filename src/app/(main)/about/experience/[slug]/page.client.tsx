@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
-import { MotionDiv } from "~/components/shared";
-import { Breadcrumb } from "~/components/shared";
+import { MotionDiv, PageHeader } from "~/components/shared";
 import {
   ExperienceCarousel,
   type CarouselItem,
@@ -62,66 +61,40 @@ const ExperienceDetailClient = ({
 
   return (
     <div className="space-y-8">
-      <header className="space-y-2">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About", url: "/about" },
-            { name: "Experience", url: "/about/experience" },
-            {
-              name: experience.role,
-              url: `/about/experience/${experience.slug}`,
-            },
-          ]}
-        />
+      <PageHeader
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About", url: "/about" },
+          { name: "Experience", url: "/about/experience" },
+          {
+            name: experience.role,
+            url: `/about/experience/${experience.slug}`,
+          },
+        ]}
+        title={experience.role}
+        subtitle={experience.tagline}
+      />
 
-        <MotionDiv
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="space-y-6"
-        >
-          {/* Header with Logo */}
-          <div className="flex items-start gap-4">
-            <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-border bg-muted/50 flex-shrink-0">
-              <Image
-                src={experience.logo}
-                alt={`${experience.employer} logo`}
-                fill
-                sizes="80px"
-                className="object-contain p-2"
-                priority
-              />
-            </div>
-
-            <div className="flex-1 space-y-2">
-              <div>
-                <h1 className={cn(typo({ variant: "h2" }))}>
-                  {experience.role}
-                </h1>
-                <p className="text-base text-muted-foreground">
-                  {experience.employer}
-                </p>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground/70">
-                <span>
-                  {experience.start_date} - {experience.end_date}
-                </span>
-              </div>
-            </div>
+      <MotionDiv
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="space-y-6"
+      >
+        {/* Logo */}
+        <div className="flex justify-center">
+          <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-border bg-muted/50">
+            <Image
+              src={experience.logo}
+              alt={`${experience.employer} logo`}
+              fill
+              sizes="80px"
+              className="object-contain p-2"
+              priority
+            />
           </div>
-
-          {/* Tagline */}
-          <p
-            className={cn(
-              typo({ variant: "paragraph" }),
-              "text-foreground/80 text-lg",
-            )}
-          >
-            {experience.tagline}
-          </p>
-        </MotionDiv>
-      </header>
+        </div>
+      </MotionDiv>
 
       {/* Content Sections */}
       <div className="space-y-8">

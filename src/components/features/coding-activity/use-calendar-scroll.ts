@@ -1,10 +1,6 @@
 import { useEffect, type RefObject } from "react";
 import { CALENDAR_SCROLL_SELECTOR } from "./constants";
-import {
-  LAST_YEAR,
-  type ActivityRange,
-  type CodingActivityView,
-} from "./types";
+import { LAST_YEAR, type ActivityRange } from "./types";
 import { getWeekIndexForDate } from "./lib";
 
 function getCalendarScrollEl(container: HTMLElement | null) {
@@ -69,7 +65,7 @@ export function useCalendarScroll({
   latestDate,
 }: {
   containerRef: RefObject<HTMLElement | null>;
-  view: CodingActivityView | null;
+  view: { startIso: string; endIso: string } | null;
   range: ActivityRange;
   isMobile: boolean;
   blockSize: number;

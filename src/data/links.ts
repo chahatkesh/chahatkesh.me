@@ -3,143 +3,64 @@ import config from "~/config";
 export interface LinkItem {
   id: number;
   title: string;
-  description: string;
   href: string;
-  icon: string; // Icon identifier
-  iconSize?: "sm" | "md"; // Optional size
-  type: "primary" | "social" | "support" | "action" | "current";
-  gradient?: string;
-  hoverColor?: string;
+  icon: string;
+  /** Small right-aligned value, e.g. reading time. */
+  meta?: string;
+  /** When set, the row copies href to the clipboard instead of navigating. */
+  action?: "copy";
 }
 
-export const links: LinkItem[] = [
-  // Primary Links
-  {
-    id: 1,
-    title: "Resume",
-    description: "Download my CV / Resume",
-    href: "/resume",
-    icon: "FileText",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
-  },
-  {
-    id: 2,
-    title: "Projects",
-    description: "Explore my work & case studies",
-    href: "/projects",
-    icon: "FolderGit2",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 3,
-    title: "Portfolio",
-    description: "Check out my work & projects",
-    href: "/",
-    icon: "Home",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 4,
-    title: "Journey",
-    description: "My journey so far",
-    href: "/about/journey",
-    icon: "Journey",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 5,
-    title: "GitHub",
-    description: "Explore my open source contributions",
-    href: config.social.github,
-    icon: "github",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 6,
-    title: "LinkedIn",
-    description: "Let's connect professionally",
-    href: config.social.linkedin,
-    icon: "linkedin",
-    iconSize: "md",
-    type: "primary",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
+export const startLinks: LinkItem[] = [
+  { id: 1, title: "Resume", href: "/resume", icon: "FileText" },
+  { id: 2, title: "Book a call", href: config.social.cal, icon: "Calendar" },
+  { id: 3, title: "Portfolio", href: "/", icon: "Home" },
+];
 
-  // Social Links
-  {
-    id: 7,
-    title: "Instagram",
-    description: "Follow my journey",
-    href: config.social.instagram,
-    icon: "instagram",
-    iconSize: "sm",
-    type: "social",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 8,
-    title: "Twitter / X",
-    description: "Thoughts & updates",
-    href: config.social.twitter,
-    icon: "twitter",
-    iconSize: "sm",
-    type: "social",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-  {
-    id: 9,
-    title: "YouTube",
-    description: "Watch my content",
-    href: config.social.youtube,
-    icon: "youtube",
-    iconSize: "sm",
-    type: "social",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-
-  // Contact
-  {
-    id: 10,
-    title: "Email Me",
-    description: config.social.email,
-    href: `mailto:${config.social.email}`,
-    icon: "Mail",
-    iconSize: "sm",
-    type: "social",
-    hoverColor: "hover:border-muted-foreground/20 hover:bg-muted/50",
-  },
-
-  // Support
+export const workLinks: LinkItem[] = [
+  { id: 10, title: "Projects", href: "/projects", icon: "FolderGit2" },
   {
     id: 11,
-    title: "Buy Me a Coffee",
-    description: "Support my work ☕",
-    href: config.social.buymeacoffee,
-    icon: "SiBuymeacoffee",
-    iconSize: "sm",
-    type: "support",
-    hoverColor: "hover:border-yellow-500/50 hover:bg-yellow-500/5",
+    title: "Experience",
+    href: "/about/experience",
+    icon: "Briefcase",
   },
+  { id: 12, title: "GitHub", href: config.social.github, icon: "github" },
+  { id: 13, title: "Journey", href: "/about/journey", icon: "Journey" },
+];
 
-  // Action Links
+export const allWritingLink: LinkItem = {
+  id: 20,
+  title: "All writing",
+  href: "/about/writing",
+  icon: "BookOpen",
+};
+
+export const elsewhereLinks: LinkItem[] = [
+  { id: 30, title: "LinkedIn", href: config.social.linkedin, icon: "linkedin" },
   {
-    id: 12,
-    title: "Book a Call",
-    description: "Schedule a 1:1 meeting with me",
-    href: "https://cal.com/chahatkesh/",
-    icon: "Calendar",
-    iconSize: "md",
-    type: "action",
-    hoverColor: "hover:border-ring/50 hover:bg-ring/5",
+    id: 31,
+    title: "Twitter / X",
+    href: config.social.twitter,
+    icon: "twitter",
+  },
+  {
+    id: 32,
+    title: "Instagram",
+    href: config.social.instagram,
+    icon: "instagram",
+  },
+  { id: 33, title: "YouTube", href: config.social.youtube, icon: "youtube" },
+  {
+    id: 34,
+    title: config.social.email,
+    href: config.social.email,
+    icon: "Mail",
+    action: "copy",
   },
 ];
+
+export const footerSupportLink = {
+  title: "Buy me a coffee",
+  href: config.social.buymeacoffee,
+};

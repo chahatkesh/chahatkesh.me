@@ -15,6 +15,7 @@ export const CLOUDINARY_UPLOAD_PRESET =
 export const CLOUDINARY_FOLDERS = {
   FILES: "portfolio/files",
   GALLERY: "portfolio/gallery",
+  GYM_PROGRESS: "portfolio/gym",
   EXPERIENCE: (gallerySlug: string) => `portfolio/experience/${gallerySlug}`,
 } as const;
 
@@ -62,6 +63,14 @@ export const CLOUDINARY_UPLOAD_OPTIONS = {
       "zip",
     ],
     maxFileSize: FILE_MAX_FILE_SIZE,
+  } satisfies CloudinaryUploadWidgetOptions,
+  /** Single image upload for gym progress photos. */
+  GYM_PROGRESS: {
+    folder: CLOUDINARY_FOLDERS.GYM_PROGRESS,
+    maxFiles: 1,
+    resourceType: "image",
+    clientAllowedFormats: IMAGE_FORMATS,
+    maxFileSize: IMAGE_MAX_FILE_SIZE,
   } satisfies CloudinaryUploadWidgetOptions,
   /** Multi-image upload for an experience/company gallery. */
   EXPERIENCE: (gallerySlug: string): CloudinaryUploadWidgetOptions => ({

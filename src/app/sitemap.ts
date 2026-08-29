@@ -5,6 +5,7 @@ import { experiences } from "~/data/experience";
 import { youtubeVideos } from "~/data/youtube";
 import { monthlyChangelog } from "~/data/changelog";
 import { getWritingEntries } from "~/lib/writing";
+import { getAllStacks } from "~/lib/stack-utils";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = `https://${config.domainName}`;
@@ -66,6 +67,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: projectsLastModified,
       changeFrequency: "weekly",
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/stack`,
+      lastModified: projectsLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/timeline`,
+      lastModified: projectsLastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/about/experience`,
@@ -139,6 +152,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/llms.txt`,
+      lastModified: writingLastModified,
+      changeFrequency: "weekly",
+      priority: 0.4,
+    },
   ];
 
   // Dynamic project pages
@@ -186,6 +205,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.55,
   }));
 
+  const stackPages: MetadataRoute.Sitemap = getAllStacks().map((stack) => ({
+    url: `${baseUrl}/stack/${stack.slug}`,
+    lastModified: projectsLastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.55,
+  }));
+
   return [
     ...staticPages,
     ...projectPages,
@@ -193,5 +219,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...videoPages,
     ...changelogPages,
     ...writingPages,
+    ...stackPages,
   ];
 }

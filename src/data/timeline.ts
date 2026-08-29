@@ -17,6 +17,7 @@ export interface TimelineEvent {
     | "project"
     | "achievement"
     | "learning"
+    | "writing"
     | "work"
     | "travel"
     | "hackathon"
@@ -25,6 +26,14 @@ export interface TimelineEvent {
   links?: TimelineLink[];
   location?: string;
 }
+
+export type WritingTimelineSource = {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  date: string;
+};
 
 export const timelineEvents: TimelineEvent[] = [
   // {
@@ -593,6 +602,24 @@ const projectTimelineEvents: TimelineEvent[] = projects.map((project) => {
   };
 });
 
+const writingTimelineEvents = (
+  writing: WritingTimelineSource[],
+): TimelineEvent[] =>
+  writing.map((entry) => ({
+    id: `timeline-writing-${entry.slug}`,
+    startDate: entry.date,
+    title: `Published ${entry.title}`,
+    description: entry.subtitle || entry.description,
+    category: "writing" as const,
+    links: [
+      {
+        title: "Read",
+        url: `/about/writing/${entry.slug}`,
+        icon: "blog",
+      },
+    ],
+  }));
+
 export const getEventDuration = (
   startDate: string,
   endDate?: string,
@@ -672,8 +699,14 @@ export const formatOngoingDate = (startDate: string): string => {
   return `${start.toLocaleDateString("en-US", formatOptions)} - Present`;
 };
 
-export const getAllTimelineEvents = (): TimelineEvent[] => {
-  return [...timelineEvents, ...projectTimelineEvents].sort(
+export const getAllTimelineEvents = (
+  writing: WritingTimelineSource[] = [],
+): TimelineEvent[] => {
+  return [
+    ...timelineEvents,
+    ...projectTimelineEvents,
+    ...writingTimelineEvents(writing),
+  ].sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
   );
 };

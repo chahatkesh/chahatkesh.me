@@ -32,3 +32,9 @@ export function revalidateExperienceGalleryCache() {
   revalidatePath("/api/experience/gallery");
   revalidatePath("/about/experience");
 }
+
+export function revalidateGymCache() {
+  revalidatePath("/api/gym/summary");
+  revalidatePath("/api/gym/photos");
+  revalidatePath("/about/gym");
+}

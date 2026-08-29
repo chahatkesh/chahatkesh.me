@@ -7,3 +7,4 @@ export * from "./limits";
 export * from "./animation";
 export * from "./theme";
 export * from "./cloudinary";
+export * from "./gym";

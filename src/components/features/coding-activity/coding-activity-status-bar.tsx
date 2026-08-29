@@ -2,10 +2,12 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "~/components/ui";
 import { GITHUB_CONTRIBUTION_COLORS } from "~/constants/brand";
 import { API_ROUTES, LEETCODE_STALE_TIME_MS } from "~/constants";
 import { fetcher } from "~/lib/fetcher";
 import { cn } from "~/lib/utils";
+import { SectionLabel } from "~/components/shared";
 
 import type { CodingActivityData, HoveredDay } from "./types";
 import { EMPTY_CELL_COLOR, GITHUB_ACCENT } from "./constants";
@@ -17,6 +19,37 @@ const ZERO_CONTRIBUTION_DATES = parseIsoDateList(
 );
 
 const BAR_COLORS = [...GITHUB_CONTRIBUTION_COLORS];
+
+function ActivityCaption({
+  activeDays,
+  totalDays,
+  isBuildingToday,
+}: {
+  activeDays: number;
+  totalDays: number;
+  isBuildingToday: boolean;
+}) {
+  return (
+    <figcaption className="mt-3">
+      <SectionLabel
+        label="Coding activity"
+        asCaption
+        value={`${activeDays}/${totalDays} days`}
+        trailing={
+          <span
+            className={cn(
+              "shrink-0 text-[11px] font-medium",
+              !isBuildingToday && "text-muted-foreground",
+            )}
+            style={isBuildingToday ? { color: GITHUB_ACCENT } : undefined}
+          >
+            {isBuildingToday ? "Building" : "Resting"}
+          </span>
+        }
+      />
+    </figcaption>
+  );
+}
 
 const CodingActivityStatusBar = () => {
   const [hovered, setHovered] = useState<HoveredDay>(null);
@@ -55,72 +88,51 @@ const CodingActivityStatusBar = () => {
 
   if (isLoading || !view) {
     return (
-      <div aria-hidden>
-        <div className="mb-3 flex items-center justify-between">
-          <div className="h-4 w-28 animate-pulse rounded bg-muted/60" />
-          <div className="h-4 w-16 animate-pulse rounded bg-muted/60" />
+      <div aria-busy="true">
+        <div className="flex h-10 items-stretch gap-px overflow-hidden sm:gap-0.5">
+          <Skeleton className="h-full w-full rounded-sm" />
         </div>
-        <div className="h-10 animate-pulse rounded-md bg-muted/50" />
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <div className="h-3 w-16 animate-pulse rounded bg-muted/40" />
-          <div className="h-3 w-20 animate-pulse rounded bg-muted/40" />
-          <div className="h-3 w-10 animate-pulse rounded bg-muted/40" />
+        <div className="mt-3 flex items-center gap-3 px-1">
+          <Skeleton className="h-3 w-24 shrink-0" />
+          <div className="h-px min-w-3 flex-1 bg-border/60" />
+          <Skeleton className="h-3 w-16 shrink-0" />
+          <div className="h-px min-w-3 flex-1 bg-border/60" />
+          <Skeleton className="h-3 w-14 shrink-0" />
         </div>
       </div>
     );
   }
 
   return (
-    <div aria-label="Coding activity over the last 90 days">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold tracking-tight">
-          Coding Activity
-        </h2>
-        <span
-          className={cn(
-            "text-sm font-medium",
-            !view.isBuildingToday && "text-muted-foreground",
-          )}
-          style={view.isBuildingToday ? { color: GITHUB_ACCENT } : undefined}
-        >
-          {view.isBuildingToday ? "Building" : "Resting"}
-        </span>
-      </div>
-
-      <div className="flex h-10 items-stretch gap-px sm:gap-0.5">
+    <figure>
+      <div
+        role="img"
+        aria-label={`Coding activity over the last 90 days. ${view.activeDays} of ${view.totalDays} active days. ${view.isBuildingToday ? "Building today" : "Resting today"}.`}
+        className="flex h-10 cursor-help items-stretch gap-px sm:gap-0.5"
+      >
         {view.days.map((day) => (
           <div
             key={day.date}
-            role="presentation"
-            tabIndex={0}
-            className="min-w-0 flex-1 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            aria-hidden
+            className="min-w-0 flex-1 transition-[filter] duration-150 hover:brightness-[1.35]"
             style={{
               backgroundColor: BAR_COLORS[day.level] ?? EMPTY_CELL_COLOR,
-              cursor: "pointer",
             }}
             onMouseEnter={(event) => handleBarEnter(event, day)}
             onMouseLeave={dismissTooltip}
-            onFocus={(event) => handleBarEnter(event, day)}
-            onBlur={dismissTooltip}
             onTouchStart={(event) => handleBarEnter(event, day)}
           />
         ))}
       </div>
 
-      <div className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground sm:text-xs">
-        <span className="shrink-0">90 days ago</span>
-        <div className="flex min-w-0 flex-1 items-center gap-2">
-          <div className="h-px flex-1 bg-border" />
-          <span className="shrink-0 tabular-nums">
-            {view.activeDays}/{view.totalDays} days
-          </span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-        <span className="shrink-0">Today</span>
-      </div>
+      <ActivityCaption
+        activeDays={view.activeDays}
+        totalDays={view.totalDays}
+        isBuildingToday={view.isBuildingToday}
+      />
 
       <ActivityTooltip hovered={hovered} onDismiss={dismissTooltip} />
-    </div>
+    </figure>
   );
 };
 

@@ -24,12 +24,12 @@ export function usePageTracking() {
   }, [pathname, searchParams]);
 }
 
-// Create a wrapper component for Suspense boundary
-export function PageTrackingWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/**
+ * Must sit inside its own Suspense boundary and must NOT wrap page content.
+ * `useSearchParams` forces a client-render bailout up to the nearest
+ * Suspense fallback — if that fallback wraps the app, crawlers get an empty body.
+ */
+export function PageTracker() {
   usePageTracking();
-  return <>{children}</>;
+  return null;
 }

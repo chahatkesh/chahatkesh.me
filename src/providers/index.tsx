@@ -4,7 +4,7 @@ import { MotionConfig } from "framer-motion";
 
 import { TooltipProvider } from "~/components/ui";
 import ReactQueryProvider from "./react-query";
-import { PageTrackingWrapper } from "~/hooks";
+import { PageTracker } from "~/hooks";
 
 const RootProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,8 +12,9 @@ const RootProviders = ({ children }: { children: ReactNode }) => {
       <TooltipProvider>
         <MotionConfig reducedMotion="user">
           <Suspense fallback={null}>
-            <PageTrackingWrapper>{children}</PageTrackingWrapper>
+            <PageTracker />
           </Suspense>
+          {children}
         </MotionConfig>
       </TooltipProvider>
     </ReactQueryProvider>

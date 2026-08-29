@@ -1,8 +1,3 @@
-import { fileURLToPath } from "node:url";
-import createJiti from "jiti";
-const jiti = createJiti(fileURLToPath(import.meta.url));
-const config = jiti("./src/config.ts").default;
-
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -19,38 +14,41 @@ const nextConfig = {
     ],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'jklrjucnntkajrda.public.blob.vercel-storage.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "jklrjucnntkajrda.public.blob.vercel-storage.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'i.scdn.co',
-        port: '',
-        pathname: '/image/**',
+        protocol: "https",
+        hostname: "i.scdn.co",
+        port: "",
+        pathname: "/image/**",
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'i.ytimg.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
-  redirects: async () => {
+  rewrites: async () => {
     return [
       {
-        source: "/resume",
-        destination: config.resumeUrl,
-        permanent: true,
+        source: "/about/writing/:slug.md",
+        destination: "/llms/writing/:slug",
       },
+    ];
+  },
+  redirects: async () => {
+    return [
       {
         source: "/linkedin",
         destination: "https://www.linkedin.com/in/chahatkesharwani/",

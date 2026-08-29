@@ -61,8 +61,8 @@ function NewDiagramContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Create Mermaid Diagram"
-        subtitle="Start with a blank canvas and publish a clean public diagram page"
+        title="New Diagram"
+        subtitle="Start from a blank canvas and publish when you are ready."
       />
 
       {errorMessage && (

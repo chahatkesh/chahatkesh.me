@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MotionDiv, ScrollButtons } from "~/components/shared";
+import { MotionDiv, ScrollButtons, SectionLabel } from "~/components/shared";
 import { cn } from "~/lib/utils";
 import type { GalleryItem } from "~/types/gallery";
 import { typo } from "~/components/ui";
@@ -46,7 +46,7 @@ function FeaturedImage({
         alt={item.title}
         fill
         priority={priority}
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
         sizes="(max-width: 768px) 280px, 320px"
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
@@ -65,7 +65,13 @@ type FeaturedCarouselProps = {
   title?: string;
   subtitle?: string;
   showTitle?: boolean;
+  showScrollButtons?: boolean;
   onImageClick?: (item: GalleryItem) => void;
+  /** Soft fade on the right edge to hint horizontal scroll */
+  edgeFade?: boolean;
+  animated?: boolean;
+  /** Compact section label, used instead of the full title block. */
+  label?: string;
 };
 
 export function FeaturedCarousel({
@@ -73,7 +79,11 @@ export function FeaturedCarousel({
   title = "The Favorites",
   subtitle = "A few frames worth remembering",
   showTitle = true,
+  showScrollButtons = false,
   onImageClick,
+  edgeFade = false,
+  animated = true,
+  label,
 }: FeaturedCarouselProps) {
   const {
     scrollContainerRef,
@@ -87,15 +97,19 @@ export function FeaturedCarousel({
     return null;
   }
 
+  const Wrapper = animated ? MotionDiv : "div";
+  const motionProps = animated
+    ? {
+        initial: { opacity: 0, y: 8 },
+        animate: { opacity: 1, y: 0 },
+        transition: { duration: 0.35, ease: "easeOut" as const, delay: 0.1 },
+      }
+    : {};
+
   return (
-    <MotionDiv
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className="space-y-6"
-    >
+    <Wrapper {...motionProps}>
       {showTitle && (
-        <div className="flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between gap-4">
           <div>
             <h2 className={cn(typo({ variant: "h2" }))}>{title}</h2>
             <p
@@ -105,17 +119,47 @@ export function FeaturedCarousel({
             </p>
           </div>
 
-          <ScrollButtons
-            canScrollLeft={canScrollLeft}
-            canScrollRight={canScrollRight}
-            onScrollLeft={scrollLeft}
-            onScrollRight={scrollRight}
-          />
+          {showScrollButtons && (
+            <ScrollButtons
+              canScrollLeft={canScrollLeft}
+              canScrollRight={canScrollRight}
+              onScrollLeft={scrollLeft}
+              onScrollRight={scrollRight}
+              className="hidden md:flex"
+            />
+          )}
         </div>
       )}
 
+      {!showTitle && label && (
+        <SectionLabel
+          label={label}
+          className="mb-2.5"
+          trailing={
+            showScrollButtons ? (
+              <ScrollButtons
+                canScrollLeft={canScrollLeft}
+                canScrollRight={canScrollRight}
+                onScrollLeft={scrollLeft}
+                onScrollRight={scrollRight}
+                className="hidden md:flex"
+                size="sm"
+              />
+            ) : undefined
+          }
+        />
+      )}
+
       {/* Carousel Container */}
-      <div className="relative">
+      <div
+        className={cn(
+          "relative",
+          // Fade only while there is more to scroll, so the last frame is never clipped.
+          edgeFade &&
+            canScrollRight &&
+            "[mask-image:linear-gradient(to_right,black_88%,transparent_100%)]",
+        )}
+      >
         <div
           ref={scrollContainerRef}
           className={cn(
@@ -139,6 +183,6 @@ export function FeaturedCarousel({
           ))}
         </div>
       </div>
-    </MotionDiv>
+    </Wrapper>
   );
 }

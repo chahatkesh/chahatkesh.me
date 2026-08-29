@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "~/components/shared";
+import { PageHeader, MotionDiv } from "~/components/shared";
 import { SmartLink, typo } from "~/components/ui";
 import { projects } from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -10,7 +10,6 @@ import { TbBrandGithub } from "react-icons/tb";
 import { FaChevronRight } from "react-icons/fa";
 import config from "~/config";
 import { ProjectJsonLd } from "~/components/features/project";
-import { MotionDiv } from "~/components/shared";
 import { getImageSrc } from "~/lib/project-utils";
 import {
   TechStackBadges,
@@ -81,12 +80,14 @@ export default async function ProjectPage({ params }: Props) {
         tags={project.stacks}
       />
 
-      <Breadcrumb
-        items={[
+      <PageHeader
+        breadcrumbs={[
           { name: "Home", url: "/" },
           { name: "Projects", url: "/projects" },
           { name: project.title, url: `/projects/${project.slug}` },
         ]}
+        title={project.title}
+        subtitle={project.tagline}
       />
 
       <div className="relative w-full aspect-video rounded-xl md:rounded-3xl border-2 border-border overflow-hidden mb-12 group">
@@ -104,21 +105,6 @@ export default async function ProjectPage({ params }: Props) {
             TEAM PROJECT
           </div>
         )}
-        <div className="absolute bottom-0 left-0 w-full h-[85%] md:h-1/2 bg-gradient-to-t from-black via-black/75 to-transparent z-10" />
-        <div className="absolute bottom-0 left-0 z-20 p-6 md:p-8 max-w-3xl">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
-              {project.title}
-            </h1>
-            <p className="text-sm md:text-xl text-primary font-medium">
-              {project.tagline}
-            </p>
-          </MotionDiv>
-        </div>
       </div>
 
       <MotionDiv

@@ -20,6 +20,7 @@ import {
   SiNodedotjs,
   SiExpress,
   SiOpenai,
+  SiAnthropic,
   SiMongodb,
   SiMysql,
   SiPostgresql,
@@ -53,20 +54,65 @@ import {
   TbHelmet,
   TbChartBar,
   TbShieldLock,
+  TbStack2,
 } from "react-icons/tb";
 import { DiDatabase } from "react-icons/di";
 import { BsRobot, BsVectorPen } from "react-icons/bs";
 import { FaFlutter } from "react-icons/fa6";
+import {
+  STACK_COPY,
+  STACK_SUBTITLES,
+  slugifyStackName,
+  type StackCopyMeta,
+} from "./stack-meta";
 
-export type stacksProps = Record<
-  string,
-  {
-    Icon: IconType;
-    className: string;
-  }
->;
+export type StackCategory = "languages-tools" | "frontend" | "backend-devops";
 
-export const LANGUAGES_TOOLS: stacksProps = {
+export type StackMeta = {
+  Icon: IconType;
+  className: string;
+  slug: string;
+  subtitle: string;
+  description: string;
+  category: StackCategory;
+  aliases?: string[];
+};
+
+export type stacksProps = Record<string, StackMeta>;
+
+type StackIconMeta = Pick<StackMeta, "Icon" | "className">;
+
+function buildStacks(
+  category: StackCategory,
+  icons: Record<string, StackIconMeta>,
+): stacksProps {
+  return Object.fromEntries(
+    Object.entries(icons).map(([name, iconMeta]) => {
+      const copy: StackCopyMeta | undefined = STACK_COPY[name];
+      const subtitle = STACK_SUBTITLES[name];
+      if (!copy) {
+        throw new Error(`Missing STACK_COPY entry for "${name}"`);
+      }
+      if (!subtitle) {
+        throw new Error(`Missing STACK_SUBTITLES entry for "${name}"`);
+      }
+
+      return [
+        name,
+        {
+          ...iconMeta,
+          slug: copy.slug ?? slugifyStackName(name),
+          subtitle,
+          description: copy.description,
+          category,
+          ...(copy.aliases ? { aliases: copy.aliases } : {}),
+        } satisfies StackMeta,
+      ];
+    }),
+  );
+}
+
+export const LANGUAGES_TOOLS: stacksProps = buildStacks("languages-tools", {
   "C++": { Icon: SiCplusplus, className: "text-blue-500" },
   C: { Icon: SiC, className: "text-sky-400" },
   Python: { Icon: SiPython, className: "text-yellow-300" },
@@ -78,9 +124,9 @@ export const LANGUAGES_TOOLS: stacksProps = {
   Notion: { Icon: SiNotion, className: "text-foreground/80" },
   VSCode: { Icon: VscCode, className: "text-blue-500" },
   Figma: { Icon: SiFigma, className: "text-pink-500" },
-};
+});
 
-export const FRONTEND_STACKS: stacksProps = {
+export const FRONTEND_STACKS: stacksProps = buildStacks("frontend", {
   HTML5: { Icon: SiHtml5, className: "text-orange-500" },
   "HTML5 Canvas": { Icon: SiHtml5, className: "text-orange-500" },
   CSS3: { Icon: SiCss3, className: "text-blue-500" },
@@ -106,9 +152,9 @@ export const FRONTEND_STACKS: stacksProps = {
   "Radix UI": { Icon: SiRadixui, className: "text-rose-500" },
   "Lucide React": { Icon: SiLucide, className: "text-rose-500" },
   Flutter: { Icon: FaFlutter, className: "text-blue-400" },
-};
+});
 
-export const BACKEND_DEVOPS: stacksProps = {
+export const BACKEND_DEVOPS: stacksProps = buildStacks("backend-devops", {
   "Artificial Intelligence": { Icon: BsRobot, className: "text-rose-500" },
   "Machine Learning": { Icon: BsRobot, className: "text-pink-500" },
   "AI Pipelines": { Icon: BsRobot, className: "text-rose-500" },
@@ -137,6 +183,7 @@ export const BACKEND_DEVOPS: stacksProps = {
   SQL: { Icon: DiDatabase, className: "text-blue-400" },
   "RESTful APIs": { Icon: TbApi, className: "text-blue-400" },
   "OpenAI API": { Icon: SiOpenai, className: "text-teal-500" },
+  Anthropic: { Icon: SiAnthropic, className: "text-amber-600" },
   LangChain: { Icon: SiLangchain, className: "text-teal-500" },
   "Vector Databases": { Icon: BsVectorPen, className: "text-purple-500" },
   Qdrant: { Icon: BsVectorPen, className: "text-red-500" },
@@ -146,6 +193,7 @@ export const BACKEND_DEVOPS: stacksProps = {
   "Passport.js": { Icon: SiPassport, className: "text-green-500" },
   "Prisma ORM": { Icon: SiPrisma, className: "text-blue-400" },
   Redis: { Icon: SiRedis, className: "text-red-500" },
+  BullMQ: { Icon: TbStack2, className: "text-red-400" },
   "pnpm Workspaces": { Icon: SiPnpm, className: "text-orange-500" },
   LiveKit: { Icon: TbApi, className: "text-cyan-400" },
   FastAPI: { Icon: SiFastapi, className: "text-green-500" },
@@ -153,4 +201,24 @@ export const BACKEND_DEVOPS: stacksProps = {
   "AWS S3": { Icon: SiAmazons3, className: "text-orange-400" },
   DynamoDB: { Icon: SiAmazondynamodb, className: "text-blue-400" },
   Vercel: { Icon: SiVercel, className: "text-foreground" },
+});
+
+export const STACK_CATEGORIES: {
+  id: StackCategory;
+  label: string;
+  stacks: stacksProps;
+}[] = [
+  {
+    id: "languages-tools",
+    label: "Languages & Tools",
+    stacks: LANGUAGES_TOOLS,
+  },
+  { id: "frontend", label: "Frontend", stacks: FRONTEND_STACKS },
+  { id: "backend-devops", label: "Backend & DevOps", stacks: BACKEND_DEVOPS },
+];
+
+export const ALL_STACKS_FLAT: stacksProps = {
+  ...LANGUAGES_TOOLS,
+  ...FRONTEND_STACKS,
+  ...BACKEND_DEVOPS,
 };

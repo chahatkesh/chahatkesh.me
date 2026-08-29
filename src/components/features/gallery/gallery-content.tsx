@@ -8,7 +8,7 @@ import {
   GalleryLightbox,
 } from "~/components/features/gallery";
 import { MotionDiv } from "~/components/shared";
-import { typo } from "~/components/ui";
+import { Skeleton, typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui";
 import {
@@ -50,26 +50,30 @@ export function GalleryContent() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8">
-        {/* Featured Carousel Skeleton */}
-        <div className="space-y-4">
-          <div className="h-8 w-48 bg-muted animate-pulse rounded" />
+      <div className="space-y-8" aria-busy="true">
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-40" />
+            <Skeleton className="hidden h-4 w-56 md:block" />
+          </div>
           <div className="flex gap-4 overflow-hidden">
             {[1, 2, 3].map((i) => (
-              <div
+              <Skeleton
                 key={i}
-                className="relative overflow-hidden rounded-xl aspect-[3/4] w-80 flex-shrink-0 bg-muted animate-pulse"
+                className="aspect-[3/4] w-80 flex-shrink-0 rounded-xl"
               />
             ))}
           </div>
         </div>
 
-        {/* Gallery Grid Skeleton */}
         <div className="space-y-6">
-          <div className="h-8 w-48 bg-muted animate-pulse rounded" />
+          <div className="space-y-2">
+            <Skeleton className="h-7 w-36" />
+            <Skeleton className="hidden h-4 w-48 md:block" />
+          </div>
           <div className="grid w-full auto-rows-[200px] grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div key={i} className="rounded-lg bg-muted animate-pulse" />
+              <Skeleton key={i} className="rounded-lg" />
             ))}
           </div>
         </div>

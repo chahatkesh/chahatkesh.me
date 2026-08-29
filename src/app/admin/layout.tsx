@@ -1,8 +1,8 @@
 import { type ReactNode } from "react";
 import { type Metadata } from "next";
-import Footer from "~/components/layout/footer";
-import Navbar from "~/components/layout/nav";
+import { AdminNavbar } from "~/components/admin";
 import { SkipContent } from "~/components/ui";
+import { getSession } from "~/lib/auth";
 
 // Admin must always reflect the latest writes — never serve a static shell.
 export const dynamic = "force-dynamic";
@@ -12,15 +12,29 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true },
 };
 
-const AdminLayout = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="container relative flex min-h-dvh flex-col space-y-4 py-2">
-      <div className="!mb-6 space-y-4">
+const AdminLayout = async ({ children }: { children: ReactNode }) => {
+  const session = await getSession();
+
+  // Login (unauthenticated): no navbar or footer — full viewport shell
+  if (!session) {
+    return (
+      <div className="relative flex h-dvh flex-col">
         <SkipContent />
-        <Navbar />
         {children}
       </div>
-      <Footer />
+    );
+  }
+
+  // Match public layout: sticky header, then AdminPageHeader owns the top gap.
+  return (
+    <div className="flex min-h-dvh flex-col">
+      <SkipContent />
+      <AdminNavbar />
+      <div className="container relative flex flex-1 flex-col">
+        <div id="main-content" className="flex flex-1 flex-col">
+          {children}
+        </div>
+      </div>
     </div>
   );
 };

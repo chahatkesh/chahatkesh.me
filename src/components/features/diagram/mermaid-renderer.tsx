@@ -10,10 +10,12 @@ export type MermaidRenderState =
   | { status: "error"; errorMessage: string };
 
 interface MermaidRendererProps {
-  code: string;
+  code?: string;
   title: string;
   className?: string;
   mode?: "editor" | "canvas";
+  /** fill stretches to the container; contain keeps article diagrams compact. */
+  fit?: "fill" | "contain";
   onRenderStateChange?: (state: MermaidRenderState) => void;
   onSvgReady?: (svg: SVGSVGElement | null) => void;
 }
@@ -46,12 +48,16 @@ export function MermaidRenderer({
   title,
   className,
   mode = "editor",
+  fit = "fill",
   onRenderStateChange,
   onSvgReady,
 }: MermaidRendererProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [state, setState] = useState<MermaidRenderState>({ status: "idle" });
+  const [state, setState] = useState<MermaidRenderState>(() =>
+    (code ?? "").trim() ? { status: "loading" } : { status: "idle" },
+  );
   const isCanvasMode = mode === "canvas";
+  const isContainFit = fit === "contain";
   const renderId = useMemo(
     () => `mermaid-${Math.random().toString(36).slice(2, 10)}`,
     [],
@@ -62,7 +68,7 @@ export function MermaidRenderer({
   }, [onRenderStateChange, state]);
 
   useEffect(() => {
-    const normalizedCode = code.trim();
+    const normalizedCode = (code ?? "").trim();
 
     if (!normalizedCode) {
       if (containerRef.current) {
@@ -114,12 +120,20 @@ export function MermaidRenderer({
             edgeLabelBackground: background,
             titleColor: text,
             textColor: text,
-            fontSize: "14px",
+            fontSize: isContainFit ? "13px" : "14px",
           },
           flowchart: {
             curve: "basis",
-            useMaxWidth: !isCanvasMode,
-            htmlLabels: true,
+            useMaxWidth: !isCanvasMode && !isContainFit,
+            // HTML labels keep a fixed CSS font size, so they clip when the
+            // SVG is scaled to fit an article. SVG text scales with the chart.
+            htmlLabels: !isContainFit,
+            padding: isContainFit ? 12 : 16,
+            nodeSpacing: isContainFit ? 28 : 50,
+            rankSpacing: isContainFit ? 44 : 50,
+          },
+          sequence: {
+            useMaxWidth: !isCanvasMode && !isContainFit,
           },
         });
 
@@ -142,6 +156,15 @@ export function MermaidRenderer({
             svgElement.style.maxWidth = "none";
             svgElement.style.maxHeight = "none";
             svgElement.style.display = "block";
+          } else if (isContainFit) {
+            svgElement.removeAttribute("width");
+            svgElement.removeAttribute("height");
+            svgElement.style.width = "auto";
+            svgElement.style.height = "auto";
+            svgElement.style.maxWidth = "100%";
+            svgElement.style.maxHeight = "28rem";
+            svgElement.style.display = "block";
+            svgElement.style.marginInline = "auto";
           } else {
             svgElement.removeAttribute("height");
             svgElement.style.height = "auto";
@@ -166,7 +189,7 @@ export function MermaidRenderer({
     return () => {
       cancelled = true;
     };
-  }, [code, renderId, isCanvasMode, onSvgReady]);
+  }, [code, renderId, isCanvasMode, isContainFit, onSvgReady]);
 
   return (
     <div className={cn(isCanvasMode ? "w-auto" : "w-full", className)}>

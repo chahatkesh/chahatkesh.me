@@ -1,10 +1,8 @@
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
-import { MotionDiv } from "~/components/shared";
-import { Breadcrumb } from "~/components/shared";
+import { MotionDiv, PageHeader } from "~/components/shared";
 import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui";
 import {
   btechCourses,
   getTotalCredits,
@@ -48,91 +46,81 @@ const BtechCoursesClient = () => {
 
   return (
     <div className="space-y-8">
-      <header className="space-y-2">
-        <Breadcrumb
-          items={[
-            { name: "Home", url: "/" },
-            { name: "About Me", url: "/about" },
-            { name: "Journey", url: "/about/journey" },
-            { name: "BTech Courses", url: "/about/journey/btech" },
-          ]}
-        />
+      <PageHeader
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "About Me", url: "/about" },
+          { name: "Journey", url: "/about/journey" },
+          { name: "BTech Courses", url: "/about/journey/btech" },
+        ]}
+        title="Four Years at NIT"
+        subtitle="Every course I took, mapped semester by semester."
+      />
 
-        <MotionDiv
-          className="space-y-4"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
-          <div className="space-y-1">
-            <h1 className={cn(typo({ variant: "h2" }))}>
-              BTech at NIT Jalandhar
-            </h1>
-            <p className={cn(typo({ variant: "paragraph" }))}>
-              Everything I studied, semester by semester.
-            </p>
+      <MotionDiv
+        className="space-y-4"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+      >
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div className="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+            <span>
+              <span className="font-mono text-xs tabular-nums text-foreground/80">
+                {totalCourses}
+              </span>{" "}
+              Courses
+            </span>
+            <span>•</span>
+            <span>
+              <span className="font-mono text-xs tabular-nums text-foreground/80">
+                {totalCredits}
+              </span>{" "}
+              Credits
+            </span>
+            <span>•</span>
+            <span>
+              <span className="font-mono text-xs tabular-nums text-foreground/80">
+                {professors.length}
+              </span>{" "}
+              Professors
+            </span>
           </div>
 
-          {/* Stats & Search */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <div className="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-              <span>
-                <span className="font-mono text-xs tabular-nums text-foreground/80">
-                  {totalCourses}
-                </span>{" "}
-                Courses
-              </span>
-              <span>•</span>
-              <span>
-                <span className="font-mono text-xs tabular-nums text-foreground/80">
-                  {totalCredits}
-                </span>{" "}
-                Credits
-              </span>
-              <span>•</span>
-              <span>
-                <span className="font-mono text-xs tabular-nums text-foreground/80">
-                  {professors.length}
-                </span>{" "}
-                Professors
-              </span>
-            </div>
-
-            <div className="relative w-full md:w-56">
-              <Search
-                size={14}
-                className="absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"
-              />
-              <input
-                type="text"
-                placeholder="Search courses, professors..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent border-b border-border focus:border-ring/50 pl-6 pr-6 py-1.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none transition-colors"
-              />
-              {isSearching && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  aria-label="Clear search"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors"
-                >
-                  <X size={14} />
-                </button>
-              )}
-            </div>
+          <div className="relative w-full md:w-56">
+            <Search
+              size={14}
+              className="absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"
+            />
+            <input
+              type="text"
+              placeholder="Search courses, professors..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent border-b border-border focus:border-ring/50 pl-6 pr-6 py-1.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none transition-colors"
+            />
+            {isSearching && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search"
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors"
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
+        </div>
 
-          {/* Search result count */}
-          {isSearching && filteredSemesters.length > 0 && (
-            <p className="text-xs text-muted-foreground" aria-live="polite">
-              {matchedCourses} {matchedCourses === 1 ? "course" : "courses"}{" "}
-              found across {filteredSemesters.length}{" "}
-              {filteredSemesters.length === 1 ? "semester" : "semesters"}
-            </p>
-          )}
-        </MotionDiv>
-      </header>
+        {/* Search result count */}
+        {isSearching && filteredSemesters.length > 0 && (
+          <p className="text-xs text-muted-foreground" aria-live="polite">
+            {matchedCourses} {matchedCourses === 1 ? "course" : "courses"} found
+            across {filteredSemesters.length}{" "}
+            {filteredSemesters.length === 1 ? "semester" : "semesters"}
+          </p>
+        )}
+      </MotionDiv>
 
       {/* Semesters */}
       {filteredSemesters.length === 0 ? (
@@ -259,7 +247,7 @@ const SemesterSection = ({ semester, index }: SemesterSectionProps) => {
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       {/* Sticky header — semester info + column labels */}
-      <div className="sticky top-0 z-10 -mx-3 px-3 pt-3 border-b border-border bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
+      <div className="sticky top-[var(--header-height)] z-10 -mx-3 px-3 pt-3 border-b border-border bg-background/85 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
         {/* Semester Header — single line */}
         <div className="flex items-baseline justify-between gap-4 pb-3">
           <div className="flex items-baseline gap-3 min-w-0">

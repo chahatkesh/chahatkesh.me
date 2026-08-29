@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa6";
 import { SiLeetcode } from "react-icons/si";
 import { useQuery } from "@tanstack/react-query";
 import { ActivityCalendar } from "react-activity-calendar";
+import { Skeleton } from "~/components/ui";
 import {
   API_ROUTES,
   LEETCODE_STALE_TIME_MS,
@@ -126,7 +127,7 @@ const CodingActivity = () => {
       aria-label="Coding activity graph"
     >
       {!data || isLoading || !view ? (
-        <div className="h-32 animate-pulse bg-muted/50 rounded-lg" />
+        <CodingActivitySkeleton />
       ) : data.availableYears.length === 0 ? null : (
         <>
           <div className="flex items-center justify-end gap-2 mb-2 text-xs">
@@ -229,5 +230,26 @@ const FilterButton = ({
     {label}
   </button>
 );
+
+function CodingActivitySkeleton() {
+  return (
+    <div aria-busy="true">
+      <div className="mb-2 flex items-center justify-end gap-2">
+        <Skeleton className="h-5 w-8" />
+        <Skeleton className="h-5 w-10" />
+        <Skeleton className="h-5 w-10" />
+        <Skeleton className="h-5 w-10" />
+      </div>
+      <Skeleton className="h-[112px] w-full rounded-md" />
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+        <Skeleton className="h-3 w-40" />
+        <div className="flex items-center gap-3">
+          <Skeleton className="h-3 w-14" />
+          <Skeleton className="h-3 w-14" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default CodingActivity;

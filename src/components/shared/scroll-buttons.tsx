@@ -7,6 +7,7 @@ interface ScrollButtonsProps {
   onScrollLeft: () => void;
   onScrollRight: () => void;
   className?: string;
+  size?: "sm" | "md";
 }
 
 /**
@@ -18,36 +19,37 @@ export function ScrollButtons({
   onScrollLeft,
   onScrollRight,
   className,
+  size = "md",
 }: ScrollButtonsProps) {
+  const isSm = size === "sm";
+
+  const buttonClassName = cn(
+    "el-focus-styles rounded-full border transition-colors duration-150",
+    "bg-card border-border text-foreground",
+    "hover:bg-muted hover:border-muted-foreground/30",
+    "disabled:opacity-40 disabled:cursor-not-allowed",
+    isSm ? "p-1" : "p-2",
+  );
+
+  const iconClassName = isSm ? "size-3.5" : "size-5";
+
   return (
-    <div className={cn("flex gap-2", className)}>
+    <div className={cn("flex gap-2", isSm && "gap-1.5", className)}>
       <button
         onClick={onScrollLeft}
         disabled={!canScrollLeft}
-        className={cn(
-          "el-focus-styles p-2 rounded-full border transition-all duration-200",
-          "bg-card border-border text-foreground",
-          "hover:bg-muted hover:border-muted-foreground/30",
-          "disabled:opacity-40 disabled:cursor-not-allowed",
-          canScrollLeft && "hover:scale-105",
-        )}
+        className={buttonClassName}
         aria-label="Scroll left"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className={iconClassName} />
       </button>
       <button
         onClick={onScrollRight}
         disabled={!canScrollRight}
-        className={cn(
-          "el-focus-styles p-2 rounded-full border transition-all duration-200",
-          "bg-card border-border text-foreground",
-          "hover:bg-muted hover:border-muted-foreground/30",
-          "disabled:opacity-40 disabled:cursor-not-allowed",
-          canScrollRight && "hover:scale-105",
-        )}
+        className={buttonClassName}
         aria-label="Scroll right"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className={iconClassName} />
       </button>
     </div>
   );

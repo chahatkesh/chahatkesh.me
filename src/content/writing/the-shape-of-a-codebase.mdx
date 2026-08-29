@@ -1,0 +1,57 @@
+---
+title: "The Shape of a Codebase"
+subtitle: "Four production structures I keep coming back to."
+description: "After enough open source and shipped work, four folder structures keep showing up in production codebases."
+date: "2026-08-15"
+tags:
+  - Architecture
+  - Engineering
+  - Craft
+---
+
+I used to think folder structure was the boring part. You make a `src/` folder, dump `components/` next to `utils/`, and get back to the feature. Then you open someone else's repo at 1am, looking for one function, and the repo looks back at you like a stranger.
+
+That happened enough times that I started paying attention.
+
+I have read a lot of open source now. Next.js apps, Cal.com, Bulletproof React, random GitHub stars I cloned because the README was pretty. I have also shipped enough of my own work — this site, [Layr](https://uselayr.com/), the messy first versions of things I will never show you — to notice a pattern. The codebases that still feel kind after six months are not the ones with the cleverest abstractions. They are the ones whose folders tell you what the product *is*.
+
+<Callout tone="idea" title="The test">
+  Open `src/` and count to five. If you still do not know what the app does, the
+  structure is talking about the framework, not the product.
+</Callout>
+
+There are names for this. I wish someone had handed them to me earlier. Four kept showing up, with proper names, in the repos that felt production-grade.
+
+<FolderStructures />
+
+## How I met each of them
+
+**Layered Architecture** is where almost everyone starts, including me. `components/`, `hooks/`, `services/`, `utils/`. Tutorials teach it. Create React App kinda implied it. It is not wrong. It is just organized by *what the file is*, not *why it exists*. The first time a cart change meant opening six folders, I understood the tax.
+
+**Screaming Architecture** is Uncle Bob's name from 2011. His point was rude and correct: a house plan screams "house." A codebase should scream "catalog, cart, checkout" — not "React, Redux, Axios." If your top-level folders are `pages/` and `api/`, the architecture is screaming Next.js. Fine for a tutorial. Thin ice for a product.
+
+**Vertical Slice Architecture** is Jimmy Bogard's answer to the same pain. He got tired of onion layers where every request had to walk Controller → Service → Repository whether it needed to or not. A slice is one use case, fully dressed: UI, model, API, test. You couple along the axis of change. Checkout lives together. Auth lives together. When the feature moves, you move one folder.
+
+**Feature-Sliced Design** is the strict cousin. Layers (`app`, `pages`, `widgets`, `features`, `entities`, `shared`), slices inside them, segments like `ui` / `model` / `api`, and a public `index.ts` so nobody deep-imports your leftovers. It is the one I reach for when a frontend has more than one team and a year of runway. It is also the one I would not drop on a weekend project. Six layers is a lot of ceremony if you still have three screens.
+
+## What I actually do
+
+I do not pick one religion. I pick a size.
+
+A prototype can be layered. A real product should scream its domain. Once features start colliding, I slice vertically. If the frontend is going to live and hire, I look at FSD.
+
+This site is a hybrid, honestly. Routes colocated under `app/`, product areas under `components/features/`, shared things in `shared/` and `lib/`. Not a textbook. Close enough that I can find the gym logger without grepping my own brain.
+
+<Callout tone="note" title="A rule that survives all four">
+  Colocate until it hurts. Tests, types, and the UI for a feature live next to
+  each other. Move something to `shared/` only when a second feature actually
+  needs it — not because it *might*.
+</Callout>
+
+The older I get at this, the less I care about whether the diagram is an onion or a slice. I care whether a new person — or tired-me, next Tuesday — can open the repo and feel oriented.
+
+Folders are a kindness. They are also a story you tell about what you think the product is. Might as well tell the true one.
+
+Still learning. Still growing. Still here.
+
+[**@chahatkesh**](/)

@@ -5,7 +5,7 @@
 
 // Project display limits
 export const MAX_FEATURED_PROJECTS = 4;
-export const MAX_VISIBLE_FEATURES_FEATURED = 3;
+export const MAX_VISIBLE_FEATURES_FEATURED = 2;
 export const MAX_VISIBLE_FEATURES = 5;
 export const MAX_VISIBLE_STACKS_FEATURED = 3;
 export const MAX_VISIBLE_STACKS = 5;
@@ -19,6 +19,9 @@ export const MAX_VIDEO_TAGS = 5;
 
 // Experience display limits
 export const MAX_DISPLAYED_EXPERIENCES = 4;
+
+// Gym admin display limits
+export const MAX_RECENT_GYM_SESSIONS = 8;
 
 // Polling & timeout intervals (ms)
 export const SPOTIFY_POLL_INTERVAL_MS = 30_000;

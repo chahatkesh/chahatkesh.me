@@ -2,7 +2,7 @@ import { League_Spartan, Lora, Outfit } from "next/font/google";
 
 export const fontSans = Outfit({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });

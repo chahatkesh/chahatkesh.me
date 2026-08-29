@@ -28,3 +28,12 @@ export type { IGist } from "./gist";
 
 export { default as Place } from "./place";
 export type { IPlace } from "./place";
+
+export { default as Workout } from "./workout";
+export type { IWorkout, IWorkoutExercise, IWorkoutSet } from "./workout";
+
+export { default as Exercise } from "./exercise";
+export type { IExercise } from "./exercise";
+
+export { default as GymProgressPhoto } from "./gym-progress-photo";
+export type { IGymProgressPhoto } from "./gym-progress-photo";

@@ -197,8 +197,8 @@ function AdminFilesContent() {
     <div className="space-y-8">
       <AdminPageHeader
         breadcrumbs={BREADCRUMBS}
-        title="Files"
-        subtitle="Upload files and instantly get a shareable URL you can send to anyone"
+        title="File Sharing"
+        subtitle="Upload files and get a shareable link instantly."
       />
 
       <MotionDiv

@@ -1499,7 +1499,7 @@ export const btechCourses: Semester[] = [
       {
         code: "ICPR0401",
         name: "Major Project (Phase-I)",
-        professor: "Dr. Om Prakash Verma",
+        professor: "Dr. Karan Veer",
         credits: 4,
         type: "Project",
       },

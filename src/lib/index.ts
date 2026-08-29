@@ -45,6 +45,28 @@ export {
 // Project utilities
 export { getImageSrc, ALL_STACKS } from "./project-utils";
 
+// Stack utilities
+export {
+  getAllStacks,
+  getStackBySlug,
+  getStackByName,
+  stackHref,
+  getStackUsage,
+  getRelatedStacks,
+} from "./stack-utils";
+
+// Timeline utilities
+export {
+  buildUnifiedTimeline,
+  getTimelineYears,
+  countByKind,
+} from "./timeline-utils";
+export type {
+  TimelineKind,
+  UnifiedTimelineItem,
+  WritingTimelineInput,
+} from "./timeline-utils";
+
 // Auth
 export {
   createSession,

@@ -3,9 +3,8 @@ import { notFound } from "next/navigation";
 import { ExternalLink } from "lucide-react";
 import { youtubeVideos } from "~/data/youtube";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
-import { Breadcrumb, MotionDiv } from "~/components/shared";
-import { typo } from "~/components/ui";
-import { cn } from "~/lib/utils";
+import { PageHeader, MotionDiv } from "~/components/shared";
+import { getVideoPageSubtitle } from "~/lib/video-subtitles";
 import config from "~/config";
 import { MAX_VIDEO_DESCRIPTION_LENGTH, MAX_VIDEO_TAGS } from "~/constants";
 import {
@@ -90,12 +89,14 @@ export default async function VideoPage({ params }: Props) {
 
       <VideoJsonLd video={video} />
 
-      <Breadcrumb
-        items={[
+      <PageHeader
+        breadcrumbs={[
           { name: "Home", url: "/" },
           { name: "Videos", url: "/videos" },
           { name: video.title, url: `/videos/${video.slug}` },
         ]}
+        title={video.title}
+        subtitle={getVideoPageSubtitle(video)}
       />
 
       <MotionDiv
@@ -118,16 +119,7 @@ export default async function VideoPage({ params }: Props) {
         </div>
 
         <div className="space-y-3 border-b border-border pb-5">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-            <h1
-              className={cn(
-                typo({ variant: "h2" }),
-                "min-w-0 flex-1 leading-tight md:text-2xl",
-              )}
-            >
-              {video.title}
-            </h1>
-
+          <div className="flex justify-center sm:justify-end">
             <a
               href={getYouTubeWatchUrl(video.id)}
               target="_blank"
