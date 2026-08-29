@@ -24,6 +24,108 @@ export interface MonthlyChangelog {
 
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
+    month: "2026-08",
+    publishedAt: "2026-08-29T14:50:00+05:30",
+    title: "Sticky Chrome, Stack Pages & Essays With Covers",
+    summary:
+      "A month about the frame around the work — a header that stays, a page for every tool I use, and writing that finally looks like it was designed to be read.",
+    overview:
+      "August was about making the site feel like one piece. The public chrome grew a sticky header and a shared banner so every page opens the same way, while the gym page stopped being a placeholder and started logging real sessions. Stack grew from a marquee into pages you can actually browse, Astriq landed as a full case study, and the writing section picked up generated covers and three new essays — including one that walks frontend architecture with diagrams instead of hand-waving. Underneath, loading states, the links page, and a few quieter data passes kept the rest of the record current.",
+    stats: { commits: 19, files: 298 },
+    changes: [
+      {
+        type: "added",
+        title: "Training, tracked end to end",
+        description:
+          "The gym page grew from a hobby card into a real log — sessions, exercises, muscle-group balance, and progress photos, with admin tools behind it so the training history is something I actually keep rather than remember.",
+      },
+      {
+        type: "added",
+        title: "A stack you can walk through",
+        description:
+          "Every language, framework, and tool now has a page of its own, mapped to the projects and roles that actually used it. The home marquee and tech badges link into that catalog, so 'what I build with' is no longer a list of logos.",
+      },
+      {
+        type: "added",
+        title: "Astriq, as a case study",
+        description:
+          "The Vedic kundli app landed on the projects page with the architecture spelled out — a native C++ engine, layered Next.js, and the operational path treated as part of the product, not a footnote.",
+      },
+      {
+        type: "added",
+        title: "The journey, on one map",
+        description:
+          "Dated work now lives on a full-page timeline, so the path from internships and campus roles to what I'm building now reads as a single visual story instead of a pile of separate pages.",
+      },
+      {
+        type: "added",
+        title: "Essays with covers of their own",
+        description:
+          "Writing picked up magazine-style cards, generated cover art, and three new pieces — folder structure, a backend-first roadmap, and a walk through frontend architecture with Mermaid diagrams in the prose.",
+      },
+      {
+        type: "added",
+        title: "Markdown for the models",
+        description:
+          "Every essay now has a .md twin, with llms.txt and llms-full.txt pointing language models at the source instead of the HTML. The pages that people read stayed the same; the pages that machines read finally exist.",
+      },
+      {
+        type: "added",
+        title: "A resume that lives here",
+        description:
+          "Visiting /resume now opens an in-app page that sends you onward, instead of a silent config redirect — so the URL has somewhere to stand before it leaves the site.",
+      },
+      {
+        type: "improved",
+        title: "A header that stays put",
+        description:
+          "Public and admin chrome now share a sticky SiteHeader, and a shared PageBanner plus PageHeader system replaced the one-off titles. The nav goes transparent at rest so the grid banner can flow behind it — one hero surface instead of a gap and a bar.",
+      },
+      {
+        type: "improved",
+        title: "Hobbies, on home and about",
+        description:
+          "Reading, gym, and designing were pulled into a reusable Outside the Screen section, so the same grid can live on the homepage in a quieter form and on About in full without two copies of the markup.",
+      },
+      {
+        type: "improved",
+        title: "Waiting that matches the page",
+        description:
+          "Skeleton and PageLoader were unified into shared primitives, with shape-matched placeholders across public routes, admin, and in-page waits — so a load feels like the page arriving, not a generic spinner.",
+      },
+      {
+        type: "improved",
+        title: "Links, regrouped",
+        description:
+          "The links page was rebuilt as grouped lists with latest writing, tighter hero stats, and a live local-time clock on desktop — less of a dump of URLs, more of a desk you can actually sit down at.",
+      },
+      {
+        type: "improved",
+        title: "Admin chrome that matches the rest",
+        description:
+          "Admin picked up a dedicated navbar that lines up with the public one, and a book-a-call strip now sits on the home layout — small pieces of chrome that make the two sides of the site feel like they belong together.",
+      },
+      {
+        type: "improved",
+        title: "Music, even when it's paused",
+        description:
+          "When Spotify isn't playing, the widget now falls back to the last track instead of an empty idle state — so the page still has something honest to show.",
+      },
+      {
+        type: "improved",
+        title: "Annam.ai, told more fully",
+        description:
+          "Expanded the role details so the agricultural-tech chapter reads with the same grain as the rest of the experience record.",
+      },
+      {
+        type: "fixed",
+        title: "A volunteer chapter, dated correctly",
+        description:
+          "Closed the GDGC NITJ core-team dates at May 2026 instead of leaving them as present — the campus chapter ended, and the record should say so.",
+      },
+    ],
+  },
+  {
     month: "2026-07",
     publishedAt: "2026-07-29T11:30:00+05:30",
     title: "Diagrams, Places & Words of My Own",
