@@ -298,7 +298,7 @@ export const experiences: Experience[] = [
     type: "Volunteer",
     location: "NIT Jalandhar",
     start_date: "Nov 2024",
-    end_date: "present",
+    end_date: "May 2026",
     tagline:
       "Growing NIT Jalandhar's dev community through events and workshops.",
     description:
