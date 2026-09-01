@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 import config from "~/config";
 import { PageHeader } from "~/components/shared";
-import { WritingCard } from "~/components/features/writing";
+import { WritingCard, WritingShelf } from "~/components/features/writing";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { getWritingEntries } from "~/lib/writing";
 
@@ -19,7 +19,6 @@ export const metadata: Metadata = getSEOTags({
 
 export default async function WritingPage() {
   const entries = await getWritingEntries();
-  const [featuredEntry, ...archiveEntries] = entries;
 
   return (
     <div className="space-y-8 font-poem">
@@ -40,21 +39,28 @@ export default async function WritingPage() {
         subtitle="Reflections on building, learning, and ideas worth keeping."
       />
 
-      {featuredEntry ? (
+      {entries.length > 0 ? (
         <div className="space-y-14">
-          <section aria-label="Latest writing">
-            <WritingCard entry={featuredEntry} variant="featured" />
+          <section aria-label="Writing shelf">
+            <WritingShelf
+              entries={entries
+                .slice(0, 8)
+                .map(({ slug, title, date, readingTime }) => ({
+                  slug,
+                  title,
+                  date,
+                  readingTime,
+                }))}
+            />
           </section>
 
-          {archiveEntries.length > 0 && (
-            <section aria-label="More writing">
-              <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
-                {archiveEntries.map((entry, index) => (
-                  <WritingCard key={entry.slug} entry={entry} index={index} />
-                ))}
-              </div>
-            </section>
-          )}
+          <section aria-label="All writing">
+            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+              {entries.map((entry, index) => (
+                <WritingCard key={entry.slug} entry={entry} index={index} />
+              ))}
+            </div>
+          </section>
         </div>
       ) : (
         <section className="border-y border-border py-10">

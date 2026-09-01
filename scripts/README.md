@@ -21,6 +21,7 @@ node scripts/update-project-dates.mjs
 ### What it does
 
 For each project with a GitHub repository:
+
 - **dateStarted**: Set to the date of the first commit in the repository
 - **dateModified**: Set to the date of the most recent commit
 
@@ -123,7 +124,7 @@ Reads `package.json` and updates version numbers for:
 - **MongoDB** (via mongoose) - Shows major.minor (e.g., "9.1")
 - **React Query** - Shows major version (e.g., "5")
 - **Cloudinary** - Shows major.minor (e.g., "2.9")
-- **Lenis** - Shows major.minor (e.g., "1.3")
+- **Zod** - Shows major version only (e.g., "4")
 
 ### When to run
 
@@ -134,13 +135,13 @@ Reads `package.json` and updates version numbers for:
 
 ### Update all metrics at once
 
-For convenience, you can update both codebase metrics and tech versions:
+For convenience, you can update codebase metrics, tech versions, and YouTube videos:
 
 ```bash
-npm run update-all
+pnpm update-all
 ```
 
-This runs both `update-metrics` and `update-tech-versions` in sequence.
+This runs `update-metrics`, `update-tech-versions`, and `update-youtube` in sequence.
 
 ### Notes
 

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock3 } from "lucide-react";
 import config from "~/config";
 import { PageHeader } from "~/components/shared";
-import { WritingCover } from "~/components/features/writing";
+import { WritingCover } from "~/components/features/writing/writing-cover";
 import { formatDate } from "~/lib/date-utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import { getWritingEntries, getWritingEntry } from "~/lib/writing";

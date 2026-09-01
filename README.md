@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring MDX essays, dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -26,7 +26,8 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **UI Components:** Radix UI primitives
 - **Data Fetching:** SWR, TanStack React Query 5
 - **Analytics:** Vercel Analytics, Microsoft Clarity, Google Analytics
-- **Utilities:** Zod 4, class-variance-authority, clsx, tailwind-merge, Lenis, Mermaid
+- **Utilities:** Zod 4, class-variance-authority, clsx, tailwind-merge, Mermaid, MapLibre
+- **Content:** next-mdx-remote, MDX essays with Markdown twins for language models
 
 ## Features
 
@@ -36,6 +37,9 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
 - **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
 - **Skills Visualization:** Clickable tech stack marquee on home, full `/stack` index, and per-technology detail pages mapped to projects and experience
+- **Writing:** MDX essays with a book-spine shelf, generated covers, and `.md` twins for language models (`/about/writing`, `llms.txt`)
+- **Gym:** Public training log with rings, heatmap, muscle-group balance, and progress photos
+- **Timeline:** Full-page map of dated work, writing, videos, and life
 - **Coding Activity:** Unified GitHub and LeetCode contribution calendars
 - **Spotify Integration:** Live now-playing widget displaying current music
 - **Image Gallery:** Curated photo gallery with optimized image delivery
@@ -47,6 +51,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Journey:** Personal and professional journey documentation, including BTech course details
 - **About This Site:** Architecture overview, codebase metrics, and tech stack documentation
 - **Links Hub:** Centralized social links page with profile stats
+- **Resume:** In-app `/resume` page that forwards to the latest CV
 - **Shared Files:** Public file sharing via short URLs (`/s/[id]`)
 - **Contact:** Email and social links with Spotify widget
 - **Consistent Loading UX:** Shared `Skeleton` + `PageLoader` primitives with shape-matched placeholders across public and admin surfaces
@@ -78,28 +83,33 @@ This portfolio website serves as a professional showcase for projects, skills, a
 ```
 src/
 ├── app/                    # Next.js app router pages
-│   ├── (main)/            # Public pages (home, about, projects, gallery, videos, site)
+│   ├── (main)/            # Public pages (home, about, writing, gym, projects, gallery, videos, stack, site)
 │   ├── admin/             # Protected admin panel (gallery, places, gym, diagrams, gists, files)
 │   ├── api/               # API routes (auth, content CRUD, spotify, visitors, coding-activity)
 │   ├── places/            # Interactive places map
 │   ├── links/             # Social links hub page
+│   ├── timeline/          # Full-page timeline of dated work
+│   ├── resume/            # Resume page that forwards to the latest CV
 │   ├── diagrams/          # Public Mermaid diagram pages
 │   ├── gists/             # Public markdown gist pages
-│   └── changelog/         # Monthly changelog pages
+│   ├── changelog/         # Monthly changelog pages
+│   ├── llms.txt/          # Markdown index for language models
+│   └── llms-full.txt/     # Concatenated essay Markdown for language models
 ├── assets/                # Static image assets
+├── content/               # MDX essays (writing)
 ├── components/
 │   ├── admin/             # Admin-specific components (async states, list cards)
 │   ├── analytics/         # Analytics integrations
-│   ├── features/          # Feature components (coding activity, Spotify, gallery, gym, etc.)
+│   ├── features/          # Feature components (writing, gym, stack, gallery, Spotify, etc.)
 │   ├── layout/            # Layout components (nav, footer)
 │   ├── sections/          # Homepage sections
 │   ├── seo/               # SEO components and JSON-LD
 │   ├── shared/            # Reusable components (PageHeader, PageLoader, breadcrumbs)
 │   └── ui/                # UI primitives (button, card, input, Skeleton)
 ├── constants/             # App constants (API routes, limits, theme tokens)
-├── data/                  # Static data (projects, experience, changelog, site metadata)
+├── data/                  # Static data (projects, experience, changelog, youtube, site metadata)
 ├── hooks/                 # Custom React hooks
-├── lib/                   # Utilities (auth, MongoDB, SEO, Spotify, GitHub, LeetCode, etc.)
+├── lib/                   # Utilities (auth, MongoDB, SEO, writing, Spotify, GitHub, LeetCode, etc.)
 ├── models/                # MongoDB models (admin, gallery, place, diagram, gist, gym, visitor, shared-file)
 ├── providers/             # React context providers
 ├── styles/                # Global styles
@@ -153,6 +163,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - **About:** Edit `src/data/about.tsx`
 - **Links:** Edit `src/data/links.ts`
 - **YouTube Videos:** Edit `src/data/youtube.ts` or run `pnpm update-youtube`
+- **Writing:** Add MDX files in `src/content/writing/`
 - **Changelog:** Edit `src/data/changelog.ts`
 - **BTech Courses:** Edit `src/data/btech-courses.ts`
 - **Site Metadata:** Edit `src/data/site.tsx` (metrics updated via `pnpm update-metrics`)
@@ -166,7 +177,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - Optimized font loading
 - CDN-based image delivery via Cloudinary
 - Minimal bundle size with tree shaking
-- Smooth scrolling via Lenis
+- Native CSS smooth scrolling (`scroll-behavior: smooth`, respects `prefers-reduced-motion`)
 
 ## SEO Features
 
@@ -179,7 +190,8 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - Canonical URLs
 - Breadcrumb navigation
 - Per-route Open Graph image generation
-- Stack index and 76 static stack detail pages in sitemap
+- Stack index and 79 static stack detail pages in sitemap
+- Per-essay Markdown URLs (`/about/writing/[slug].md`) plus `llms.txt` and `llms-full.txt`
 
 ## Security
 

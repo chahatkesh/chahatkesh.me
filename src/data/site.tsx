@@ -196,12 +196,12 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "Pages (routes)",
         detail: "App Router file-based routing",
-        count: 39,
+        count: 41,
       },
       {
         label: "Components",
         detail: "Atomic design: ui → shared → features → sections",
-        count: 110,
+        count: 123,
       },
       {
         label: "Layouts",
@@ -211,7 +211,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "OG Images",
         detail: "Dynamic generation via @vercel/og (ImageResponse)",
-        count: 8,
+        count: 27,
       },
     ],
   },
@@ -230,16 +230,20 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Custom Hooks",
-        detail: "useHorizontalScroll, useDebouncedValue, useScrollTo",
+        detail:
+          "useHorizontalScroll, useDebouncedValue, useScrollTo, useScrolled",
         count: 8,
       },
-      { label: "URL State", detail: "Search params for gallery filters" },
+      {
+        label: "URL State",
+        detail: "Search params for project and stack filters",
+      },
     ],
   },
   {
     name: "Data Layer",
     description:
-      "Static data lives in ~/data as typed TypeScript modules. Dynamic data flows through API routes to MongoDB with Mongoose models.",
+      "Static data lives in ~/data as typed TypeScript modules. Essays live in src/content/writing as MDX. Dynamic data flows through API routes to MongoDB with Mongoose models.",
     items: [
       {
         label: "API Routes",
@@ -249,18 +253,18 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Mongoose Models",
-        detail: "Admin, gallery, places, gym, diagrams, gists, shared files",
+        detail: "Admin, gallery, places, gym, diagrams, gists, visitors, files",
         count: 12,
       },
       {
         label: "Data Modules",
         detail:
-          "Projects, experience, timeline, stack, stack-meta, courses, site metadata",
-        count: 14,
+          "Projects, experience, timeline, stack, youtube, changelog, courses, site",
+        count: 13,
       },
       {
         label: "Constants",
-        detail: "Brand tokens, API paths, animation presets, limits",
+        detail: "Brand tokens, API paths, animation presets, gym, Cloudinary",
         count: 8,
       },
     ],
@@ -277,7 +281,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Redirects",
-        detail: "Vanity URLs (/resume, /github, /linkedin, etc.)",
+        detail: "Vanity URLs (/github, /linkedin, /youtube, etc.)",
       },
       {
         label: "Monitoring",
@@ -425,7 +429,7 @@ export const colorTokens: ColorToken[] = [
   },
   {
     name: "Card / Surface",
-    hex: "hsl(240 5% 8%)",
+    hex: "hsl(240 10% 3.9%)",
     desc: "--card",
     color: "bg-card",
     border: true,
@@ -436,7 +440,7 @@ export const fonts: FontEntry[] = [
   {
     family: "Outfit",
     usage: "Body text, paragraphs, descriptions",
-    weights: "400–500",
+    weights: "400–600",
     className: "font-sans",
   },
   {
@@ -447,7 +451,7 @@ export const fonts: FontEntry[] = [
   },
   {
     family: "Lora",
-    usage: "Poem section, italic accents, personal notes",
+    usage: "Writing, poem section, italic accents, personal notes",
     weights: "400, 600 (normal + italic)",
     className: "font-poem",
   },
@@ -550,7 +554,8 @@ export const pages: PageEntry[] = [
   {
     path: "/about/writing",
     name: "Writing",
-    description: "Essays about lessons, ideas, and questions worth keeping",
+    description:
+      "MDX essays with a book-spine shelf, generated covers, and .md twins for LLMs",
     renderType: "SSG",
   },
   {
@@ -563,7 +568,13 @@ export const pages: PageEntry[] = [
     path: "/llms.txt",
     name: "llms.txt",
     description: "Markdown index of the site for language models",
-    renderType: "SSR",
+    renderType: "SSG",
+  },
+  {
+    path: "/llms-full.txt",
+    name: "llms-full.txt",
+    description: "Every essay concatenated as Markdown for language models",
+    renderType: "SSG",
   },
   {
     path: "/about/gym",
@@ -636,7 +647,7 @@ export const pages: PageEntry[] = [
     path: "/stack",
     name: "Stack",
     description:
-      "Browseable toolkit grouped by category, with search across 76 technologies",
+      "Browseable toolkit grouped by category, with search across 79 technologies",
     renderType: "SSR",
   },
   {
@@ -669,6 +680,12 @@ export const pages: PageEntry[] = [
     path: "/links",
     name: "Links",
     description: "Link-in-bio page with click tracking and featured gallery",
+    renderType: "Static",
+  },
+  {
+    path: "/resume",
+    name: "Resume",
+    description: "In-app resume page that forwards to the latest CV",
     renderType: "Static",
   },
   {
@@ -712,18 +729,19 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "39,299+",
+    value: "39,637+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "122",
+    value: "123",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
     label: "Custom Hooks",
     value: "8",
-    description: "useHorizontalScroll, useDebouncedValue, useScrollTo, etc.",
+    description:
+      "useHorizontalScroll, useDebouncedValue, useScrollTo, useScrolled, etc.",
   },
   {
     label: "API Routes",
@@ -745,11 +763,12 @@ export const codebaseMetrics: CodebaseMetric[] = [
     label: "Data Modules",
     value: "13",
     description:
-      "Projects, experience, timeline, stack, stack-meta, courses, links, about",
+      "Projects, experience, timeline, stack, youtube, changelog, courses, site",
   },
   {
     label: "Mongoose Models",
     value: "12",
-    description: "Admin, gallery, places, gym, diagrams, gists, shared files",
+    description:
+      "Admin, gallery, places, gym, diagrams, gists, visitors, files",
   },
 ];

@@ -1,7 +1,7 @@
 ---
 title: "The Shape of a Codebase"
-subtitle: "Four production structures I keep coming back to."
-description: "After enough open source and shipped work, four folder structures keep showing up in production codebases."
+subtitle: "How folders reveal boundaries, ownership, and the way a product changes."
+description: "Four ways to structure a production codebase, the trade-offs behind them, and how to know when your current shape has stopped serving you."
 date: "2026-08-15"
 tags:
   - Architecture
@@ -13,34 +13,140 @@ I used to think folder structure was the boring part. You make a `src/` folder, 
 
 That happened enough times that I started paying attention.
 
-I have read a lot of open source now. Next.js apps, Cal.com, Bulletproof React, random GitHub stars I cloned because the README was pretty. I have also shipped enough of my own work — this site, [Layr](https://uselayr.com/), the messy first versions of things I will never show you — to notice a pattern. The codebases that still feel kind after six months are not the ones with the cleverest abstractions. They are the ones whose folders tell you what the product *is*.
+I have read a lot of open source now. Next.js apps, Cal.com, Bulletproof React, and random GitHub stars I cloned because the README was pretty. I have also shipped enough of my own work — this site, [Layr](https://uselayr.com/), and the messy first versions of things I will never show you — to notice a pattern.
+
+The codebases that still feel kind after six months are not the ones with the cleverest abstractions. They are the ones whose shape helps me predict where a change belongs.
 
 <Callout tone="idea" title="The test">
   Open `src/` and count to five. If you still do not know what the app does, the
   structure is talking about the framework, not the product.
 </Callout>
 
-There are names for this. I wish someone had handed them to me earlier. Four kept showing up, with proper names, in the repos that felt production-grade.
+There is an important caveat: folders are not architecture. Architecture is also dependency direction, runtime boundaries, data ownership, deployment, and the decisions that are expensive to reverse. A neat tree can still hide a tangled system.
+
+But folders are the part of architecture we touch every day. They decide what sits together, what feels far away, and which boundaries become easy to respect. They are the map most contributors see before they understand the territory.
+
+Four approaches keep showing up in production codebases. They are not four rungs on a maturity ladder, and they are not mutually exclusive. They answer slightly different questions.
 
 <FolderStructures />
 
-## How I met each of them
+## The default: organize by technical layer
 
-**Layered Architecture** is where almost everyone starts, including me. `components/`, `hooks/`, `services/`, `utils/`. Tutorials teach it. Create React App kinda implied it. It is not wrong. It is just organized by *what the file is*, not *why it exists*. The first time a cart change meant opening six folders, I understood the tax.
+Layered Architecture is where almost everyone starts, including me: `components/`, `hooks/`, `services/`, `utils/`, `types/`. Tutorials teach it because it makes immediate sense. A component is a component, so put it with the other components.
 
-**Screaming Architecture** is Uncle Bob's name from 2011. His point was rude and correct: a house plan screams "house." A codebase should scream "catalog, cart, checkout" — not "React, Redux, Axios." If your top-level folders are `pages/` and `api/`, the architecture is screaming Next.js. Fine for a tutorial. Thin ice for a product.
+This is not a bad beginning. Shared technical policy is easy to discover. A frontend specialist knows where UI primitives live; an API specialist knows where clients live. Small applications often change horizontally too: a design-system update really does touch many components, and a new HTTP policy really does belong in one client layer.
 
-**Vertical Slice Architecture** is Jimmy Bogard's answer to the same pain. He got tired of onion layers where every request had to walk Controller → Service → Repository whether it needed to or not. A slice is one use case, fully dressed: UI, model, API, test. You couple along the axis of change. Checkout lives together. Auth lives together. When the feature moves, you move one folder.
+The tax appears when the product becomes the main unit of change.
 
-**Feature-Sliced Design** is the strict cousin. Layers (`app`, `pages`, `widgets`, `features`, `entities`, `shared`), slices inside them, segments like `ui` / `model` / `api`, and a public `index.ts` so nobody deep-imports your leftovers. It is the one I reach for when a frontend has more than one team and a year of runway. It is also the one I would not drop on a weekend project. Six layers is a lot of ceremony if you still have three screens.
+Imagine adding a coupon to checkout. The form goes in `components/`. Its state goes in `hooks/`. The request goes in `services/`. The schema goes in `types/`. The tests may live in a fifth place. Nothing is individually hard to find, yet the feature itself exists nowhere. Its pieces are sorted into drawers.
+
+Layered codebases usually fail gradually. `components/` gets two hundred files. `utils/` becomes the witness protection program for code with no owner. A change that should be local starts requiring a guided tour of the repository.
+
+That is the moment when “what kind of file is this?” stops being the best first question.
+
+## Make the product visible
+
+Screaming Architecture is Robert C. Martin's name for a simple standard: the top-level organization should announce the system's use cases. A plan for a house screams “house,” not “bricks and timber.” A commerce codebase should scream `catalog`, `cart`, `checkout`, and `orders` — not React, Redux, or Next.js.
+
+The useful part is not the phrase. It is the pressure it applies.
+
+If I remove the framework-specific folders from the tree, is there still a recognizable product underneath? Can a new engineer see the business nouns? Can a product conversation map to a place in the code?
+
+Screaming Architecture does not prescribe an exact directory tree. It is closer to a design test than a complete method. A `checkout/` folder can contain a clean module or a smaller junk drawer. Naming the domain is the start of a boundary, not proof that the boundary works.
+
+Still, the shift matters. It changes the first question from “is this a hook or a service?” to “which part of the business owns this?”
+
+<Callout tone="note" title="Names are architecture too">
+  Prefer the language the product team uses. If everyone says “workspace,” a
+  folder named `tenant-management/` creates translation work on every change.
+</Callout>
+
+## Slice along the axis of change
+
+Vertical Slice Architecture takes the domain-first instinct and makes it operational. Jimmy Bogard popularized it as an alternative to forcing every request through the same horizontal layers. Instead of organizing around technical roles, organize around use cases.
+
+A slice might be `add-to-cart`, `apply-coupon`, or `place-order`. It owns the pieces required to perform that behavior: UI, validation, orchestration, data access, and tests. Not every slice needs every piece, and that is part of the point. A read-only product search should not need an empty “service” and “repository” merely to satisfy a diagram.
+
+The rule I remember is: **couple together what changes together**.
+
+If changing coupon behavior requires updating its form, schema, request, and tests, keeping those files close reduces navigation and makes the blast radius visible. A reviewer can open one folder and understand most of the feature. Deleting the behavior becomes closer to deleting a directory than conducting archaeology.
+
+Vertical slices do introduce duplication. Two features may each contain a small mapper or validator. That can feel untidy if you learned to remove repetition on sight. I have found that a little local duplication is often cheaper than the wrong shared abstraction. Duplication is visible and removable. Premature sharing quietly couples features that may need to evolve apart.
+
+The hard question becomes communication between slices. `checkout` will need the cart total. `add-to-cart` will need product availability. If every slice reaches into every other slice's internals, the tree is vertical but the dependency graph is spaghetti.
+
+That is why slices need small public surfaces: exported commands, queries, events, or deliberately shared domain objects. Colocation gives a feature an address. Encapsulation gives that address a door.
+
+## Add rules when convention is no longer enough
+
+Feature-Sliced Design is the strict cousin built specifically for frontend applications. It combines horizontal layers — commonly `app`, `pages`, `widgets`, `features`, `entities`, and `shared` — with domain slices inside them and segments such as `ui`, `model`, and `api`.
+
+At first glance this sounds like layering returned wearing a nicer jacket. The important difference is that the layers describe product composition and come with an import direction. Higher layers can use lower layers; lower layers should not know about higher ones. A page can compose a checkout feature and a cart entity. The cart entity should not import the checkout page.
+
+Slices also expose a public API, usually through `index.ts`. Code outside `features/checkout` imports what checkout chooses to expose instead of deep-importing `features/checkout/model/private-coupon-state`. This gives maintainers room to refactor the inside without negotiating with the entire application.
+
+That discipline becomes valuable when a frontend has many contributors, long-lived domains, and enough parallel work for accidental coupling to be expensive. It also creates ceremony. Six layers, public barrels, and import rules are not free. On a three-screen weekend project, the structure can become larger than the product.
+
+I reach for FSD when social scale is the problem: several people need the same answer about where code goes, and “use your judgment” has started producing five incompatible judgments.
+
+## A folder tree is not a dependency graph
+
+This is the part I missed when I first reorganized code.
+
+I thought moving files into `features/` would make the application modular. It made the sidebar look modular. The imports still crossed every boundary.
+
+Real structure needs rules. The exact rules depend on the system, but a healthy codebase usually makes a few things explicit:
+
+- who may import whom;
+- what each module exposes publicly;
+- where shared code is allowed to live;
+- which layer owns data fetching and state;
+- how one feature communicates with another;
+- which boundary tests are worth automating.
+
+Some of that can be enforced with lint rules, TypeScript path aliases, package boundaries, or tools that detect dependency cycles. The tooling is secondary. The important thing is that a boundary you care about should be harder to violate accidentally than to respect.
+
+Otherwise `features/checkout/index.ts` becomes decoration while half the app imports from its private folders.
+
+## Pick for the change you expect
+
+I do not pick one religion. I ask what kind of change the codebase needs to absorb.
+
+**How large is the product today?** A prototype benefits from obviousness more than extensibility. Start with fewer folders. Empty architecture is still empty.
+
+**What changes together?** If most work arrives as product features, vertical slices fit the work. If the application is genuinely a set of technical pipelines, layers may remain honest.
+
+**How many people change it?** Structure is a coordination tool. The more contributors and teams involved, the more value there is in explicit ownership, public APIs, and automated boundaries.
+
+**How long will it live?** A campaign page and a core business product deserve different amounts of ceremony. “We may need it someday” is weak evidence; a roadmap, hiring plan, or repeated source of pain is stronger.
+
+**What must be shared?** Design tokens, observability, authentication, and an HTTP client often deserve stable shared homes. Product behavior usually deserves an owner. The goal is not zero sharing. It is sharing with a reason.
+
+<Callout tone="idea" title="My rough progression">
+  Start simple. Make domains visible when the product becomes clear. Slice when
+  features become the unit of change. Add stricter layers and import rules when
+  team scale makes convention unreliable.
+</Callout>
+
+That progression is not automatic. A small internal tool can stay layered for years. A complex product may need domain boundaries on day one. Complexity should pay rent before it gets a folder.
+
+## How I reshape a codebase without stopping the work
+
+The worst time to reorganize everything is usually the moment you are most frustrated by everything.
+
+Big-bang folder rewrites create enormous diffs, break import history, and pause useful work while the team debates whether `user` belongs in `entities` or `features`. I prefer migration by pressure.
+
+First, identify one feature that changes often and leaks across the repository. Give it a domain name the team already uses. Move only the files that are clearly owned by it. Add a public entry point. Redirect new work through that entry point. Then document one or two dependency rules while the reason is fresh.
+
+Do not extract `shared/` in advance. Let a second feature make the case. When real duplication appears, compare whether the two copies share a reason to change. If they do, extract the smallest stable concept. If they merely look alike today, leave them alone.
+
+This creates an intentionally mixed codebase for a while. That is fine. A visible direction with local consistency is safer than a pristine tree produced by one exhausting rewrite.
 
 ## What I actually do
 
-I do not pick one religion. I pick a size.
+This site is a hybrid, honestly. Routes are colocated under `app/`, product areas live under `components/features/`, writing lives in content, and genuinely shared things sit in `shared/` and `lib/`. It is not a textbook implementation of any one approach. It is close enough that I can find the gym logger without grepping my own brain.
 
-A prototype can be layered. A real product should scream its domain. Once features start colliding, I slice vertically. If the frontend is going to live and hire, I look at FSD.
-
-This site is a hybrid, honestly. Routes colocated under `app/`, product areas under `components/features/`, shared things in `shared/` and `lib/`. Not a textbook. Close enough that I can find the gym logger without grepping my own brain.
+For new work, I start local. A feature owns its UI, state, types, and tests until another feature proves that something is shared. I want imports to cross through a small public surface. I want route files to compose behavior, not become the place where all behavior accumulates. And I want folder names to match the words I use when explaining the product.
 
 <Callout tone="note" title="A rule that survives all four">
   Colocate until it hurts. Tests, types, and the UI for a feature live next to
@@ -48,7 +154,15 @@ This site is a hybrid, honestly. Routes colocated under `app/`, product areas un
   needs it — not because it *might*.
 </Callout>
 
-The older I get at this, the less I care about whether the diagram is an onion or a slice. I care whether a new person — or tired-me, next Tuesday — can open the repo and feel oriented.
+The older I get at this, the less I care about whether the diagram is an onion or a slice. I care whether a new person — or tired-me, next Tuesday — can answer a few ordinary questions:
+
+- Where should this change begin?
+- How far is it likely to spread?
+- Who owns the behavior?
+- What can I modify without surprising another feature?
+- Can I delete this feature without leaving pieces in six drawers?
+
+If the tree helps answer those, it is doing useful architectural work. When the answers become expensive, the shape has expired and should change.
 
 Folders are a kindness. They are also a story you tell about what you think the product is. Might as well tell the true one.
 
