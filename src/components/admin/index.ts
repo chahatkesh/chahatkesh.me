@@ -6,6 +6,7 @@ export { AdminNavbar } from "./admin-navbar";
 export { AdminPageHeader } from "./admin-page-header";
 export { AdminLoadingState, AdminErrorState } from "./admin-async-state";
 export { AdminConfirmDialog } from "./admin-confirm-dialog";
+export { WallpaperSetup } from "./wallpaper-setup";
 export { AdminDashboardCard } from "./admin-dashboard-card";
 export {
   AdminListCard,

@@ -1,17 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import {
-  buildGymSummary,
-  sessionGroupVolume,
-  sessionVolume,
-  toIsoDay,
-} from "~/lib/gym";
-import dbConnect from "~/lib/mongodb";
+import { buildGymSummary } from "~/lib/gym";
+import { loadGymSummary } from "~/lib/gym-data";
 import { publicListCacheControl } from "~/lib/revalidate";
-import { Workout } from "~/models";
-import type { IWorkout } from "~/models";
-import type { GymDaySummary, GymSummary } from "~/types/gym";
+import type { GymSummary } from "~/types/gym";
 
 export const revalidate = 300;
 
@@ -25,29 +18,9 @@ export async function GET(request: NextRequest) {
   );
 
   try {
-    const connection = await dbConnect();
-    if (!connection) {
-      return NextResponse.json({ success: true, data: EMPTY_SUMMARY });
-    }
-
-    const workouts = await Workout.find({})
-      .sort({ date: 1 })
-      .lean<IWorkout[]>();
-
-    // Only derived aggregates leave the server; exercise names stay private.
-    const days: GymDaySummary[] = workouts.map((workout) => ({
-      date: toIsoDay(new Date(workout.date)),
-      groups: workout.isRestDay ? [] : (workout.groups ?? []),
-      durationMin: workout.isRestDay ? 0 : (workout.durationMin ?? 0),
-      volume: workout.isRestDay ? 0 : sessionVolume(workout.exercises ?? []),
-      groupVolume: workout.isRestDay
-        ? {}
-        : sessionGroupVolume(workout.exercises ?? []),
-      isRestDay: Boolean(workout.isRestDay),
-    }));
-
+    const data = await loadGymSummary();
     return NextResponse.json(
-      { success: true, data: buildGymSummary(days) },
+      { success: true, data },
       { headers: { "Cache-Control": cacheControl } },
     );
   } catch (error) {

@@ -111,6 +111,9 @@ function AdminGymContent() {
           <Link href="/admin/gym/photos">Progress photos</Link>
         </Button>
         <Button asChild variant="outline" size="sm">
+          <Link href="/admin/gym/wallpaper">Wallpaper</Link>
+        </Button>
+        <Button asChild variant="outline" size="sm">
           <Link href="/admin/gym/exercises">
             <ListChecks className="mr-1.5 size-3.5" />
             Manage exercises
