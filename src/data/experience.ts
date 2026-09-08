@@ -60,7 +60,7 @@ export const experiences: Experience[] = [
     ],
     techStack: [
       "Next.js",
-      "React.js",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "PostgreSQL",
@@ -119,7 +119,7 @@ export const experiences: Experience[] = [
     ],
     techStack: [
       "Next.js",
-      "React.js",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "Framer Motion",
@@ -312,7 +312,7 @@ export const experiences: Experience[] = [
       "Spoke at GDGC NITJ Winter Fest (February 5, 2025) — delivered a session on UI/UX fundamentals as a speaker in the UI domain.",
       "Established the GDGC NITJ GitHub organisation, sourced legacy codebases for HackMol 3.0 through 7.0, and deployed all of them to preserve and maintain project history.",
     ],
-    techStack: ["Next.js", "React.js", "Tailwind CSS", "GitHub"],
+    techStack: ["Next.js", "React", "Tailwind CSS", "GitHub"],
     achievements: [
       "Coordinated HackMol 7.0 end-to-end — 3000+ registrations, 450+ PPTs reviewed, 60 teams selected for offline round.",
       "Speaker at GDGC NITJ Winter Fest 2025 in the UI/UX domain.",
@@ -349,7 +349,7 @@ export const experiences: Experience[] = [
       "Implemented bulk distribution system for certificates",
     ],
     techStack: [
-      "React.js",
+      "React",
       "Tailwind CSS",
       "Chakra UI",
       "Axios",

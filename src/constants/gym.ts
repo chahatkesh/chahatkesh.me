@@ -16,6 +16,12 @@ export const MUSCLE_GROUPS = [
 ] as const;
 
 export type MuscleGroup = (typeof MUSCLE_GROUPS)[number];
+export type RadarGroup = Exclude<MuscleGroup, "cardio" | "core">;
+
+/** Radar axes — core and cardio stay in the log, not on this chart. */
+export const RADAR_GROUPS = MUSCLE_GROUPS.filter(
+  (group): group is RadarGroup => group !== "cardio" && group !== "core",
+);
 
 export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
   chest: "Chest",

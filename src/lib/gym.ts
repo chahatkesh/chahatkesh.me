@@ -131,16 +131,6 @@ export function sessionGroupVolume(
   return totals;
 }
 
-export function sessionGroupExerciseCount(
-  exercises: VolumeExercise[],
-): Partial<Record<MuscleGroup, number>> {
-  const totals: Partial<Record<MuscleGroup, number>> = {};
-  for (const exercise of exercises) {
-    totals[exercise.group] = (totals[exercise.group] ?? 0) + 1;
-  }
-  return totals;
-}
-
 /** Counts consecutive days ending at `today` (or yesterday, if today is unlogged). */
 function computeStreaks(sortedDates: string[]): {
   current: number;
@@ -290,37 +280,6 @@ export function buildGymSummary(days: GymDaySummary[]): GymSummary {
     ),
     groupStats,
   };
-}
-
-/** Parts for stats UI where the unit should render quieter than the value. */
-export function formatTrainingTimeParts(totalMin: number): {
-  value: string;
-  unit: string;
-  /** Present when duration spans hours and leftover minutes. */
-  secondary?: { value: string; unit: string };
-} {
-  const minutes = Math.max(0, Math.round(totalMin));
-  if (minutes < 60) return { value: String(minutes), unit: "min" };
-
-  const hours = Math.floor(minutes / 60);
-  const remainder = minutes % 60;
-  if (remainder === 0) return { value: String(hours), unit: "h" };
-  return {
-    value: String(hours),
-    unit: "h",
-    secondary: { value: String(remainder), unit: "min" },
-  };
-}
-
-/** Short human label for accumulated training minutes, e.g. "6h 30min". */
-export function formatTrainingTime(totalMin: number): string {
-  const minutes = Math.max(0, Math.round(totalMin));
-  if (minutes < 60) return `${minutes}min`;
-
-  const hours = Math.floor(minutes / 60);
-  const remainder = minutes % 60;
-  if (remainder === 0) return `${hours}h`;
-  return `${hours}h ${remainder}min`;
 }
 
 /** Maps a day's training load onto the 0-4 heatmap ramp. Rest days use a separate color. */

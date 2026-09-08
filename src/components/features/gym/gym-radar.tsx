@@ -5,11 +5,12 @@ import { motion } from "framer-motion";
 
 import { BRAND_ACCENT_HEX } from "~/constants/brand";
 import {
-  MUSCLE_GROUPS,
   MUSCLE_GROUP_COLORS,
   MUSCLE_GROUP_LABELS,
+  RADAR_GROUPS,
+  WEIGHT_UNIT,
+  type RadarGroup,
 } from "~/constants/gym";
-import type { MuscleGroup } from "~/constants/gym";
 import { addDays, formatGymDate, parseGymDate } from "~/lib/gym";
 import { cn } from "~/lib/utils";
 import type { GymSummary } from "~/types/gym";
@@ -19,6 +20,7 @@ const CENTER = SIZE / 2;
 const RADIUS = 96;
 const LABEL_RADIUS = RADIUS + 30;
 const RING_STEPS = [0.25, 0.5, 0.75, 1];
+const AXIS_COUNT = RADAR_GROUPS.length;
 
 const WINDOWS = [
   { label: "30d", days: 30 },
@@ -26,28 +28,25 @@ const WINDOWS = [
   { label: "1Y", days: 365 },
 ] as const;
 
-type Metric = "frequency" | "exercises" | "volume";
+const METRICS = [
+  { id: "frequency", label: "Frequency" },
+  { id: "volume", label: "Volume" },
+] as const;
+
+type Metric = (typeof METRICS)[number]["id"];
 
 interface GroupValue {
-  group: MuscleGroup;
-  /** Index in MUSCLE_GROUPS — keeps radar axis order stable. */
-  axisIndex: number;
+  group: RadarGroup;
   value: number;
 }
 
 function groupMetricValue(
   metric: Metric,
-  group: MuscleGroup,
+  group: RadarGroup,
   trainingDays: GymSummary["days"],
 ): number {
   if (metric === "frequency") {
     return trainingDays.filter((day) => day.groups.includes(group)).length;
-  }
-  if (metric === "exercises") {
-    return trainingDays.reduce(
-      (sum, day) => sum + (day.groupExerciseCount?.[group] ?? 0),
-      0,
-    );
   }
   return trainingDays.reduce(
     (sum, day) => sum + (day.groupVolume[group] ?? 0),
@@ -57,7 +56,7 @@ function groupMetricValue(
 
 /** Axis angles start at 12 o'clock and step clockwise. */
 function axisPoint(index: number, distance: number) {
-  const angle = (Math.PI * 2 * index) / MUSCLE_GROUPS.length - Math.PI / 2;
+  const angle = (Math.PI * 2 * index) / AXIS_COUNT - Math.PI / 2;
   return {
     x: CENTER + Math.cos(angle) * distance,
     y: CENTER + Math.sin(angle) * distance,
@@ -89,9 +88,8 @@ export function GymRadar({ summary }: GymRadarProps) {
       (day) => !day.isRestDay && day.groups.length > 0,
     );
 
-    const groups: GroupValue[] = MUSCLE_GROUPS.map((group, axisIndex) => ({
+    const groups: GroupValue[] = RADAR_GROUPS.map((group) => ({
       group,
-      axisIndex,
       value: groupMetricValue(metric, group, trainingDays),
     }));
 
@@ -111,13 +109,7 @@ export function GymRadar({ summary }: GymRadarProps) {
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-1 text-xs">
-          {(
-            [
-              { id: "frequency", label: "Frequency" },
-              { id: "exercises", label: "Exercises" },
-              { id: "volume", label: "Volume" },
-            ] as const
-          ).map((option) => (
+          {METRICS.map((option) => (
             <button
               key={option.id}
               type="button"
@@ -165,7 +157,7 @@ export function GymRadar({ summary }: GymRadarProps) {
           {RING_STEPS.map((step) => (
             <polygon
               key={step}
-              points={MUSCLE_GROUPS.map((_, index) => {
+              points={RADAR_GROUPS.map((_, index) => {
                 const point = axisPoint(index, RADIUS * step);
                 return `${point.x.toFixed(2)},${point.y.toFixed(2)}`;
               }).join(" ")}
@@ -175,7 +167,7 @@ export function GymRadar({ summary }: GymRadarProps) {
             />
           ))}
 
-          {MUSCLE_GROUPS.map((group, index) => {
+          {RADAR_GROUPS.map((group, index) => {
             const outer = axisPoint(index, RADIUS);
             return (
               <line
@@ -203,7 +195,7 @@ export function GymRadar({ summary }: GymRadarProps) {
             style={{ transformOrigin: `${CENTER}px ${CENTER}px` }}
           />
 
-          {MUSCLE_GROUPS.map((group, index) => {
+          {RADAR_GROUPS.map((group, index) => {
             const point = axisPoint(
               index,
               RADIUS * (scale > 0 ? axisValues[index] / scale : 0),
@@ -221,7 +213,7 @@ export function GymRadar({ summary }: GymRadarProps) {
             );
           })}
 
-          {MUSCLE_GROUPS.map((group, index) => {
+          {RADAR_GROUPS.map((group, index) => {
             const point = axisPoint(index, LABEL_RADIUS);
             return (
               <text
@@ -256,10 +248,15 @@ export function GymRadar({ summary }: GymRadarProps) {
               <dt className="min-w-0 flex-1 truncate text-muted-foreground">
                 {MUSCLE_GROUP_LABELS[item.group]}
               </dt>
-              <dd className="shrink-0 font-medium tabular-nums text-foreground">
+              <dd className="flex shrink-0 items-baseline gap-1 font-medium tabular-nums text-foreground">
                 {metric === "volume"
                   ? Math.round(item.value).toLocaleString()
                   : item.value}
+                {metric === "volume" ? (
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {WEIGHT_UNIT}
+                  </span>
+                ) : null}
               </dd>
             </div>
           ))}

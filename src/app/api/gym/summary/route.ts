@@ -3,7 +3,6 @@ import type { NextRequest } from "next/server";
 
 import {
   buildGymSummary,
-  sessionGroupExerciseCount,
   sessionGroupVolume,
   sessionVolume,
   toIsoDay,
@@ -44,9 +43,6 @@ export async function GET(request: NextRequest) {
       groupVolume: workout.isRestDay
         ? {}
         : sessionGroupVolume(workout.exercises ?? []),
-      groupExerciseCount: workout.isRestDay
-        ? {}
-        : sessionGroupExerciseCount(workout.exercises ?? []),
       isRestDay: Boolean(workout.isRestDay),
     }));
 
