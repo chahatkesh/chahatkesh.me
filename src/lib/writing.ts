@@ -96,6 +96,10 @@ function unwrapMdxComponents(body: string) {
       /<FolderStructures\s*\/>/g,
       "_Interactive folder-structure diagrams — open the HTML page to explore them._",
     )
+    .replace(
+      /<MacOSInternalsLab\s*\/>/g,
+      "_Interactive macOS internals lab — open the HTML page to explore the five layers, trace a keystroke, and test a display frame budget._",
+    )
     .replace(/<\/?[A-Z][A-Za-z0-9]*\b[^>]*\/?>/g, "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();

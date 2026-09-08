@@ -67,6 +67,7 @@ export const WRITING_COVER_MOTIFS = [
   "structure",
   "architecture",
   "backend",
+  "system",
 ] as const;
 
 export type WritingCoverMotif = (typeof WRITING_COVER_MOTIFS)[number];
@@ -85,6 +86,7 @@ const MOTIF_PALETTE: Record<
   structure: "slate",
   architecture: "copper",
   backend: "teal",
+  system: "slate",
 };
 
 export type WritingCoverSpec = {
@@ -108,6 +110,8 @@ export function inferWritingCoverMotif(title: string): WritingCoverMotif {
   if (/(home|hostel|heart|house)/.test(text)) return "home";
   if (/(company|friend|greatness|together)/.test(text)) return "company";
   if (/(know|anything|uncertain|figured)/.test(text)) return "uncertainty";
+  if (/(macos|operating system|framework|kernel|silicon)/.test(text))
+    return "system";
   if (/(architect|monolith|frontend|magazine)/.test(text))
     return "architecture";
   if (/(shape|codebase|folder|structure)/.test(text)) return "structure";
@@ -260,6 +264,27 @@ function motifMarkup(spec: WritingCoverSpec, width: number, height: number) {
         <rect x="${cx - 36}" y="${cy - 28}" width="72" height="56" rx="8" fill="${palette.accent}" />
         <line x1="${cx + 90}" y1="${cy}" x2="${cx + 286}" y2="${cy}" stroke="${palette.paper}" stroke-opacity="0.35" stroke-width="1.5" />
         <circle cx="${cx + 320}" cy="${cy}" r="22" fill="none" stroke="${palette.paper}" stroke-opacity="0.7" stroke-width="1.5" />
+      `;
+    }
+    case "system": {
+      // Five system layers carrying one keystroke toward a lit pixel.
+      const layerWidth = 420;
+      const layerHeight = 54;
+      const gap = 18;
+      const top = cy - (layerHeight * 5 + gap * 4) / 2;
+      const layers = Array.from({ length: 5 }, (_, index) => {
+        const y = top + index * (layerHeight + gap);
+        const inset = index * 26;
+        const opacity = 0.84 - index * 0.1;
+        return `<rect x="${cx - layerWidth / 2 + inset}" y="${y}" width="${layerWidth - inset * 2}" height="${layerHeight}" rx="12" fill="none" stroke="${palette.paper}" stroke-opacity="${opacity.toFixed(2)}" stroke-width="1.5" />`;
+      }).join("");
+
+      return `
+        ${layers}
+        <line x1="${cx - 320}" y1="${cy}" x2="${cx - layerWidth / 2 - 28}" y2="${cy}" stroke="${palette.mute}" stroke-width="1.5" />
+        <rect x="${cx - 370}" y="${cy - 24}" width="50" height="48" rx="8" fill="none" stroke="${palette.paper}" stroke-opacity="0.55" stroke-width="1.5" />
+        <line x1="${cx + layerWidth / 2 + 28}" y1="${cy}" x2="${cx + 320}" y2="${cy}" stroke="${palette.mute}" stroke-width="1.5" />
+        <rect x="${cx + 320}" y="${cy - 25}" width="50" height="50" rx="7" fill="${palette.accent}" />
       `;
     }
   }

@@ -1,0 +1,494 @@
+---
+title: "Below the Frameworks"
+subtitle: "One keystroke, five layers, and the machine beneath my apps."
+description: "My first-principles map of macOS: programs, processes, XNU, frameworks, memory, pixels, trust, and the terminal I want to build."
+date: "2026-09-08"
+tags:
+  - macOS
+  - Operating Systems
+  - Apple Silicon
+  - Systems
+  - Rust
+---
+
+I learned to build screens before I learned what held them up.
+
+React gave me components. Next.js gave me routes. Python gave me services. Flutter put one of my projects on a phone, and AWS let me arrange machines I could not see. Every layer came with a friendly vocabulary: hooks, handlers, models, functions, containers.
+
+That vocabulary was enough—until my questions fell through it.
+
+Why can a UI freeze when the expensive work is “asynchronous”? Why can a process read one path but not another? Why does Finder present a directory as a single app? Why can the same deployment behave differently across processor architectures? Each framework-level explanation ended one floor too early.
+
+The missing character in those stories was the operating system.
+
+macOS had been scheduling my threads, mapping my memory, loading my libraries, checking my signatures, mediating my files, and turning my keystrokes into pixels the entire time. I had treated all of that as weather: important, occasionally disruptive, and apparently outside the application.
+
+I do not want to do that anymore.
+
+This is the map I wish I had when I started: not a complete operating-systems degree, and not a tour of every private Apple implementation detail. I will build it around two paths—how an app becomes a process, and how a keystroke becomes a pixel. Along the way, I want to know which claims I can verify in source, which I can measure, and which remain useful simplifications.
+
+<Callout tone="idea" title="The shift">
+  A framework tells me how to ask. The operating system explains who receives
+  the request, which boundary it crosses, what it costs, and why it can be
+  refused.
+</Callout>
+
+## First, reduce the machine
+
+For this story, I can compress a computer into four pieces:
+
+1. **A processor** executes instructions.
+2. **Memory** holds code and data close enough for active work.
+3. **Storage** keeps bytes after power disappears.
+4. **A display** turns a pixel buffer into light.
+
+That definition is deliberately incomplete. It leaves out controllers, caches, buses, radios, secure hardware, and almost everything that makes a real Mac interesting. But it gives me enough pieces to ask the first useful question:
+
+> How does a file on storage persuade the processor to do anything at all?
+
+By itself, it does not.
+
+A **program** is executable code and related data stored in a file. At rest, it is only bytes. When macOS creates a process for that executable, establishes its address space and runtime resources, and creates its initial thread, I have a **process**. That thread may be running, waiting to run, blocked, or suspended.
+
+That distinction sounds academic until I open Activity Monitor. One program can produce multiple processes. A modern browser may use separate processes for renderers, GPU work, networking, and extensions; there is no reliable “one tab equals exactly one process” formula. Isolation is the point. A compromised or crashed renderer should not automatically own the entire browser.
+
+Every process receives a process identifier, or PID. More importantly, it receives a virtual address space and a security context. The same executable can be running twice while each instance has different memory, open files, environment variables, and permissions.
+
+The shortest version is still the one I remember:
+
+<Callout tone="note" title="Program versus process">
+  A program is code at rest. A process is an execution of that code with live
+  state.
+</Callout>
+
+## The app icon is a polite illusion
+
+The next surprise is sitting in `/Applications`.
+
+Finder shows an app as one icon. On disk, a typical macOS app is a directory with a name ending in `.app`. Apple calls this directory a **bundle**. Finder recognizes its structure and presents the friendly version; the file system keeps the literal one.
+
+```text
+MyApp.app/
+└── Contents/
+    ├── Info.plist
+    ├── MacOS/
+    │   └── MyApp
+    ├── Resources/
+    ├── Frameworks/
+    ├── PlugIns/
+    └── _CodeSignature/
+```
+
+`Info.plist` describes the application. `MacOS/` contains its main executable. `Resources/` holds things such as images and localized strings. An app may embed private frameworks or plug-ins, and a signed bundle usually contains resource-signature data under `_CodeSignature/`. Apple’s archived [bundle structure guide](https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html) documents the layout.
+
+I can inspect one without changing it:
+
+```bash
+ls -la /Applications/SomeApp.app/Contents
+plutil -p /Applications/SomeApp.app/Contents/Info.plist
+file /Applications/SomeApp.app/Contents/MacOS/SomeApp
+```
+
+This is my first macOS lesson that keeps paying rent: **the interface and the storage model are different views**. Finder is not lying. It is interpreting. When that interpretation becomes confusing, I go to the bytes.
+
+## The kernel is not doing every instruction for me
+
+It is tempting to say that a process cannot do anything without asking the operating system. That is memorable, but it is also too broad.
+
+My process executes ordinary CPU instructions directly while its thread is scheduled. It reads and writes memory already mapped into its address space without making a system call for every byte. If it had to cross into the kernel for each addition or object access, modern software would be unusable.
+
+The boundary matters when the process needs a protected service: open a file, create another process, obtain or modify virtual-memory mappings, communicate over a socket, or interact with a device. Those operations are mediated by the **kernel**, the privileged core of the operating system.
+
+The kernel is part referee and part landlord. It schedules time on processor cores. It maintains virtual-memory mappings. It decides whether a file operation is permitted. It exposes controlled routes to devices. Most application code runs in **user space**, with less privilege and a private view of the machine. Kernel code runs with the authority required to coordinate the whole system.
+
+Without that separation, two buggy applications could treat the same physical memory as their own. A browser could overwrite my editor. A text field could send arbitrary commands to a keyboard controller. Isolation turns those collisions from “normal behavior” into explicit, checked interactions.
+
+One route across the boundary is a **system call**.
+
+When an editor saves a document, the visible “Save” can expand into many lower-level operations: inspect metadata, create a temporary sibling, write data, synchronize what must be durable, and atomically rename the new file over the old path. If the machine fails in the middle, the goal is to leave either the old version or the new one—not a half-written mixture.
+
+`rename` can make the namespace switch atomic, but “atomic” is not a magic synonym for “durable under every failure.” Correct safe-save behavior depends on the file system, synchronization, metadata, and the exact API being used. APFS even exposes [atomic safe-save primitives](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/APFS_Guide/Features/Features.html), but applications still have to use the contract correctly.
+
+I can watch the file-system side with:
+
+```bash
+sudo fs_usage -w -f filesys TextEdit
+```
+
+`fs_usage` is not a list of every instruction or every possible syscall. Apple describes it as an ongoing view of [system-call activity related to the file system](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/FileSystem/Articles/FileSystemCalls.html), including events such as page-ins and errors.
+
+Boundary crossings cost time, so batching tiny reads or writes can matter. But “fewest syscalls wins” is not an optimization strategy on its own. A correct, measurable design wins. One badly chosen large read can be worse than several useful small ones; one missing durability operation can make a benchmark fast and the software wrong.
+
+## Libraries save us from rebuilding the world
+
+My app also does not contain a private implementation of every window, glyph, network protocol, or cryptographic check it uses.
+
+A **library** is reusable code that can be linked into a program. A **framework** on Apple platforms packages library code with a defined bundle structure and related resources or metadata. AppKit provides the established macOS application and window toolkit. Core Text handles low-level text layout and font work. Metal exposes graphics and compute APIs. Core Animation manages composited visual layers.
+
+Each offers an API: a contract describing what my process may ask it to do.
+
+That is an important word—**contract**, not teleportation. Calling an AppKit method does not mean the framework instantly draws a physical pixel. The call may update in-process state, enqueue work, communicate with another process, invoke lower layers, or wait for a later display cycle.
+
+The map I now use has five floors:
+
+<MacOSInternalsLab />
+
+This is my conceptual stack, not an official Apple architecture diagram. Real calls skip floors, loop back, cross process boundaries, and run concurrently. SwiftUI, in particular, should not be reduced to “AppKit with nicer syntax.” Apple designed it to work alongside AppKit, and the two now interoperate in both directions through tools such as `NSHostingView` and representables. Apple’s [AppKit integration sessions](https://developer.apple.com/videos/play/wwdc2024/10124/) are a better source than a perfectly straight diagram.
+
+Still, five floors give every new name an address:
+
+- **Silicon:** CPU and GPU cores, memory, storage, displays, and devices.
+- **XNU:** scheduling, virtual memory, processes, files, networking, and driver infrastructure.
+- **Loader and runtimes:** `dyld`, Objective-C and Swift runtime machinery, allocators, and dispatch.
+- **Frameworks:** AppKit, SwiftUI, Core Text, Core Animation, Metal, and many more.
+- **The app:** the product-specific code and resources I build.
+
+The stack turns “macOS magic” into a set of boundaries I can inspect.
+
+## Follow one keystroke
+
+With those five floors in place, I can follow one event through them: I press a key and a letter appears.
+
+The keyboard reports input. A device path involving HID support and IOKit brings that input into the system. WindowServer participates in routing input toward the focused application and window. AppKit places an event into the application’s event machinery. A text view handles it, mutates text state, and invalidates work that must be laid out or drawn.
+
+From there, several systems cooperate. Text must be shaped into glyphs. Visual layers must be updated. Rendering work may reach the GPU through Metal-backed system implementation. The application’s surface eventually participates in WindowServer’s composition of the desktop, and the display presents a completed frame.
+
+That paragraph is useful intuition, not a promise that every key follows one synchronous seven-function call stack. macOS caches work, pipelines frames, runs tasks concurrently, and keeps many details private. Different apps also render differently. A game with a custom Metal loop is not TextEdit.
+
+But the latency budget is real.
+
+A 60 Hz display has about `1000 / 60 = 16.67 ms` between refreshes. At 120 Hz, the interval is about `8.33 ms`. If the work needed for the next visual state misses a presentation opportunity, the old state may remain visible until a later one.
+
+That is one way an interface begins to feel sticky: not because “the Mac is slow,” but because work repeatedly misses the moments when a new frame could be presented.
+
+ProMotion complicates the neat arithmetic because refresh rate can vary. Input can also arrive at any point inside an interval, and buffering or compositor scheduling changes the path. I treat 8.33 milliseconds as a useful upper-bound exercise at 120 Hz, not a universal end-to-end latency guarantee.
+
+Once I think in deadlines, familiar advice becomes mechanical instead of superstitious:
+
+- keep event handling short;
+- do expensive, non-UI preparation away from the main thread;
+- avoid blocking the main thread while waiting for that work;
+- update AppKit view objects back on the main thread;
+- measure the complete path instead of optimizing whichever function looks guilty.
+
+Apple’s current [responsiveness guidance](https://developer.apple.com/documentation/xcode/improving-app-responsiveness) says the same thing plainly: use the main thread for the interface and direct other operations to background work.
+
+## Why the classes begin with `NS`
+
+The present makes more sense after a short trip through 1985.
+
+At Carnegie Mellon University, work on the **Mach** project began in 1985. Not “MAC”—Mach. Its goals included lightweight threads, virtual memory, interprocess communication, multiprocessing, and a microkernel architecture where user-level servers could provide higher-level APIs. The original [CMU overview](https://www.cs.cmu.edu/afs/cs/project/mach/public/www/overview.html) is still online.
+
+BSD, meanwhile, carried the practical Unix vocabulary: files, sockets, signals, process relationships, and familiar command-line behavior.
+
+Also in 1985, Steve Jobs left Apple and founded NeXT. NeXTSTEP combined Mach foundations, BSD-derived Unix facilities, and an object-oriented application environment written largely in Objective-C. Its classes carried the `NS` prefix that still survives in names such as `NSWindow`, `NSString`, and `NSArray`.
+
+That is why the prefix feels older than the APIs around it. It is.
+
+Apple announced its acquisition of NeXT at the end of 1996. The technology became the route out of classic Mac OS, whose cooperative multitasking and weak process isolation could not carry Apple where it needed to go. Apple then spent years turning those foundations into a system existing Mac users and developers could migrate toward.
+
+Mac OS X 10.0 shipped on March 24, 2001. Apple’s announcement described a system combining a Unix foundation with the Mac interface. The name became **OS X** in 2012 and **macOS** in 2016, but the family tree remains visible.
+
+For a time, two application traditions lived side by side:
+
+- **Cocoa** evolved from the NeXT/OpenStep object-oriented APIs.
+- **Carbon** adapted classic Mac APIs to ease migration.
+
+Carbon helped existing software cross the bridge. Cocoa became the native destination.
+
+The kernel underneath macOS is called **XNU**, an acronym Apple expands as “X is Not Unix.” Apple’s own [XNU repository](https://github.com/apple-oss-distributions/xnu) calls it a hybrid kernel combining Mach, BSD components, and IOKit. The source tree makes the ancestry unusually tangible:
+
+```text
+xnu/
+├── osfmk/   # Mach-based subsystems
+├── bsd/     # BSD subsystems
+├── iokit/   # driver and device infrastructure
+└── ...
+```
+
+XNU is not a pure Mach microkernel. Significant BSD facilities run in kernel space for a pragmatic hybrid design. The result keeps Mach concepts—tasks, threads, ports, messages, virtual memory—beside BSD concepts such as processes, files, sockets, and signals.
+
+**Darwin** is the open-source operating-system core around this lineage. Darwin is not the whole of macOS. Apple publishes XNU and a collection of user-space components, but major desktop technologies and applications remain proprietary. A Darwin system does not become the Mac desktop merely because it shares a kernel family.
+
+That split changes how I learn. Sometimes I can read the implementation. Sometimes I can only read an API contract. Sometimes I have to observe the outside of a closed box.
+
+## Two architecture migrations and one repeating trick
+
+A program’s machine instructions target an architecture. Instructions built for PowerPC do not become Intel instructions because the file moved to a new Mac.
+
+When Apple announced the Mac’s transition from PowerPC to Intel in 2005, it used two complementary ideas:
+
+1. A **universal binary** could contain code for more than one architecture, letting the loader select a compatible slice.
+2. **Rosetta** could translate existing PowerPC software for Intel Macs.
+
+In 2020, the pattern returned for Apple silicon:
+
+1. **Universal 2** binaries could contain `x86_64` and `arm64` slices.
+2. **Rosetta 2** could translate Intel applications on Apple silicon.
+
+Apple’s [transition announcement](https://www.apple.com/newsroom/2020/06/apple-announces-mac-transition-to-apple-silicon/) described both. On a real app, the command is satisfyingly direct:
+
+```bash
+lipo -archs /Applications/SomeApp.app/Contents/MacOS/SomeApp
+file /Applications/SomeApp.app/Contents/MacOS/SomeApp
+```
+
+If `lipo` prints `x86_64 arm64`, one file is carrying two architectural versions of the program. The loader uses the native slice when it can.
+
+The transition also tightened old boundaries. macOS Catalina stopped running 32-bit applications. Kernel extensions were deprecated for categories with modern replacements, but it is inaccurate to say Big Sur stopped loading every kernel extension. Apple’s actual guidance is narrower: beginning with Big Sur, extensions using deprecated kernel programming interfaces [do not load by default](https://developer.apple.com/support/kernel-extensions). System Extensions and DriverKit move supported classes of work into user space, reducing the damage a faulty extension can do.
+
+In 2026, the architecture story reaches another milestone. As of September 8:
+
+- macOS 27 Golden Gate is in public beta for release this fall. Its compatibility list contains only Apple silicon Macs, making it the first planned major macOS release without Intel Mac support.
+- Apple says general Rosetta support remains available through macOS 27.
+- Starting with macOS 28, Rosetta functionality is planned only for certain older, unmaintained games that rely on Intel frameworks.
+
+That last point matters because “Rosetta disappears completely” is not quite true. Apple states the narrower plan in its [Rosetta support article](https://support.apple.com/en-us/102527), and the current macOS 27 beta release notes warn that general Intel software will no longer be compatible with macOS 28 outside that legacy-game exception.
+
+The lesson is larger than either transition: file format, loader, translator, and hardware are separate layers. “It is a Mac app” is not enough information to know whether a given processor can execute it.
+
+## Trust is part of launching now
+
+Architecture answers **can these instructions run?** Modern macOS also asks **should this code be trusted to run here?**
+
+[Code signing](https://developer.apple.com/library/archive/technotes/tn2206/_index.html) seals integrity information for executable code, bundle resources, and entitlements. Certificate-backed signing also binds code to a signer identity; ad hoc signing does not. The hardened runtime enables additional protections. Gatekeeper evaluates downloaded software under policy.
+
+For software distributed outside the Mac App Store, **notarization** adds an Apple-operated automated check. A developer submits Developer ID-signed software; Apple scans it for malicious content and signing problems. On success, the service issues a ticket that can be stapled to the software and is also published for Gatekeeper to find online. Apple is explicit that [notarization is not App Review](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
+
+```bash
+codesign -dvvv --entitlements :- /Applications/SomeApp.app
+spctl --assess --type execute -vv /Applications/SomeApp.app
+```
+
+The signature is not a statement that the program is bug-free or ethically good. A signature can establish whether sealed content changed, record requested entitlements, and—for certificate-backed signing—identify the signer. Gatekeeper and other policy systems separately decide whether that signature and distribution are acceptable.
+
+Sandboxing narrows the view further. A sandboxed app receives a constrained environment and uses entitlements plus user-mediated access for protected resources. The goal is not to make an app powerless. It is to prevent authority from silently expanding beyond the job the app was installed to do.
+
+Security here is not one lock. It is a sequence of claims checked at different layers.
+
+## Ask the Mac which Mac it is
+
+Marketing names are for people. Build numbers and kernel versions are for exact machines.
+
+These three commands answer different questions:
+
+```bash
+sw_vers
+uname -a
+sysctl hw.model hw.memsize hw.pagesize
+```
+
+`sw_vers` prints the product name, product version, and build revision. `uname` reports the Darwin system and kernel release details. `sysctl` exposes named kernel state, including model, memory, and page size where supported.
+
+The distinction matters when reproducing a bug. “macOS 26” may cover many builds. “Darwin 25.x with this XNU build on this model” is much closer to evidence.
+
+It also prevents one typo from surviving an entire investigation: the tool is `sysctl`, pronounced however I can manage—not `sisctl`, `cysctl`, or the version my memory invents.
+
+## What lives between the app and XNU
+
+The loader floor is easy to ignore because a successful launch makes it disappear.
+
+At launch, the kernel maps the main executable and `dyld`. The dynamic loader then maps dependent libraries, performs fixups, and resolves the symbols the program needs. Apple also prelinks commonly used system libraries into the **dyld shared cache** to reduce repeated work and improve launch performance. As Apple’s developer support explanation puts it, the cache is really part of the OS build process: commonly used libraries are [prelinked into optimized shared files](https://developer.apple.com/forums/thread/692383).
+
+Processes still have separate virtual address spaces, but the kernel can map the same read-only library code to shared physical pages. One hundred apps using AppKit do not require one hundred independent physical copies of every read-only AppKit instruction.
+
+Language runtimes do another kind of invisible work. Objective-C message dispatch resolves a selector to implementation code. Swift carries metadata, reference-counting support, and concurrency machinery. `libdispatch` schedules submitted work onto queues and threads.
+
+This is why a Rust program can still call an Objective-C framework. Rust has C-compatible foreign-function interfaces, Objective-C’s runtime is callable through C-level machinery, and the [`objc2` project](https://docs.rs/objc2/latest/objc2/) provides Rust bindings for the runtime and frameworks including AppKit and Metal.
+
+Crossing languages does not remove Apple’s runtime. It makes the boundary visible.
+
+## A quiet Mac is crowded
+
+I can close every visible app and still find hundreds of processes.
+
+Most are not windows waiting offscreen. They are background services, helpers, agents, and **daemons**. A daemon normally has no direct user interface; it performs a system-level job or responds to requests. A per-user agent serves a similar purpose inside a login session.
+
+At the root of macOS process management is `launchd`. The system instance runs as PID 1 and coordinates system daemons. Per-user `launchd` instances manage work in user sessions. Apple’s daemon guidance calls the global instance the root process and recommends defining jobs through launchd rather than making a process perform old-fashioned self-daemonization.
+
+```bash
+ps -axo pid,ppid,user,comm
+launchctl print system
+launchctl print gui/$(id -u)
+```
+
+The process tree explains why eight visible applications can coexist with hundreds of rows. It also corrects a common simplification: not every service must remain running forever. `launchd` can start work on demand when a socket, timer, path, or other configured condition requires it.
+
+One prominent process in the graphical session is WindowServer. It participates in input routing and composes application surfaces into the desktop I see. Its implementation belongs to Apple’s private side of macOS, so I can inspect behavior and public interfaces around it but not read all the source that makes the pixels happen.
+
+That is not a dead end. It only changes the method.
+
+## The terminal is not the shell
+
+I used these words interchangeably for too long.
+
+A **terminal emulator** is a graphical application that displays text, receives keyboard input, and emulates terminal behavior. A **shell** is a separate program—`zsh` on a default modern macOS setup—that parses command lines, expands syntax, launches programs, and connects their input and output.
+
+When I type `ls`:
+
+1. the terminal encodes my keystrokes and writes them to the PTY’s master side;
+2. the terminal discipline or shell line editor processes and echoes the input, which the terminal renders;
+3. the shell parses the completed command and launches `ls`;
+4. `ls` writes to standard output attached to the PTY’s slave side;
+5. the terminal reads those bytes from the master side, interprets them, and draws the result.
+
+The communication channel is usually a **pseudo-terminal**, not merely “a pipe.” A PTY has a master and slave side and reproduces terminal semantics such as line discipline, signals, and window size. Apple’s `forkpty` manual describes how the child side can become the process’s controlling terminal with standard input, output, and error attached.
+
+That distinction is exactly why a terminal is such a good systems project. It must open a native window, render text, start a child process, manage a PTY, route input, resize correctly, and stay responsive while output streams in. It touches every floor of my map.
+
+## Files are a human view over blocks
+
+A file system turns storage blocks into named files and directories with metadata and rules.
+
+Modern macOS uses **APFS**, whose features include snapshots, space sharing, encryption, copy-on-write metadata, and file cloning. A clone can give two file names independent metadata while their contents initially share the same physical storage blocks. Changed blocks diverge later.
+
+That is why a same-volume Finder copy of a huge file can sometimes appear almost instantly and consume little additional space at first. It is not safe to generalize that every copy command always clones. Tools choose APIs and semantics differently; `cp -c` explicitly requests cloning where supported.
+
+The root directory also tells a story:
+
+- `/System` contains protected operating-system content.
+- `/Applications` contains system-wide app bundles.
+- `/Library` holds system-wide fonts, support files, launch configuration, and third-party additions.
+- `/Users` contains home directories.
+- `/usr` and `/private` carry much of the Unix-facing structure.
+- `/etc`, `/tmp`, and `/var` are compatibility paths into locations under `/private`.
+
+On macOS 11 and later, the operating system uses a cryptographically protected **signed system volume**. Apple describes it as read-only system content whose integrity is verified at runtime. Administrator access is not the same thing as permission to casually rewrite the installed OS.
+
+Some independently updateable system content lives in **cryptexes**: optimized, cryptographically sealed disk images on the preboot volume. Apple’s [platform security guide](https://support.apple.com/guide/security/background-security-improvements-sec87fc038c2/web) explains that these images let background security improvements patch components such as WebKit and system libraries without rebuilding the main system seal.
+
+Again, the path I type and the storage object underneath it are not always the same view.
+
+## Virtual memory is a useful fiction—with exceptions
+
+Each process operates inside its own virtual address space. Addresses in that space are translated to physical memory, file-backed mappings, shared objects, or no valid mapping at all.
+
+The process does not literally receive all RAM, and address zero is normally left unmapped rather than acting as a usable beginning. What it receives is more useful: a private, consistent coordinate system that the kernel can map and protect.
+
+Mappings are managed in fixed-size units called **pages**. On 64-bit ARM Apple platforms, user-space pages are commonly 16 KiB. I should still ask the running system instead of hard-coding that assumption:
+
+```c
+long page_size = sysconf(_SC_PAGESIZE);
+```
+
+Suppose I map a 100,000-byte file on a machine with 16,384-byte pages. Covering the range takes seven virtual pages, or 114,688 bytes of address space. The bytes after the end of the file are not suddenly appended to the file on disk, and the whole mapping is not necessarily resident in RAM at once. Page rounding describes the mapping granularity.
+
+Larger pages can improve translation lookaside buffer reach and reduce page-table work. They can also increase internal fragmentation or the amount brought in for small, sparse access patterns. The trade-off is more precise than “larger pages waste files but avoid disk lookups.”
+
+Isolation is also the default, not an absolute ban on sharing. Two unrelated processes cannot simply dereference each other’s private mappings, but processes can deliberately share memory through operating-system mechanisms. The kernel controls which shared object appears in which address space.
+
+This one model explains several earlier facts at once:
+
+- separate processes can use the same numerical virtual address without owning the same physical byte;
+- a shared library’s read-only code can map into many processes while occupying shared physical pages;
+- copy-on-write lets pages remain shared until one participant modifies them;
+- an invalid access becomes a fault instead of silent corruption in another process.
+
+## Threads share the room
+
+A process contains one or more **threads**. Each thread is an independently schedulable sequence of execution with its own registers, instruction position, and stack. Threads in one process share its address space and many process resources.
+
+That sharing makes communication cheap and mistakes expensive.
+
+For a macOS interface, the main thread is special. AppKit’s event loop runs there, and view objects are generally main-thread-only. Heavy file parsing, networking, image processing, or inference should not occupy that thread. But the background task cannot safely “finish” by mutating an `NSView` from whichever worker happened to run it.
+
+The pattern is:
+
+```swift
+Task.detached {
+    let result = await loadAndProcessLargeFile()
+
+    await MainActor.run {
+        window.title = result.title
+    }
+}
+```
+
+The exact concurrency primitive can change. The ownership rule does not: prepare expensive data away from the UI path, then cross back deliberately for the interface mutation.
+
+When the main thread hangs, the window is not lazy. The event loop is unable to make progress.
+
+## Three ways I can learn a closed system
+
+macOS is partly open source, partly documented API, and partly proprietary implementation. So I need three methods.
+
+### 1. Read
+
+Apple publishes [XNU](https://github.com/apple-oss-distributions/xnu), parts of `dyld`, language runtimes, libraries, and other Darwin components. Books by Jonathan Levin and Amit Singh connect those source trees into a wider model. Mike Ash’s writing makes the Objective-C runtime less mythical.
+
+Reading gives me names, data structures, and actual control flow where source exists. It also teaches humility: the architecture in my head is often cleaner than the branch conditions in production code.
+
+### 2. Measure
+
+Closed hardware and private frameworks can still be observed.
+
+[Dougall Johnson’s Apple CPU research](https://dougallj.github.io/applecpu/firestorm.html) used focused instruction experiments and performance counters to infer properties of M1 performance cores, while publishing the measurements behind the conclusions. The Asahi Linux project approached Apple’s undocumented GPU in the same empirical spirit. Alyssa Rosenzweig’s account of [dissecting the M1 GPU](https://alyssarosenzweig.ca/blog/asahi-gpu-part-1.html) begins with wrapped interfaces, command streams, memory dumps, and a triangle—not a leaked manual.
+
+Measurement turns “feels slow” into a trace and “probably works like this” into a hypothesis I can try to break.
+
+The toolbox already on or around macOS is deep:
+
+- `sysctl` for exposed kernel and hardware state;
+- `powermetrics` for power and core activity;
+- `otool`, `file`, and `dyld_info` for Mach-O files and dependencies;
+- `codesign` and `spctl` for signatures and policy assessment;
+- `fs_usage` for file-system activity;
+- DTrace-based tools where platform security policy permits them;
+- Instruments for time, hangs, allocations, energy, and rendering;
+- LLDB for stopping a process and inspecting the state it normally hides in motion.
+
+The tool is not the lesson. The question is.
+
+### 3. Build
+
+The project I want to use to test this map is a terminal written mostly in Rust.
+
+Not because macOS needs another terminal, and not because Rust makes AppKit more native than Swift. The friction is the curriculum. If I choose SwiftUI alone, many boundaries can remain helpfully invisible. Rust plus `objc2` makes me meet Objective-C messaging, main-thread rules, app bundles, dynamic loading, PTYs, text rendering, Metal surfaces, code signing, and notarization one by one.
+
+My first milestone should be almost disappointing: one signed `.app` bundle, one window, one solid-color Metal-backed surface, and an event loop. No shell. No text. No themes.
+
+Then each addition earns one piece of the operating system:
+
+1. draw a glyph;
+2. accept a key;
+3. create a PTY;
+4. launch `zsh` as a child process;
+5. stream output without blocking the main thread;
+6. resize the terminal grid with the window;
+7. profile missed frames;
+8. sign, harden, notarize, and distribute it outside the App Store.
+
+If I take it that far, the terminal may become useful. The real test is whether each behavior has stopped feeling like magic.
+
+<Callout tone="warning" title="The honesty rule">
+  When source is public, I can say what the code does. When only behavior is
+  visible, I can say what I measured. When I am using a teaching model, I
+  should label it as a model.
+</Callout>
+
+## The floor below my code
+
+Operating-system knowledge does not replace React, Python, Flutter, Rust, or whatever I learn next. It tells me where their guarantees end and which layer to question.
+
+One key press still has to cross enough of those boundaries quickly enough to become a letter before I notice the machinery. The magic is not gone; it has become a route I can investigate.
+
+Next time an app freezes, refuses a file, loads the wrong slice, or misses a frame, I want to name the layer, inspect the boundary, and bring back evidence.
+
+<Details summary="Sources and trails worth following">
+
+- Apple’s [XNU source and architecture summary](https://github.com/apple-oss-distributions/xnu)
+- Carnegie Mellon’s [overview of the Mach project](https://www.cs.cmu.edu/afs/cs/project/mach/public/www/overview.html)
+- Apple’s [macOS app bundle structure](https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html)
+- Apple’s [notarization workflow](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
+- Apple’s [signed system volume security](https://support.apple.com/guide/security/signed-system-volume-security-secd698747c9/web)
+- Apple’s [APFS feature guide](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/APFS_Guide/Features/Features.html)
+- Apple’s [System Extension and DriverKit guidance](https://developer.apple.com/support/kernel-extensions)
+- Dougall Johnson’s [Apple microarchitecture research](https://dougallj.github.io/applecpu/firestorm.html)
+- Alyssa Rosenzweig’s [Apple GPU reverse-engineering series](https://alyssarosenzweig.ca/blog/asahi-gpu-part-1.html)
+- Rust’s [`objc2` Objective-C and framework bindings](https://docs.rs/objc2/latest/objc2/)
+
+</Details>
+
+Still learning. Still growing. Still here.
+
+[**@chahatkesh**](/)

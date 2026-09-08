@@ -49,6 +49,7 @@ const MOTIF_CLOTH: Record<
   structure: { cloth: "#2b4257", ink: "#e8f0f7", foil: "#a4c5df" },
   architecture: { cloth: "#bc7220", ink: "#fff5e6", foil: "#f8d29a" },
   backend: { cloth: "#14555c", ink: "#e6f7f7", foil: "#7acdd0" },
+  system: { cloth: "#263b52", ink: "#e6edf5", foil: "#88b4d8" },
 };
 
 /** Mostly coloured cloth, with the occasional cream or black volume. */
