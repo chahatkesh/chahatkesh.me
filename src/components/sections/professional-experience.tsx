@@ -1,14 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
-import { experiences, type Experience } from "~/data/experience";
+import { experiences } from "~/data/experience";
 import { calculateDuration } from "~/lib/date-utils";
 import {
   groupExperiencesByCompany,
   type ExperienceGroup,
 } from "~/lib/experience-utils";
 import { MAX_DISPLAYED_EXPERIENCES } from "~/constants";
+import {
+  ExperienceDates,
+  ExperienceLogo,
+  ExperienceThread,
+} from "~/components/features/experience";
 
 const ProfessionalExperience = () => {
   const groups = groupExperiencesByCompany(experiences);
@@ -23,11 +27,7 @@ const ProfessionalExperience = () => {
       <h2 className={typo({ variant: "h2" })}> Where I&apos;ve Shipped</h2>
 
       <div className="relative">
-        {/* Outer thread — runs the full height of the list, centre-aligned with logos */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-5 w-px bg-gradient-to-b from-transparent via-border to-transparent"
-          aria-hidden="true"
-        />
+        <ExperienceThread />
 
         <ol className="relative">
           {visibleGroups.map((group, idx) => {
@@ -55,42 +55,6 @@ const ProfessionalExperience = () => {
   );
 };
 
-/* ── Logo — acts as the node on the outer thread ─────────────────── */
-
-const Logo = ({ src, alt }: { src: Experience["logo"]; alt: string }) => (
-  <div className="relative z-10 h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-border bg-background">
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      sizes="40px"
-      className="object-contain p-1.5"
-    />
-  </div>
-);
-
-/* ── Dates column ────────────────────────────────────────────────── */
-
-const Dates = ({
-  start,
-  end,
-  duration,
-}: {
-  start: string;
-  end: string;
-  duration?: string;
-}) => (
-  <div className="flex-shrink-0 text-right">
-    <p className="text-xs text-muted-foreground whitespace-nowrap">
-      {start} &ndash;{" "}
-      <span className={cn(end === "present" && "text-ring")}>{end}</span>
-    </p>
-    {duration && (
-      <p className="mt-0.5 text-[11px] text-muted-foreground/60">{duration}</p>
-    )}
-  </div>
-);
-
 /* ── Single position ─────────────────────────────────────────────── */
 
 const SingleRole = ({
@@ -106,7 +70,7 @@ const SingleRole = ({
   return (
     <li className="relative">
       <div className={cn("flex items-start gap-4", !isLast && "pb-3")}>
-        <Logo src={group.logo} alt={group.employer} />
+        <ExperienceLogo src={group.logo} alt={group.employer} />
         <Link
           href={`/about/experience/${exp.slug}`}
           className="el-focus-styles group flex flex-1 min-w-0 items-start justify-between gap-4 rounded-md"
@@ -122,7 +86,7 @@ const SingleRole = ({
               {exp.type} &middot; {exp.location}
             </p>
           </div>
-          <Dates
+          <ExperienceDates
             start={exp.start_date}
             end={exp.end_date}
             duration={duration}
@@ -147,7 +111,7 @@ const MultiRole = ({
 }) => (
   <li className="relative">
     <div className={cn("flex items-start gap-4", !isLast && "pb-3")}>
-      <Logo src={group.logo} alt={group.employer} />
+      <ExperienceLogo src={group.logo} alt={group.employer} />
 
       <div className="flex-1 min-w-0">
         {/* Company header */}
@@ -177,7 +141,7 @@ const MultiRole = ({
                     {position.type} &middot; {position.location}
                   </p>
                 </div>
-                <Dates
+                <ExperienceDates
                   start={position.start_date}
                   end={position.end_date}
                   duration={duration}

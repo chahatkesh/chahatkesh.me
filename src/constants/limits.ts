@@ -19,6 +19,7 @@ export const MAX_VIDEO_TAGS = 5;
 
 // Experience display limits
 export const MAX_DISPLAYED_EXPERIENCES = 4;
+export const MAX_VISIBLE_EXPERIENCE_STACKS = 4;
 
 // Gym admin display limits
 export const MAX_RECENT_GYM_SESSIONS = 8;

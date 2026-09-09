@@ -9,6 +9,8 @@ interface TechStackBadgesProps {
   max?: number;
   /** Badge size variant */
   size?: "sm" | "md";
+  /** When false, badges render as static spans (for use inside parent links). */
+  linked?: boolean;
 }
 
 /**
@@ -19,6 +21,7 @@ export function TechStackBadges({
   stacks,
   max,
   size = "md",
+  linked = true,
 }: TechStackBadgesProps) {
   const visible = max ? stacks.slice(0, max) : stacks;
   const overflow = max ? stacks.length - max : 0;
@@ -42,7 +45,7 @@ export function TechStackBadges({
           </>
         );
 
-        if (href) {
+        if (linked && href) {
           return (
             <MotionDiv
               key={stack}
@@ -63,7 +66,7 @@ export function TechStackBadges({
           <MotionDiv
             key={stack}
             className={`flex items-center ${badgeHeight} gap-1.5 rounded-full border border-border bg-card px-3 ${textSize}`}
-            whileHover={{ y: -2 }}
+            whileHover={linked ? { y: -2 } : undefined}
             transition={{ duration: 0.2 }}
           >
             {badgeContent}
@@ -71,7 +74,9 @@ export function TechStackBadges({
         );
       })}
       {overflow > 0 && (
-        <span className="flex items-center text-xs text-muted-foreground/70">
+        <span
+          className={`flex items-center ${textSize} text-muted-foreground/70`}
+        >
           +{overflow} more
         </span>
       )}

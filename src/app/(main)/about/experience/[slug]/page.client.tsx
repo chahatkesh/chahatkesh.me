@@ -1,11 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 import { MotionDiv, PageHeader } from "~/components/shared";
 import {
   ExperienceCarousel,
+  ExperienceDates,
+  ExperienceLogo,
   type CarouselItem,
 } from "~/components/features/experience";
 import { TechStackBadges } from "~/components/features/project";
@@ -14,6 +15,7 @@ import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { type Experience } from "~/data/experience";
 import { API_ROUTES } from "~/constants";
+import { calculateDuration } from "~/lib/date-utils";
 import { getLinkIcon } from "~/lib/link-icons";
 import { simpleFetcher as fetcher } from "~/lib/fetcher";
 
@@ -59,6 +61,11 @@ const ExperienceDetailClient = ({
           ?.filter((g): g is string => typeof g === "string")
           .map((url) => ({ url })) ?? []);
 
+  const duration = calculateDuration(
+    experience.start_date,
+    experience.end_date,
+  );
+
   return (
     <div className="space-y-8">
       <PageHeader
@@ -79,20 +86,37 @@ const ExperienceDetailClient = ({
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="space-y-6"
       >
-        {/* Logo */}
-        <div className="flex justify-center">
-          <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-border bg-muted/50">
-            <Image
+        <div className="flex items-center justify-between gap-6">
+          <div className="flex min-w-0 items-center gap-4">
+            <ExperienceLogo
               src={experience.logo}
               alt={`${experience.employer} logo`}
-              fill
-              sizes="80px"
-              className="object-contain p-2"
-              priority
+              size="lg"
             />
+            <div className="min-w-0">
+              <p className="font-ubuntu text-lg font-medium leading-none text-foreground">
+                {experience.employer}
+              </p>
+              <p className="mt-2 text-sm leading-none text-muted-foreground">
+                {experience.type} &middot; {experience.location}
+              </p>
+              <ExperienceDates
+                start={experience.start_date}
+                end={experience.end_date}
+                duration={duration}
+                align="inline"
+                className="mt-2 leading-none sm:hidden"
+              />
+            </div>
           </div>
+          <ExperienceDates
+            start={experience.start_date}
+            end={experience.end_date}
+            duration={duration}
+            size="md"
+            className="hidden sm:block"
+          />
         </div>
       </MotionDiv>
 
