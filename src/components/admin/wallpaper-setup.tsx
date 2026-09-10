@@ -8,6 +8,8 @@ import { Button } from "~/components/ui";
 import { API_ROUTES } from "~/constants";
 import {
   WALLPAPER_COLORS,
+  WALLPAPER_LOCK_SCREEN,
+  WALLPAPER_POINTS,
   WALLPAPER_SIZE,
   WALLPAPER_TIMEZONE,
 } from "~/constants/wallpaper";
@@ -70,6 +72,10 @@ const LEGEND = [
   { label: "Unlogged", color: WALLPAPER_COLORS.inactive },
 ] as const;
 
+function pct(points: number, of: number) {
+  return `${(points / of) * 100}%`;
+}
+
 function formatLockScreen(date: Date) {
   const dateLabel = date.toLocaleDateString("en-US", {
     timeZone: WALLPAPER_TIMEZONE,
@@ -118,7 +124,7 @@ function IPhonePreview({ src }: { src: string }) {
 
         <div className="rounded-[2.7rem] bg-gradient-to-br from-neutral-500 via-neutral-800 to-neutral-950 p-[9px] shadow-[0_30px_80px_-32px_rgba(0,0,0,0.85)]">
           <div
-            className="relative overflow-hidden rounded-[2.15rem] bg-black"
+            className="relative overflow-hidden rounded-[2.15rem] bg-black [container-type:size]"
             style={{
               aspectRatio: `${WALLPAPER_SIZE.width} / ${WALLPAPER_SIZE.height}`,
             }}
@@ -132,23 +138,110 @@ function IPhonePreview({ src }: { src: string }) {
 
             <div
               aria-hidden
-              className="absolute left-1/2 top-[12px] z-10 flex h-[22px] w-[90px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[9px]"
-            >
-              <span className="size-[7px] rounded-full bg-neutral-950 ring-1 ring-neutral-800" />
-            </div>
+              className="absolute left-1/2 z-10 -translate-x-1/2 rounded-full bg-black"
+              style={{
+                top: pct(
+                  WALLPAPER_LOCK_SCREEN.island.top,
+                  WALLPAPER_POINTS.height,
+                ),
+                width: pct(
+                  WALLPAPER_LOCK_SCREEN.island.width,
+                  WALLPAPER_POINTS.width,
+                ),
+                height: pct(
+                  WALLPAPER_LOCK_SCREEN.island.height,
+                  WALLPAPER_POINTS.height,
+                ),
+              }}
+            />
 
-            <div className="pointer-events-none absolute inset-x-0 top-[2.7rem] z-10 flex flex-col items-center text-white">
-              <p className="text-[12px] font-medium tracking-wide text-white/90">
+            <div
+              className="pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-white"
+              style={{
+                top: pct(
+                  WALLPAPER_LOCK_SCREEN.dateTop,
+                  WALLPAPER_POINTS.height,
+                ),
+              }}
+            >
+              <p className="text-[11px] font-medium tracking-wide text-white/90">
                 {dateLabel}
               </p>
-              <p className="mt-1 text-[3.65rem] font-extralight leading-none tracking-tight tabular-nums">
+              <p
+                className="font-extralight leading-none tracking-tight tabular-nums"
+                style={{
+                  marginTop: pct(4, WALLPAPER_POINTS.height),
+                  fontSize: `${(WALLPAPER_LOCK_SCREEN.timeSize / WALLPAPER_POINTS.height) * 100}cqh`,
+                }}
+              >
                 {timeLabel}
               </p>
             </div>
 
             <div
               aria-hidden
-              className="absolute bottom-[9px] left-1/2 z-10 h-[4px] w-[108px] -translate-x-1/2 rounded-full bg-white/75"
+              className="absolute z-10 rounded-full ring-1 ring-white/20"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.12)",
+                top: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.top,
+                  WALLPAPER_POINTS.height,
+                ),
+                left: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.inset,
+                  WALLPAPER_POINTS.width,
+                ),
+                width: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.size,
+                  WALLPAPER_POINTS.width,
+                ),
+                height: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.size,
+                  WALLPAPER_POINTS.width,
+                ),
+              }}
+            />
+            <div
+              aria-hidden
+              className="absolute z-10 rounded-full ring-1 ring-white/20"
+              style={{
+                backgroundColor: "rgba(255,255,255,0.12)",
+                top: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.top,
+                  WALLPAPER_POINTS.height,
+                ),
+                right: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.inset,
+                  WALLPAPER_POINTS.width,
+                ),
+                width: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.size,
+                  WALLPAPER_POINTS.width,
+                ),
+                height: pct(
+                  WALLPAPER_LOCK_SCREEN.controls.size,
+                  WALLPAPER_POINTS.width,
+                ),
+              }}
+            />
+
+            <div
+              aria-hidden
+              className="absolute left-1/2 z-10 -translate-x-1/2 rounded-full bg-white/75"
+              style={{
+                bottom: pct(
+                  WALLPAPER_LOCK_SCREEN.homeIndicator.bottom,
+                  WALLPAPER_POINTS.height,
+                ),
+                width: pct(
+                  WALLPAPER_LOCK_SCREEN.homeIndicator.width,
+                  WALLPAPER_POINTS.width,
+                ),
+                height: pct(
+                  WALLPAPER_LOCK_SCREEN.homeIndicator.height,
+                  WALLPAPER_POINTS.height,
+                ),
+              }}
             />
           </div>
         </div>

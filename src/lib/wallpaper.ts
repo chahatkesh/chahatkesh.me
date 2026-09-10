@@ -1,12 +1,16 @@
 import {
   WALLPAPER_COLORS,
   WALLPAPER_GRID,
-  WALLPAPER_SAFE_AREA,
+  WALLPAPER_LOCK_SCREEN,
+  WALLPAPER_LOOKBACK_DAYS,
   WALLPAPER_SIZE,
   WALLPAPER_TIMEZONE,
+  WALLPAPER_TYPE,
+  wallpaperPx,
 } from "~/constants/wallpaper";
 import {
   addDays,
+  diffInDays,
   formatGymDate,
   isLoggedGymDay,
   parseGymDate,
@@ -22,6 +26,7 @@ export interface WallpaperDayDot {
   x: number;
   y: number;
   radius: number;
+  isToday: boolean;
 }
 
 export interface WallpaperStreakLabel {
@@ -29,6 +34,9 @@ export interface WallpaperStreakLabel {
   x: number;
   y: number;
   width: number;
+  numberSize: number;
+  captionSize: number;
+  gap: number;
 }
 
 export interface WallpaperLayout {
@@ -77,8 +85,9 @@ function colorForState(state: WallpaperDayState): string {
 }
 
 /**
- * Builds a 15-across matrix of days from Jan 1 through today (IST).
- * Future days are omitted entirely.
+ * Builds a 15-across matrix of the last 365 days through today (IST).
+ * Future days are omitted. Today's cell gets a ring so the incomplete
+ * last row reads as the current day, not a clipped grid.
  */
 export function buildWallpaperLayout(
   summary: GymSummary,
@@ -86,38 +95,41 @@ export function buildWallpaperLayout(
 ): WallpaperLayout {
   const { width, height } = WALLPAPER_SIZE;
   const todayIso = formatGymDateInTimeZone(referenceDate);
-  const year = Number(todayIso.slice(0, 4));
   const dayByDate = new Map(summary.days.map((day) => [day.date, day]));
 
-  const start = parseGymDate(`${year}-01-01`);
   const today = parseGymDate(todayIso);
-  const daysThroughToday = Math.max(
-    0,
-    Math.round((today.getTime() - start.getTime()) / 86_400_000) + 1,
-  );
+  const start = addDays(today, -(WALLPAPER_LOOKBACK_DAYS - 1));
+  const daysThroughToday = Math.max(1, diffInDays(start, today) + 1);
 
   const cols = WALLPAPER_GRID.columns;
   const rows = Math.max(1, Math.ceil(daysThroughToday / cols));
 
-  const safeTop = height * WALLPAPER_SAFE_AREA.top;
-  const safeBottom = height * WALLPAPER_SAFE_AREA.bottom;
+  const safeTop = wallpaperPx(WALLPAPER_LOCK_SCREEN.top);
+  const safeBottom = wallpaperPx(WALLPAPER_LOCK_SCREEN.bottom);
+  const side = wallpaperPx(WALLPAPER_LOCK_SCREEN.side);
+  const usableWidth = width - side * 2;
   const usableHeight = height - safeTop - safeBottom;
-  const maxGridWidth = width * 0.9;
-  const labelHeight = width * 0.075;
-  let cell = maxGridWidth / cols;
-  let labelGap = cell * 1.25;
-  const measureBlock = () => rows * cell + labelGap + labelHeight;
-  if (measureBlock() > usableHeight * 0.92) {
-    const scale = (usableHeight * 0.92) / measureBlock();
-    cell *= scale;
-    labelGap *= scale;
-  }
+
+  const numberSize = wallpaperPx(WALLPAPER_TYPE.streakSize);
+  const captionSize = wallpaperPx(WALLPAPER_TYPE.captionSize);
+  const captionGap = wallpaperPx(WALLPAPER_TYPE.captionGap);
+  const labelGap = wallpaperPx(WALLPAPER_TYPE.labelGap);
+  const labelHeight = numberSize + captionGap + captionSize;
+
+  const availableGridHeight = Math.max(
+    1,
+    usableHeight - labelGap - labelHeight,
+  );
+  const cell = Math.min(usableWidth / cols, availableGridHeight / rows);
   const radius = (cell * WALLPAPER_GRID.dotScale) / 2;
   const gridWidth = cell * cols;
   const gridHeight = cell * rows;
   const blockHeight = gridHeight + labelGap + labelHeight;
+
+  // Pin the subject low so the lock-screen clock can sit in the black above.
+  const blockTop = height - safeBottom - blockHeight;
   const originX = (width - gridWidth) / 2 + cell / 2;
-  const originY = safeTop + (usableHeight - blockHeight) / 2 + cell / 2;
+  const originY = blockTop + cell / 2;
 
   const dots: WallpaperDayDot[] = [];
 
@@ -136,6 +148,7 @@ export function buildWallpaperLayout(
       x: originX + col * cell,
       y: originY + row * cell,
       radius,
+      isToday: iso === todayIso,
     });
   }
 
@@ -150,6 +163,9 @@ export function buildWallpaperLayout(
       x: (width - gridWidth) / 2,
       y: lastDotY + cell / 2 + labelGap,
       width: gridWidth,
+      numberSize,
+      captionSize,
+      gap: captionGap,
     },
   };
 }

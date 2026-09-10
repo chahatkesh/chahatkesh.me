@@ -4,8 +4,7 @@ import { WALLPAPER_COLORS } from "~/constants/wallpaper";
 import type { WallpaperLayout } from "~/lib/wallpaper";
 
 export function generateWallpaperImageResponse(layout: WallpaperLayout) {
-  const numberSize = Math.round(layout.width * 0.07);
-  const captionSize = Math.round(layout.width * 0.022);
+  const typeface = "system-ui, -apple-system, sans-serif";
 
   return new ImageResponse(
     <div
@@ -17,21 +16,58 @@ export function generateWallpaperImageResponse(layout: WallpaperLayout) {
         backgroundColor: WALLPAPER_COLORS.background,
       }}
     >
-      {layout.dots.map((dot) => (
-        <div
-          key={dot.date}
-          style={{
-            display: "flex",
-            position: "absolute",
-            left: dot.x - dot.radius,
-            top: dot.y - dot.radius,
-            width: dot.radius * 2,
-            height: dot.radius * 2,
-            borderRadius: "50%",
-            backgroundColor: dot.color,
-          }}
-        />
-      ))}
+      {layout.dots.map((dot) => {
+        const size = Math.round(dot.radius * 2);
+        const ring = dot.isToday
+          ? Math.max(3, Math.round(dot.radius * 0.22))
+          : 0;
+
+        if (!dot.isToday) {
+          return (
+            <div
+              key={dot.date}
+              style={{
+                display: "flex",
+                position: "absolute",
+                left: Math.round(dot.x - dot.radius),
+                top: Math.round(dot.y - dot.radius),
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                backgroundColor: dot.color,
+              }}
+            />
+          );
+        }
+
+        return (
+          <div
+            key={dot.date}
+            style={{
+              display: "flex",
+              position: "absolute",
+              left: Math.round(dot.x - dot.radius - ring),
+              top: Math.round(dot.y - dot.radius - ring),
+              width: size + ring * 2,
+              height: size + ring * 2,
+              borderRadius: "50%",
+              border: `${ring}px solid ${WALLPAPER_COLORS.todayRing}`,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                width: size,
+                height: size,
+                borderRadius: "50%",
+                backgroundColor: dot.color,
+              }}
+            />
+          </div>
+        );
+      })}
 
       <div
         style={{
@@ -42,17 +78,19 @@ export function generateWallpaperImageResponse(layout: WallpaperLayout) {
           top: layout.streak.y,
           width: layout.streak.width,
           alignItems: "center",
-          gap: 4,
+          gap: layout.streak.gap,
         }}
       >
         <div
           style={{
             display: "flex",
-            fontSize: numberSize,
-            fontWeight: 600,
+            width: "100%",
+            justifyContent: "center",
+            fontSize: layout.streak.numberSize,
+            fontWeight: 500,
             color: WALLPAPER_COLORS.text,
-            letterSpacing: "-1px",
-            fontFamily: "system-ui, -apple-system, sans-serif",
+            letterSpacing: "-2px",
+            fontFamily: typeface,
             lineHeight: 1,
           }}
         >
@@ -61,12 +99,16 @@ export function generateWallpaperImageResponse(layout: WallpaperLayout) {
         <div
           style={{
             display: "flex",
-            fontSize: captionSize,
+            width: "100%",
+            justifyContent: "center",
+            fontSize: layout.streak.captionSize,
             fontWeight: 500,
             color: WALLPAPER_COLORS.muted,
-            letterSpacing: "0.18em",
+            letterSpacing: "6px",
+            paddingLeft: 6,
             textTransform: "uppercase",
-            fontFamily: "system-ui, -apple-system, sans-serif",
+            fontFamily: typeface,
+            lineHeight: 1,
           }}
         >
           streak
