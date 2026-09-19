@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import {
   Briefcase,
@@ -17,6 +17,7 @@ import {
 import { Button, Input, Label } from "~/components/ui";
 import { MotionDiv, PageLoader } from "~/components/shared";
 import { AdminDashboardCard } from "~/components/admin";
+import { isSafeAdminReturnPath } from "~/lib/admin-path";
 
 const DASHBOARD_LINKS: Array<{
   href: string;
@@ -72,13 +73,27 @@ const fieldClassName =
   "h-10 border-border bg-background transition-colors placeholder:text-muted-foreground/50 focus-visible:border-muted-foreground/40";
 
 export default function AdminPage() {
+  return (
+    <Suspense
+      fallback={<PageLoader minHeight="screen" label="Checking session" />}
+    >
+      <AdminPageInner />
+    </Suspense>
+  );
+}
+
+function AdminPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const sessionExpired = searchParams.get("reason") === "expired";
+  const returnPath = searchParams.get("from");
+  const pendingReturnPath = useRef<string | null>(null);
 
   useEffect(() => {
     checkSession();
@@ -120,8 +135,16 @@ export default function AdminPage() {
       if (data.success) {
         succeeded = true;
         setError("");
-        // Refresh the server layout so the admin navbar mounts before we
-        // paint the dashboard — avoids a centered flash in the login shell.
+        pendingReturnPath.current =
+          returnPath &&
+          isSafeAdminReturnPath(returnPath) &&
+          returnPath.startsWith("/admin/")
+            ? returnPath
+            : null;
+
+        // Refresh the server layout so the admin navbar + container mount
+        // before we paint a subpage. Navigating immediately would keep the
+        // full-bleed login shell and stretch the page until a hard refresh.
         router.refresh();
         setIsAuthenticated(true);
       } else {
@@ -140,12 +163,23 @@ export default function AdminPage() {
     if (!isAuthenticated || !isSubmitting) return;
 
     let cancelled = false;
-    const reveal = () => {
-      if (!cancelled) setIsSubmitting(false);
-    };
-
     const hasNavbar = () =>
       Boolean(document.querySelector('[aria-label="Admin navigation"]'));
+
+    const reveal = () => {
+      if (cancelled) return;
+      const destination = pendingReturnPath.current;
+      if (destination) {
+        pendingReturnPath.current = null;
+        if (hasNavbar()) {
+          router.replace(destination);
+        } else {
+          window.location.assign(destination);
+        }
+        return;
+      }
+      setIsSubmitting(false);
+    };
 
     if (hasNavbar()) {
       reveal();
@@ -166,7 +200,7 @@ export default function AdminPage() {
       observer.disconnect();
       window.clearTimeout(fallback);
     };
-  }, [isAuthenticated, isSubmitting]);
+  }, [isAuthenticated, isSubmitting, router]);
 
   const handleLogout = async () => {
     try {
@@ -207,6 +241,14 @@ export default function AdminPage() {
             noValidate
             aria-label="Admin sign in"
           >
+            {sessionExpired ? (
+              <p
+                role="status"
+                className="text-center text-xs text-muted-foreground"
+              >
+                Session expired. Sign in to continue.
+              </p>
+            ) : null}
             <div className="space-y-3">
               <div className="space-y-1.5">
                 <Label

@@ -7,8 +7,15 @@ import { NextResponse } from "next/server";
 // ---------------------------------------------------------------------------
 
 const COOKIE_NAME = "admin_session" as const;
-const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24; // 24 hours
-const SESSION_EXPIRY = "24h" as const;
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
+const SESSION_EXPIRY = "30d" as const;
+const SLIDE_AFTER_SECONDS = 60 * 60 * 24; // re-issue after 1 day of use
+
+export type SessionPayload = {
+  userId: string;
+  iat?: number;
+  exp?: number;
+};
 
 function getJwtSecret(): Uint8Array {
   const secret = process.env.JWT_SECRET;
@@ -31,22 +38,52 @@ export async function createSession(userId: string) {
   return token;
 }
 
-export async function verifySession(token: string) {
+export async function verifySession(
+  token: string,
+): Promise<SessionPayload | null> {
   try {
     const verified = await jwtVerify(token, getJwtSecret());
-    return verified.payload as { userId: string };
+    const { userId, iat, exp } = verified.payload;
+    if (typeof userId !== "string") return null;
+    return { userId, iat, exp };
   } catch {
     return null;
   }
 }
 
-export async function getSession() {
+/**
+ * Re-issues the session cookie when the current JWT is older than one day.
+ * Restarts the 30-day idle clock. Route Handlers only — Server Components
+ * cannot set cookies here.
+ */
+async function maybeRefreshSession(session: SessionPayload) {
+  const now = Math.floor(Date.now() / 1000);
+  if (
+    typeof session.iat === "number" &&
+    now - session.iat < SLIDE_AFTER_SECONDS
+  ) {
+    return;
+  }
+
+  const token = await createSession(session.userId);
+  const cookieStore = await cookies();
+  cookieStore.set(setSessionCookie(token));
+}
+
+export async function getSession(options: { refresh?: boolean } = {}) {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
 
   if (!token) return null;
 
-  return await verifySession(token);
+  const session = await verifySession(token);
+  if (!session) return null;
+
+  if (options.refresh) {
+    await maybeRefreshSession(session);
+  }
+
+  return session;
 }
 
 export function setSessionCookie(token: string) {
@@ -70,15 +107,15 @@ export function setSessionCookie(token: string) {
  * Returns the session payload or a 401 NextResponse.
  */
 export async function requireAuth(): Promise<
-  | { authenticated: true; session: { userId: string } }
+  | { authenticated: true; session: SessionPayload }
   | { authenticated: false; response: NextResponse }
 > {
-  const session = await getSession();
+  const session = await getSession({ refresh: true });
   if (!session) {
     return {
       authenticated: false,
       response: NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: "Unauthorized", code: "UNAUTHENTICATED" },
         { status: 401 },
       ),
     };

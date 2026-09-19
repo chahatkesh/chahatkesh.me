@@ -76,6 +76,8 @@ export {
   clearSessionCookie,
   requireAuth,
 } from "./auth";
+export type { SessionPayload } from "./auth";
+export { isSafeAdminReturnPath } from "./admin-path";
 
 // Database
 export { default as dbConnect } from "./mongodb";

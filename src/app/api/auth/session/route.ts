@@ -4,11 +4,11 @@ import { getSession } from "~/lib/auth";
 // GET - Check session status
 export async function GET() {
   try {
-    const session = await getSession();
+    const session = await getSession({ refresh: true });
 
     if (!session) {
       return NextResponse.json(
-        { success: false, authenticated: false },
+        { success: false, authenticated: false, code: "UNAUTHENTICATED" },
         { status: 401 },
       );
     }

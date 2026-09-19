@@ -35,7 +35,6 @@ const DiagramSchema = new mongoose.Schema<IDiagram>(
   },
 );
 
-DiagramSchema.index({ slug: 1 }, { unique: true });
 DiagramSchema.index({ updatedAt: -1 });
 
 const Diagram =
