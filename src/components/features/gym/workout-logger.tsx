@@ -199,11 +199,17 @@ export function WorkoutLogger({
     [sessions, selectedDate],
   );
 
-  // Collapse once a day is logged; reopen for empty days or explicit edits.
-  const [formOpen, setFormOpen] = useState(() => !existingSession);
+  // Collapse once a day is logged; reopen only for today when empty, or explicit edits.
+  const [formOpen, setFormOpen] = useState(
+    () => !existingSession && selectedDate === formatGymDate(new Date()),
+  );
 
   useEffect(() => {
-    setFormOpen(!sessions.some((session) => session.date === selectedDate));
+    const todayIso = formatGymDate(new Date());
+    const hasSession = sessions.some(
+      (session) => session.date === selectedDate,
+    );
+    setFormOpen(!hasSession && selectedDate === todayIso);
     setSuccessMessage(null);
     setPendingConfirm(null);
     // Only re-evaluate when the day changes — not on every sessions refresh,
@@ -433,6 +439,8 @@ export function WorkoutLogger({
 
   const isToday = selectedDate === today;
   const isFuture = selectedDate > today;
+  const canCreate = isToday || Boolean(existingSession);
+  const isPastEmpty = selectedDate < today && !existingSession;
 
   const persist = useCallback(
     async (
@@ -472,7 +480,7 @@ export function WorkoutLogger({
   );
 
   const saveRestDay = useCallback(async () => {
-    if (isSaving || isFuture) return;
+    if (isSaving || isFuture || (!existingSession && !isToday)) return;
 
     const dayLabel = selectedDate === today ? "today" : shortDate(selectedDate);
 
@@ -488,10 +496,18 @@ export function WorkoutLogger({
       "rest",
     );
     if (ok) setPendingConfirm(null);
-  }, [isSaving, isFuture, persist, selectedDate, today]);
+  }, [
+    existingSession,
+    isSaving,
+    isFuture,
+    isToday,
+    persist,
+    selectedDate,
+    today,
+  ]);
 
   const requestRestDay = useCallback(() => {
-    if (isSaving || isFuture) return;
+    if (isSaving || isFuture || (!existingSession && !isToday)) return;
 
     const replacingWorkout = Boolean(
       existingSession && !existingSession.isRestDay,
@@ -502,10 +518,10 @@ export function WorkoutLogger({
     }
 
     void saveRestDay();
-  }, [draft, existingSession, isFuture, isSaving, saveRestDay]);
+  }, [draft, existingSession, isFuture, isSaving, isToday, saveRestDay]);
 
   const save = useCallback(async () => {
-    if (isSaving) return;
+    if (isSaving || isFuture || (!existingSession && !isToday)) return;
 
     const durationMin = toNumber(draft.durationMin);
     if (durationMin === undefined || durationMin < 1) {
@@ -578,11 +594,12 @@ export function WorkoutLogger({
         : `Logged session for ${dayLabel}`,
       "session",
     );
-  }, [draft, existingSession, isSaving, persist, today]);
+  }, [draft, existingSession, isFuture, isSaving, isToday, persist, today]);
 
   const canSave =
     !isSaving &&
     !isFuture &&
+    canCreate &&
     draft.groups.length > 0 &&
     draft.exercises.length > 0 &&
     Boolean(toNumber(draft.durationMin)) &&
@@ -713,9 +730,19 @@ export function WorkoutLogger({
             value={selectedDate}
             max={today}
             onChange={(event) => requestDateChange(event.target.value)}
+            onClick={(event) => {
+              const input = event.currentTarget;
+              try {
+                if (typeof input.showPicker === "function") {
+                  input.showPicker();
+                }
+              } catch {
+                // Native picker may already be open or reject the call.
+              }
+            }}
             disabled={isSaving}
             aria-label="Workout date"
-            className="absolute inset-0 cursor-pointer opacity-0"
+            className="absolute inset-0 cursor-pointer opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
           />
         </label>
 
@@ -764,6 +791,10 @@ export function WorkoutLogger({
           session={existingSession}
           onEdit={() => setFormOpen(true)}
         />
+      ) : isPastEmpty ? (
+        <p className="mt-4 text-sm text-muted-foreground">
+          No session this day.
+        </p>
       ) : (
         <div className="mt-5 space-y-5 pb-20 lg:pb-0">
           <div className="space-y-5">
@@ -772,9 +803,6 @@ export function WorkoutLogger({
                 <Label className="text-xs text-muted-foreground">
                   Muscle groups
                 </Label>
-                <p className="hidden text-[10px] text-muted-foreground lg:block">
-                  Press 1–8 to toggle
-                </p>
               </div>
               <MuscleGroupPicker
                 selected={draft.groups}
@@ -816,7 +844,7 @@ export function WorkoutLogger({
               <button
                 type="button"
                 onClick={requestRestDay}
-                disabled={isSaving || isFuture}
+                disabled={isSaving || isFuture || !canCreate}
                 className="el-focus-styles inline-flex h-9 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium transition-colors hover:bg-muted/30 disabled:cursor-not-allowed disabled:opacity-60"
                 style={{
                   color: GYM_REST_DAY_COLOR,

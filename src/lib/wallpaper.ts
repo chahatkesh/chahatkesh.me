@@ -31,6 +31,8 @@ export interface WallpaperDayDot {
 
 export interface WallpaperStreakLabel {
   value: number;
+  /** Quiet line under the number. Empty when the run is broken. */
+  caption: string;
   x: number;
   y: number;
   width: number;
@@ -160,6 +162,7 @@ export function buildWallpaperLayout(
     dots,
     streak: {
       value: summary.currentStreak,
+      caption: summary.currentStreak <= 0 ? "" : "so far",
       x: (width - gridWidth) / 2,
       y: lastDotY + cell / 2 + labelGap,
       width: gridWidth,

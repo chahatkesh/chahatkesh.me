@@ -1,18 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useState } from "react";
 import useSWR, { mutate } from "swr";
-import { ListChecks } from "lucide-react";
 
 import {
   AdminConfirmDialog,
   AdminErrorState,
   AdminLoadingState,
   AdminPageHeader,
+  GymAdminNav,
   ProtectedRoute,
 } from "~/components/admin";
-import { Button } from "~/components/ui";
 import { WorkoutLogger, WorkoutSessionList } from "~/components/features/gym";
 import { API_ROUTES } from "~/constants";
 import { ADMIN_SWR_CONFIG, adminFetcher } from "~/lib/fetcher";
@@ -106,20 +104,7 @@ function AdminGymContent() {
         subtitle="Log sessions and rest days in a few taps."
       />
 
-      <div className="flex flex-wrap justify-center gap-2 sm:justify-end">
-        <Button asChild variant="outline" size="sm">
-          <Link href="/admin/gym/photos">Progress photos</Link>
-        </Button>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/admin/gym/wallpaper">Wallpaper</Link>
-        </Button>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/admin/gym/exercises">
-            <ListChecks className="mr-1.5 size-3.5" />
-            Manage exercises
-          </Link>
-        </Button>
-      </div>
+      <GymAdminNav active="log" />
 
       <WorkoutLogger
         sessions={sessions}

@@ -10,6 +10,7 @@ import {
   WEEKLY_SESSION_GOAL,
 } from "~/constants/gym";
 import type { MuscleGroup } from "~/constants/gym";
+import { WALLPAPER_TIMEZONE } from "~/constants/wallpaper";
 import type {
   GymDaySummary,
   GymGroupStat,
@@ -41,6 +42,16 @@ export function formatGymDate(date: Date): string {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+/** Calendar "today" for logging — IST, same as the gym wallpaper. */
+export function todayGymDate(now = new Date()): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: WALLPAPER_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
 }
 
 /** Collapses any date input to UTC midnight so one document maps to one day. */

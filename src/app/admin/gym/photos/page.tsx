@@ -15,6 +15,7 @@ import {
   AdminListMeta,
   AdminLoadingState,
   AdminPageHeader,
+  GymAdminNav,
   ProtectedRoute,
 } from "~/components/admin";
 import { Button, Input, Label } from "~/components/ui";
@@ -209,6 +210,8 @@ function AdminGymPhotosContent() {
         title="Progress Photos"
         subtitle="Upload dated gym progress photos for the public gym page."
       />
+
+      <GymAdminNav active="photos" />
 
       <div className="space-y-3">
         <CldUploadWidget

@@ -4,6 +4,7 @@ import { type ReactNode, useCallback, useMemo, useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 import { AdminPageHeader } from "./admin-page-header";
+import { GymAdminNav } from "./gym-admin-nav";
 import { Button } from "~/components/ui";
 import { API_ROUTES } from "~/constants";
 import {
@@ -276,6 +277,8 @@ export function WallpaperSetup({ wallpaperUrl }: WallpaperSetupProps) {
         title="Wallpaper"
         subtitle="Daily iPhone 15 Pro lock screen from your gym streak."
       />
+
+      <GymAdminNav active="wallpaper" />
 
       <div className="grid min-w-0 lg:grid-cols-[minmax(0,1fr)_22.5rem] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_24rem]">
         <div className="order-2 flex min-w-0 flex-col justify-center gap-9 pt-8 lg:order-1 lg:pt-0">

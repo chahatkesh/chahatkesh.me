@@ -69,51 +69,51 @@ export function generateWallpaperImageResponse(layout: WallpaperLayout) {
         );
       })}
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          position: "absolute",
-          left: layout.streak.x,
-          top: layout.streak.y,
-          width: layout.streak.width,
-          alignItems: "center",
-          gap: layout.streak.gap,
-        }}
-      >
+      {layout.streak.caption ? (
         <div
           style={{
             display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            fontSize: layout.streak.numberSize,
-            fontWeight: 500,
-            color: WALLPAPER_COLORS.text,
-            letterSpacing: "-2px",
-            fontFamily: typeface,
-            lineHeight: 1,
+            flexDirection: "column",
+            position: "absolute",
+            left: layout.streak.x,
+            top: layout.streak.y,
+            width: layout.streak.width,
+            alignItems: "center",
+            gap: layout.streak.gap,
           }}
         >
-          {layout.streak.value}
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              fontSize: layout.streak.numberSize,
+              fontWeight: 500,
+              color: WALLPAPER_COLORS.text,
+              letterSpacing: "-2px",
+              fontFamily: typeface,
+              lineHeight: 1,
+            }}
+          >
+            {layout.streak.value}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              fontSize: layout.streak.captionSize,
+              fontWeight: 500,
+              color: WALLPAPER_COLORS.muted,
+              letterSpacing: "1px",
+              fontFamily: typeface,
+              lineHeight: 1,
+            }}
+          >
+            {layout.streak.caption}
+          </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            fontSize: layout.streak.captionSize,
-            fontWeight: 500,
-            color: WALLPAPER_COLORS.muted,
-            letterSpacing: "6px",
-            paddingLeft: 6,
-            textTransform: "uppercase",
-            fontFamily: typeface,
-            lineHeight: 1,
-          }}
-        >
-          streak
-        </div>
-      </div>
+      ) : null}
     </div>,
     {
       width: layout.width,

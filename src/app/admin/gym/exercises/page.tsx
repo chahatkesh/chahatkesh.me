@@ -12,6 +12,7 @@ import {
   AdminListMeta,
   AdminLoadingState,
   AdminPageHeader,
+  GymAdminNav,
   ProtectedRoute,
   adminListDangerActionClassName,
   adminListIconActionClassName,
@@ -170,6 +171,8 @@ function AdminGymExercisesContent() {
         title="Exercise Catalog"
         subtitle="Manage the exercises available when logging workouts."
       />
+
+      <GymAdminNav active="exercises" />
 
       <div className="flex flex-wrap gap-1.5">
         <button
