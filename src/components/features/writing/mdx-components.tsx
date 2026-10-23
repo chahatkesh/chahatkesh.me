@@ -1,7 +1,6 @@
 import { type AnchorHTMLAttributes, type ReactNode } from "react";
 import { FolderStructures } from "./folder-structures";
 import { BackendRoadmap } from "./backend-roadmap";
-import { MacOSInternalsLab } from "./macos-internals-lab";
 import { WritingMermaid } from "./writing-mermaid";
 import Link from "next/link";
 import { Info, Lightbulb, TriangleAlert } from "lucide-react";
@@ -96,6 +95,5 @@ export const writingMdxComponents = {
   Details,
   FolderStructures,
   BackendRoadmap,
-  MacOSInternalsLab,
   WritingMermaid,
 };
