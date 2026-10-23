@@ -37,7 +37,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
 - **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
 - **Skills Visualization:** Clickable tech stack marquee on home, full `/stack` index, and per-technology detail pages mapped to projects and experience
-- **Writing:** MDX essays with a book-spine shelf, generated covers, and `.md` twins for language models (`/about/writing`, `llms.txt`)
+- **Writing:** MDX essays with generated covers and `.md` twins for language models (`/about/writing`, `llms.txt`)
 - **Gym:** Public training log with rings, heatmap, muscle-group balance, and progress photos
 - **Timeline:** Full-page map of dated work, writing, videos, and life
 - **Coding Activity:** Unified GitHub and LeetCode contribution calendars

@@ -554,8 +554,7 @@ export const pages: PageEntry[] = [
   {
     path: "/about/writing",
     name: "Writing",
-    description:
-      "MDX essays with a book-spine shelf, generated covers, and .md twins for LLMs",
+    description: "MDX essays with generated covers and .md twins for LLMs",
     renderType: "SSG",
   },
   {
@@ -729,12 +728,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "40,666+",
+    value: "40,277+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "128",
+    value: "127",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

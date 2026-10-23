@@ -26,24 +26,24 @@ export const monthlyChangelog: MonthlyChangelog[] = [
   {
     month: "2026-09",
     publishedAt: "2026-09-19T23:57:00+05:30",
-    title: "A Shelf of Essays, a Lock-Screen Streak & One Thread",
+    title: "Deeper Essays, a Lock-Screen Streak & One Thread",
     summary:
-      "A month about finishing the rooms summer opened — writing you can take off a shelf, a year of training cut for an iPhone lock screen, and a career path that reads as a single line.",
+      "A month about finishing the rooms summer opened — essays with more to say, a year of training cut for an iPhone lock screen, and a career path that reads as a single line.",
     overview:
-      "September was about giving the new rooms a shape. Writing opened on a shelf of book spines, and the backend and codebase essays grew from sketches into arguments you can follow. The gym page started speaking in averages, and the streak became a wallpaper sized for an iPhone 15 Pro lock screen. Experience was redrawn so every company holds its roles on one thread. Underneath, admin sessions learned to send you back to the page you were on, and a few quieter passes kept tool names, view counts, and the share card current.",
+      "September was about giving the new rooms a shape. The backend and codebase essays grew from sketches into arguments you can follow. The gym page started speaking in averages, and the streak became a wallpaper sized for an iPhone 15 Pro lock screen. Experience was redrawn so every company holds its roles on one thread. Underneath, admin sessions learned to send you back to the page you were on, and a few quieter passes kept tool names, view counts, and the share card current.",
     stats: { commits: 10, files: 85 },
     changes: [
-      {
-        type: "added",
-        title: "Essays you can take off a shelf",
-        description:
-          "The writing index now opens on a shelf of up to eight spines — cloth, paper, and black, thick in proportion to how long each piece takes to read. The featured card is gone; the full grid still sits underneath. The backend-first essay and the piece on the shape of a codebase were rewritten from sketches into arguments you can follow section by section.",
-      },
       {
         type: "added",
         title: "A year of training, on the lock screen",
         description:
           "The gym streak can render as an iPhone 15 Pro wallpaper and drop straight into a Shortcut. The canvas is the phone's real portrait size, the grid is the last 365 days, and the subject sits below the clock so the date and time don't land on the dots. Today gets a ring. When the run is broken, the caption under the number stays blank.",
+      },
+      {
+        type: "improved",
+        title: "Essays with more to say",
+        description:
+          "The backend-first essay and the piece on the shape of a codebase were rewritten from sketches into arguments you can follow section by section.",
       },
       {
         type: "improved",
