@@ -6,6 +6,8 @@
 
 export const WRITING_COVER_VIEWBOX = { width: 1600, height: 900 } as const;
 
+export type WritingCoverAppearance = "dark" | "light";
+
 export const WRITING_COVER_PALETTES = {
   brass: {
     bg: "#0f0d0a",
@@ -58,6 +60,59 @@ export const WRITING_COVER_PALETTES = {
   },
 } as const;
 
+/** Same motifs, printed on tinted paper instead of a dark plate. */
+export const WRITING_COVER_PALETTES_LIGHT = {
+  brass: {
+    bg: "#f3eee4",
+    paper: "#3c3226",
+    accent: "#9a6b32",
+    mute: "#8a7764",
+    soft: "#e6dccb",
+  },
+  rose: {
+    bg: "#f6eef0",
+    paper: "#402c32",
+    accent: "#a45d6d",
+    mute: "#8d747b",
+    soft: "#eadfe2",
+  },
+  iris: {
+    bg: "#f1eef5",
+    paper: "#312b40",
+    accent: "#6d5c96",
+    mute: "#7c748c",
+    soft: "#e3deeb",
+  },
+  sage: {
+    bg: "#eef3ef",
+    paper: "#24352b",
+    accent: "#3d7a50",
+    mute: "#6d7f73",
+    soft: "#dfe8e1",
+  },
+  teal: {
+    bg: "#eef4f4",
+    paper: "#1c3334",
+    accent: "#0c7c84",
+    mute: "#5f7475",
+    soft: "#dfeaea",
+  },
+  copper: {
+    bg: "#f6efe6",
+    paper: "#3a291c",
+    accent: "#b56a2c",
+    mute: "#8a7360",
+    soft: "#eadccb",
+  },
+  slate: {
+    bg: "#eef2f6",
+    paper: "#24303b",
+    accent: "#3d6d90",
+    mute: "#6d7c8a",
+    soft: "#e1e7ee",
+  },
+} as const;
+
 export const WRITING_COVER_MOTIFS = [
   "home",
   "company",
@@ -70,8 +125,13 @@ export const WRITING_COVER_MOTIFS = [
 ] as const;
 
 export type WritingCoverMotif = (typeof WRITING_COVER_MOTIFS)[number];
-export type WritingCoverPalette =
-  (typeof WRITING_COVER_PALETTES)[keyof typeof WRITING_COVER_PALETTES];
+export type WritingCoverPalette = {
+  bg: string;
+  paper: string;
+  accent: string;
+  mute: string;
+  soft: string;
+};
 
 const MOTIF_PALETTE: Record<
   WritingCoverMotif,
@@ -131,8 +191,22 @@ export function getWritingCoverSpec(
   };
 }
 
-function coverId(slug: string, name: string) {
-  return `wc-${slug}-${name}`;
+function coverId(
+  slug: string,
+  name: string,
+  appearance: WritingCoverAppearance,
+) {
+  return `wc-${appearance}-${slug}-${name}`;
+}
+
+/** Dark plates use faint light lines. Paper covers need heavier ink. */
+function tuneForAppearance(markup: string, appearance: WritingCoverAppearance) {
+  if (appearance === "dark") return markup;
+
+  return markup.replace(/stroke-opacity="([0-9.]+)"/g, (_, raw: string) => {
+    const boosted = Math.min(1, Number(raw) * 1.2 + 0.25);
+    return `stroke-opacity="${boosted.toFixed(2)}"`;
+  });
 }
 
 function motifMarkup(spec: WritingCoverSpec, width: number, height: number) {
@@ -268,14 +342,31 @@ function motifMarkup(spec: WritingCoverSpec, width: number, height: number) {
 export function generateWritingCoverSvg({
   slug,
   title,
+  appearance = "dark",
 }: {
   slug: string;
   title: string;
+  appearance?: WritingCoverAppearance;
 }) {
   const { width, height } = WRITING_COVER_VIEWBOX;
-  const spec = getWritingCoverSpec(slug, title);
-  const grainId = coverId(slug, "grain");
-  const vigId = coverId(slug, "vig");
+  const motif = inferWritingCoverMotif(title);
+  const palette =
+    appearance === "light"
+      ? WRITING_COVER_PALETTES_LIGHT[MOTIF_PALETTE[motif]]
+      : WRITING_COVER_PALETTES[MOTIF_PALETTE[motif]];
+  const spec: WritingCoverSpec = {
+    motif,
+    palette,
+    seed: hashString(slug),
+  };
+  const grainId = coverId(slug, "grain", appearance);
+  const vigId = coverId(slug, "vig", appearance);
+  const vignette =
+    appearance === "light"
+      ? `<stop offset="58%" stop-color="${palette.bg}" stop-opacity="0" />
+      <stop offset="100%" stop-color="${palette.mute}" stop-opacity="0.22" />`
+      : `<stop offset="40%" stop-color="${palette.bg}" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.42" />`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="presentation" aria-hidden="true">
   <defs>
@@ -284,14 +375,13 @@ export function generateWritingCoverSvg({
       <feColorMatrix type="saturate" values="0" />
     </filter>
     <radialGradient id="${vigId}" cx="50%" cy="48%" r="72%">
-      <stop offset="40%" stop-color="${spec.palette.bg}" stop-opacity="0" />
-      <stop offset="100%" stop-color="#000000" stop-opacity="0.42" />
+      ${vignette}
     </radialGradient>
   </defs>
-  <rect width="${width}" height="${height}" fill="${spec.palette.bg}" />
-  <rect width="${width}" height="${height}" fill="${spec.palette.soft}" fill-opacity="0.55" />
-  ${motifMarkup(spec, width, height)}
+  <rect width="${width}" height="${height}" fill="${palette.bg}" />
+  <rect width="${width}" height="${height}" fill="${palette.soft}" fill-opacity="0.55" />
+  ${tuneForAppearance(motifMarkup(spec, width, height), appearance)}
   <rect width="${width}" height="${height}" fill="url(#${vigId})" />
-  <rect width="${width}" height="${height}" filter="url(#${grainId})" opacity="0.045" />
+  <rect width="${width}" height="${height}" filter="url(#${grainId})" opacity="${appearance === "light" ? "0.05" : "0.045"}" />
 </svg>`;
 }

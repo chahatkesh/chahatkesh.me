@@ -10,22 +10,25 @@ export const BRAND_ACCENT_HSL = "182.7 100.0% 35.5%";
 /** Primary brand accent color (hex for OG images and third-party libs) */
 export const BRAND_ACCENT_HEX = "#00adb5";
 
-/** Brand color palette for GitHub contribution graph */
+/**
+ * GitHub contribution ramp. Values are CSS variables so the same cells
+ * follow the system color scheme without a second render.
+ */
 export const GITHUB_CONTRIBUTION_COLORS = [
-  "#1b1b1b",
-  "#006064",
-  "#00838f",
-  "#0097a7",
-  "#00adb5",
+  "var(--contrib-github-0)",
+  "var(--contrib-github-1)",
+  "var(--contrib-github-2)",
+  "var(--contrib-github-3)",
+  "var(--contrib-github-4)",
 ] as const;
 
-/** Brand color palette for LeetCode activity calendar (premium amber) */
+/** LeetCode activity ramp. See GITHUB_CONTRIBUTION_COLORS. */
 export const LEETCODE_CALENDAR_COLORS = [
-  "#1b1b1b",
-  "#5a3a12",
-  "#8a5a1f",
-  "#c8892b",
-  "#f2b84b",
+  "var(--contrib-leetcode-0)",
+  "var(--contrib-leetcode-1)",
+  "var(--contrib-leetcode-2)",
+  "var(--contrib-leetcode-3)",
+  "var(--contrib-leetcode-4)",
 ] as const;
 
 /** Background color (hex for OG images) */

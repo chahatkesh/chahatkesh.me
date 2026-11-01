@@ -19,7 +19,7 @@ const Breadcrumb = ({ items, className, align = "start" }: BreadcrumbProps) => {
     url === "/" ? "chahat" : name.toLowerCase();
 
   const sep = (
-    <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/50" />
+    <ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
   );
 
   const last = items[items.length - 1];
@@ -57,7 +57,7 @@ const Breadcrumb = ({ items, className, align = "start" }: BreadcrumbProps) => {
             {hasAncestors && (
               <li className="flex items-center gap-1.5 shrink-0">
                 <span
-                  className="text-muted-foreground/50 select-none"
+                  className="text-muted-foreground select-none"
                   aria-hidden="true"
                 >
                   &hellip;

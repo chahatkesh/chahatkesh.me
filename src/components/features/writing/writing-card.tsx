@@ -22,7 +22,7 @@ export function WritingCard({ entry, index = 0 }: WritingCardProps) {
         href={`/about/writing/${entry.slug}`}
         className="el-focus-styles group block rounded-xl"
       >
-        <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border/80 bg-card shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-colors duration-500 group-hover:border-muted-foreground/25">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-lg bg-card">
           <WritingCover
             slug={entry.slug}
             title={entry.title}

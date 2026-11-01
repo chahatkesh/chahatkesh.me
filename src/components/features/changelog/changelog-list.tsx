@@ -93,7 +93,7 @@ export function ChangelogList({ entries }: ChangelogListProps) {
             top: preview.y,
           }}
         >
-          <div className="overflow-hidden rounded-xl border border-white/10 bg-card shadow-2xl shadow-black/40">
+          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-black/20">
             <Image
               src={previewSrc}
               alt=""

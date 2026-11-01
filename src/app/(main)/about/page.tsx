@@ -293,7 +293,7 @@ const AboutPage = async () => {
                 alt=""
                 aria-hidden="true"
                 loading="eager"
-                className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-auto select-none object-contain sm:block"
+                className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-auto select-none object-contain sm:block light:mix-blend-multiply light:[filter:invert(1)_hue-rotate(180deg)]"
               />
               <div className="relative z-10 space-y-5 pl-2 font-poem text-[0.98rem] italic leading-[1.85] text-muted-foreground sm:text-[1.03rem]">
                 <p>

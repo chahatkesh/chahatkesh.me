@@ -320,7 +320,7 @@ function AdminPageInner() {
               <p
                 role="alert"
                 aria-live="polite"
-                className="min-h-4 text-center text-xs text-red-500/90"
+                className="min-h-4 text-center text-xs text-danger/90"
               >
                 {error || "\u00A0"}
               </p>

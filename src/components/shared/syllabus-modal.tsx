@@ -75,7 +75,7 @@ export const SyllabusModal = ({
             <div className="space-y-6">
               {course.syllabus?.map((unit) => (
                 <div key={unit.unit} className="flex gap-4 sm:gap-5">
-                  <span className="flex-shrink-0 font-mono text-xs text-muted-foreground/50 tabular-nums pt-0.5 select-none">
+                  <span className="flex-shrink-0 font-mono text-xs text-muted-foreground tabular-nums pt-0.5 select-none">
                     {String(unit.unit).padStart(2, "0")}
                   </span>
                   <p className="text-sm text-justify text-muted-foreground leading-relaxed border-l border-border pl-4 sm:pl-5">

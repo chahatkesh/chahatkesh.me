@@ -536,7 +536,7 @@ function PendingImageTile({
           disabled={item.saving}
           className="w-full rounded border border-border bg-card px-2 py-1 text-xs text-foreground/90 placeholder:text-muted-foreground/50 focus:border-ring focus:outline-none disabled:opacity-50"
         />
-        {item.error && <p className="text-xs text-red-400">{item.error}</p>}
+        {item.error && <p className="text-xs text-danger">{item.error}</p>}
         <div className="flex gap-1">
           <Button
             type="button"

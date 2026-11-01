@@ -104,7 +104,7 @@ export default async function WritingEntryPage({ params }: Props) {
         subtitle={entry.subtitle}
       />
 
-      <div className="relative aspect-[2/1] overflow-hidden rounded-xl border border-border/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] sm:aspect-[2.2/1] sm:rounded-2xl">
+      <div className="relative aspect-[2/1] overflow-hidden rounded-xl sm:aspect-[2.2/1] sm:rounded-2xl">
         <WritingCover slug={entry.slug} title={entry.title} />
       </div>
 

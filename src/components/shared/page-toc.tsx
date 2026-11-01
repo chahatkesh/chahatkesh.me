@@ -83,7 +83,7 @@ export function PageTableOfContents({ sections }: PageTableOfContentsProps) {
                     "flex-shrink-0 font-mono text-xs",
                     activeSection === section.id
                       ? "text-ring"
-                      : "text-muted-foreground/50 group-hover:text-muted-foreground/80",
+                      : "text-muted-foreground group-hover:text-foreground",
                   )}
                 >
                   {String(index + 1).padStart(2, "0")}

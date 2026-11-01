@@ -385,7 +385,7 @@ function PhotoFormSheet({
                 }))
               }
               required
-              className="border-border bg-card [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:filter hover:[&::-webkit-calendar-picker-indicator]:opacity-100"
+              className="border-border bg-card"
             />
           </div>
 

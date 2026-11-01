@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
-import { BRAND_ACCENT_HEX } from "~/constants/brand";
 import {
   MUSCLE_GROUP_COLORS,
   MUSCLE_GROUP_LABELS,
@@ -184,8 +183,8 @@ export function GymRadar({ summary }: GymRadarProps) {
 
           <motion.polygon
             points={polygonPoints(axisValues, scale)}
-            fill={`${BRAND_ACCENT_HEX}33`}
-            stroke={BRAND_ACCENT_HEX}
+            fill="color-mix(in srgb, hsl(var(--ring)) 20%, transparent)"
+            stroke="hsl(var(--ring))"
             strokeWidth={2}
             strokeLinejoin="round"
             initial={{ opacity: 0, scale: 0.6 }}

@@ -21,7 +21,7 @@ export function StackCard({ stack }: StackCardProps) {
           className={cn(
             "relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border border-border/80",
             "bg-gradient-to-br from-card/70 via-card/40 to-background/80 p-5",
-            "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]",
+            "inset-highlight",
             "transition-all duration-300",
             "hover:border-muted-foreground/25 hover:shadow-lg hover:shadow-black/5",
           )}
@@ -38,7 +38,7 @@ export function StackCard({ stack }: StackCardProps) {
             </div>
             <FaChevronRight
               aria-hidden
-              className="mt-0.5 size-3 shrink-0 text-muted-foreground/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-muted-foreground/70"
+              className="mt-0.5 size-3 shrink-0 text-muted-foreground transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-foreground"
             />
           </div>
 

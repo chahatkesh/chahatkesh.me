@@ -32,14 +32,14 @@ const socialsIcons = [
     icon: <FaInstagram className="size-[1.2rem]" />,
     href: config.social.instagram,
     className:
-      " hover:bg-gradient-to-r from-rose-400 to-red-500 hover:text-white" as ClassValue,
+      "hover:bg-gradient-to-r from-rose-600 to-red-700 hover:text-white" as ClassValue,
   },
   {
     id: 4,
     label: "Discord",
     icon: <TbBrandDiscord className="size-[1.2rem]" />,
     href: config.social.discord,
-    className: "hover:bg-blue-400 hover:text-white" as ClassValue,
+    className: "hover:bg-[#5865F2] hover:text-white" as ClassValue,
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ const socialsIcons = [
     label: "Twitter",
     icon: <FaXTwitter className="size-[1.2rem]" />,
     href: config.social.twitter,
-    className: "hover:bg-[#1DA1F2] hover:text-white" as ClassValue,
+    className: "hover:bg-[#1DA1F2] hover:text-black" as ClassValue,
   },
   {
     id: 7,

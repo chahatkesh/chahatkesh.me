@@ -101,7 +101,7 @@ export default async function ProjectPage({ params }: Props) {
           sizes="(min-width: 912px) 880px, 100vw"
         />
         {project.contributors && project.contributors.length > 0 && (
-          <div className="absolute top-6 right-6 z-20 text-[10px] bg-black/75 rounded-sm px-2 py-1 md:text-xs text-ring font-medium tracking-wide">
+          <div className="absolute top-6 right-6 z-20 text-[10px] bg-black/75 rounded-sm px-2 py-1 md:text-xs text-scrim font-medium tracking-wide">
             TEAM PROJECT
           </div>
         )}
@@ -120,7 +120,7 @@ export default async function ProjectPage({ params }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <div className="prose prose-lg prose-invert max-w-none">
+        <div className="max-w-none">
           <p
             className={
               typo({ variant: "paragraph", size: "lg" }) + " text-justify"
@@ -178,7 +178,7 @@ export default async function ProjectPage({ params }: Props) {
           className="space-y-6"
         >
           <h2 className={typo({ variant: "h2" })}>About {project.title}</h2>
-          <div className="prose prose-lg prose-invert max-w-none">
+          <div className="max-w-none">
             <p
               className={
                 typo({ variant: "paragraph", size: "lg" }) + " text-justify"

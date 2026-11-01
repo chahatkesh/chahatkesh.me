@@ -39,7 +39,7 @@ export function FeatureCard({
             x="-12"
             y="4"
             squares={squares}
-            className="absolute inset-0 h-full w-full fill-ring/5 stroke-border mix-blend-overlay"
+            className="absolute inset-0 h-full w-full fill-ring/10 stroke-border mix-blend-overlay light:mix-blend-multiply"
           />
         </div>
       </div>
@@ -65,7 +65,7 @@ export function FeatureCard({
         {href ? (
           <ArrowUpRight
             aria-hidden
-            className="size-3.5 shrink-0 text-muted-foreground/50 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ring"
+            className="size-3.5 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ring"
           />
         ) : null}
       </div>

@@ -50,7 +50,7 @@ const rowClassName = cn(
 );
 
 const trailingIconClassName =
-  "size-4 shrink-0 text-muted-foreground/50 transition-all duration-150 group-hover:text-muted-foreground/80";
+  "size-4 shrink-0 text-muted-foreground transition-all duration-150 group-hover:text-foreground";
 
 interface LinkRowProps {
   item: LinkItem;

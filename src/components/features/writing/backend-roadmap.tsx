@@ -30,7 +30,7 @@ export function BackendRoadmap() {
   }
 
   return (
-    <div className="writing-backend-roadmap my-8 overflow-hidden rounded-2xl border border-border/80 bg-card/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] font-sans">
+    <div className="writing-backend-roadmap my-8 overflow-hidden rounded-2xl border border-border/80 bg-card/30 inset-highlight font-sans">
       <div className="border-b border-border/80 px-4 py-4 sm:px-8 sm:py-4">
         <div className="flex items-center gap-3 sm:gap-4">
           <NavButton

@@ -4,10 +4,121 @@
 
 @layer base {
   :root {
+    color-scheme: dark;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 240 5% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 5% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 182.7 100% 35.5%;
+    --brand-foreground: 240 10% 3.9%;
+    --info: 204 92% 74%;
+    --warning: 40 96% 64%;
+    --success: 152 60% 58%;
+    --danger: 0 91% 71%;
+    --media-accent: 182 72% 74%;
+    --radius: 0.5rem;
+    --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.06);
+    --contrib-github-0: #1b1b1b;
+    --contrib-github-1: #006064;
+    --contrib-github-2: #00838f;
+    --contrib-github-3: #0097a7;
+    --contrib-github-4: #00adb5;
+    --contrib-leetcode-0: #1b1b1b;
+    --contrib-leetcode-1: #5a3a12;
+    --contrib-leetcode-2: #8a5a1f;
+    --contrib-leetcode-3: #c8892b;
+    --contrib-leetcode-4: #f2b84b;
+    --contrib-gym-0: #1b1b1b;
+    --contrib-gym-1: #0b3d2e;
+    --contrib-gym-2: #148f5c;
+    --contrib-gym-3: #37c47f;
+    --contrib-gym-4: #6ef0a5;
+    --muscle-chest: #ff6b6b;
+    --muscle-back: #845ef7;
+    --muscle-shoulders: #4dabf7;
+    --muscle-biceps: #f2b84b;
+    --muscle-triceps: #ff922b;
+    --muscle-legs: #51cf66;
+    --muscle-core: #f06595;
+    --muscle-cardio: #00d3d9;
+    --ring-sessions: #00d3d9;
+    --ring-groups: #845ef7;
+    --ring-time: #f2b84b;
     --scrollbar-thumb: hsl(var(--border) / 0.9);
     --scrollbar-thumb-hover: hsl(var(--muted-foreground) / 0.55);
     --scrollbar-track: hsl(var(--background) / 0.72);
     --header-height: 3.5rem;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      color-scheme: light;
+      --background: 0 0% 100%;
+      --foreground: 240 10% 7%;
+      --card: 0 0% 100%;
+      --card-foreground: 240 10% 7%;
+      --popover: 0 0% 100%;
+      --popover-foreground: 240 10% 7%;
+      --primary: 240 6% 10%;
+      --primary-foreground: 0 0% 98%;
+      --secondary: 240 5% 93%;
+      --secondary-foreground: 240 6% 10%;
+      --muted: 240 5% 93%;
+      --muted-foreground: 240 4% 36%;
+      --accent: 240 5% 92%;
+      --accent-foreground: 240 6% 10%;
+      --destructive: 0 72% 36%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 240 5% 82%;
+      --input: 240 4% 54%;
+      --ring: 183 100% 24%;
+      --brand-foreground: 0 0% 100%;
+      --info: 210 85% 32%;
+      --warning: 28 78% 28%;
+      --success: 158 72% 24%;
+      --danger: 0 72% 36%;
+      --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.85);
+      --contrib-github-0: #d5d5db;
+      --contrib-github-1: #7ec9ce;
+      --contrib-github-2: #2aa3ad;
+      --contrib-github-3: #0c7c86;
+      --contrib-github-4: #084f57;
+      --contrib-leetcode-0: #d5d5db;
+      --contrib-leetcode-1: #efc56a;
+      --contrib-leetcode-2: #e09a28;
+      --contrib-leetcode-3: #b67410;
+      --contrib-leetcode-4: #7a4f0c;
+      --contrib-gym-0: #d5d5db;
+      --contrib-gym-1: #7dcea0;
+      --contrib-gym-2: #34b56e;
+      --contrib-gym-3: #1a8f52;
+      --contrib-gym-4: #0c6438;
+      --muscle-chest: #c92a2a;
+      --muscle-back: #5f3dc4;
+      --muscle-shoulders: #1864ab;
+      --muscle-biceps: #8a5a00;
+      --muscle-triceps: #c2410c;
+      --muscle-legs: #157a38;
+      --muscle-core: #c2255c;
+      --muscle-cardio: #0b7285;
+      --ring-sessions: #0b7285;
+      --ring-groups: #5f3dc4;
+      --ring-time: #8a5a00;
+    }
   }
 
   html {
@@ -57,8 +168,28 @@
     }
   }
 
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1);
+    opacity: 0.75;
+  }
+
+  @media (prefers-color-scheme: light) {
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: none;
+      opacity: 0.7;
+    }
+  }
+
   body {
     overscroll-behavior: none;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
   }
 }
 
@@ -72,7 +203,12 @@
   }
 
   ::selection {
-    @apply bg-ring text-white;
+    background-color: hsl(var(--ring) / 0.28);
+    color: hsl(var(--foreground));
+  }
+
+  .inset-highlight {
+    box-shadow: var(--inset-highlight);
   }
 
   .scrollbar-hide {
@@ -133,14 +269,35 @@
     transition: filter 150ms ease;
   }
 
+  .coding-activity-calendar rect[data-date] {
+    stroke: none !important;
+  }
+
+  .coding-activity-calendar text {
+    fill: hsl(var(--muted-foreground)) !important;
+  }
+
   .coding-activity-calendar rect[data-date]:hover,
   .coding-activity-calendar g[data-date]:hover {
     filter: brightness(1.35) saturate(1.1);
   }
 
+  @media (prefers-color-scheme: light) {
+    .coding-activity-calendar rect[data-date]:hover,
+    .coding-activity-calendar g[data-date]:hover {
+      filter: brightness(0.92) saturate(1.05);
+    }
+  }
+
   /* Gym rest days — blue, distinct from the green training ramp */
   .coding-activity-calendar rect[data-rest="true"] {
     fill: #5b8fd4 !important;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .coding-activity-calendar rect[data-rest="true"] {
+      fill: #3d6eab !important;
+    }
   }
 
   /* GPU acceleration for smooth animations */
@@ -461,20 +618,19 @@
   -webkit-text-fill-color: var(--changelog-selection-text);
 }
 
-.changelog-surface :is(a, button).bg-white ::selection,
-.changelog-surface :is(a, button).bg-white ::-moz-selection,
+.changelog-surface :is(a, button).bg-foreground ::selection,
+.changelog-surface :is(a, button).bg-foreground ::-moz-selection,
 .changelog-surface
-  :is(a, button)[class*="hover:bg-white"]:is(:hover, :focus-visible)
+  :is(a, button)[class*="hover:bg-foreground"]:is(:hover, :focus-visible)
   ::selection,
 .changelog-surface
-  :is(a, button)[class*="hover:bg-white"]:is(:hover, :focus-visible)
+  :is(a, button)[class*="hover:bg-foreground"]:is(:hover, :focus-visible)
   ::-moz-selection {
   --changelog-selection-bg: linear-gradient(
     135deg,
-    hsl(182.7 100% 42% / 0.16) 0%,
-    hsl(182.7 90% 38% / 0.1) 48%,
-    hsl(182.7 100% 48% / 0.14) 100%
+    hsl(var(--ring) / 0.22) 0%,
+    hsl(var(--ring) / 0.12) 100%
   );
-  --changelog-selection-text: hsl(var(--ring));
+  --changelog-selection-text: hsl(var(--background));
   --changelog-selection-shadow: none;
 }

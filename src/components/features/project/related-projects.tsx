@@ -43,10 +43,10 @@ export function RelatedProjects({
           >
             <SmartLink
               href={`/projects/${project.slug}`}
-              className="block w-full h-full rounded-xl"
+              className="block h-full w-full rounded-xl text-foreground"
             >
-              <div className="rounded-xl overflow-hidden border border-border bg-gradient-to-br from-card/50 to-background/70 backdrop-blur-sm hover:border-primary/20 transition-all duration-300 h-full w-full flex flex-col">
-                <div className="relative w-full aspect-video overflow-hidden">
+              <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors duration-300 hover:border-ring/40">
+                <div className="relative aspect-video w-full overflow-hidden bg-muted">
                   <Image
                     src={project.cover}
                     alt={project.title}
@@ -54,25 +54,24 @@ export function RelatedProjects({
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                  <div className="absolute top-2 right-2 bg-background/50 backdrop-blur-sm rounded-md px-2 z-20">
-                    <span className="text-xs text-foreground/80">
+                  <div className="absolute right-2.5 top-2.5 z-20 rounded-md bg-black/60 px-2 py-1 text-xs font-medium text-white backdrop-blur-md">
+                    <time dateTime={project.datePublished}>
                       {new Date(project.datePublished).toLocaleDateString(
                         config.seo.language,
                         { year: "numeric", month: "short" },
                       )}
-                    </span>
+                    </time>
                   </div>
                 </div>
 
-                <div className="p-5 flex-1 flex flex-col">
-                  <h3 className="text-lg font-semibold mb-2 line-clamp-2">
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="mb-2 line-clamp-2 text-lg font-semibold text-ring">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">
+                  <p className="mb-4 line-clamp-3 flex-1 text-sm text-muted-foreground">
                     {project.tagline}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {project.stacks
                       .slice(0, MAX_VISIBLE_STACKS_FEATURED)
                       .map((stack) => {
@@ -85,7 +84,7 @@ export function RelatedProjects({
                         ) : null;
                       })}
                     {project.stacks.length > 3 && (
-                      <span className="text-xs text-muted-foreground/70">
+                      <span className="text-xs text-muted-foreground">
                         +{project.stacks.length - 3} more
                       </span>
                     )}

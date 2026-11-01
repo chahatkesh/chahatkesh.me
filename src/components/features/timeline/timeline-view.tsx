@@ -142,7 +142,7 @@ export function TimelineView({
                     <span
                       className={cn(
                         "text-[10px] uppercase tracking-[0.16em]",
-                        empty ? "text-muted-foreground/30" : meta.text,
+                        empty ? "text-muted-foreground" : meta.text,
                       )}
                     >
                       {meta.shortLabel}

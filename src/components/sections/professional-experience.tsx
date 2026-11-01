@@ -7,7 +7,6 @@ import {
   groupExperiencesByCompany,
   type ExperienceGroup,
 } from "~/lib/experience-utils";
-import { MAX_DISPLAYED_EXPERIENCES } from "~/constants";
 import {
   ExperienceDates,
   ExperienceLogo,
@@ -16,7 +15,6 @@ import {
 
 const ProfessionalExperience = () => {
   const groups = groupExperiencesByCompany(experiences);
-  const visibleGroups = groups.slice(0, MAX_DISPLAYED_EXPERIENCES);
 
   return (
     <section
@@ -30,8 +28,8 @@ const ProfessionalExperience = () => {
         <ExperienceThread />
 
         <ol className="relative">
-          {visibleGroups.map((group, idx) => {
-            const isLast = idx === visibleGroups.length - 1;
+          {groups.map((group, idx) => {
+            const isLast = idx === groups.length - 1;
             return group.positions.length === 1 ? (
               <SingleRole key={group.companyId} group={group} isLast={isLast} />
             ) : (
@@ -40,17 +38,6 @@ const ProfessionalExperience = () => {
           })}
         </ol>
       </div>
-
-      {groups.length > MAX_DISPLAYED_EXPERIENCES && (
-        <div className="flex justify-end">
-          <Link
-            href="/about/experience"
-            className="link-inline text-sm !text-muted-foreground hover:!text-ring"
-          >
-            View all
-          </Link>
-        </div>
-      )}
     </section>
   );
 };

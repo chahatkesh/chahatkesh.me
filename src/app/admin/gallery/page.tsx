@@ -324,7 +324,7 @@ function AdminGalleryContent() {
                     size="sm"
                     variant="outline"
                     onClick={() => setDeleteTarget(image)}
-                    className="h-8 px-2.5 bg-red-500/95 hover:bg-red-600 text-white border-0 backdrop-blur-sm text-xs"
+                    className="h-8 px-2.5 bg-red-700 hover:bg-red-800 text-white border-0 backdrop-blur-sm text-xs"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -452,7 +452,7 @@ function AdminGalleryContent() {
                     }))
                   }
                   required
-                  className="border-border bg-card [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:filter hover:[&::-webkit-calendar-picker-indicator]:opacity-100"
+                  className="border-border bg-card"
                 />
               </div>
 
@@ -621,7 +621,7 @@ function AdminGalleryContent() {
                       }))
                     }
                     required
-                    className="bg-card border-border [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                    className="bg-card border-border"
                   />
                 </div>
               </div>

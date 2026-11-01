@@ -28,6 +28,7 @@ import {
 import {
   MUSCLE_GROUPS,
   MUSCLE_GROUP_COLORS,
+  muscleTint,
   MUSCLE_GROUP_LABELS,
 } from "~/constants/gym";
 import type { MuscleGroup } from "~/constants/gym";
@@ -199,8 +200,8 @@ function AdminGymExercisesContent() {
               style={
                 active
                   ? {
-                      borderColor: `${color}66`,
-                      backgroundColor: `${color}26`,
+                      borderColor: muscleTint(color, 40),
+                      backgroundColor: muscleTint(color, 15),
                       color,
                     }
                   : undefined
@@ -349,7 +350,7 @@ function AdminGymExercisesContent() {
             </div>
 
             {formError ? (
-              <p className="text-sm text-red-500">{formError}</p>
+              <p className="text-sm text-danger">{formError}</p>
             ) : null}
 
             <div className="flex justify-end gap-2 pt-2">
@@ -401,7 +402,7 @@ function AdminGymExercisesContent() {
       />
 
       {deleteError ? (
-        <p className="text-sm text-red-500" role="alert">
+        <p className="text-sm text-danger" role="alert">
           {deleteError}
         </p>
       ) : null}

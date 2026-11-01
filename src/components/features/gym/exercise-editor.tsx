@@ -323,7 +323,7 @@ function ExerciseRow({
             onClick={() => onRemove(exercise.key)}
             disabled={disabled}
             aria-label={`Remove ${exercise.name}`}
-            className="size-7 px-0 text-muted-foreground hover:text-red-500"
+            className="size-7 px-0 text-muted-foreground hover:text-danger"
           >
             <X className="size-3.5" />
           </Button>
@@ -439,7 +439,7 @@ function ExerciseRow({
                   })
                 }
                 aria-label={`Remove set ${index + 1}`}
-                className="size-8 shrink-0 justify-self-end px-0 text-muted-foreground hover:text-red-500 xs:justify-self-center"
+                className="size-8 shrink-0 justify-self-end px-0 text-muted-foreground hover:text-danger xs:justify-self-center"
               >
                 <Trash2 className="size-3.5" />
               </Button>

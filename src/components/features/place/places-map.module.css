@@ -2,6 +2,12 @@
   filter: grayscale(1) saturate(0.26) brightness(1.05) contrast(1.16);
 }
 
+@media (prefers-color-scheme: light) {
+  .canvas :global(.maplibregl-canvas) {
+    filter: none;
+  }
+}
+
 .canvas :global(.maplibregl-ctrl-group) {
   border: 1px solid rgb(255 255 255 / 0.18);
   background: rgb(7 7 7 / 0.82);
@@ -22,4 +28,24 @@
 .canvas :global(.maplibregl-ctrl-group button:focus-visible) {
   outline: 2px solid rgb(229 229 229 / 0.72);
   outline-offset: -2px;
+}
+
+@media (prefers-color-scheme: light) {
+  .canvas :global(.maplibregl-ctrl-group) {
+    border-color: rgb(24 24 27 / 0.14);
+    background: rgb(255 255 255 / 0.92);
+    box-shadow: 0 12px 30px rgb(24 24 27 / 0.12);
+  }
+
+  .canvas :global(.maplibregl-ctrl-group button) {
+    color: rgb(24 24 27);
+  }
+
+  .canvas :global(.maplibregl-ctrl-group button:hover) {
+    background: rgb(24 24 27 / 0.06);
+  }
+
+  .canvas :global(.maplibregl-ctrl-group button:focus-visible) {
+    outline-color: rgb(0 116 122 / 0.95);
+  }
 }

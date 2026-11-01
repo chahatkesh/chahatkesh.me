@@ -9,6 +9,7 @@ import {
   GYM_REST_DAY_COLOR,
   MAX_SETS_PER_EXERCISE,
   MUSCLE_GROUP_COLORS,
+  muscleTint,
   MUSCLE_GROUP_LABELS,
   MUSCLE_GROUPS,
   WEIGHT_UNIT,
@@ -834,7 +835,7 @@ export function WorkoutLogger({
           </div>
 
           {errorMessage ? (
-            <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-500">
+            <p className="rounded-md border border-danger/30 bg-danger/10 px-3 py-2 text-xs text-danger">
               {errorMessage}
             </p>
           ) : null}
@@ -931,7 +932,7 @@ function DurationField({
   return (
     <div className="min-w-0 space-y-2">
       <Label className="text-xs text-muted-foreground">
-        Duration <span className="text-red-500">*</span>
+        Duration <span className="text-danger">*</span>
       </Label>
       <div className="flex flex-wrap items-center gap-1.5">
         {DURATION_PRESETS.map((minutes) => (
@@ -1014,7 +1015,7 @@ function LoggedSessionSummary({
               key={group}
               className="rounded px-1.5 py-0.5 text-[10px] font-medium"
               style={{
-                backgroundColor: `${MUSCLE_GROUP_COLORS[group]}1f`,
+                backgroundColor: muscleTint(MUSCLE_GROUP_COLORS[group], 12),
                 color: MUSCLE_GROUP_COLORS[group],
               }}
             >

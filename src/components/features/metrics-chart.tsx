@@ -73,7 +73,7 @@ export function MetricsChart({
                   ease: "easeInOut",
                   repeat: 0,
                 }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/10 to-transparent"
               />
             </div>
           </motion.div>

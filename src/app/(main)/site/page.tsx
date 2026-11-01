@@ -9,6 +9,7 @@ import {
   RevealSection,
   RevealCard,
 } from "~/components/shared";
+import { LiveTokenValue } from "~/components/shared/live-token-value";
 import { Skeleton } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import Link from "next/link";
@@ -192,7 +193,7 @@ const SitePage = async () => {
                               <span className="text-lg font-semibold text-foreground">
                                 {tech.name}
                               </span>
-                              <span className="font-mono text-xs text-muted-foreground/70">
+                              <span className="font-mono text-xs text-muted-foreground">
                                 v{tech.version}
                               </span>
                             </div>
@@ -225,7 +226,7 @@ const SitePage = async () => {
                       }[cat];
                       return (
                         <div key={cat} className="space-y-3">
-                          <p className="text-xs uppercase tracking-wider text-muted-foreground/70">
+                          <p className="text-xs uppercase tracking-wider text-muted-foreground">
                             {categoryLabel}
                           </p>
                           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -245,11 +246,11 @@ const SitePage = async () => {
                                     <span className="text-sm font-medium text-foreground/90">
                                       {tech.name}
                                     </span>
-                                    <span className="flex-shrink-0 font-mono text-[11px] text-muted-foreground/70">
+                                    <span className="flex-shrink-0 font-mono text-[11px] text-muted-foreground">
                                       v{tech.version}
                                     </span>
                                   </div>
-                                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground/70">
+                                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
                                     {tech.description}
                                   </p>
                                 </div>
@@ -305,7 +306,7 @@ const SitePage = async () => {
                                           </span>
                                         )}
                                       </div>
-                                      <p className="mt-0.5 text-xs text-muted-foreground/70">
+                                      <p className="mt-0.5 text-xs text-muted-foreground">
                                         {item.detail}
                                       </p>
                                     </div>
@@ -401,10 +402,10 @@ const SitePage = async () => {
                           <p className="font-medium text-foreground/90">
                             {token.name}
                           </p>
-                          <p className="mt-1 font-mono text-xs text-muted-foreground/70">
-                            {token.hex}
+                          <p className="mt-1 font-mono text-xs text-muted-foreground">
+                            <LiveTokenValue name={token.desc} />
                           </p>
-                          <p className="mt-1 text-xs text-muted-foreground/50">
+                          <p className="mt-1 text-xs text-muted-foreground">
                             {token.desc}
                           </p>
                         </div>
@@ -425,7 +426,7 @@ const SitePage = async () => {
                         >
                           <p
                             className={cn(
-                              "mb-3 text-4xl text-white",
+                              "mb-3 text-4xl text-foreground",
                               font.className,
                               font.className === "font-ubuntu"
                                 ? "font-bold"
@@ -438,8 +439,8 @@ const SitePage = async () => {
                             <span className="text-muted-foreground">
                               {font.usage}
                             </span>
-                            <span className="text-muted-foreground/50">•</span>
-                            <span className="font-mono text-muted-foreground/70">
+                            <span className="text-muted-foreground">•</span>
+                            <span className="font-mono text-muted-foreground">
                               Weights: {font.weights}
                             </span>
                           </div>
@@ -482,7 +483,7 @@ const SitePage = async () => {
                           <p className="mt-1 text-sm text-muted-foreground">
                             {bp.size}
                           </p>
-                          <p className="mt-2 font-mono text-xs text-muted-foreground/50">
+                          <p className="mt-2 font-mono text-xs text-muted-foreground">
                             {bp.prefix}
                           </p>
                         </div>
@@ -560,12 +561,12 @@ const SitePage = async () => {
                                       {tool.name}
                                     </span>
                                     {tool.config && (
-                                      <span className="font-mono text-[10px] text-muted-foreground/50">
+                                      <span className="font-mono text-[10px] text-muted-foreground">
                                         {tool.config}
                                       </span>
                                     )}
                                   </div>
-                                  <p className="text-xs text-muted-foreground/70">
+                                  <p className="text-xs text-muted-foreground">
                                     {tool.purpose}
                                   </p>
                                 </div>
@@ -598,7 +599,7 @@ const SitePage = async () => {
                             <p className="mt-1 text-xs font-medium text-foreground/80">
                               {metric.label}
                             </p>
-                            <p className="mt-1 text-[10px] text-muted-foreground/50">
+                            <p className="mt-1 text-[10px] text-muted-foreground">
                               {metric.description}
                             </p>
                           </div>
@@ -613,7 +614,7 @@ const SitePage = async () => {
                       Route Map
                     </h3>
                     <div className="overflow-hidden rounded-lg border border-border">
-                      <div className="hidden border-b border-border bg-background/80 px-4 py-2 text-[11px] uppercase tracking-wider text-muted-foreground/70 sm:grid sm:grid-cols-[1fr_2fr_100px] sm:gap-4">
+                      <div className="hidden border-b border-border bg-background/80 px-4 py-2 text-[11px] uppercase tracking-wider text-muted-foreground sm:grid sm:grid-cols-[1fr_2fr_100px] sm:gap-4">
                         <span>Path</span>
                         <span>Description</span>
                         <span className="text-right">Render</span>
@@ -622,12 +623,12 @@ const SitePage = async () => {
                         const isDynamic = page.path.includes("[slug]");
                         const renderColor =
                           page.renderType === "SSG"
-                            ? "text-green-500"
+                            ? "text-success"
                             : page.renderType === "ISR"
-                              ? "text-yellow-500"
+                              ? "text-warning"
                               : page.renderType === "SSR"
-                                ? "text-blue-400"
-                                : "text-muted-foreground/70";
+                                ? "text-info"
+                                : "text-muted-foreground";
 
                         const inner = (
                           <>
@@ -641,11 +642,11 @@ const SitePage = async () => {
                               >
                                 {page.name}
                               </span>
-                              <p className="font-mono text-[11px] text-muted-foreground/50 sm:hidden">
+                              <p className="font-mono text-[11px] text-muted-foreground sm:hidden">
                                 {page.path}
                               </p>
                             </div>
-                            <p className="hidden text-sm text-muted-foreground/70 sm:block">
+                            <p className="hidden text-sm text-muted-foreground sm:block">
                               {page.description}
                             </p>
                             <span
@@ -678,22 +679,22 @@ const SitePage = async () => {
                       })}
                     </div>
 
-                    <div className="flex flex-wrap gap-4 text-xs text-muted-foreground/70">
+                    <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
                       <span>
                         <span className="text-muted-foreground">Static</span> —
                         pre-rendered at build
                       </span>
                       <span>
-                        <span className="text-green-500">SSG</span> —
+                        <span className="text-success">SSG</span> —
                         generateStaticParams
                       </span>
                       <span>
-                        <span className="text-yellow-500">ISR</span> —
-                        incremental revalidation
+                        <span className="text-warning">ISR</span> — incremental
+                        revalidation
                       </span>
                       <span>
-                        <span className="text-blue-400">SSR</span> —
-                        server-rendered on demand
+                        <span className="text-info">SSR</span> — server-rendered
+                        on demand
                       </span>
                     </div>
                   </RevealSection>
@@ -710,7 +711,7 @@ const SitePage = async () => {
               <p className="font-ubuntu text-sm font-semibold text-foreground">
                 Version 4.0 • Built with Next.js & TypeScript
               </p>
-              <p className="text-xs text-muted-foreground/70">
+              <p className="text-xs text-muted-foreground">
                 Inspired by Apple Design Principles
               </p>
             </div>

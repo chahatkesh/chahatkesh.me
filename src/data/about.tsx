@@ -96,11 +96,11 @@ export const deskSetup: DeskItem[] = [
   },
   {
     name: "CMF by Nothing Buds 2",
-    icon: <FaHeadphones className="text-blue-300" />,
+    icon: <FaHeadphones className="text-blue-300 light:text-blue-700" />,
   },
   {
     name: "XP Pen Deco01 V2",
-    icon: <FaPenFancy className="text-orange-400" />,
+    icon: <FaPenFancy className="text-orange-400 light:text-orange-700" />,
   },
   {
     name: "iPhone 15 Pro",
