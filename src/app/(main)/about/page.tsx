@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
+import { getAge } from "~/lib/date-utils";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import {
   OutsideTheScreen,
@@ -57,7 +58,7 @@ const AboutPage = async () => {
           { name: "Home", url: "/" },
           { name: "About Me", url: "/about" },
         ]}
-        title="Chahat, 20"
+        title={`Chahat, ${getAge()}`}
         subtitle="I build products, ship often, and care about the craft."
       />
 

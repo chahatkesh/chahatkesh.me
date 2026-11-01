@@ -24,6 +24,30 @@ export interface MonthlyChangelog {
 
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
+    month: "2026-10",
+    publishedAt: "2026-10-23T23:19:00+05:30",
+    title: "The Shelf Comes Down",
+    summary:
+      "A short month. The writing index stopped being a bookcase, and one essay that had grown its own lab was retired.",
+    overview:
+      "October was a cut, not a build. Two commits, both on the 23rd. The writing page lost the book-spine shelf and went back to the card grid, and the helper that laid essays out like a bookcase went with it. Below the Frameworks — the macOS internals essay, the interactive lab that only existed for that piece, and the cover motif that had nowhere else to go — came out in the same pass. View counts on the videos were refreshed while the record was open. The rest of the site stayed put.",
+    stats: { commits: 2, files: 13 },
+    changes: [
+      {
+        type: "improved",
+        title: "The index, without the shelf",
+        description:
+          "The writing page is the card grid again. The book-spine shelf is gone, and so is the layout helper that only existed to stack essays like a bookcase. What remains is the list of pieces, each with its cover.",
+      },
+      {
+        type: "improved",
+        title: "One essay retired",
+        description:
+          "Below the Frameworks is no longer on the site. The interactive lab that only served that macOS piece is gone too, and the cover motif built for it was removed so the remaining covers stay general.",
+      },
+    ],
+  },
+  {
     month: "2026-09",
     publishedAt: "2026-09-19T23:57:00+05:30",
     title: "Deeper Essays, a Lock-Screen Streak & One Thread",

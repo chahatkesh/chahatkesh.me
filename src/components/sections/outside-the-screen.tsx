@@ -5,7 +5,7 @@ import { Airplane } from "@fluentui-emoji/react/flat/airplane";
 import { NotebookWithDecorativeCover } from "@fluentui-emoji/react/flat/notebook-with-decorative-cover";
 import { PersonLiftingWeightsDefault } from "@fluentui-emoji/react/flat/person-lifting-weights-default";
 import type { FluentEmojiComponent } from "@fluentui-emoji/react";
-import { RevealSection } from "~/components/shared";
+import { RevealCard } from "~/components/shared";
 import { typo } from "~/components/ui";
 import { cn } from "~/lib/utils";
 import { hobbies } from "~/data/about";
@@ -34,22 +34,22 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
     >
       <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
 
-      <RevealSection delay={0.08}>
-        <ul
-          role="list"
-          className={cn(
-            "grid",
-            isMinimal
-              ? "grid-cols-2 gap-2 sm:grid-cols-4"
-              : "grid-cols-1 gap-3 sm:grid-cols-2",
-          )}
-        >
-          {hobbies.map((hobby) => {
-            const sticker = STICKERS[hobby.title];
-            const Sticker = sticker?.icon;
+      <ul
+        role="list"
+        className={cn(
+          "grid",
+          isMinimal
+            ? "grid-cols-2 gap-2 sm:grid-cols-4"
+            : "grid-cols-1 gap-3 sm:grid-cols-2",
+        )}
+      >
+        {hobbies.map((hobby, index) => {
+          const sticker = STICKERS[hobby.title];
+          const Sticker = sticker?.icon;
 
-            return (
-              <li key={hobby.title} role="listitem" className="min-w-0">
+          return (
+            <li key={hobby.title} role="listitem" className="min-w-0">
+              <RevealCard index={index}>
                 <Link
                   href={hobby.href}
                   className={cn(
@@ -61,13 +61,16 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
                   {Sticker ? (
                     <span
                       className={cn(
-                        "activity-sticker mb-5 block origin-bottom transition-transform duration-500 ease-out",
-                        "group-hover:-translate-y-1 group-hover:rotate-0",
+                        "mb-5 block origin-bottom will-change-transform",
+                        "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "group-hover:-translate-y-1.5 group-hover:scale-[1.03]",
                         sticker.rotate,
                         isMinimal ? "size-14" : "size-20",
                       )}
                     >
-                      <Sticker className="size-full" aria-hidden />
+                      <span className="activity-sticker block size-full">
+                        <Sticker className="size-full" aria-hidden />
+                      </span>
                     </span>
                   ) : null}
 
@@ -77,7 +80,7 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
                     </h3>
                     <ArrowUpRight
                       aria-hidden
-                      className="size-3.5 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+                      className="size-3.5 text-muted-foreground transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-foreground"
                     />
                   </span>
 
@@ -90,11 +93,11 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
                     {isMinimal ? hobby.label : hobby.description}
                   </p>
                 </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </RevealSection>
+              </RevealCard>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 };

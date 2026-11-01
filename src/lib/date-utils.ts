@@ -1,5 +1,29 @@
 import config from "~/config";
 
+/** 5 November 2005. Used wherever the site states an age. */
+export const BIRTH_DATE = new Date(2005, 10, 5);
+
+/**
+ * Whole years since a birthday. Steps back one year until that
+ * month and day have arrived in the current year.
+ */
+export function getAge(
+  birthDate: Date = BIRTH_DATE,
+  today: Date = new Date(),
+): number {
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDelta = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDelta < 0 ||
+    (monthDelta === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age -= 1;
+  }
+
+  return age;
+}
+
 /**
  * Format date string to human-readable format
  * Handles both "Month DD, YYYY" and "YYYY-MM-DD" formats
