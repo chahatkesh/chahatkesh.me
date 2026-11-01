@@ -211,6 +211,16 @@
     box-shadow: var(--inset-highlight);
   }
 
+  /* Die-cut sticker: white rim follows the artwork, then a soft floor shadow. */
+  .activity-sticker {
+    filter: drop-shadow(0 0 0 #fff) drop-shadow(0.6px 0 0 #fff)
+      drop-shadow(-0.6px 0 0 #fff) drop-shadow(0 0.6px 0 #fff)
+      drop-shadow(0 -0.6px 0 #fff) drop-shadow(0.6px 0.6px 0 #fff)
+      drop-shadow(-0.6px -0.6px 0 #fff) drop-shadow(0.6px -0.6px 0 #fff)
+      drop-shadow(-0.6px 0.6px 0 #fff)
+      drop-shadow(0 10px 14px rgb(0 0 0 / 0.14));
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

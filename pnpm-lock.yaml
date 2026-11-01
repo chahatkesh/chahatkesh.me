@@ -16,6 +16,9 @@ importers:
 
   .:
     dependencies:
+      '@fluentui-emoji/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
       '@radix-ui/react-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -536,6 +539,12 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@fluentui-emoji/react@2.2.0':
+    resolution: {integrity: sha512-8EAHl++Xs3tv9t7+ksbIP9MD+BkA6D81/eAPEcDv1mDGF21Pb1h5gpIYPyFEQlKLw/2pJGopjWdURndgM7pslQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      react: '>=17'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -4548,6 +4557,10 @@ snapshots:
       tabbable: 6.4.0
 
   '@floating-ui/utils@0.2.10': {}
+
+  '@fluentui-emoji/react@2.2.0(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
 
   '@humanfs/core@0.19.1': {}
 

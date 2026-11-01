@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring MDX essays, dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring MDX essays, dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management. The page follows the viewer's system appearance: white in light mode and black in dark mode.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -15,7 +15,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 - **Framework:** Next.js 16 (App Router)
 - **UI Library:** React 19
 - **Language:** TypeScript 5.9
-- **Styling:** Tailwind CSS 3.4
+- **Styling:** Tailwind CSS 3.4, with semantic color tokens in CSS custom properties
 - **Database:** MongoDB (with Mongoose 9)
 - **Authentication:** JWT (Jose 6)
 - **Image Management:** Cloudinary, Next-Cloudinary 6
@@ -33,14 +33,15 @@ This portfolio website serves as a professional showcase for projects, skills, a
 
 ### Public Features
 
+- **Appearance:** System light and dark mode via `prefers-color-scheme`. There is no theme toggle. Light mode uses a white page; dark mode uses a black page. Cards, text, borders, diagrams, writing covers, and activity graphs follow the same tokens. The first paint is correct without a flash, because the switch is CSS rather than client JavaScript.
 - **Responsive Design:** Mobile-first, fully responsive interface
 - **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
 - **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
 - **Skills Visualization:** Clickable tech stack marquee on home, full `/stack` index, and per-technology detail pages mapped to projects and experience
-- **Writing:** MDX essays with generated covers and `.md` twins for language models (`/about/writing`, `llms.txt`)
+- **Writing:** MDX essays with generated covers and `.md` twins for language models (`/about/writing`, `llms.txt`). Covers are ink on tinted paper in light mode and the same drawings on dark plates in dark mode.
 - **Gym:** Public training log with rings, heatmap, muscle-group balance, and progress photos
 - **Timeline:** Full-page map of dated work, writing, videos, and life
-- **Coding Activity:** Unified GitHub and LeetCode contribution calendars
+- **Coding Activity:** Unified GitHub and LeetCode contribution calendars. Empty cells use the same color as the gym heatmap, muscle strips, and the links-page activity bar.
 - **Spotify Integration:** Live now-playing widget displaying current music
 - **Image Gallery:** Curated photo gallery with optimized image delivery
 - **Places Map:** Interactive visited-places map with pins, dates, and notes
@@ -106,13 +107,13 @@ src/
 │   ├── seo/               # SEO components and JSON-LD
 │   ├── shared/            # Reusable components (PageHeader, PageLoader, breadcrumbs)
 │   └── ui/                # UI primitives (button, card, input, Skeleton)
-├── constants/             # App constants (API routes, limits, theme tokens)
+├── constants/             # App constants (API routes, limits, brand colors)
 ├── data/                  # Static data (projects, experience, changelog, youtube, site metadata)
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utilities (auth, MongoDB, SEO, writing, Spotify, GitHub, LeetCode, etc.)
 ├── models/                # MongoDB models (admin, gallery, place, diagram, gist, gym, visitor, shared-file)
 ├── providers/             # React context providers
-├── styles/                # Global styles
+├── styles/                # Global styles and light/dark theme tokens (globals.css)
 ├── types/                 # TypeScript type definitions
 └── env.ts                 # Runtime environment variable validation
 
@@ -149,8 +150,9 @@ Edit `src/config.ts` to customize site metadata:
 - Personal information
 - SEO settings
 - Social media links
-- Theme colors
 - Location data
+
+`config.colors` is the Discord embed color (`#000000`). It does not paint the page. Page colors live in `src/styles/globals.css`: `--background` is white (`#ffffff`) when the system prefers light and black (`#000000`) when it prefers dark. Browser chrome uses the same pair through the root `viewport.themeColor` media list. The installed-app manifest can store only one color, so it stays black.
 
 Environment variables are validated at runtime via `src/env.ts`. Copy `.env.example` to `.env.local` and fill in required values before running locally.
 
@@ -178,6 +180,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - CDN-based image delivery via Cloudinary
 - Minimal bundle size with tree shaking
 - Native CSS smooth scrolling (`scroll-behavior: smooth`, respects `prefers-reduced-motion`)
+- System appearance with no extra theme library and no blocking script
 
 ## SEO Features
 
@@ -190,7 +193,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - Canonical URLs
 - Breadcrumb navigation
 - Per-route Open Graph image generation
-- Stack index and 79 static stack detail pages in sitemap
+- Stack index and one static detail page per technology in the sitemap
 - Per-essay Markdown URLs (`/about/writing/[slug].md`) plus `llms.txt` and `llms-full.txt`
 
 ## Security

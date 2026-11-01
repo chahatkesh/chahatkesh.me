@@ -52,32 +52,28 @@ export const hobbies: Hobby[] = [
   {
     title: "Writing",
     label: "Essays & notes",
-    description:
-      "Lessons, open questions, and ideas shaped by building, reading, work, and everything in between.",
+    description: "Lessons shaped by building, reading, and work.",
     icon: BookOpen,
     href: "/about/writing",
   },
   {
     title: "Gym",
     label: "Training logs",
-    description:
-      "Discipline built in one area tends to bleed into others. The gym is where I reset, especially after a long debugging session.",
+    description: "The reset after a long debugging session.",
     icon: Dumbbell,
     href: "/about/gym",
   },
   {
     title: "Designing",
     label: "Visual craft",
-    description:
-      "I open Figma the way some people open Instagram. Design and engineering are the same problem to me, just approached from different angles.",
+    description: "Design and engineering, from the other side.",
     icon: PenTool,
     href: "/about/designing",
   },
   {
     title: "Travelling",
     label: "Places I've been",
-    description:
-      "I like exploring new places and observing how people live, build, and move through cities. It resets my perspective every time.",
+    description: "New places, and how people live and build there.",
     icon: Plane,
     href: "/places",
   },
