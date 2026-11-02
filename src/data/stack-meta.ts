@@ -50,7 +50,6 @@ export const STACK_SUBTITLES: Record<string, string> = {
     "Pixel-level rendering when the DOM is not the right surface.",
   CSS3: "Layout and polish where utilities aren't the whole story.",
   React: "Components and hooks across dashboards, sites, and products.",
-  "React.js": "Components and hooks across dashboards, sites, and products.",
   "@dnd-kit": "Accessible drag-and-drop that feels native, not bolted on.",
   "Next.js": "Production apps with App Router, RSC, and SEO built in.",
   Vite: "Fast SPA iteration with a clean, predictable production build.",
@@ -105,8 +104,6 @@ export const STACK_SUBTITLES: Record<string, string> = {
   "Third-Party Integrations":
     "Stripe, OAuth, and messaging with graceful failures.",
   SQL: "Queries and migrations that keep ORMs aligned with the database.",
-  "RESTful APIs":
-    "Predictable resources and error shapes for frontend contracts.",
   "OpenAI API":
     "Prompt design, token budgets, and error handling for LLM features.",
   Anthropic: "Grounded product intelligence with traceable customer evidence.",
@@ -197,11 +194,6 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
     description:
       "React is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces.",
     aliases: ["React.js"],
-  },
-  "React.js": {
-    description:
-      "React.js is the UI layer I reach for most often — component composition, hooks, and the ecosystem around it power dashboards, marketing sites, and product surfaces.",
-    aliases: ["React"],
   },
   "@dnd-kit": {
     slug: "dnd-kit",
@@ -366,11 +358,6 @@ export const STACK_COPY: Record<string, StackCopyMeta> = {
   SQL: {
     description:
       "SQL is how I query and shape relational truth — migrations, analytics, and the ad-hoc investigations that keep ORMs and application code aligned with what's actually in the database.",
-  },
-  "RESTful APIs": {
-    description:
-      "RESTful APIs are how my frontends talk to backends — predictable resources, clear error shapes, and contracts I can document and test.",
-    aliases: ["REST APIs"],
   },
   "OpenAI API": {
     description:

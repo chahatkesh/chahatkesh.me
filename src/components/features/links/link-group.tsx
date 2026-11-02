@@ -15,7 +15,7 @@ export function LinkGroup({ label, children, className }: LinkGroupProps) {
         className={cn(
           "divide-y divide-border/60 overflow-hidden rounded-xl",
           "border border-border bg-card/60",
-          "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]",
+          "inset-highlight",
         )}
       >
         {children}

@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { requireAuth } from "~/lib/auth";
 import { resolveWorkoutExercises } from "~/lib/gym-exercises";
-import { toIsoDay, toUtcDayStart } from "~/lib/gym";
+import { toIsoDay, toUtcDayStart, todayGymDate } from "~/lib/gym";
 import dbConnect from "~/lib/mongodb";
 import { revalidateGymCache } from "~/lib/revalidate";
 import { createWorkoutSchema } from "~/lib/validations";
@@ -57,6 +57,20 @@ export async function POST(request: NextRequest) {
     }
 
     const date = toUtcDayStart(parsed.data.date);
+    const day = toIsoDay(date);
+    const today = todayGymDate();
+    const existing = await Workout.findOne({ date }).select("_id").lean();
+
+    if (!existing && day !== today) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "New workouts can only be logged today.",
+        },
+        { status: 400 },
+      );
+    }
+
     const isRestDay = Boolean(parsed.data.isRestDay);
 
     let exercises = parsed.data.exercises;

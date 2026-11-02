@@ -54,8 +54,6 @@ export interface GymDaySummary {
   volume: number;
   /** Kilograms moved per muscle group, needed for the windowed volume radar. */
   groupVolume: Partial<Record<MuscleGroup, number>>;
-  /** Exercise entries per muscle group, for the windowed exercises radar. */
-  groupExerciseCount: Partial<Record<MuscleGroup, number>>;
   /** Intentional rest — keeps the streak, distinct from an unlogged miss. */
   isRestDay?: boolean;
 }

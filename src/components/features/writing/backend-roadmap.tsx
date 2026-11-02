@@ -30,7 +30,7 @@ export function BackendRoadmap() {
   }
 
   return (
-    <div className="writing-backend-roadmap my-8 overflow-hidden rounded-2xl border border-border/80 bg-card/30 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] font-sans">
+    <div className="writing-backend-roadmap my-8 overflow-hidden rounded-2xl border border-border/80 bg-card/30 inset-highlight font-sans">
       <div className="border-b border-border/80 px-4 py-4 sm:px-8 sm:py-4">
         <div className="flex items-center gap-3 sm:gap-4">
           <NavButton
@@ -145,35 +145,6 @@ export function BackendRoadmap() {
           </div>
         </motion.div>
       </AnimatePresence>
-
-      <div className="flex items-center justify-between gap-4 border-t border-border/80 px-5 py-4 sm:px-8">
-        <button
-          type="button"
-          onClick={() => goTo(index - 1)}
-          disabled={isFirst}
-          className="el-focus-styles group min-w-0 text-left disabled:cursor-not-allowed disabled:opacity-25"
-        >
-          <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Previous
-          </span>
-          <span className="mt-0.5 block truncate font-poem text-sm text-foreground/85 transition-colors group-enabled:group-hover:text-ring">
-            {isFirst ? "—" : backendRoadmap[index - 1]!.name}
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={() => goTo(index + 1)}
-          disabled={isLast}
-          className="el-focus-styles group min-w-0 text-right disabled:cursor-not-allowed disabled:opacity-25"
-        >
-          <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            Next
-          </span>
-          <span className="mt-0.5 block truncate font-poem text-sm text-foreground/85 transition-colors group-enabled:group-hover:text-ring">
-            {isLast ? "—" : backendRoadmap[index + 1]!.name}
-          </span>
-        </button>
-      </div>
     </div>
   );
 }

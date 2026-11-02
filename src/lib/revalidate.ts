@@ -36,5 +36,6 @@ export function revalidateExperienceGalleryCache() {
 export function revalidateGymCache() {
   revalidatePath("/api/gym/summary");
   revalidatePath("/api/gym/photos");
+  revalidatePath("/api/wallpaper");
   revalidatePath("/about/gym");
 }

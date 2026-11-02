@@ -3,6 +3,7 @@
 import {
   MUSCLE_GROUPS,
   MUSCLE_GROUP_COLORS,
+  muscleTint,
   MUSCLE_GROUP_LABELS,
 } from "~/constants/gym";
 import type { MuscleGroup } from "~/constants/gym";
@@ -44,8 +45,8 @@ export function MuscleGroupPicker({
             style={
               isActive
                 ? {
-                    borderColor: `${color}66`,
-                    backgroundColor: `${color}26`,
+                    borderColor: muscleTint(color, 40),
+                    backgroundColor: muscleTint(color, 15),
                     color,
                   }
                 : undefined

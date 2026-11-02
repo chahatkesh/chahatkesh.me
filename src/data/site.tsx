@@ -96,7 +96,7 @@ export interface CodebaseMetric {
 export const techStack: TechItem[] = [
   {
     name: "Next.js",
-    version: "16.3",
+    version: "16.4",
     icon: SiNextdotjs,
     color: "text-foreground/80",
     description: "App Router, RSC, ISR, Edge Runtime",
@@ -107,7 +107,7 @@ export const techStack: TechItem[] = [
     name: "React",
     version: "19",
     icon: SiReact,
-    color: "text-sky-500",
+    color: "text-sky-500 light:text-sky-700",
     description: "Server Components, Suspense, use() hook",
     category: "core",
     priority: 1,
@@ -116,7 +116,7 @@ export const techStack: TechItem[] = [
     name: "TypeScript",
     version: "5.9",
     icon: SiTypescript,
-    color: "text-blue-400",
+    color: "text-blue-400 light:text-blue-700",
     description: "Strict mode, path aliases, declaration files",
     category: "core",
     priority: 1,
@@ -125,7 +125,7 @@ export const techStack: TechItem[] = [
     name: "Tailwind CSS",
     version: "3.4",
     icon: SiTailwindcss,
-    color: "text-cyan-300",
+    color: "text-cyan-300 light:text-cyan-700",
     description: "CVA typography, custom design tokens, shadcn/ui",
     category: "ui",
   },
@@ -133,7 +133,7 @@ export const techStack: TechItem[] = [
     name: "Framer Motion",
     version: "12",
     icon: SiFramer,
-    color: "text-pink-400",
+    color: "text-pink-400 light:text-pink-700",
     description: "Shared layout animations, variants system, spring physics",
     category: "ui",
   },
@@ -141,7 +141,7 @@ export const techStack: TechItem[] = [
     name: "Radix UI",
     version: "1.x",
     icon: SiRadixui,
-    color: "text-violet-400",
+    color: "text-violet-400 light:text-violet-700",
     description: "Accessible Dialog, Tooltip, Sheet primitives",
     category: "ui",
   },
@@ -149,7 +149,7 @@ export const techStack: TechItem[] = [
     name: "MongoDB",
     version: "9.9",
     icon: SiMongodb,
-    color: "text-green-500",
+    color: "text-green-500 light:text-green-700",
     description: "Mongoose ODM, connection pooling, indexed queries",
     category: "data",
   },
@@ -157,7 +157,7 @@ export const techStack: TechItem[] = [
     name: "React Query",
     version: "5",
     icon: TbBrandReactNative,
-    color: "text-red-400",
+    color: "text-red-400 light:text-red-700",
     description: "Server state, polling, deduplication, cache invalidation",
     category: "data",
   },
@@ -165,7 +165,7 @@ export const techStack: TechItem[] = [
     name: "Cloudinary",
     version: "2.9",
     icon: SiCloudinary,
-    color: "text-blue-300",
+    color: "text-blue-300 light:text-blue-700",
     description: "Image CDN, transformations, upload API",
     category: "data",
   },
@@ -196,12 +196,12 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "Pages (routes)",
         detail: "App Router file-based routing",
-        count: 39,
+        count: 41,
       },
       {
         label: "Components",
         detail: "Atomic design: ui → shared → features → sections",
-        count: 110,
+        count: 123,
       },
       {
         label: "Layouts",
@@ -211,7 +211,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       {
         label: "OG Images",
         detail: "Dynamic generation via @vercel/og (ImageResponse)",
-        count: 8,
+        count: 27,
       },
     ],
   },
@@ -230,16 +230,20 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Custom Hooks",
-        detail: "useHorizontalScroll, useDebouncedValue, useScrollTo",
+        detail:
+          "useHorizontalScroll, useDebouncedValue, useScrollTo, useScrolled",
         count: 8,
       },
-      { label: "URL State", detail: "Search params for gallery filters" },
+      {
+        label: "URL State",
+        detail: "Search params for project and stack filters",
+      },
     ],
   },
   {
     name: "Data Layer",
     description:
-      "Static data lives in ~/data as typed TypeScript modules. Dynamic data flows through API routes to MongoDB with Mongoose models.",
+      "Static data lives in ~/data as typed TypeScript modules. Essays live in src/content/writing as MDX. Dynamic data flows through API routes to MongoDB with Mongoose models.",
     items: [
       {
         label: "API Routes",
@@ -249,18 +253,18 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Mongoose Models",
-        detail: "Admin, gallery, places, gym, diagrams, gists, shared files",
+        detail: "Admin, gallery, places, gym, diagrams, gists, visitors, files",
         count: 12,
       },
       {
         label: "Data Modules",
         detail:
-          "Projects, experience, timeline, stack, stack-meta, courses, site metadata",
-        count: 14,
+          "Projects, experience, timeline, stack, youtube, changelog, courses, site",
+        count: 13,
       },
       {
         label: "Constants",
-        detail: "Brand tokens, API paths, animation presets, limits",
+        detail: "Brand tokens, API paths, animation presets, gym, Cloudinary",
         count: 8,
       },
     ],
@@ -277,7 +281,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       },
       {
         label: "Redirects",
-        detail: "Vanity URLs (/resume, /github, /linkedin, etc.)",
+        detail: "Vanity URLs (/github, /linkedin, /youtube, etc.)",
       },
       {
         label: "Monitoring",
@@ -436,7 +440,7 @@ export const fonts: FontEntry[] = [
   {
     family: "Outfit",
     usage: "Body text, paragraphs, descriptions",
-    weights: "400–500",
+    weights: "400–600",
     className: "font-sans",
   },
   {
@@ -447,7 +451,7 @@ export const fonts: FontEntry[] = [
   },
   {
     family: "Lora",
-    usage: "Poem section, italic accents, personal notes",
+    usage: "Writing, poem section, italic accents, personal notes",
     weights: "400, 600 (normal + italic)",
     className: "font-poem",
   },
@@ -550,7 +554,7 @@ export const pages: PageEntry[] = [
   {
     path: "/about/writing",
     name: "Writing",
-    description: "Essays about lessons, ideas, and questions worth keeping",
+    description: "MDX essays with generated covers and .md twins for LLMs",
     renderType: "SSG",
   },
   {
@@ -563,7 +567,13 @@ export const pages: PageEntry[] = [
     path: "/llms.txt",
     name: "llms.txt",
     description: "Markdown index of the site for language models",
-    renderType: "SSR",
+    renderType: "SSG",
+  },
+  {
+    path: "/llms-full.txt",
+    name: "llms-full.txt",
+    description: "Every essay concatenated as Markdown for language models",
+    renderType: "SSG",
   },
   {
     path: "/about/gym",
@@ -636,7 +646,7 @@ export const pages: PageEntry[] = [
     path: "/stack",
     name: "Stack",
     description:
-      "Browseable toolkit grouped by category, with search across 76 technologies",
+      "Browseable toolkit grouped by category, with search across 79 technologies",
     renderType: "SSR",
   },
   {
@@ -669,6 +679,12 @@ export const pages: PageEntry[] = [
     path: "/links",
     name: "Links",
     description: "Link-in-bio page with click tracking and featured gallery",
+    renderType: "Static",
+  },
+  {
+    path: "/resume",
+    name: "Resume",
+    description: "In-app resume page that forwards to the latest CV",
     renderType: "Static",
   },
   {
@@ -712,22 +728,23 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "39,299+",
+    value: "41,005+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "122",
+    value: "129",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {
     label: "Custom Hooks",
-    value: "8",
-    description: "useHorizontalScroll, useDebouncedValue, useScrollTo, etc.",
+    value: "9",
+    description:
+      "useHorizontalScroll, useDebouncedValue, useScrollTo, useScrolled, etc.",
   },
   {
     label: "API Routes",
-    value: "32",
+    value: "33",
     description:
       "Auth, gallery, places, gym, diagrams, gists, Spotify, visitors",
   },
@@ -738,18 +755,19 @@ export const codebaseMetrics: CodebaseMetric[] = [
   },
   {
     label: "Constant Modules",
-    value: "8",
+    value: "9",
     description: "Brand, API, limits, animation, barrel index",
   },
   {
     label: "Data Modules",
     value: "13",
     description:
-      "Projects, experience, timeline, stack, stack-meta, courses, links, about",
+      "Projects, experience, timeline, stack, youtube, changelog, courses, site",
   },
   {
     label: "Mongoose Models",
     value: "12",
-    description: "Admin, gallery, places, gym, diagrams, gists, shared files",
+    description:
+      "Admin, gallery, places, gym, diagrams, gists, visitors, files",
   },
 ];

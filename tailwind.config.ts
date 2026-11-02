@@ -4,31 +4,8 @@ import plugin from "tailwindcss/plugin";
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 const shadcnPlugin = plugin(
-  function ({ addBase }) {
-    addBase({
-      ":root": {
-        "--background": "240 10% 3.9%",
-        "--foreground": "0 0% 98%",
-        "--card": "240 5% 8%",
-        "--card-foreground": "0 0% 98%",
-        "--popover": "240 5% 8%",
-        "--popover-foreground": "0 0% 98%",
-        "--primary": "0 0% 98%",
-        "--primary-foreground": "240 5.9% 10%",
-        "--secondary": "240 3.7% 15.9%",
-        "--secondary-foreground": "0 0% 98%",
-        "--muted": "240 3.7% 15.9%",
-        "--muted-foreground": "240 5% 64.9%",
-        "--accent": "240 3.7% 15.9%",
-        "--accent-foreground": "0 0% 98%",
-        "--destructive": "0 62.8% 30.6%",
-        "--destructive-foreground": "0 0% 98%",
-        "--border": "240 3.7% 15.9%",
-        "--input": "240 3.7% 15.9%",
-        "--ring": "182.7 100.0% 35.5%",
-        "--radius": "0.5rem",
-      },
-    });
+  function ({ addBase, addVariant }) {
+    addVariant("light", "@media (prefers-color-scheme: light)");
     addBase({
       "*": {
         "@apply border-border": {},
@@ -72,7 +49,13 @@ const shadcnPlugin = plugin(
           foreground: "hsl(var(--foreground) / <alpha-value>)",
           brand: {
             DEFAULT: "hsl(var(--ring) / <alpha-value>)",
+            foreground: "hsl(var(--brand-foreground) / <alpha-value>)",
           },
+          info: "hsl(var(--info) / <alpha-value>)",
+          warning: "hsl(var(--warning) / <alpha-value>)",
+          success: "hsl(var(--success) / <alpha-value>)",
+          danger: "hsl(var(--danger) / <alpha-value>)",
+          scrim: "hsl(var(--media-accent) / <alpha-value>)",
           primary: {
             DEFAULT: "hsl(var(--primary) / <alpha-value>)",
             foreground: "hsl(var(--primary-foreground) / <alpha-value>)",
@@ -136,6 +119,7 @@ const shadcnPlugin = plugin(
           "smooth-in": "cubic-bezier(0.4, 0, 1, 1)",
           "smooth-out": "cubic-bezier(0, 0, 0.2, 1)",
           "smooth-in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "out-quint": "cubic-bezier(0.22, 1, 0.36, 1)",
         },
       },
     },
@@ -149,6 +133,7 @@ const shadcnPreset = {
 } satisfies Config;
 
 const config = {
+  darkMode: "media",
   presets: [shadcnPreset],
   content: ["./src/**/*.{ts,tsx}"],
   theme: {

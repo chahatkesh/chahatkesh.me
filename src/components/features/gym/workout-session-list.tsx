@@ -14,6 +14,7 @@ import { MAX_RECENT_GYM_SESSIONS } from "~/constants/limits";
 import {
   GYM_REST_DAY_COLOR,
   MUSCLE_GROUP_COLORS,
+  muscleTint,
   MUSCLE_GROUP_LABELS,
   WEIGHT_UNIT,
 } from "~/constants/gym";
@@ -102,7 +103,10 @@ export function WorkoutSessionList({
                           key={group}
                           className="rounded px-1.5 py-0.5 text-[10px] font-medium"
                           style={{
-                            backgroundColor: `${MUSCLE_GROUP_COLORS[group]}1f`,
+                            backgroundColor: muscleTint(
+                              MUSCLE_GROUP_COLORS[group],
+                              12,
+                            ),
                             color: MUSCLE_GROUP_COLORS[group],
                           }}
                         >

@@ -16,6 +16,12 @@ export const MUSCLE_GROUPS = [
 ] as const;
 
 export type MuscleGroup = (typeof MUSCLE_GROUPS)[number];
+export type RadarGroup = Exclude<MuscleGroup, "cardio" | "core">;
+
+/** Radar axes — core and cardio stay in the log, not on this chart. */
+export const RADAR_GROUPS = MUSCLE_GROUPS.filter(
+  (group): group is RadarGroup => group !== "cardio" && group !== "core",
+);
 
 export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
   chest: "Chest",
@@ -28,25 +34,30 @@ export const MUSCLE_GROUP_LABELS: Record<MuscleGroup, string> = {
   cardio: "Cardio",
 };
 
-/** Distinct hues that stay legible on the near-black background. */
+/** Distinct hues. Each value follows the system color scheme. */
 export const MUSCLE_GROUP_COLORS: Record<MuscleGroup, string> = {
-  chest: "#ff6b6b",
-  back: "#845ef7",
-  shoulders: "#4dabf7",
-  biceps: "#f2b84b",
-  triceps: "#ff922b",
-  legs: "#51cf66",
-  core: "#f06595",
-  cardio: "#00d3d9",
+  chest: "var(--muscle-chest)",
+  back: "var(--muscle-back)",
+  shoulders: "var(--muscle-shoulders)",
+  biceps: "var(--muscle-biceps)",
+  triceps: "var(--muscle-triceps)",
+  legs: "var(--muscle-legs)",
+  core: "var(--muscle-core)",
+  cardio: "var(--muscle-cardio)",
 };
+
+/** Mix a muscle color over transparency. `amount` is a percent, 0–100. */
+export function muscleTint(color: string, amount: number): string {
+  return `color-mix(in srgb, ${color} ${amount}%, transparent)`;
+}
 
 /** Intensity ramp for the gym activity heatmap, mirrors GITHUB_CONTRIBUTION_COLORS shape. */
 export const GYM_ACTIVITY_COLORS = [
-  "#1b1b1b",
-  "#0b3d2e",
-  "#148f5c",
-  "#37c47f",
-  "#6ef0a5",
+  "var(--contrib-gym-0)",
+  "var(--contrib-gym-1)",
+  "var(--contrib-gym-2)",
+  "var(--contrib-gym-3)",
+  "var(--contrib-gym-4)",
 ] as const;
 
 /** Logged rest-day cell — calm blue, distinct from the green training ramp and empty gray. */

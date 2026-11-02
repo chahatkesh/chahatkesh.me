@@ -150,8 +150,8 @@ function EditDiagramContent() {
       />
 
       {actionError && (
-        <Card className="border-red-500/30 bg-red-500/10">
-          <CardContent className="py-4 text-sm text-red-500">
+        <Card className="border-danger/30 bg-danger/10">
+          <CardContent className="py-4 text-sm text-danger">
             {actionError}
           </CardContent>
         </Card>

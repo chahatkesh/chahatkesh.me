@@ -14,7 +14,7 @@ import type { GymSummary } from "~/types/gym";
 import { GymTooltip } from "./gym-tooltip";
 import type { HoveredGymDay } from "./gym-tooltip";
 
-const EMPTY_CELL_COLOR = "#1b1b1b";
+const EMPTY_CELL_COLOR = "var(--contrib-gym-0)";
 
 interface StripDay {
   date: string;

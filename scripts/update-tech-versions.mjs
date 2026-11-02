@@ -22,7 +22,7 @@ const TECH_TO_PACKAGE_MAP = {
   MongoDB: "mongoose", // Using mongoose package for MongoDB version
   "React Query": "@tanstack/react-query",
   Cloudinary: "cloudinary",
-  Lenis: "lenis",
+  Zod: "zod",
 };
 
 /**
@@ -47,6 +47,7 @@ function formatVersion(version, techName) {
     case "React":
     case "Framer Motion":
     case "React Query":
+    case "Zod":
       // Show only major version
       return parts[0];
 
@@ -55,7 +56,6 @@ function formatVersion(version, techName) {
     case "Tailwind CSS":
     case "MongoDB":
     case "Cloudinary":
-    case "Lenis":
       // Show major.minor
       return parts.slice(0, 2).join(".");
 
@@ -103,14 +103,11 @@ async function updateTechVersions() {
         // Match: name: "Tech Name", \n    version: "old-version",
         const pattern = new RegExp(
           `(name: "${techName}",\\s+version: )"[^"]+"`,
-          "g"
+          "g",
         );
 
         const beforeUpdate = siteContent;
-        siteContent = siteContent.replace(
-          pattern,
-          `$1"${displayVersion}"`
-        );
+        siteContent = siteContent.replace(pattern, `$1"${displayVersion}"`);
 
         if (beforeUpdate !== siteContent) {
           updates.push({
@@ -119,19 +116,23 @@ async function updateTechVersions() {
             packageVersion: cleanedVersion,
           });
           console.log(
-            `✓ ${techName.padEnd(20)} → v${displayVersion} (${packageKey}@${cleanedVersion})`
+            `✓ ${techName.padEnd(20)} → v${displayVersion} (${packageKey}@${cleanedVersion})`,
           );
         }
       }
     } else {
-      console.log(`⚠ ${techName.padEnd(20)} → Package "${packageKey}" not found`);
+      console.log(
+        `⚠ ${techName.padEnd(20)} → Package "${packageKey}" not found`,
+      );
     }
   }
 
   // Write updated content back to file
   if (updates.length > 0) {
     await writeFile(siteFilePath, siteContent, "utf-8");
-    console.log(`\n✅ Updated ${updates.length} tech versions in src/data/site.tsx!`);
+    console.log(
+      `\n✅ Updated ${updates.length} tech versions in src/data/site.tsx!`,
+    );
   } else {
     console.log("\n✅ All tech versions are already up to date!");
   }

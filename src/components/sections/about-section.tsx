@@ -1,4 +1,5 @@
 import config from "~/config";
+import { getAge } from "~/lib/date-utils";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import Image from "next/image";
@@ -9,7 +10,7 @@ const AboutSection = () => {
   return (
     <section aria-label="About">
       <h1 className="mb-4 font-ubuntu text-xl font-semibold text-foreground sm:mb-4 sm:text-2xl">
-        Chahat, 20
+        Chahat, {getAge()}
       </h1>
 
       <div className="grid gap-6 sm:gap-4 md:grid-cols-3 md:items-stretch md:gap-6">

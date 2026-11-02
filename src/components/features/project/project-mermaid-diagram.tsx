@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { typo } from "~/components/ui";
 import { MotionDiv } from "~/components/shared";
+import { subscribeToColorScheme } from "~/lib/color-scheme";
 
 interface ProjectMermaidDiagramProps {
   title: string;
@@ -37,15 +38,16 @@ export function ProjectMermaidDiagram({
 
   useEffect(() => {
     let cancelled = false;
+    let generation = 0;
 
     async function renderDiagram() {
+      const current = ++generation;
       try {
         const mod = await import("mermaid");
         const mermaid = mod.default ?? mod;
 
-        // Map the portfolio design tokens onto Mermaid's theme variables so the
-        // diagram visually matches the rest of the site (dark surface, teal
-        // accent, white text, subtle borders).
+        // Map the live design tokens onto Mermaid so the diagram matches
+        // whichever appearance the system is using.
         const background = readHsl("--card", "hsl(240 5% 8%)");
         const surface = readHsl("--muted", "hsl(240 3.7% 15.9%)");
         const border = readHsl("--border", "hsl(240 3.7% 15.9%)");
@@ -94,7 +96,8 @@ export function ProjectMermaidDiagram({
 
         const { svg, bindFunctions } = await mermaid.render(id, definition);
 
-        if (cancelled || !containerRef.current) return;
+        if (cancelled || current !== generation || !containerRef.current)
+          return;
 
         containerRef.current.innerHTML = svg;
 
@@ -112,7 +115,7 @@ export function ProjectMermaidDiagram({
         bindFunctions?.(containerRef.current);
         setStatus("ready");
       } catch (error) {
-        if (!cancelled) {
+        if (!cancelled && current === generation) {
           setStatus("error");
           console.error("Mermaid render error:", error);
         }
@@ -120,9 +123,13 @@ export function ProjectMermaidDiagram({
     }
 
     renderDiagram();
+    const unsubscribe = subscribeToColorScheme(() => {
+      renderDiagram();
+    });
 
     return () => {
       cancelled = true;
+      unsubscribe();
     };
   }, [definition, id]);
 

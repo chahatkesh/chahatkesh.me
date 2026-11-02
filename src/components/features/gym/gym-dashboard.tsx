@@ -4,9 +4,13 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { API_ROUTES } from "~/constants";
-import { WEIGHT_UNIT } from "~/constants/gym";
+import {
+  GYM_WEEK_HISTORY,
+  MUSCLE_GROUPS,
+  RADAR_GROUPS,
+  WEIGHT_UNIT,
+} from "~/constants/gym";
 import { fetcher } from "~/lib/fetcher";
-import { formatTrainingTimeParts } from "~/lib/gym";
 import { cn } from "~/lib/utils";
 import { Skeleton } from "~/components/ui";
 import type { GymSummary, GymSummaryApiResponse } from "~/types/gym";
@@ -133,17 +137,28 @@ function GymDashboardSkeleton() {
             <div className="order-2 flex flex-col sm:order-1">
               <Skeleton className="mb-3 h-3 w-20 self-center sm:self-start" />
               <div className="grid w-full grid-cols-6 gap-x-1.5 gap-y-3.5 sm:w-[268px] sm:gap-x-2">
-                {Array.from({ length: 12 }).map((_, i) => (
+                {Array.from({ length: GYM_WEEK_HISTORY }).map((_, i) => (
                   <div key={i} className="flex flex-col items-center gap-1.5">
-                    <Skeleton className="size-8 rounded-full" />
-                    <Skeleton className="h-2 w-7" />
+                    <Skeleton className="size-[34px] rounded-full" />
+                    <Skeleton className="h-2.5 w-7" />
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="order-1 flex flex-col items-center sm:order-2 sm:items-start">
-              <Skeleton className="size-[156px] rounded-full" />
+              <div className="flex items-center gap-5 sm:gap-6">
+                <Skeleton className="size-[156px] shrink-0 rounded-full" />
+                <div className="flex flex-col gap-2.5">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="flex items-baseline gap-2.5">
+                      <Skeleton className="mt-1.5 size-1.5 shrink-0 rounded-full" />
+                      <Skeleton className="h-3.5 w-[4.5rem]" />
+                      <Skeleton className="h-3.5 w-10" />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -153,39 +168,43 @@ function GymDashboardSkeleton() {
             <div
               key={i}
               className={cn(
-                "flex flex-col gap-2 px-4 py-3.5",
+                "flex flex-col justify-center gap-1 px-4 py-3.5",
                 i % 2 === 1 && "border-l border-border",
                 i > 0 && "sm:border-l sm:border-border",
                 i >= 2 && "border-t border-border sm:border-t-0",
               )}
             >
               <Skeleton className="h-3 w-16" />
-              <Skeleton className="h-6 w-12" />
+              <Skeleton className={cn("h-7", i === 3 ? "w-16" : "w-12")} />
             </div>
           ))}
         </div>
       </section>
 
       {/* Heatmap */}
-      <section aria-hidden className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Skeleton className="h-4 w-28" />
-          <Skeleton className="h-4 w-16" />
+      <section aria-hidden>
+        <div className="mb-2 flex items-center justify-end gap-2">
+          <Skeleton className="h-5 w-8" />
+          <Skeleton className="h-5 w-10" />
         </div>
-        <Skeleton className="h-28 w-full rounded-md" />
+        <Skeleton className="h-[112px] w-full rounded-md" />
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <Skeleton className="h-3 w-40" />
+          <Skeleton className="h-3 w-24" />
+        </div>
       </section>
 
       {/* Muscle group strips */}
-      <section aria-hidden className="space-y-3">
-        <Skeleton className="h-3 w-24" />
-        <div className="space-y-2.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <Skeleton className="h-3 w-14 shrink-0" />
-              <Skeleton className="h-3 flex-1 rounded-sm" />
+      <section aria-hidden className="space-y-6">
+        {MUSCLE_GROUPS.map((group) => (
+          <div key={group}>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-4 w-20" />
             </div>
-          ))}
-        </div>
+            <Skeleton className="h-10 w-full" />
+          </div>
+        ))}
       </section>
 
       {/* Progress photos */}
@@ -207,20 +226,42 @@ function GymDashboardSkeleton() {
       </section>
 
       {/* Radar */}
-      <section aria-hidden className="flex flex-col items-center gap-4">
-        <div className="flex gap-2">
-          <Skeleton className="h-7 w-12 rounded-md" />
-          <Skeleton className="h-7 w-12 rounded-md" />
-          <Skeleton className="h-7 w-12 rounded-md" />
+      <section aria-hidden>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-1">
+            <Skeleton className="h-5 w-16" />
+            <Skeleton className="h-5 w-12" />
+          </div>
+          <div className="flex items-center gap-1">
+            <Skeleton className="h-5 w-8" />
+            <Skeleton className="h-5 w-8" />
+            <Skeleton className="h-5 w-8" />
+          </div>
         </div>
-        <Skeleton className="size-[300px] max-w-full rounded-full" />
+        <div className="flex w-full flex-col items-center gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
+          <Skeleton className="aspect-square w-full max-w-[280px] rounded-md sm:max-w-[300px]" />
+          <div className="w-full max-w-[220px] space-y-2.5 sm:shrink-0">
+            {RADAR_GROUPS.map((group) => (
+              <div key={group} className="flex items-center gap-2.5">
+                <Skeleton className="size-2 shrink-0 rounded-full" />
+                <Skeleton className="h-3.5 flex-1" />
+                <Skeleton className="h-3.5 w-8 shrink-0" />
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );
 }
 
 function GymStats({ summary }: { summary: GymSummary }) {
-  const time = formatTrainingTimeParts(summary.totalDurationMin);
+  const averageDurationMin =
+    summary.totalSessions > 0
+      ? Math.round(summary.totalDurationMin / summary.totalSessions)
+      : 0;
+  const averageVolume =
+    summary.totalSessions > 0 ? summary.totalVolume / summary.totalSessions : 0;
   const stats = [
     {
       label: "Current Streak",
@@ -233,14 +274,13 @@ function GymStats({ summary }: { summary: GymSummary }) {
       unit: "",
     },
     {
-      label: "Total time",
-      value: time.value,
-      unit: time.unit,
-      secondary: time.secondary,
+      label: "Avg time",
+      value: String(averageDurationMin),
+      unit: "min",
     },
     {
-      label: "Total volume",
-      value: Math.round(summary.totalVolume).toLocaleString(),
+      label: "Avg / day",
+      value: Math.round(averageVolume).toLocaleString(),
       unit: WEIGHT_UNIT,
     },
   ] as const;
@@ -264,16 +304,6 @@ function GymStats({ summary }: { summary: GymSummary }) {
             </span>
             {stat.unit ? (
               <span className="text-xs text-muted-foreground">{stat.unit}</span>
-            ) : null}
-            {"secondary" in stat && stat.secondary ? (
-              <>
-                <span className="text-xl font-semibold tracking-tight">
-                  {stat.secondary.value}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {stat.secondary.unit}
-                </span>
-              </>
             ) : null}
           </dd>
         </div>

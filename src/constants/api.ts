@@ -28,6 +28,7 @@ export const API_ROUTES = {
     `/api/gym/exercises/${encodeURIComponent(id)}`,
   GYM_PHOTOS: "/api/gym/photos",
   GYM_PHOTO_BY_ID: (id: string) => `/api/gym/photos/${encodeURIComponent(id)}`,
+  WALLPAPER: "/api/wallpaper",
   AUTH_LOGIN: "/api/auth/login",
   /** Returns the URL for fetching experience gallery images by slug */
   EXPERIENCE_GALLERY: (slug: string) =>

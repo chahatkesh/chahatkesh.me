@@ -155,7 +155,10 @@ const CodingActivity = () => {
             blockMargin={blockMargin}
             showColorLegend={false}
             showTotalCount={false}
-            theme={{ dark: [...GITHUB_CONTRIBUTION_COLORS] }}
+            theme={{
+              light: [...GITHUB_CONTRIBUTION_COLORS],
+              dark: [...GITHUB_CONTRIBUTION_COLORS],
+            }}
             renderBlock={renderBlock}
           />
 
@@ -221,7 +224,7 @@ const FilterButton = ({
     type="button"
     onClick={onClick}
     className={cn(
-      "rounded px-1.5 py-0.5 tabular-nums transition-colors",
+      "el-focus-styles rounded px-1.5 py-0.5 tabular-nums transition-colors",
       active
         ? "font-semibold text-foreground"
         : "text-muted-foreground hover:text-foreground",

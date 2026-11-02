@@ -195,4 +195,4 @@ export const adminListIconActionClassName = "size-9 px-0 text-xs sm:size-8";
 
 /** Destructive icon-only action. */
 export const adminListDangerActionClassName =
-  "size-9 px-0 text-xs sm:size-8 border-red-500/20 bg-red-500/10 text-red-500 hover:bg-red-500/20 hover:text-red-500";
+  "size-9 px-0 text-xs sm:size-8 border-danger/20 bg-danger/10 text-danger hover:bg-danger/20 hover:text-danger";

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { subscribeToColorScheme } from "~/lib/color-scheme";
 import { cn } from "~/lib/utils";
 
 export type MermaidRenderState =
@@ -80,9 +81,13 @@ export function MermaidRenderer({
     }
 
     let cancelled = false;
+    let generation = 0;
 
     async function renderDiagram() {
-      setState({ status: "loading" });
+      const current = ++generation;
+      setState((previous) =>
+        previous.status === "ready" ? previous : { status: "loading" },
+      );
 
       try {
         const mod = await import("mermaid");
@@ -142,7 +147,8 @@ export function MermaidRenderer({
           normalizedCode,
         );
 
-        if (cancelled || !containerRef.current) return;
+        if (cancelled || current !== generation || !containerRef.current)
+          return;
 
         containerRef.current.innerHTML = svg;
 
@@ -178,16 +184,20 @@ export function MermaidRenderer({
         bindFunctions?.(containerRef.current);
         setState({ status: "ready" });
       } catch (error) {
-        if (cancelled) return;
+        if (cancelled || current !== generation) return;
         onSvgReady?.(null);
         setState({ status: "error", errorMessage: getErrorMessage(error) });
       }
     }
 
     renderDiagram();
+    const unsubscribe = subscribeToColorScheme(() => {
+      renderDiagram();
+    });
 
     return () => {
       cancelled = true;
+      unsubscribe();
     };
   }, [code, renderId, isCanvasMode, isContainFit, onSvgReady]);
 
@@ -223,12 +233,12 @@ export function MermaidRenderer({
       {state.status === "error" && (
         <div
           className={cn(
-            "min-h-[280px] border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-500",
+            "min-h-[280px] border border-danger/30 bg-danger/10 p-4 text-sm text-danger",
             isCanvasMode ? "rounded-lg" : "rounded-xl",
           )}
         >
           <p className="font-medium">Unable to render Mermaid diagram</p>
-          <p className="mt-1 break-words text-red-500/90">
+          <p className="mt-1 break-words text-danger/90">
             {state.errorMessage}
           </p>
         </div>

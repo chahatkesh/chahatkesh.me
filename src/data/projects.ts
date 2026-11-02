@@ -72,7 +72,7 @@ const projects: Project[] = [
     ],
     stacks: [
       "Next.js",
-      "React.js",
+      "React",
       "TypeScript",
       "C++",
       "PostgreSQL",
@@ -150,7 +150,7 @@ const projects: Project[] = [
     ],
     stacks: [
       "Next.js",
-      "React.js",
+      "React",
       "TypeScript",
       "MongoDB",
       "Tailwind CSS",
@@ -229,7 +229,7 @@ const projects: Project[] = [
       "Comprehensive API documentation with OpenAPI/Swagger",
     ],
     stacks: [
-      "React.js",
+      "React",
       "Flutter",
       "Python",
       "FastAPI",
@@ -331,7 +331,7 @@ const projects: Project[] = [
       "Mongoose",
       "JWT",
       "Stripe",
-      "React.js",
+      "React",
       "Vite",
       "Tailwind CSS",
       "Radix UI",
@@ -407,7 +407,7 @@ const projects: Project[] = [
       "Docker",
       "JWT",
       "AWS",
-      "React.js",
+      "React",
       "Vite",
       "Tailwind CSS",
       "Framer Motion",
@@ -481,7 +481,7 @@ const projects: Project[] = [
       "Layered frontend error handling with global handlers, boundaries, and structured API codes",
     ],
     stacks: [
-      "React.js",
+      "React",
       "Vite",
       "Tailwind CSS",
       "Radix UI",
@@ -551,7 +551,7 @@ const projects: Project[] = [
       "Shopping cart functionality",
     ],
     stacks: [
-      "React.js",
+      "React",
       "Node.js",
       "Express.js",
       "MongoDB",
@@ -612,7 +612,7 @@ const projects: Project[] = [
     ],
     stacks: [
       "Next.js",
-      "React.js",
+      "React",
       "Tailwind CSS",
       "MongoDB",
       "Mongoose",
@@ -667,7 +667,7 @@ const projects: Project[] = [
     ],
     stacks: [
       "Next.js",
-      "React.js",
+      "React",
       "TypeScript",
       "OpenAI API",
       "GitHub API",

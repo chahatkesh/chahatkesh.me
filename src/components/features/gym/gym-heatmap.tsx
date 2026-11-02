@@ -214,7 +214,10 @@ export function GymHeatmap({ summary }: GymHeatmapProps) {
         blockMargin={blockMargin}
         showColorLegend={false}
         showTotalCount={false}
-        theme={{ dark: [...GYM_ACTIVITY_COLORS] }}
+        theme={{
+          light: [...GYM_ACTIVITY_COLORS],
+          dark: [...GYM_ACTIVITY_COLORS],
+        }}
         renderBlock={renderBlock}
       />
 
@@ -252,7 +255,7 @@ function FilterButton({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded px-1.5 py-0.5 tabular-nums transition-colors",
+        "el-focus-styles rounded px-1.5 py-0.5 tabular-nums transition-colors",
         active
           ? "font-semibold text-foreground"
           : "text-muted-foreground hover:text-foreground",

@@ -24,6 +24,84 @@ export interface MonthlyChangelog {
 
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
+    month: "2026-10",
+    publishedAt: "2026-10-23T23:19:00+05:30",
+    title: "The Shelf Comes Down",
+    summary:
+      "A short month. The writing index stopped being a bookcase, and one essay that had grown its own lab was retired.",
+    overview:
+      "October was a cut, not a build. Two commits, both on the 23rd. The writing page lost the book-spine shelf and went back to the card grid, and the helper that laid essays out like a bookcase went with it. Below the Frameworks — the macOS internals essay, the interactive lab that only existed for that piece, and the cover motif that had nowhere else to go — came out in the same pass. View counts on the videos were refreshed while the record was open. The rest of the site stayed put.",
+    stats: { commits: 2, files: 13 },
+    changes: [
+      {
+        type: "improved",
+        title: "The index, without the shelf",
+        description:
+          "The writing page is the card grid again. The book-spine shelf is gone, and so is the layout helper that only existed to stack essays like a bookcase. What remains is the list of pieces, each with its cover.",
+      },
+      {
+        type: "improved",
+        title: "One essay retired",
+        description:
+          "Below the Frameworks is no longer on the site. The interactive lab that only served that macOS piece is gone too, and the cover motif built for it was removed so the remaining covers stay general.",
+      },
+    ],
+  },
+  {
+    month: "2026-09",
+    publishedAt: "2026-09-19T23:57:00+05:30",
+    title: "Deeper Essays, a Lock-Screen Streak & One Thread",
+    summary:
+      "A month about finishing the rooms summer opened — essays with more to say, a year of training cut for an iPhone lock screen, and a career path that reads as a single line.",
+    overview:
+      "September was about giving the new rooms a shape. The backend and codebase essays grew from sketches into arguments you can follow. The gym page started speaking in averages, and the streak became a wallpaper sized for an iPhone 15 Pro lock screen. Experience was redrawn so every company holds its roles on one thread. Underneath, admin sessions learned to send you back to the page you were on, and a few quieter passes kept tool names, view counts, and the share card current.",
+    stats: { commits: 10, files: 85 },
+    changes: [
+      {
+        type: "added",
+        title: "A year of training, on the lock screen",
+        description:
+          "The gym streak can render as an iPhone 15 Pro wallpaper and drop straight into a Shortcut. The canvas is the phone's real portrait size, the grid is the last 365 days, and the subject sits below the clock so the date and time don't land on the dots. Today gets a ring. When the run is broken, the caption under the number stays blank.",
+      },
+      {
+        type: "improved",
+        title: "Essays with more to say",
+        description:
+          "The backend-first essay and the piece on the shape of a codebase were rewritten from sketches into arguments you can follow section by section.",
+      },
+      {
+        type: "improved",
+        title: "One thread through the work",
+        description:
+          "The experience timeline now groups every company the same way — a logo, a place, and the roles nested under a solid line. On a role page, start, end, and duration sit on a balanced identity row, with Present picked out so an open chapter is obvious.",
+      },
+      {
+        type: "improved",
+        title: "A typical session",
+        description:
+          "The gym dashboard replaced cumulative time and volume with averages per session, so the numbers describe a day of training. The muscle radar dropped exercise-count tracking and left core and cardio off the chart, so the shape is about where the work went.",
+      },
+      {
+        type: "improved",
+        title: "Logs only for today",
+        description:
+          "A new workout can only be opened for today. Days that already have a session can still be edited, and future dates stay closed. Gym admin — log, photos, wallpaper, and exercises — now shares one nav, so those tools read as one desk.",
+      },
+      {
+        type: "improved",
+        title: "Back to the page you were on",
+        description:
+          "An admin session refreshes once its token is a day old. If it does expire, the return path has to be a real /admin route, and a failed check offers a retry so you land back on the page you were using.",
+      },
+      {
+        type: "improved",
+        title: "A share card that names the work",
+        description:
+          "The home Open Graph image now describes AI-powered products and production systems, and the badge reads simply Portfolio — the Layr prefix is gone, so the card introduces the site on its own.",
+      },
+    ],
+  },
+  {
     month: "2026-08",
     publishedAt: "2026-08-29T14:50:00+05:30",
     title: "Sticky Chrome, Stack Pages & Essays With Covers",

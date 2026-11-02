@@ -144,7 +144,7 @@ const MobileNav = ({
                       )}
                     >
                       <span className="flex items-baseline gap-4">
-                        <span className="w-6 text-xs font-medium tabular-nums text-muted-foreground/40 transition-colors group-hover:text-muted-foreground/60">
+                        <span className="w-6 text-xs font-medium tabular-nums text-muted-foreground transition-colors group-hover:text-foreground">
                           {String(index + 1).padStart(2, "0")}
                         </span>
                         <span className="text-[2.4rem] font-bold leading-none tracking-tight">

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import {
   MUSCLE_GROUP_COLORS,
+  muscleTint,
   MUSCLE_GROUP_LABELS,
   WEIGHT_UNIT,
 } from "~/constants/gym";
@@ -83,7 +84,7 @@ export function GymTooltip({ hovered, onDismiss }: GymTooltipProps) {
                   key={group}
                   className="rounded px-1.5 py-0.5 text-[10px] font-medium"
                   style={{
-                    backgroundColor: `${MUSCLE_GROUP_COLORS[group]}26`,
+                    backgroundColor: muscleTint(MUSCLE_GROUP_COLORS[group], 15),
                     color: MUSCLE_GROUP_COLORS[group],
                   }}
                 >

@@ -34,7 +34,8 @@ const NavItem: React.FC<NavItemProps> = ({
       className={cn(
         "relative flex h-7 items-center rounded-md px-2 font-medium transition-colors duration-300 sm:px-0",
         {
-          "bg-ring sm:bg-transparent sm:text-ring": isActive,
+          "bg-ring text-brand-foreground sm:bg-transparent sm:text-ring":
+            isActive,
         },
       )}
       onClick={onClickHandler}

@@ -23,7 +23,7 @@ export function LinksHero() {
           />
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+            className="pointer-events-none absolute inset-0 inset-highlight"
           />
         </div>
 

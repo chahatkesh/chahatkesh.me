@@ -1,29 +1,5 @@
-declare module "*.webp" {
-  const content: string;
-  export default content;
-}
+/// <reference types="next/image-types/global" />
 
-declare module "*.png" {
-  const content: string;
-  export default content;
-}
-
-declare module "*.jpg" {
-  const content: string;
-  export default content;
-}
-
-declare module "*.jpeg" {
-  const content: string;
-  export default content;
-}
-
-declare module "*.svg" {
-  const content: string;
-  export default content;
-}
-
-declare module "*.gif" {
-  const content: string;
-  export default content;
-}
+// next-env.d.ts references these types too, but that file is generated and
+// gitignored. Static imports are StaticImageData ({ src, width, height }),
+// not strings. This keeps `tsc` on a clean checkout aligned with Next.

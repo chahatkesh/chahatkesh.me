@@ -289,7 +289,6 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: "timeline-2023-08-16-started-b-tech-at-nit-jalandhar",
     startDate: "2023-08-16",
-    endDate: "present",
     title: "Started B.Tech at NIT Jalandhar",
     description:
       "Began my undergraduate journey at Dr. B. R. Ambedkar National Institute of Technology, Jalandhar, pursuing a B.Tech degree and stepping into a new phase of learning, growth, and exploration.",

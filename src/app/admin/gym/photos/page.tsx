@@ -15,6 +15,7 @@ import {
   AdminListMeta,
   AdminLoadingState,
   AdminPageHeader,
+  GymAdminNav,
   ProtectedRoute,
 } from "~/components/admin";
 import { Button, Input, Label } from "~/components/ui";
@@ -210,6 +211,8 @@ function AdminGymPhotosContent() {
         subtitle="Upload dated gym progress photos for the public gym page."
       />
 
+      <GymAdminNav active="photos" />
+
       <div className="space-y-3">
         <CldUploadWidget
           uploadPreset={CLOUDINARY_UPLOAD_PRESET}
@@ -382,7 +385,7 @@ function PhotoFormSheet({
                 }))
               }
               required
-              className="border-border bg-card [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:filter hover:[&::-webkit-calendar-picker-indicator]:opacity-100"
+              className="border-border bg-card"
             />
           </div>
 

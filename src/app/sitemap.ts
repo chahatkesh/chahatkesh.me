@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ).toISOString();
   const writingLastModified = new Date(
     latestOf(
-      writingEntries.map((entry) => entry.updated ?? entry.date),
+      writingEntries.map((entry) => entry.date),
       siteCreationDate,
     ),
   ).toISOString();
@@ -200,7 +200,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const writingPages: MetadataRoute.Sitemap = writingEntries.map((entry) => ({
     url: `${baseUrl}/about/writing/${entry.slug}`,
-    lastModified: new Date(entry.updated ?? entry.date).toISOString(),
+    lastModified: new Date(entry.date).toISOString(),
     changeFrequency: "monthly" as const,
     priority: 0.55,
   }));

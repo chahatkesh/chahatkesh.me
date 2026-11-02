@@ -35,7 +35,6 @@ const GistSchema = new mongoose.Schema<IGist>(
   },
 );
 
-GistSchema.index({ slug: 1 }, { unique: true });
 GistSchema.index({ updatedAt: -1 });
 
 const Gist = mongoose.models.Gist || mongoose.model<IGist>("Gist", GistSchema);

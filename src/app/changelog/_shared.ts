@@ -11,21 +11,21 @@ export const TYPE_CONFIG: Record<
 > = {
   added: {
     label: "Added",
-    dot: "bg-emerald-500",
-    badge: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-    text: "text-emerald-600",
+    dot: "bg-success",
+    badge: "bg-success/10 text-success border-success/25",
+    text: "text-success",
   },
   improved: {
     label: "Improved",
-    dot: "bg-sky-500",
-    badge: "bg-sky-500/10 text-sky-600 border-sky-500/20",
-    text: "text-sky-600",
+    dot: "bg-info",
+    badge: "bg-info/10 text-info border-info/25",
+    text: "text-info",
   },
   fixed: {
     label: "Fixed",
-    dot: "bg-amber-500",
-    badge: "bg-amber-500/10 text-amber-600 border-amber-500/20",
-    text: "text-amber-600",
+    dot: "bg-warning",
+    badge: "bg-warning/10 text-warning border-warning/25",
+    text: "text-warning",
   },
 };
 

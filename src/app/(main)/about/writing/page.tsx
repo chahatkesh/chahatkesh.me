@@ -19,7 +19,6 @@ export const metadata: Metadata = getSEOTags({
 
 export default async function WritingPage() {
   const entries = await getWritingEntries();
-  const [featuredEntry, ...archiveEntries] = entries;
 
   return (
     <div className="space-y-8 font-poem">
@@ -40,22 +39,14 @@ export default async function WritingPage() {
         subtitle="Reflections on building, learning, and ideas worth keeping."
       />
 
-      {featuredEntry ? (
-        <div className="space-y-14">
-          <section aria-label="Latest writing">
-            <WritingCard entry={featuredEntry} variant="featured" />
-          </section>
-
-          {archiveEntries.length > 0 && (
-            <section aria-label="More writing">
-              <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
-                {archiveEntries.map((entry, index) => (
-                  <WritingCard key={entry.slug} entry={entry} index={index} />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
+      {entries.length > 0 ? (
+        <section aria-label="All writing">
+          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+            {entries.map((entry, index) => (
+              <WritingCard key={entry.slug} entry={entry} index={index} />
+            ))}
+          </div>
+        </section>
       ) : (
         <section className="border-y border-border py-10">
           <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">

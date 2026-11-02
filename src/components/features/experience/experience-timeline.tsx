@@ -1,224 +1,135 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { experiences } from "~/data/experience";
+import { experiences, type Experience } from "~/data/experience";
 import { MotionDiv } from "~/components/shared";
+import { TechStackBadges } from "~/components/features/project";
 import { calculateDuration } from "~/lib/date-utils";
 import {
   groupExperiencesByCompany,
   type ExperienceGroup,
 } from "~/lib/experience-utils";
-import { type Experience } from "~/data/experience";
+import { MAX_VISIBLE_EXPERIENCE_STACKS } from "~/constants";
+import { cn } from "~/lib/utils";
+import { ExperienceDates } from "./experience-dates";
+import { ExperienceLogo } from "./experience-logo";
+import { ExperienceThread } from "./experience-thread";
 
 const ExperienceTimeline = () => {
   const groups = groupExperiencesByCompany(experiences);
 
   return (
     <MotionDiv
-      className="space-y-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="relative space-y-8">
-        {/* Vertical timeline line */}
-        <div className="absolute left-[15px] top-4 bottom-4 w-[2px] bg-border" />
+      <div className="relative">
+        <ExperienceThread />
 
-        {groups.map((group, index) =>
-          group.positions.length === 1 ? (
-            <SinglePositionEntry
-              key={group.companyId}
-              experience={group.positions[0]}
-              index={index}
-            />
-          ) : (
-            <MultiPositionEntry
+        <ol className="relative">
+          {groups.map((group, index) => (
+            <CompanyEntry
               key={group.companyId}
               group={group}
               index={index}
+              isLast={index === groups.length - 1}
             />
-          ),
-        )}
+          ))}
+        </ol>
       </div>
     </MotionDiv>
   );
 };
 
-// ---------------------------------------------------------------------------
-// Single-position timeline entry (unchanged visual behaviour)
-// ---------------------------------------------------------------------------
-
-function SinglePositionEntry({
-  experience,
-  index,
-}: {
-  experience: Experience;
-  index: number;
-}) {
-  return (
-    <MotionDiv
-      className="relative pl-12"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-    >
-      {/* Timeline dot */}
-      <div className="absolute left-0 top-4">
-        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-border bg-card">
-          <Image
-            src={experience.logo}
-            alt={`${experience.employer} logo`}
-            fill
-            sizes="32px"
-            className="object-cover"
-          />
-        </div>
-      </div>
-
-      <Link
-        href={`/about/experience/${experience.slug}`}
-        className="block group"
-      >
-        <div className="border border-border hover:border-muted-foreground/30 rounded-lg p-4 transition-colors bg-background">
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-            <div className="flex-1">
-              <h3 className="font-ubuntu text-lg font-medium text-foreground group-hover:text-ring transition-colors">
-                {experience.role}
-              </h3>
-              <p className="text-sm text-muted-foreground mt-0.5">
-                {experience.employer}
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
-              <span>{experience.start_date}</span>
-              <span>→</span>
-              <span>{experience.end_date}</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
-            <span>{experience.type}</span>
-            <span>•</span>
-            <span>{experience.location}</span>
-            <span>•</span>
-            <span>
-              {calculateDuration(experience.start_date, experience.end_date)}
-            </span>
-          </div>
-        </div>
-      </Link>
-    </MotionDiv>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Multi-position timeline entry — company header + nested positions
-// ---------------------------------------------------------------------------
-
-function MultiPositionEntry({
+function CompanyEntry({
   group,
   index,
+  isLast,
 }: {
   group: ExperienceGroup;
   index: number;
+  isLast: boolean;
 }) {
-  return (
-    <MotionDiv
-      className="relative pl-12"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-    >
-      {/* Timeline dot */}
-      <div className="absolute left-0 top-4">
-        <div className="relative h-8 w-8 overflow-hidden rounded-full border-2 border-border bg-card">
-          <Image
-            src={group.logo}
-            alt={`${group.employer} logo`}
-            fill
-            sizes="32px"
-            className="object-cover"
-          />
-        </div>
-      </div>
+  const location = group.positions[0]?.location ?? "";
 
-      <div className="border border-border rounded-lg overflow-hidden bg-background">
-        {/* Company header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 px-4 py-3 border-b border-border">
-          <div>
-            <h3 className="font-ubuntu text-lg font-medium text-foreground">
+  return (
+    <li className="relative">
+      <MotionDiv
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.05 }}
+      >
+        <div className={cn("flex items-start gap-4", !isLast && "pb-5")}>
+          <ExperienceLogo src={group.logo} alt={group.employer} />
+
+          <div className="min-w-0 flex-1">
+            <h3 className="font-ubuntu text-base font-medium leading-none text-foreground sm:text-[17px]">
               {group.employer}
             </h3>
-            <p className="text-xs text-muted-foreground/70 mt-0.5">
-              {group.positions.length} positions
-            </p>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground/70 flex-shrink-0">
-            <span>{group.earliestStart}</span>
-            <span>→</span>
-            <span>{group.latestEnd}</span>
+            {location && (
+              <p className="mt-1.5 text-xs leading-none text-muted-foreground/60">
+                {location}
+              </p>
+            )}
+
+            <div className="relative mt-4 space-y-4 border-l border-border pl-4">
+              {group.positions.map((position) => (
+                <RoleRow key={position.slug} position={position} />
+              ))}
+            </div>
           </div>
         </div>
+        {!isLast && (
+          <div className="mb-5 ml-14 h-px bg-border/60" aria-hidden="true" />
+        )}
+      </MotionDiv>
+    </li>
+  );
+}
 
-        {/* Individual positions */}
-        {group.positions.map((position, posIdx) => (
-          <Link
-            key={position.slug}
-            href={`/about/experience/${position.slug}`}
-            className="block group"
-          >
-            <div
-              className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 px-4 py-3 hover:bg-muted/40 transition-colors ${
-                posIdx < group.positions.length - 1
-                  ? "border-b border-border/60"
-                  : ""
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                {/* Connector indent */}
-                <span className="text-muted-foreground/50 mt-0.5 text-sm select-none flex-shrink-0">
-                  ↳
-                </span>
-                <div>
-                  <p className="text-sm font-medium text-foreground/90 group-hover:text-ring transition-colors">
-                    {position.role}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground/70 mt-1">
-                    <span>{position.type}</span>
-                    <span>•</span>
-                    <span>{position.location}</span>
-                    <span>•</span>
-                    <span>
-                      {calculateDuration(
-                        position.start_date,
-                        position.end_date,
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground/70 flex-shrink-0 pl-6 sm:pl-0">
-                <span>{position.start_date}</span>
-                <span>→</span>
-                <span>{position.end_date}</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-ring"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
+function RoleRow({ position }: { position: Experience }) {
+  const duration = calculateDuration(position.start_date, position.end_date);
+
+  return (
+    <Link
+      href={`/about/experience/${position.slug}`}
+      className="el-focus-styles group block"
+    >
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium leading-snug text-foreground/90 transition-colors group-hover:text-ring">
+            {position.role}
+          </p>
+          <ExperienceDates
+            start={position.start_date}
+            end={position.end_date}
+            duration={duration}
+            align="inline"
+            className="mt-1.5 text-xs sm:hidden"
+          />
+          <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
+            {position.tagline}
+          </p>
+          {position.techStack && position.techStack.length > 0 && (
+            <div className="mt-2.5">
+              <TechStackBadges
+                stacks={position.techStack}
+                max={MAX_VISIBLE_EXPERIENCE_STACKS}
+                size="sm"
+                linked={false}
+              />
             </div>
-          </Link>
-        ))}
+          )}
+        </div>
+        <ExperienceDates
+          start={position.start_date}
+          end={position.end_date}
+          duration={duration}
+          className="hidden pt-0.5 sm:block"
+        />
       </div>
-    </MotionDiv>
+    </Link>
   );
 }
 

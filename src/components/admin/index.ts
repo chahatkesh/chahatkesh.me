@@ -4,8 +4,10 @@
 export { ProtectedRoute } from "./protected-route";
 export { AdminNavbar } from "./admin-navbar";
 export { AdminPageHeader } from "./admin-page-header";
+export { GymAdminNav } from "./gym-admin-nav";
 export { AdminLoadingState, AdminErrorState } from "./admin-async-state";
 export { AdminConfirmDialog } from "./admin-confirm-dialog";
+export { WallpaperSetup } from "./wallpaper-setup";
 export { AdminDashboardCard } from "./admin-dashboard-card";
 export {
   AdminListCard,

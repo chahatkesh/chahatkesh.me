@@ -8,7 +8,8 @@ export default async function Image() {
   return generateOGImageResponse({
     title: config.appName,
     subtitle: config.appDesignation,
-    description: config.seo.defaultDescription,
-    badge: "Layr · Portfolio",
+    description:
+      "I build AI-powered products, ship production-grade systems, and contribute across product, design, and engineering.",
+    badge: "Portfolio",
   });
 }

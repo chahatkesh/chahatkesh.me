@@ -9,18 +9,58 @@ import { useSearchParams } from "next/navigation";
 import { MotionDiv } from "~/components/shared";
 import { Button, Skeleton } from "~/components/ui";
 import { API_ROUTES, BRAND_ACCENT_HEX } from "~/constants";
+import { useColorScheme, type ColorScheme } from "~/hooks/use-color-scheme";
 import { simpleFetcher as fetcher } from "~/lib/fetcher";
 import { cn } from "~/lib/utils";
 import type { PlaceListApiResponse, VisitedPlace } from "~/types/places";
 import styles from "./places-map.module.css";
 
-const MAPTILER_STYLE_BASE =
-  "https://api.maptiler.com/maps/dataviz-dark/style.json?key=";
+const MAP_STYLE_BASE: Record<ColorScheme, string> = {
+  dark: "https://api.maptiler.com/maps/dataviz-dark/style.json?key=",
+  light: "https://api.maptiler.com/maps/dataviz/style.json?key=",
+};
 
-const MAP_THEME_OVERLAY = `
-  radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 46%),
-  linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.24) 100%)
-`;
+const MAP_OVERLAY: Record<ColorScheme, string> = {
+  dark: `radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 46%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.24) 100%)`,
+  light: `radial-gradient(circle at 20% 0%, rgba(0, 116, 122, 0.07) 0%, transparent 46%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(24, 24, 27, 0.05) 100%)`,
+};
+
+const MAP_PALETTE: Record<
+  ColorScheme,
+  {
+    background: string;
+    land: string;
+    water: string;
+    halo: string;
+    label: string;
+    accentStrong: string;
+    accentMedium: string;
+    accentSoft: string;
+  }
+> = {
+  dark: {
+    background: "#000000",
+    land: "#0b0d0e",
+    water: "#101314",
+    halo: "#000000",
+    label: withAlpha(BRAND_ACCENT_HEX, 0.78),
+    accentStrong: withAlpha(BRAND_ACCENT_HEX, 0.86),
+    accentMedium: withAlpha(BRAND_ACCENT_HEX, 0.56),
+    accentSoft: withAlpha(BRAND_ACCENT_HEX, 0.34),
+  },
+  light: {
+    background: "#ffffff",
+    land: "#e7e8ec",
+    water: "#d5e4e6",
+    halo: "#ffffff",
+    label: "#0a5c62",
+    accentStrong: "#0c6e75",
+    accentMedium: "#3d8f96",
+    accentSoft: "#7eb4b8",
+  },
+};
 
 function withAlpha(hex: string, alpha: number): string {
   const normalized = hex.replace("#", "");
@@ -42,9 +82,11 @@ function withAlpha(hex: string, alpha: number): string {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
-function applyOutlineTheme(mapRef: MapRef | null) {
+function applyOutlineTheme(mapRef: MapRef | null, scheme: ColorScheme) {
   const map = mapRef?.getMap();
   if (!map) return;
+
+  const palette = MAP_PALETTE[scheme];
 
   const style = map.getStyle();
   const layers = style?.layers ?? [];
@@ -64,11 +106,6 @@ function applyOutlineTheme(mapRef: MapRef | null) {
       id,
     );
 
-  const accentStrong = withAlpha(BRAND_ACCENT_HEX, 0.86);
-  const accentMedium = withAlpha(BRAND_ACCENT_HEX, 0.56);
-  const accentSoft = withAlpha(BRAND_ACCENT_HEX, 0.34);
-  const labelColor = withAlpha(BRAND_ACCENT_HEX, 0.78);
-
   for (const layer of layers) {
     try {
       if (layer.type === "symbol" || isLabelLayer(layer.id)) {
@@ -77,8 +114,8 @@ function applyOutlineTheme(mapRef: MapRef | null) {
           continue;
         }
 
-        map.setPaintProperty(layer.id, "text-color", labelColor);
-        map.setPaintProperty(layer.id, "text-halo-color", "#050607");
+        map.setPaintProperty(layer.id, "text-color", palette.label);
+        map.setPaintProperty(layer.id, "text-halo-color", palette.halo);
         map.setPaintProperty(layer.id, "text-halo-width", 1);
         map.setPaintProperty(layer.id, "text-opacity", 0.88);
         map.setPaintProperty(layer.id, "icon-opacity", 0.42);
@@ -96,7 +133,7 @@ function applyOutlineTheme(mapRef: MapRef | null) {
       }
 
       if (layer.type === "background") {
-        map.setPaintProperty(layer.id, "background-color", "#070707");
+        map.setPaintProperty(layer.id, "background-color", palette.background);
         continue;
       }
 
@@ -104,7 +141,7 @@ function applyOutlineTheme(mapRef: MapRef | null) {
         map.setPaintProperty(
           layer.id,
           "fill-color",
-          isWaterLayer(layer.id) ? "#101314" : "#0b0d0e",
+          isWaterLayer(layer.id) ? palette.water : palette.land,
         );
         map.setPaintProperty(
           layer.id,
@@ -116,13 +153,13 @@ function applyOutlineTheme(mapRef: MapRef | null) {
 
       if (layer.type === "line") {
         if (isBoundaryLayer(layer.id)) {
-          map.setPaintProperty(layer.id, "line-color", accentStrong);
+          map.setPaintProperty(layer.id, "line-color", palette.accentStrong);
           map.setPaintProperty(layer.id, "line-opacity", 0.92);
         } else if (isRoadLayer(layer.id)) {
-          map.setPaintProperty(layer.id, "line-color", accentMedium);
+          map.setPaintProperty(layer.id, "line-color", palette.accentMedium);
           map.setPaintProperty(layer.id, "line-opacity", 0.78);
         } else {
-          map.setPaintProperty(layer.id, "line-color", accentSoft);
+          map.setPaintProperty(layer.id, "line-color", palette.accentSoft);
           map.setPaintProperty(layer.id, "line-opacity", 0.7);
         }
       }
@@ -202,8 +239,11 @@ export function PlacesMap() {
     string | null
   >(null);
 
+  const mapScheme = useColorScheme();
   const mapTilerKey = process.env.NEXT_PUBLIC_MAPTILER_API_KEY;
-  const mapStyle = mapTilerKey ? `${MAPTILER_STYLE_BASE}${mapTilerKey}` : null;
+  const mapStyle = mapTilerKey
+    ? `${MAP_STYLE_BASE[mapScheme]}${mapTilerKey}`
+    : null;
 
   const places = useMemo(() => data?.data ?? [], [data?.data]);
   const requestedPlaceId = searchParams.get("place");
@@ -277,6 +317,18 @@ export function PlacesMap() {
     const point = map.project([place.longitude, place.latitude]);
     setTooltipFromPoint({ x: point.x, y: point.y }, Boolean(place.shortNote));
   };
+
+  useEffect(() => {
+    const map = mapRef.current?.getMap();
+    if (!map || !isMapReady) return;
+
+    const paint = () => applyOutlineTheme(mapRef.current, mapScheme);
+    paint();
+    map.on("style.load", paint);
+    return () => {
+      map.off("style.load", paint);
+    };
+  }, [isMapReady, mapScheme]);
 
   useEffect(() => {
     if (!isMapReady || hasFittedBoundsRef.current || places.length === 0)
@@ -361,7 +413,7 @@ export function PlacesMap() {
     >
       <div
         className="pointer-events-none absolute inset-0 z-10"
-        style={{ background: MAP_THEME_OVERLAY }}
+        style={{ background: MAP_OVERLAY[mapScheme] }}
       />
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-28 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
@@ -392,7 +444,7 @@ export function PlacesMap() {
         }}
         onLoad={() => {
           setIsMapReady(true);
-          applyOutlineTheme(mapRef.current);
+          applyOutlineTheme(mapRef.current, mapScheme);
         }}
         attributionControl={false}
         reuseMaps
@@ -431,17 +483,17 @@ export function PlacesMap() {
                 }}
                 aria-label={`View ${place.name}`}
                 className={cn(
-                  "group relative flex size-8 items-center justify-center transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                  "group relative flex size-8 items-center justify-center transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                   isActive ? "-translate-y-0.5 scale-105" : "hover:scale-105",
                 )}
               >
                 <span
                   className={cn(
-                    "relative flex size-7 items-center justify-center rounded-[58%_58%_58%_6%] border border-ring/65 bg-[#0b0e0f] shadow-[0_10px_22px_rgba(0,0,0,0.5)] rotate-[-45deg]",
-                    isActive && "border-ring/85 bg-[#111416]",
+                    "relative flex size-7 items-center justify-center rounded-[58%_58%_58%_6%] border border-ring/65 bg-background shadow-[0_10px_22px_rgba(0,0,0,0.28)] rotate-[-45deg]",
+                    isActive && "border-ring bg-card",
                   )}
                 >
-                  <span className="size-2.5 rounded-full border border-black/35 bg-ring/90 rotate-[45deg]" />
+                  <span className="size-2.5 rounded-full border border-background/50 bg-ring rotate-[45deg]" />
                 </span>
               </button>
             </Marker>
@@ -455,21 +507,21 @@ export function PlacesMap() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="pointer-events-none absolute z-20 rounded-xl border border-white/10 bg-black/76 px-3 py-2 shadow-[0_10px_24px_rgba(0,0,0,0.36)] backdrop-blur-sm"
+          className="pointer-events-none absolute z-20 rounded-xl border border-border bg-popover/95 px-3 py-2 text-popover-foreground shadow-lg backdrop-blur-sm"
           style={{
             left: tooltipPosition.left,
             top: tooltipPosition.top,
             width: tooltipPosition.width,
           }}
         >
-          <p className="text-sm font-semibold leading-tight tracking-tight text-zinc-100 sm:text-base">
+          <p className="text-sm font-semibold leading-tight tracking-tight text-foreground sm:text-base">
             {activePlace.name}
           </p>
-          <p className="mt-1 text-[11px] font-medium tracking-wide text-zinc-400">
+          <p className="mt-1 text-[11px] font-medium tracking-wide text-muted-foreground">
             {formatVisitDate(activePlace.visitedAt)} · {activePlace.location}
           </p>
           {activePlace.shortNote ? (
-            <p className="mt-2 max-h-14 overflow-hidden text-xs leading-relaxed text-zinc-300 sm:text-sm">
+            <p className="mt-2 max-h-14 overflow-hidden text-xs leading-relaxed text-muted-foreground sm:text-sm">
               {activePlace.shortNote}
             </p>
           ) : null}

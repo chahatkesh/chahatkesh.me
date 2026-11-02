@@ -13,9 +13,9 @@ const GAP = 4.75;
 const RING_PX = 156;
 
 export const RING_COLORS = {
-  sessions: "#00d3d9",
-  groups: "#845ef7",
-  time: "#f2b84b",
+  sessions: "var(--ring-sessions)",
+  groups: "var(--ring-groups)",
+  time: "var(--ring-time)",
 } as const;
 
 export interface WeekRingMetrics {

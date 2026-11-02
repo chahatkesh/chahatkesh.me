@@ -558,7 +558,7 @@ function AdminPlacesContent() {
                 }
                 required
                 disabled={isSaving}
-                className="border-border bg-card [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-70 [&::-webkit-calendar-picker-indicator]:invert"
+                className="border-border bg-card"
               />
             </div>
 
