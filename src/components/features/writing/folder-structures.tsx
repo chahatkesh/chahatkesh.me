@@ -26,23 +26,24 @@ const STRUCTURES: Structure[] = [
     id: "layered",
     name: "Layered Architecture",
     shortName: "Layered",
-    coined: "The default most of us ship first — group by technical type.",
+    coined: "The usual first layout. Group files by kind.",
     pitch:
-      "Controllers with controllers, hooks with hooks, components in one giant drawer. Easy to start. Painful the day you have to change a single feature and touch six folders.",
-    bestFor: "Small apps, prototypes, the first few weeks.",
-    watchFor: "utils/ becomes a junk drawer. Related code lives far apart.",
+      "A component sits with components, and a hook sits with hooks. A coupon still has no folder of its own. One feature change can touch five directories.",
+    bestFor: "A prototype, or an app whose changes are technical.",
+    watchFor:
+      "utils/ fills with code no one owns. One feature touches many folders.",
     tree: [
       {
         name: "src",
         children: [
           {
             name: "components",
-            note: "Every UI piece, regardless of which feature it belongs to.",
+            note: "Every component, whichever feature it belongs to.",
             children: [
               { name: "Button.tsx" },
               {
                 name: "CartDrawer.tsx",
-                note: "Cart UI lives here. Cart logic lives three folders away.",
+                note: "The cart screen lives here. The cart logic lives three folders away.",
               },
               { name: "LoginForm.tsx" },
               { name: "ProductCard.tsx" },
@@ -62,7 +63,7 @@ const STRUCTURES: Structure[] = [
           },
           {
             name: "utils",
-            note: "formatPrice, a leftover date helper, and that function nobody wants to own.",
+            note: "formatPrice, a date helper, and code with no owner.",
             children: [{ name: "format.ts" }, { name: "cn.ts" }],
           },
           {
@@ -78,20 +79,19 @@ const STRUCTURES: Structure[] = [
     name: "Screaming Architecture",
     shortName: "Screaming",
     coined:
-      "Robert C. Martin, 2011 — the folders should scream what the app does.",
+      "Robert C. Martin, 2011. The top folders should say what the app does.",
     pitch:
-      'Open the repo. In five seconds you should know this is commerce, not "a React app." Frameworks are a delivery detail. The domain is the architecture.',
-    bestFor:
-      "Any product with a real domain — once you can name the use cases.",
+      "Open the repo and you should see a store, not a React app. Next.js can keep app/. The other names should be the product.",
+    bestFor: "A product whose nouns have shown up in more than one ticket.",
     watchFor:
-      "Easy to fake. Folders named pages/ and api/ still scream Next.js.",
+      "A renamed folder can still be a pile. components/ and hooks/ still name the framework.",
     tree: [
       {
         name: "src",
         children: [
           {
             name: "catalog",
-            note: "The business, not the framework. This folder is the storefront.",
+            note: "The storefront. This name is a product word.",
             children: [
               { name: "product.ts" },
               { name: "listing.ts" },
@@ -116,7 +116,7 @@ const STRUCTURES: Structure[] = [
           },
           {
             name: "shared",
-            note: "Only what two or more domains actually share.",
+            note: "Only what two or more domains share.",
             children: [{ name: "money.ts" }, { name: "http.ts" }],
           },
         ],
@@ -127,12 +127,12 @@ const STRUCTURES: Structure[] = [
     id: "vertical-slice",
     name: "Vertical Slice Architecture",
     shortName: "Vertical Slice",
-    coined:
-      "Jimmy Bogard — couple along the axis of change, not across layers.",
+    coined: "Jimmy Bogard. Group by the behavior, not by the kind of file.",
     pitch:
-      "A feature is a slice: UI, validation, data, and types in one folder. When checkout changes, you open checkout/. You do not tour services/, then models/, then components/.",
-    bestFor: "Medium to large apps. Teams that ship features, not layers.",
-    watchFor: "Cross-slice sharing creeps back in if you are not strict.",
+      "add-to-cart keeps its screen, its check, its request, and its test. You change that behavior in one folder, not in services/ and then components/.",
+    bestFor: "Products where the work arrives as features.",
+    watchFor:
+      "Copied helpers, and slices that import each other's private files.",
     tree: [
       {
         name: "src",
@@ -142,7 +142,7 @@ const STRUCTURES: Structure[] = [
             children: [
               {
                 name: "add-to-cart",
-                note: "One request, one folder. Everything this use case needs.",
+                note: "One request, one folder. Everything this behavior needs.",
                 children: [
                   { name: "ui.tsx" },
                   { name: "model.ts" },
@@ -180,23 +180,25 @@ const STRUCTURES: Structure[] = [
     id: "fsd",
     name: "Feature-Sliced Design",
     shortName: "FSD",
-    coined: "FSD — layers, then slices, then segments, with a public API.",
+    coined:
+      "Layers, then slices, then a public file. You don't have to create every layer.",
     pitch:
-      "The strictest of the four. app → pages → widgets → features → entities → shared. Imports only flow downward. Each slice talks through index.ts. Chaos has fewer places to hide.",
-    bestFor: "Large frontends, many contributors, long-lived products.",
+      "Imports flow downward, and each slice is reached through index.ts. Start with app, pages, and shared. Add the middle layers when a second page reuses the code.",
+    bestFor: "A frontend with many people and areas that live for years.",
     watchFor:
-      "Too much structure too early. A weekend project does not need six layers.",
+      "Filling widgets, features, and entities before a second page needs them.",
     tree: [
       {
         name: "src",
         children: [
           {
             name: "app",
-            note: "Providers, routing, global store. The shell, not the product.",
+            note: "Providers, routing, and the global store. The shell around the product.",
             children: [{ name: "providers.tsx" }, { name: "styles.css" }],
           },
           {
             name: "pages",
+            note: "Start here. Keep a screen's code on the page until a second page needs it.",
             children: [
               { name: "catalog" },
               { name: "cart" },
@@ -205,7 +207,7 @@ const STRUCTURES: Structure[] = [
           },
           {
             name: "widgets",
-            note: "Page sections composed from features and entities — Header, CartDrawer.",
+            note: "Page sections built from features and entities, such as a header or a cart drawer.",
             children: [{ name: "header" }, { name: "cart-drawer" }],
           },
           {
@@ -219,7 +221,7 @@ const STRUCTURES: Structure[] = [
                   { name: "api" },
                   {
                     name: "index.ts",
-                    note: "The public API. Outsiders import this, never the insides.",
+                    note: "The public file. Other code imports this, and stops at this file.",
                   },
                 ],
               },

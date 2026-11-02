@@ -20,6 +20,13 @@ const Footer = () => {
           className="flex items-center gap-x-3 text-muted-foreground"
         >
           <Link
+            href="/sitemap"
+            className="el-focus-styles rounded-sm transition-colors hover:text-ring"
+          >
+            Sitemap
+          </Link>
+          <span aria-hidden>•</span>
+          <Link
             href="/changelog"
             className="el-focus-styles rounded-sm transition-colors hover:text-ring"
           >

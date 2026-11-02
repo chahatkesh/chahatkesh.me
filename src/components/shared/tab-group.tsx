@@ -16,6 +16,33 @@ interface TabGroupProps {
   defaultTab?: string;
   className?: string;
   sticky?: boolean;
+  siblingNav?: boolean;
+}
+
+// Survives the remount Next does when the tab query changes, so the
+// end-of-section links still scroll after the new panel is on the page.
+const siblingScroll = { pending: false };
+
+function requestSiblingScroll() {
+  siblingScroll.pending = true;
+}
+
+function takeSiblingScroll() {
+  if (!siblingScroll.pending) return false;
+  siblingScroll.pending = false;
+  return true;
+}
+
+function cssLengthToPx(value: string) {
+  const raw = value.trim();
+  if (!raw) return 0;
+  if (raw.endsWith("rem")) {
+    const root = parseFloat(
+      getComputedStyle(document.documentElement).fontSize,
+    );
+    return parseFloat(raw) * root;
+  }
+  return parseFloat(raw) || 0;
 }
 
 export function TabGroup({
@@ -23,6 +50,7 @@ export function TabGroup({
   defaultTab,
   className,
   sticky = false,
+  siblingNav = false,
 }: TabGroupProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -38,6 +66,7 @@ export function TabGroup({
     width: 0,
   });
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const tabBarAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const activeElement = tabRefs.current[activeTab];
@@ -49,7 +78,48 @@ export function TabGroup({
     }
   }, [activeTab]);
 
-  const handleTabClick = (tabId: string) => {
+  const scrollTabBarUnderHeader = () => {
+    const anchor = tabBarAnchorRef.current;
+    if (!anchor) return;
+
+    const headerHeight = cssLengthToPx(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        "--header-height",
+      ),
+    );
+    const top =
+      anchor.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (!siblingScroll.pending) return;
+
+    // Wait until the new panel is committed. Scrolling in the click handler
+    // gets undone when the previous panel unmounts and the browser anchors
+    // the viewport to the bottom of the next section.
+    let cancelled = false;
+    const frame = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (cancelled || !takeSiblingScroll()) return;
+        scrollTabBarUnderHeader();
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
+  }, [activeTab]);
+
+  const handleTabClick = (
+    tabId: string,
+    options?: { scrollToTabs?: boolean },
+  ) => {
+    if (options?.scrollToTabs) {
+      requestSiblingScroll();
+    }
     setActiveTab(tabId);
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set("tab", tabId);
@@ -70,6 +140,9 @@ export function TabGroup({
 
   return (
     <div className={cn("w-full", className)}>
+      {/* Sits outside the sticky bar so its position stays the in-flow top. */}
+      <div ref={tabBarAnchorRef} className="h-0" aria-hidden />
+
       {/* Tab Navigation */}
       <div
         className={cn(
@@ -145,6 +218,36 @@ export function TabGroup({
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   {tab.content}
+                  {siblingNav && (
+                    <nav
+                      aria-labelledby={`other-sections-${tab.id}`}
+                      className="mt-12 border-t border-border pt-6"
+                    >
+                      <p
+                        id={`other-sections-${tab.id}`}
+                        className="text-xs uppercase tracking-wider text-muted-foreground"
+                      >
+                        Other sections
+                      </p>
+                      <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:gap-6">
+                        {tabs
+                          .filter((other) => other.id !== tab.id)
+                          .map((other) => (
+                            <button
+                              key={other.id}
+                              type="button"
+                              onClick={() =>
+                                handleTabClick(other.id, { scrollToTabs: true })
+                              }
+                              className="el-focus-styles inline-flex items-center gap-2 rounded-sm py-1.5 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            >
+                              {other.label}
+                              <span aria-hidden="true">→</span>
+                            </button>
+                          ))}
+                      </div>
+                    </nav>
+                  )}
                 </motion.div>
               )}
             </div>

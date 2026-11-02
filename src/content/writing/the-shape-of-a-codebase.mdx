@@ -1,7 +1,7 @@
 ---
 title: "The Shape of a Codebase"
-subtitle: "How folders reveal boundaries, ownership, and the way a product changes."
-description: "Four ways to structure a production codebase, the trade-offs behind them, and how to know when your current shape has stopped serving you."
+subtitle: "Each folder shape fixes one problem and adds another."
+description: "What four codebase layouts fix, what each one costs, and how to tell when the folders no longer match the work."
 date: "2026-08-15"
 tags:
   - Architecture
@@ -9,163 +9,197 @@ tags:
   - Craft
 ---
 
-I used to think folder structure was the boring part. You make a `src/` folder, dump `components/` next to `utils/`, and get back to the feature. Then you open someone else's repo at 1am, looking for one function, and the repo looks back at you like a stranger.
+You open a repo to add a coupon at checkout. The folders either lead you to that coupon, or they send you through five directories for one behavior.
 
-That happened enough times that I started paying attention.
+The form has to accept the code. A rule has to reject a bad one. A request has to save it. A test has to prove the reject. When those files live apart, the coupon has no address.
 
-I have read a lot of open source now. Next.js apps, Cal.com, Bulletproof React, and random GitHub stars I cloned because the README was pretty. I have also shipped enough of my own work — this site, [Layr](https://uselayr.com/), and the messy first versions of things I will never show you — to notice a pattern.
+Folders are not the whole architecture. Architecture here also means who may import whom, who owns the data, and which choice is expensive to undo. A tidy tree can still hide a mess of imports.
 
-The codebases that still feel kind after six months are not the ones with the cleverest abstractions. They are the ones whose shape helps me predict where a change belongs.
+You still meet the folders on every change. They decide what sits together. They decide which boundary you can cross without noticing.
 
-<Callout tone="idea" title="The test">
-  Open `src/` and count to five. If you still do not know what the app does, the
-  structure is talking about the framework, not the product.
+Four shapes show up in real repos. They are not a ladder. A small internal tool can stay on the first one for years. The block below is the same store, drawn four ways.
+
+<Callout tone="idea" title="The five-second check">
+Open `src/` and count to five. If you still can't say what the product does, the folders are naming the framework.
 </Callout>
-
-There is an important caveat: folders are not architecture. Architecture is also dependency direction, runtime boundaries, data ownership, deployment, and the decisions that are expensive to reverse. A neat tree can still hide a tangled system.
-
-But folders are the part of architecture we touch every day. They decide what sits together, what feels far away, and which boundaries become easy to respect. They are the map most contributors see before they understand the territory.
-
-Four approaches keep showing up in production codebases. They are not four rungs on a maturity ladder, and they are not mutually exclusive. They answer slightly different questions.
 
 <FolderStructures />
 
-## The default: organize by technical layer
+## Group files by what they are
 
-Layered Architecture is where almost everyone starts, including me: `components/`, `hooks/`, `services/`, `utils/`, `types/`. Tutorials teach it because it makes immediate sense. A component is a component, so put it with the other components.
+This is **layered architecture**, and it is where most repos begin. The folder name is the kind of file. Components sit with components. Hooks sit with hooks. Requests sit with requests.
 
-This is not a bad beginning. Shared technical policy is easy to discover. A frontend specialist knows where UI primitives live; an API specialist knows where clients live. Small applications often change horizontally too: a design-system update really does touch many components, and a new HTTP policy really does belong in one client layer.
+A tutorial can teach that sort in a minute. A button is a component, so it goes in `components/`. A date helper goes in `utils/`.
 
-The tax appears when the product becomes the main unit of change.
+The layout fits when the change is technical too. A new button style does touch many components. A header on every request does belong in one client.
 
-Imagine adding a coupon to checkout. The form goes in `components/`. Its state goes in `hooks/`. The request goes in `services/`. The schema goes in `types/`. The tests may live in a fifth place. Nothing is individually hard to find, yet the feature itself exists nowhere. Its pieces are sorted into drawers.
+A coupon is a different kind of change. The form goes in `components/`. The state goes in `hooks/`. The request goes in `services/`. The types go in `types/`. The test may live in a fifth folder.
 
-Layered codebases usually fail gradually. `components/` gets two hundred files. `utils/` becomes the witness protection program for code with no owner. A change that should be local starts requiring a guided tour of the repository.
+Each of those files has a home. The coupon does not.
 
-That is the moment when “what kind of file is this?” stops being the best first question.
+The cost shows up as the product grows. `components/` gets too big to scan. `utils/` fills with code no one owns. A change that should stay local becomes a walk through the repo.
 
-## Make the product visible
+I would leave a prototype in this shape. I would leave a small internal tool here too, if the work stays technical. I would leave this shape once the product's features have names. Those names are the next shape.
 
-Screaming Architecture is Robert C. Martin's name for a simple standard: the top-level organization should announce the system's use cases. A plan for a house screams “house,” not “bricks and timber.” A commerce codebase should scream `catalog`, `cart`, `checkout`, and `orders` — not React, Redux, or Next.js.
+## Name the product at the top
 
-The useful part is not the phrase. It is the pressure it applies.
+**Screaming Architecture** is Robert C. Martin's name for that test. He [wrote it down in September 2011](https://blog.cleancoder.com/uncle-bob/2011/09/30/Screaming-Architecture.html). Look at the top of the tree and say what the system is. If you can't, the folders are talking about the tools.
 
-If I remove the framework-specific folders from the tree, is there still a recognizable product underneath? Can a new engineer see the business nouns? Can a product conversation map to a place in the code?
+A house plan reads as a house before anyone names the bricks. A store's top folders should be `catalog`, `cart`, `checkout`, and `orders`. They should not be `components`, `hooks`, and `services`.
 
-Screaming Architecture does not prescribe an exact directory tree. It is closer to a design test than a complete method. A `checkout/` folder can contain a clean module or a smaller junk drawer. Naming the domain is the start of a boundary, not proof that the boundary works.
+Next.js still claims a top folder. The App Router, its current way of organizing pages, calls that folder `app/`. You can't rename it. The miss is when the rest of the top is framework names too.
 
-Still, the shift matters. It changes the first question from “is this a hook or a service?” to “which part of the business owns this?”
+Hide `app/` and look again. `catalog` and `checkout` mean the tree is about the product. A remainder of `components/` and `hooks/` means it is about React.
 
-<Callout tone="note" title="Names are architecture too">
-  Prefer the language the product team uses. If everyone says “workspace,” a
-  folder named `tenant-management/` creates translation work on every change.
+A name starts a boundary. It does not prove the boundary holds. `checkout/` might be a module with a public file. It might be the same unsorted files, under a product word.
+
+I would not rename a young prototype every time the noun shifts. `workspace` on Monday and `team` on Friday is churn. Wait until the same word shows up in two tickets.
+
+Then use that word as the folder. If the ticket says workspace, `tenant-management/` makes every change start with a translation.
+
+<Callout tone="note" title="Use the word on the ticket">
+A folder people have to translate is a folder they will skip. If the ticket says workspace, the folder should say `workspace`.
 </Callout>
 
-## Slice along the axis of change
+The top of the tree can now say checkout. The files inside it can still be scattered by kind.
 
-Vertical Slice Architecture takes the domain-first instinct and makes it operational. Jimmy Bogard popularized it as an alternative to forcing every request through the same horizontal layers. Instead of organizing around technical roles, organize around use cases.
+## Keep one behavior in one folder
 
-A slice might be `add-to-cart`, `apply-coupon`, or `place-order`. It owns the pieces required to perform that behavior: UI, validation, orchestration, data access, and tests. Not every slice needs every piece, and that is part of the point. A read-only product search should not need an empty “service” and “repository” merely to satisfy a diagram.
+**Vertical slice architecture** is how you stop that scatter. [Jimmy Bogard](https://www.jimmybogard.com/vertical-slice-architecture/) aimed it at layers. A stack of folders is a layer. A diagram of circles around a core is still a layer. Both group code by technical role.
 
-The rule I remember is: **couple together what changes together**.
+A slice groups one request instead. On a server, the request might be applying a coupon. On a frontend, the folder lesson is the same. `apply-coupon` holds the screen, the check, the request, and the test.
 
-If changing coupon behavior requires updating its form, schema, request, and tests, keeping those files close reduces navigation and makes the blast radius visible. A reviewer can open one folder and understand most of the feature. Deleting the behavior becomes closer to deleting a directory than conducting archaeology.
+A search page that only reads should not grow an empty service file to match a diagram.
 
-Vertical slices do introduce duplication. Two features may each contain a small mapper or validator. That can feel untidy if you learned to remove repetition on sight. I have found that a little local duplication is often cheaper than the wrong shared abstraction. Duplication is visible and removable. Premature sharing quietly couples features that may need to evolve apart.
+Bogard couples along the change. Files you touch in one task should sit together. A slice should not import another slice's private files.
 
-The hard question becomes communication between slices. `checkout` will need the cart total. `add-to-cart` will need product availability. If every slice reaches into every other slice's internals, the tree is vertical but the dependency graph is spaghetti.
+The coupon now has an address. Open `apply-coupon/`. You can see how far a change spreads. Deleting the behavior is close to deleting the folder.
 
-That is why slices need small public surfaces: exported commands, queries, events, or deliberately shared domain objects. Colocation gives a feature an address. Encapsulation gives that address a door.
+The cost is repeated code. Two slices may each format a price in a few lines. Deleting every repeat on sight looks tidy. It also ties together features that need to change on different days. A local copy stays visible. Pull it out when a second slice changes for the same reason.
 
-## Add rules when convention is no longer enough
+He names a second limit. This layout assumes you can tell when a slice has grown a real business rule. If you can't, every slice stays a short script, and that rule never gets one home.
 
-Feature-Sliced Design is the strict cousin built specifically for frontend applications. It combines horizontal layers — commonly `app`, `pages`, `widgets`, `features`, `entities`, and `shared` — with domain slices inside them and segments such as `ui`, `model`, and `api`.
+The slices still have to talk. Checkout needs the cart total. Add-to-cart needs to know if the product is in stock. Importing a private file for that keeps the folders vertical and the dependencies crossed.
 
-At first glance this sounds like layering returned wearing a nicer jacket. The important difference is that the layers describe product composition and come with an import direction. Higher layers can use lower layers; lower layers should not know about higher ones. A page can compose a checkout feature and a cart entity. The cart entity should not import the checkout page.
+Each slice should export one public file. Callers use that file. A function, a query, or an event is enough.
 
-Slices also expose a public API, usually through `index.ts`. Code outside `features/checkout` imports what checkout chooses to expose instead of deep-importing `features/checkout/model/private-coupon-state`. This gives maintainers room to refactor the inside without negotiating with the entire application.
+I would not slice a compiler, or a pipeline of transforms. Those changes follow the pipeline, so layers can stay honest. Slices fit when the task is a piece of the product.
 
-That discipline becomes valuable when a frontend has many contributors, long-lived domains, and enough parallel work for accidental coupling to be expensive. It also creates ceremony. Six layers, public barrels, and import rules are not free. On a three-screen weekend project, the structure can become larger than the product.
+One folder per behavior holds until two people would file the same code in two slices.
 
-I reach for FSD when social scale is the problem: several people need the same answer about where code goes, and “use your judgment” has started producing five incompatible judgments.
+## Add a rule when people disagree
 
-## A folder tree is not a dependency graph
+The strict version is **Feature-Sliced Design**, usually shortened to FSD. It is the strict frontend version of this idea. Layers come first, then slices, then segments such as `ui`, `model`, and `api`. The segment says what the file is for.
 
-This is the part I missed when I first reorganized code.
+The figure shows six layers: `app`, `pages`, `widgets`, `features`, `entities`, and `shared`. The [spec](https://feature-sliced.design/docs/reference/layers) lists a seventh, `processes`, and tells you not to add it. A flow across pages belongs in `features` or in `app`. The figure leaves `processes` out.
 
-I thought moving files into `features/` would make the application modular. It made the sidebar look modular. The imports still crossed every boundary.
+Those six are not a checklist. [Version 2.1, from November 2024](https://github.com/feature-sliced/documentation/releases/tag/v2.1), says to start on the page. Keep the coupon's form, request, and state there until a second page needs them. `app` and `shared` are not split into slices. The layers between them are.
 
-Real structure needs rules. The exact rules depend on the system, but a healthy codebase usually makes a few things explicit:
+A generic helper can move to `shared` once a second caller exists. Product behavior can move to `features` or `entities` once a second page uses it. An entity folder for a type that only one page uses is a folder you don't need yet.
 
-- who may import whom;
-- what each module exposes publicly;
-- where shared code is allowed to live;
-- which layer owns data fetching and state;
-- how one feature communicates with another;
-- which boundary tests are worth automating.
+The part that stays strict is the import direction. A layer may import from a lower layer. It may not import from a higher one. A page may use the cart entity. The cart entity may not import the checkout page.
 
-Some of that can be enforced with lint rules, TypeScript path aliases, package boundaries, or tools that detect dependency cycles. The tooling is secondary. The important thing is that a boundary you care about should be harder to violate accidentally than to respect.
+Neighboring slices stay apart too. Two entities may refer to each other only through an explicit cross-import, usually a folder named `@x`. The exception is visible in the path. Any other import of a neighbor breaks the rule.
 
-Otherwise `features/checkout/index.ts` becomes decoration while half the app imports from its private folders.
+Each slice publishes one file, usually `index.ts`. Code outside `features/checkout` imports that file. It does not open `features/checkout/model` for a private value. The inside can change without a review from the whole app.
 
-## Pick for the change you expect
+Use this when several people need the same answer about a new file. "Use your judgment" has already produced five trees. The cost is ceremony. Six layers, and a public file on every slice, can outweigh a three-screen product.
 
-I do not pick one religion. I ask what kind of change the codebase needs to absorb.
+[Steiger](https://github.com/feature-sliced/steiger), the linter from the FSD project, can mark a slice that only one page uses. That mark means move the code back onto the page.
 
-**How large is the product today?** A prototype benefits from obviousness more than extensibility. Start with fewer folders. Empty architecture is still empty.
+I would not copy the full layer set onto a weekend project. I would not copy it for a team of one, either. I would add the import rule once two features reach into each other's private files.
 
-**What changes together?** If most work arrives as product features, vertical slices fit the work. If the application is genuinely a set of technical pipelines, layers may remain honest.
+The names still don't reject a bad import. Something else has to.
 
-**How many people change it?** Structure is a coordination tool. The more contributors and teams involved, the more value there is in explicit ownership, public APIs, and automated boundaries.
+## A folder does not stop an import
 
-**How long will it live?** A campaign page and a core business product deserve different amounts of ceremony. “We may need it someday” is weak evidence; a roadmap, hiring plan, or repeated source of pain is stronger.
+I learned this by moving files into `features/` and stopping there.
 
-**What must be shared?** Design tokens, observability, authentication, and an HTTP client often deserve stable shared homes. Product behavior usually deserves an owner. The goal is not zero sharing. It is sharing with a reason.
+The sidebar looked split. A caller could still import a private path, such as `features/checkout/model/coupon`. The folders had changed. The dependencies had not.
 
-<Callout tone="idea" title="My rough progression">
-  Start simple. Make domains visible when the product becomes clear. Slice when
-  features become the unit of change. Add stricter layers and import rules when
-  team scale makes convention unreliable.
+If a boundary matters, breaking it has to be harder than keeping it. A public `index.ts` will not do that alone. Callers can ignore the file.
+
+Write a few rules while the coupon is still the example:
+
+- who may import whom
+- what `apply-coupon` exports
+- where a shared price formatter may live
+- which layer may call the network
+- how checkout may read the cart total
+
+A lint rule can fail the bad import before review. A package can expose only its public file, so other code can't import the private ones. Pick the lightest option that fails the build. The failure belongs in CI, the automated build and test run.
+
+If you can't name one import that should fail, you don't have a boundary yet. You have folders.
+
+<Callout tone="warning" title="Name the import that should fail">
+If every file may import every other file, the next bad import will get through. The folder will not stop it. Write down the import that should fail the build.
 </Callout>
 
-That progression is not automatic. A small internal tool can stay layered for years. A complex product may need domain boundaries on day one. Complexity should pay rent before it gets a folder.
+## Match the folders to the next change
 
-## How I reshape a codebase without stopping the work
+I don't keep one of the four forever. I match the shape to the change in front of me. I also match it to how many people have to make it.
 
-The worst time to reorganize everything is usually the moment you are most frustrated by everything.
+**A prototype needs the next file to be findable.** Empty `widgets/` and `entities/` folders don't help you find it.
 
-Big-bang folder rewrites create enormous diffs, break import history, and pause useful work while the team debates whether `user` belongs in `entities` or `features`. I prefer migration by pressure.
+**Feature-sized tasks want slices.** A pipeline of transforms wants layers.
 
-First, identify one feature that changes often and leaks across the repository. Give it a domain name the team already uses. Move only the files that are clearly owned by it. Add a public entry point. Redirect new work through that entry point. Then document one or two dependency rules while the reason is fresh.
+**A review should not be a surprise.** More editors means more value in a public file, and in a lint rule that fails.
 
-Do not extract `shared/` in advance. Let a second feature make the case. When real duplication appears, compare whether the two copies share a reason to change. If they do, extract the smallest stable concept. If they merely look alike today, leave them alone.
+**A campaign page needs fewer rules than billing.** Hoping you might need the structure later is a weak reason. A mess you have paid for twice, a hiring plan, or a dated roadmap is stronger.
 
-This creates an intentionally mixed codebase for a while. That is fine. A visible direction with local consistency is safer than a pristine tree produced by one exhausting rewrite.
+**Shared code needs a second caller.** Design tokens, login, and logging often deserve a stable folder. So does one HTTP client. HTTP is the protocol the browser uses to reach your server. A product behavior deserves one owner. Create `shared/` when a second feature already imports the file.
 
-## What I actually do
-
-This site is a hybrid, honestly. Routes are colocated under `app/`, product areas live under `components/features/`, writing lives in content, and genuinely shared things sit in `shared/` and `lib/`. It is not a textbook implementation of any one approach. It is close enough that I can find the gym logger without grepping my own brain.
-
-For new work, I start local. A feature owns its UI, state, types, and tests until another feature proves that something is shared. I want imports to cross through a small public surface. I want route files to compose behavior, not become the place where all behavior accumulates. And I want folder names to match the words I use when explaining the product.
-
-<Callout tone="note" title="A rule that survives all four">
-  Colocate until it hurts. Tests, types, and the UI for a feature live next to
-  each other. Move something to `shared/` only when a second feature actually
-  needs it — not because it *might*.
+<Callout tone="idea" title="Add a folder for a pain you can point at">
+Start with fewer folders. Name the product when the nouns stay still. Put one behavior in one folder when that behavior is the unit of work. Add the import rule when people file the same code in different places.
 </Callout>
 
-The older I get at this, the less I care about whether the diagram is an onion or a slice. I care whether a new person — or tired-me, next Tuesday — can answer a few ordinary questions:
+A small internal tool can stay layered for years. Several owners may need product names in the first month. An extra folder should remove a problem you can already point at.
 
-- Where should this change begin?
-- How far is it likely to spread?
-- Who owns the behavior?
-- What can I modify without surprising another feature?
-- Can I delete this feature without leaving pieces in six drawers?
+| Shape | You get | You pay |
+| --- | --- | --- |
+| Layered | Files grouped by kind, and one home for a technical rule | A feature with no address |
+| Screaming | Top folders that name the product | A good name on a folder that is still a pile |
+| Vertical slice | One behavior in one folder | Copied helpers, and slices that import each other |
+| FSD | A downward import rule, and a public file per slice | Empty layers, if you build the full diagram first |
 
-If the tree helps answer those, it is doing useful architectural work. When the answers become expensive, the shape has expired and should change.
+## Move one feature, then stop
 
-Folders are a kindness. They are also a story you tell about what you think the product is. Might as well tell the true one.
+The week you are most annoyed is a bad week to move every file.
 
-Still learning. Still growing. Still here.
+The diff is too big to review. The history of a line gets harder to follow, because the file moved. Shipping waits while people argue whether `user` is an entity or a feature.
+
+Pick the feature that changes often and leaks. If that feature is the coupon, use the word already written on the ticket. Move only the files that are clearly part of it. Add the public entry. Send the next coupon change through that entry. Write the illegal import down the same day.
+
+Don't create `shared/` first. Wait until a second feature wants the same file. If the two copies change for the same reason, move the smallest piece that is stable. If they only look alike this week, keep both.
+
+The tree will be mixed. Leave it that way. The coupon follows the new rule. Older areas wait until a change there gets expensive. An even tree, built in one weekend, is time taken from the product.
+
+## This site still splits a save
+
+This site is a mix. One save shows the cost, and I keep the mix anyway.
+
+Next.js requires routes to live under `app/`. The public gym page, the admin screens, and the API routes are there. An API route is the function that answers a request. The screens for logging a workout live together in `components/features/gym/`. The page file sets the title and renders the dashboard. It does not contain the save.
+
+Saving a session starts in `workout-logger.tsx`. That file posts to `/api/gym`. The handler lives under `app/api`, and it uses helpers in `lib/`, including `lib/gym.ts`. The screen and the save are not in one folder.
+
+I leave that split in place. Moving API routes out of `app/` would mean fighting Next.js for a shorter walk. The walk costs less.
+
+A new screen starts inside its feature folder. A file moves to `components/shared/` or `components/ui/` only after a second feature imports it. A route file should place a screen on the page. It should not become the place where the behavior collects.
+
+<Callout tone="note" title="A second import earns the move">
+Keep a feature's screen, its types, and its tests in one folder. Move a file out only when another feature already imports it.
+</Callout>
+
+## Check the tree you have
+
+Do this on the repo you will change this week. Use a real task, such as the coupon. Write the answers where someone else can read them.
+
+1. **Name the starting folder.** "Somewhere in components" means the task has no home.
+2. **Count the top-level folders it touches.** One means the behavior has an address. Five means you are walking.
+3. **Name the owner.** Two teams in that folder will argue about it on every review.
+4. **Name an import that should fail CI.** No name means the boundary is a label.
+5. **Name one thing you will not add this month.** The full FSD layer set on a three-screen tool. A `shared/` folder with one caller. A repo-wide rename in the same week as the feature.
+
+Before a new folder exists, write down the change it serves and who owns it. Write down the import that should fail.
 
 [**@chahatkesh**](/)
