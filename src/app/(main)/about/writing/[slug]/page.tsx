@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: entry.description,
       type: "article",
       publishedTime: entry.date,
-      modifiedTime: entry.updated,
+      modifiedTime: entry.date,
       tags: entry.tags,
     },
   });
@@ -78,7 +78,7 @@ export default async function WritingEntryPage({ params }: Props) {
             headline: entry.title,
             description: entry.description,
             datePublished: entry.date,
-            dateModified: entry.updated ?? entry.date,
+            dateModified: entry.date,
             url: `https://${config.domainName}/about/writing/${entry.slug}`,
             image: `https://${config.domainName}/about/writing/${entry.slug}/opengraph-image`,
             author: {
@@ -115,12 +115,6 @@ export default async function WritingEntryPage({ params }: Props) {
           <Clock3 aria-hidden className="size-3" />
           {entry.readingTime} min read
         </span>
-        {entry.updated && (
-          <>
-            <span aria-hidden>·</span>
-            <span>Updated {formatDate(entry.updated)}</span>
-          </>
-        )}
         <span aria-hidden>·</span>
         <a
           href={`/about/writing/${entry.slug}.md`}

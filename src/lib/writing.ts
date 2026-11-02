@@ -21,7 +21,6 @@ const frontmatterSchema = z.object({
   /** SEO / Open Graph description. */
   description: z.string().min(1).max(160),
   date: z.iso.date(),
-  updated: z.iso.date().optional(),
   tags: z.array(z.string().min(1)).default([]),
   draft: z.boolean().default(false),
 });
@@ -48,6 +47,51 @@ function calculateReadingTime(source: string) {
   return Math.max(1, Math.ceil(words / 220));
 }
 
+interface WritingMermaidAstNode {
+  type: string;
+  name?: string;
+  value?: string;
+  children?: WritingMermaidAstNode[];
+  attributes?: Array<{ type: string; name: string; value?: unknown }>;
+}
+
+/**
+ * MDX fences inside <WritingMermaid> compile to elements. RSC then passes
+ * those elements into the client component as lazy slots, so the server
+ * cannot read the source and hydration disagrees with the client.
+ * Lift the fence into a `code` string prop before that happens.
+ */
+function remarkWritingMermaid() {
+  return (tree: WritingMermaidAstNode) => {
+    liftMermaidFences(tree);
+  };
+}
+
+function liftMermaidFences(node: WritingMermaidAstNode) {
+  if (node.type === "mdxJsxFlowElement" && node.name === "WritingMermaid") {
+    const blocks =
+      node.children?.filter((child) => child.type === "code") ?? [];
+    const hasCodeProp = node.attributes?.some((attr) => attr.name === "code");
+
+    if (blocks.length > 0 && !hasCodeProp) {
+      node.attributes = [
+        ...(node.attributes ?? []),
+        {
+          type: "mdxJsxAttribute",
+          name: "code",
+          value: blocks
+            .map((block) => block.value ?? "")
+            .join("\n\n")
+            .trim(),
+        },
+      ];
+      node.children = node.children?.filter((child) => child.type !== "code");
+    }
+  }
+
+  node.children?.forEach(liftMermaidFences);
+}
+
 function attrValue(attrs: string, name: string) {
   return (
     new RegExp(`\\b${name}\\s*=\\s*"([^"]*)"`).exec(attrs)?.[1] ??
@@ -69,6 +113,13 @@ function unwrapMdxComponents(body: string) {
         return `${heading}\`\`\`mermaid\n${code}\n\`\`\`${note}`;
       },
     )
+    .replace(/<WritingFigure\b([^]*?)\/>/g, (_match, attrs: string) => {
+      const alt = attrValue(attrs, "alt");
+      const caption = attrValue(attrs, "caption");
+      return [alt, caption ? `_${caption}_` : ""]
+        .filter((line): line is string => Boolean(line))
+        .join("\n\n");
+    })
     .replace(
       /<Callout\b([^>]*)>([\s\S]*?)<\/Callout>/g,
       (_match, attrs: string, inner: string) => {
@@ -121,14 +172,11 @@ export function writingToMarkdown(
     `- Canonical: ${canonical}`,
     `- Markdown: ${canonical}.md`,
     `- Date: ${frontmatter.date}`,
-    frontmatter.updated ? `- Updated: ${frontmatter.updated}` : null,
     `- Tags: ${frontmatter.tags.join(", ")}`,
     "",
     body,
     "",
-  ]
-    .filter((line): line is string => line !== null)
-    .join("\n");
+  ].join("\n");
 }
 
 export const LLM_MARKDOWN_HEADERS = {
@@ -162,7 +210,7 @@ export const getWritingEntry = cache(
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          remarkPlugins: [remarkGfm],
+          remarkPlugins: [remarkGfm, remarkWritingMermaid],
           rehypePlugins: [rehypeHighlight],
         },
       },

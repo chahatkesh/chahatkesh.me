@@ -96,7 +96,7 @@ export interface CodebaseMetric {
 export const techStack: TechItem[] = [
   {
     name: "Next.js",
-    version: "16.3",
+    version: "16.4",
     icon: SiNextdotjs,
     color: "text-foreground/80",
     description: "App Router, RSC, ISR, Edge Runtime",
@@ -728,12 +728,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "40,854+",
+    value: "41,025+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "128",
+    value: "129",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

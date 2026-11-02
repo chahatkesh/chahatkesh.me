@@ -1,6 +1,7 @@
 import { type AnchorHTMLAttributes, type ReactNode } from "react";
 import { FolderStructures } from "./folder-structures";
 import { BackendRoadmap } from "./backend-roadmap";
+import { WritingFigure } from "./writing-figure";
 import { WritingMermaid } from "./writing-mermaid";
 import Link from "next/link";
 import { Info, Lightbulb, TriangleAlert } from "lucide-react";
@@ -43,7 +44,7 @@ export function Callout({
         <Icon aria-hidden className="mt-1 size-4 shrink-0" />
         <div className="min-w-0">
           {title && <p className="!mb-1 font-semibold text-current">{title}</p>}
-          <div className="[&>:last-child]:!mb-0">{children}</div>
+          <div className="[&>p]:!mb-1 [&>:last-child]:!mb-0">{children}</div>
         </div>
       </div>
     </aside>
@@ -95,5 +96,6 @@ export const writingMdxComponents = {
   Details,
   FolderStructures,
   BackendRoadmap,
+  WritingFigure,
   WritingMermaid,
 };

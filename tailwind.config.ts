@@ -119,6 +119,7 @@ const shadcnPlugin = plugin(
           "smooth-in": "cubic-bezier(0.4, 0, 1, 1)",
           "smooth-out": "cubic-bezier(0, 0, 0.2, 1)",
           "smooth-in-out": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "out-quint": "cubic-bezier(0.22, 1, 0.36, 1)",
         },
       },
     },

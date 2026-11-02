@@ -62,7 +62,7 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
                     <span
                       className={cn(
                         "mb-5 block origin-bottom will-change-transform",
-                        "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "transition-transform duration-500 ease-out-quint",
                         "group-hover:-translate-y-1.5 group-hover:scale-[1.03]",
                         sticker.rotate,
                         isMinimal ? "size-14" : "size-20",
@@ -80,7 +80,7 @@ const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
                     </h3>
                     <ArrowUpRight
                       aria-hidden
-                      className="size-3.5 text-muted-foreground transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-foreground"
+                      className="size-3.5 text-muted-foreground transition-colors duration-500 ease-out-quint group-hover:text-foreground"
                     />
                   </span>
 
