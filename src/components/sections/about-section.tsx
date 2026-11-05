@@ -82,7 +82,8 @@ const AboutSection = () => {
               placeholder="blur"
               sizes="(min-width: 768px) 280px, calc(100vw - 2rem)"
               className="object-cover object-[center_18%] -rotate-2 rounded-md shadow-md md:-rotate-3"
-              priority
+              preload
+              fetchPriority="high"
             />
           </div>
         </div>

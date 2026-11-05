@@ -183,6 +183,7 @@ const CodingActivity = () => {
                 <FaGithub
                   className="size-3.5"
                   style={{ color: GITHUB_ACCENT }}
+                  aria-hidden
                 />
                 <span className="tabular-nums">
                   {view.githubTotal.toLocaleString()}
@@ -198,6 +199,7 @@ const CodingActivity = () => {
                 <SiLeetcode
                   className="size-3.5"
                   style={{ color: LEETCODE_ACCENT }}
+                  aria-hidden
                 />
                 <span className="tabular-nums">
                   {view.leetcodeTotal.toLocaleString()}

@@ -94,6 +94,7 @@ export function ActivityTooltip({
                 <FaGithub
                   className="size-2.5 shrink-0"
                   style={{ color: GITHUB_ACCENT }}
+                  aria-hidden
                 />
                 {plural(github, "contribution")}
               </span>
@@ -103,6 +104,7 @@ export function ActivityTooltip({
                 <SiLeetcode
                   className="size-2.5 shrink-0"
                   style={{ color: LEETCODE_ACCENT }}
+                  aria-hidden
                 />
                 {plural(leetcode, "submission")}
               </span>
