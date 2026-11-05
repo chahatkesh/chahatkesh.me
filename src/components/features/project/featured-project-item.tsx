@@ -17,6 +17,8 @@ import {
 
 type FeaturedProjectItemProps = {
   metadata?: boolean;
+  /** Preload this cover. Only the page's LCP image should set this. */
+  imagePriority?: boolean;
 } & Project;
 
 const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
@@ -31,6 +33,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
   metadata = false,
   tagline,
   features,
+  imagePriority = false,
 }) => {
   return (
     <li role="listitem" className="featured-project">
@@ -65,12 +68,12 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
             >
               <Image
                 alt={`${title} screenshot`}
-                priority
+                priority={imagePriority}
                 placeholder="blur"
                 src={cover}
                 className="w-full h-full object-cover object-center"
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(min-width: 1024px) 28rem, calc(100vw - 2rem)"
               />
 
               {/* Tagline overlay */}
@@ -110,7 +113,7 @@ const FeaturedProjectItem: React.FC<FeaturedProjectItemProps> = ({
                   </li>
                 ))}
               {features.length > MAX_VISIBLE_FEATURES_FEATURED && (
-                <li className="text-sm text-muted-foreground/70 flex items-start">
+                <li className="text-sm text-muted-foreground flex items-start">
                   <span className="mr-2 text-primary">•</span>
                   <span className="italic">
                     +{features.length - MAX_VISIBLE_FEATURES_FEATURED} more

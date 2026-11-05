@@ -68,7 +68,7 @@ function CompanyEntry({
               {group.employer}
             </h3>
             {location && (
-              <p className="mt-1.5 text-xs leading-none text-muted-foreground/60">
+              <p className="mt-1.5 text-xs leading-none text-muted-foreground">
                 {location}
               </p>
             )}

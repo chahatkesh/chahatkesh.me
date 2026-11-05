@@ -42,9 +42,6 @@ export const OG_MAX_TAGS = 5;
 // GitHub calendar
 export const GITHUB_CALENDAR_FONT_SIZE = 12;
 
-// Marquee
-export const MARQUEE_SPEED = 20;
-
 // Image sizes
 export const EXPERIENCE_LOGO_SIZE = {
   mobile: 60,

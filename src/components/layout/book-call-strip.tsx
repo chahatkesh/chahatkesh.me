@@ -15,8 +15,7 @@ const BookCallStrip = () => {
       href={config.social.cal}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Book a 30-minute call"
-      className="el-focus-styles group flex w-full items-center justify-center gap-x-2 border-b border-ring/25 bg-background/90 px-4 py-2 text-center text-[13px] leading-none transition-colors duration-300 hover:border-ring/40 hover:bg-ring/10 sm:text-sm"
+      className="el-focus-styles group flex h-9 w-full items-center justify-center gap-x-2 border-b border-ring/25 bg-background/90 px-4 text-center text-[13px] leading-none transition-colors duration-300 hover:border-ring/40 hover:bg-ring/10 sm:text-sm"
     >
       <span className="text-muted-foreground transition-colors group-hover:text-foreground/80">
         Open for a chat

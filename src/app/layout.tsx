@@ -1,10 +1,6 @@
 import { fontSans, fontPoem, fontUbuntu } from "~/components/ui";
 import config from "~/config";
-import {
-  getSEOTags,
-  renderSchemaTags,
-  renderOrganizationSchema,
-} from "~/lib/seo";
+import { getSEOTags, renderSchemaTags } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 import RootProviders from "~/providers";
 import "~/styles/globals.css";
@@ -34,7 +30,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
           rel="describedby"
@@ -51,7 +46,6 @@ export default function RootLayout({
         )}
       >
         {renderSchemaTags()}
-        {renderOrganizationSchema()}
         <GoogleAnalytics />
         <MicrosoftClarity />
 

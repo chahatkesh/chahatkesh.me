@@ -199,7 +199,7 @@
   }
 
   .link-inline {
-    @apply el-focus-styles rounded-sm text-ring transition-opacity hover:opacity-80;
+    @apply el-focus-styles rounded-sm text-ring underline decoration-ring/40 underline-offset-[3px] transition-opacity hover:opacity-80 hover:decoration-ring;
   }
 
   ::selection {

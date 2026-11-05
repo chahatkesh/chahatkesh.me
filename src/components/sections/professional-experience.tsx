@@ -69,7 +69,7 @@ const SingleRole = ({
             <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">
               {exp.role}
             </p>
-            <p className="mt-2 text-xs text-muted-foreground/60">
+            <p className="mt-2 text-xs text-muted-foreground">
               {exp.type} &middot; {exp.location}
             </p>
           </div>
@@ -124,7 +124,7 @@ const MultiRole = ({
                   <p className="text-[13px] font-medium text-foreground/80 transition-colors group-hover:text-ring">
                     {position.role}
                   </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground/60">
+                  <p className="mt-0.5 text-xs text-muted-foreground">
                     {position.type} &middot; {position.location}
                   </p>
                 </div>

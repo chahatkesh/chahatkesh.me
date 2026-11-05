@@ -21,7 +21,7 @@ import {
 } from "~/components/ui";
 import { type Metadata } from "next";
 import config from "~/config";
-import { LinkPreviewImage } from "~/components/features";
+import { LinkPreviewImage } from "~/components/features/link-preview-image";
 import { getOgImageUrlsForLinks } from "~/lib/og";
 import { currentProjects, deskSetup, portfolioVersions } from "~/data/about";
 

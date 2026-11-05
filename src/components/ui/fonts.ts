@@ -13,6 +13,9 @@ export const fontPoem = Lora({
   style: ["normal", "italic"],
   variable: "--font-poem",
   display: "swap",
+  // Writing and a few display moments only. Preloading it on every route
+  // competes with the LCP image.
+  preload: false,
 });
 
 // Headings use font-medium (500), font-semibold (600), and font-bold (700).

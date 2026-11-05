@@ -35,12 +35,7 @@ export {
 export type { RepoStats } from "./github";
 
 // SEO utilities
-export {
-  getSEOTags,
-  renderSchemaTags,
-  renderOrganizationSchema,
-  renderBreadcrumbSchema,
-} from "./seo";
+export { getSEOTags, renderSchemaTags, renderBreadcrumbSchema } from "./seo";
 
 // Project utilities
 export { getImageSrc, ALL_STACKS } from "./project-utils";

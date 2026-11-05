@@ -1,7 +1,7 @@
 import Image from "next/image";
 import config from "~/config";
 import chahat from "~/assets/images/chahat.jpg";
-import { LinkStats } from "~/components/features";
+import LinkStats from "~/components/features/link-stats";
 import { LocalTime } from "~/components/features/links/local-time";
 
 export function LinksHero() {

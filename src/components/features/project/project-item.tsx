@@ -14,6 +14,8 @@ import { MAX_VISIBLE_FEATURES, MAX_VISIBLE_STACKS } from "~/constants";
 
 type ProjectItemProps = {
   metadata?: boolean;
+  /** Preload this cover. Only the first visible card on a listing should set this. */
+  imagePriority?: boolean;
 } & Project;
 
 const ProjectItem: React.FC<ProjectItemProps> = ({
@@ -29,6 +31,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
   tagline,
   features,
   isFeatured,
+  imagePriority = false,
 }) => {
   return (
     <li role="listitem">
@@ -61,12 +64,12 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
             >
               <Image
                 alt={`${title} screenshot`}
-                priority
+                priority={imagePriority}
                 placeholder="blur"
                 src={cover}
                 className="w-full h-full object-cover object-center"
                 fill
-                sizes="(max-width: 640px) 100vw, 40vw"
+                sizes="(min-width: 640px) 22rem, calc(100vw - 2rem)"
               />
 
               {/* Tagline overlay */}
@@ -121,7 +124,7 @@ const ProjectItem: React.FC<ProjectItemProps> = ({
                   </li>
                 ))}
                 {features.length > MAX_VISIBLE_FEATURES && (
-                  <li className="text-xs text-muted-foreground/70 flex items-start">
+                  <li className="text-xs text-muted-foreground flex items-start">
                     <span className="mr-1">•</span>
                     <span>
                       +{features.length - MAX_VISIBLE_FEATURES} more features

@@ -204,36 +204,6 @@ export const renderSchemaTags = () => {
   );
 };
 
-export const renderOrganizationSchema = () => {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: config.appName,
-          url: `https://${config.domainName}`,
-          logo: `https://${config.domainName}/logo.png`,
-          sameAs: [
-            config.social.github,
-            config.social.linkedin,
-            config.social.twitter,
-            config.social.instagram,
-            config.social.youtube,
-          ],
-          contactPoint: {
-            "@type": "ContactPoint",
-            email: config.social.email,
-            telephone: config.social.phone,
-            contactType: "Customer Service",
-          },
-        }),
-      }}
-    />
-  );
-};
-
 export const renderBreadcrumbSchema = (
   items: { name: string; url: string }[],
 ) => {

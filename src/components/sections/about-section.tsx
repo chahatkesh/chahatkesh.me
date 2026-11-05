@@ -4,7 +4,7 @@ import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import Image from "next/image";
 import Link from "next/link";
-import chahat from "~/assets/images/chahat.png";
+import chahat from "~/assets/images/chahat-portrait.jpg";
 
 const AboutSection = () => {
   return (
@@ -55,7 +55,6 @@ const AboutSection = () => {
               rel="noopener noreferrer"
               href={config.social.twitter}
               className="link-inline text-foreground"
-              aria-label="Follow on X"
             >
               X (Twitter)
             </a>
@@ -64,11 +63,7 @@ const AboutSection = () => {
               Resume
             </Link>
             . If this sounds interesting,{" "}
-            <a
-              href={`mailto:${config.social.email}`}
-              aria-label="Contact Chahat"
-              className="link-inline"
-            >
+            <a href={`mailto:${config.social.email}`} className="link-inline">
               reach out.
             </a>
           </p>
@@ -85,7 +80,7 @@ const AboutSection = () => {
               src={chahat}
               fill
               placeholder="blur"
-              sizes="(min-width: 768px) 280px, 100vw"
+              sizes="(min-width: 768px) 280px, calc(100vw - 2rem)"
               className="object-cover object-[center_18%] -rotate-2 rounded-md shadow-md md:-rotate-3"
               priority
             />

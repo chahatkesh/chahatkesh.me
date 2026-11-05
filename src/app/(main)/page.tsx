@@ -5,6 +5,7 @@ import {
   ContactUs,
   OutsideTheScreen,
   ProfessionalExperience,
+  Skills,
 } from "~/components/sections";
 import { ProjectList } from "~/components/features/project";
 import { projects } from "~/data/projects";
@@ -35,33 +36,12 @@ function CodingActivityFallback() {
   );
 }
 
-function SkillsFallback() {
-  return (
-    <section aria-busy="true" className="my-4 space-y-8">
-      <Skeleton className="h-7 w-48" />
-      <div className="space-y-6">
-        {[0, 1, 2].map((row) => (
-          <div key={row} className="flex gap-2 overflow-hidden">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} className="h-10 w-28 shrink-0 rounded-full" />
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 const CodingActivity = dynamic(
   () => import("~/components/features/coding-activity").then((m) => m.default),
   {
     loading: () => <CodingActivityFallback />,
   },
 );
-
-const Skills = dynamic(() => import("~/components/sections/skills"), {
-  loading: () => <SkillsFallback />,
-});
 
 // Intentionally no `title` here: the homepage should carry the brand/default
 // title ("Chahat Kesharwani - Engineer · Builder · Explorer") rather than a

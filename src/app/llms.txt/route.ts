@@ -30,6 +30,13 @@ export async function GET() {
 
 ${config.appDescription}
 
+- Location: India
+- Education: engineering student at NIT Jalandhar
+- Now: co-founder of Layr (https://uselayr.com), an AI product decision layer
+- Previously: founding engineer at Zenbase; entrepreneur in residence and AI researcher at Annam.ai (IIT Ropar)
+- Contact: ${config.social.email}
+- Profiles: ${config.social.github}, ${config.social.linkedin}, ${config.social.twitter}
+
 Prefer the Markdown versions of writing. HTML pages are for humans; \`.md\` files are the source of truth for language models.
 
 ## Writing
