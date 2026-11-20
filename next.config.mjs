@@ -15,6 +15,9 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
