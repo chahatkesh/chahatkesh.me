@@ -157,7 +157,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
         type: "improved",
         title: "Admin chrome that matches the rest",
         description:
-          "Admin picked up a dedicated navbar that lines up with the public one, and a book-a-call strip now sits on the home layout — small pieces of chrome that make the two sides of the site feel like they belong together.",
+          "Admin picked up a dedicated navbar that lines up with the public one.",
       },
       {
         type: "improved",

@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import Navbar, { type NavbarVariant } from "./nav";
-import BookCallStrip from "./book-call-strip";
 import { useScrolled } from "~/hooks";
 import { cn } from "~/lib/utils";
 
@@ -17,9 +15,7 @@ interface SiteHeaderProps {
  */
 const SiteHeader = ({ variant = "public" }: SiteHeaderProps) => {
   const scrolled = useScrolled();
-  const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-  const showStrip = variant === "public" && pathname === "/";
 
   useEffect(() => {
     const el = headerRef.current;
@@ -52,19 +48,6 @@ const SiteHeader = ({ variant = "public" }: SiteHeaderProps) => {
           : "bg-transparent",
       )}
     >
-      {showStrip && (
-        <div
-          className={cn(
-            "grid transition-[grid-template-rows] duration-300 ease-out",
-            scrolled ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
-          )}
-          aria-hidden={scrolled}
-        >
-          <div className="overflow-hidden" inert={scrolled || undefined}>
-            <BookCallStrip />
-          </div>
-        </div>
-      )}
       <div className="container">
         <Navbar variant={variant} />
       </div>

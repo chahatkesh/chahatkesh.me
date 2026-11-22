@@ -1,4 +1,4 @@
-import { isValidElement, type ReactNode } from "react";
+import { isValidElement, type ReactNode, type SVGAttributes } from "react";
 import Link from "next/link";
 import type { IconType } from "react-icons/lib";
 import { cn } from "~/lib/utils";
@@ -23,6 +23,16 @@ const ROWS: {
 
 const pillClassName =
   "flex w-max items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-[15px] text-foreground shadow-sm";
+
+type IconSpriteAttr = Pick<
+  SVGAttributes<SVGSymbolElement>,
+  | "viewBox"
+  | "fill"
+  | "stroke"
+  | "strokeWidth"
+  | "strokeLinecap"
+  | "strokeLinejoin"
+>;
 
 const Skills = () => {
   const symbols = new Map<string, { Icon: IconType }>();
@@ -51,15 +61,22 @@ const Skills = () => {
           {[...symbols.entries()].map(([slug, { Icon }]) => {
             const icon = Icon({});
             if (!isValidElement(icon)) return null;
+            // react-icons keeps viewBox and stroke on `attr`, not the element props.
             const props = icon.props as {
-              viewBox?: string;
+              attr?: IconSpriteAttr;
               children?: ReactNode;
             };
+            const attr = props.attr ?? {};
             return (
               <symbol
                 key={slug}
                 id={`skill-icon-${slug}`}
-                viewBox={props.viewBox ?? "0 0 24 24"}
+                viewBox={attr.viewBox ?? "0 0 24 24"}
+                fill={attr.fill}
+                stroke={attr.stroke}
+                strokeWidth={attr.strokeWidth}
+                strokeLinecap={attr.strokeLinecap}
+                strokeLinejoin={attr.strokeLinejoin}
               >
                 {props.children}
               </symbol>
@@ -97,7 +114,7 @@ const SkillIcon = ({
     className={cn("size-4 shrink-0", className)}
     fill="currentColor"
   >
-    <use href={`#skill-icon-${slug}`} />
+    <use href={`#skill-icon-${slug}`} width="24" height="24" />
   </svg>
 );
 
