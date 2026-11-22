@@ -1,0 +1,115 @@
+.lamp {
+  position: fixed;
+  top: env(safe-area-inset-top, 0px);
+  right: env(safe-area-inset-right, 0px);
+  z-index: 45;
+  border-radius: 0.5rem;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+@media print {
+  .lamp {
+    display: none;
+  }
+}
+.lamp:active {
+  cursor: grabbing;
+}
+.fixture {
+  display: block;
+  width: 52px;
+  height: auto;
+  pointer-events: none;
+  overflow: visible;
+  transform-origin: 50% 0;
+  transition: transform 350ms ease-out;
+}
+@media (hover: hover) {
+  .lamp:hover .fixture {
+    transform: rotate(-3deg);
+  }
+}
+@media (width < 1168px) {
+  .lamp {
+    width: 48px;
+    height: 60px;
+  }
+  .fixture {
+    position: absolute;
+    inset: 0 auto auto 4px;
+    width: 100%;
+  }
+  .shade {
+    display: none;
+  }
+  .cord {
+    transform: translate(-20px, -56px);
+  }
+  :global([data-theme="light"]) .chain {
+    stroke: #685745;
+  }
+}
+@media (width >= 1168px) {
+  .lamp {
+    /* Position the suspension point, not the edge of the shade. */
+    right: calc(max(32px, 25vw - 306px) + env(safe-area-inset-right, 0px));
+    translate: 50% 0;
+  }
+  .fixture {
+    width: 57px;
+  }
+}
+.chain {
+  transform-origin: 60px 64px;
+}
+.chain,
+.weight {
+  transition: transform 420ms cubic-bezier(0.18, 1.65, 0.46, 1);
+}
+.glow {
+  opacity: 1;
+  transition: opacity 320ms;
+}
+.bulb {
+  fill: #fff5d2;
+  filter: drop-shadow(0 2px 4px #ffd886);
+  transition:
+    fill 240ms,
+    filter 240ms;
+}
+:global([data-theme="light"]) .glow {
+  opacity: 0;
+}
+:global([data-theme="light"]) .bulb {
+  fill: #e5decf;
+  filter: none;
+}
+.hint {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11px;
+  opacity: 0;
+  transition: opacity 160ms;
+}
+.lamp:focus-visible .hint {
+  opacity: 1;
+}
+@media (hover: hover) {
+  .lamp:hover .hint {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lamp:hover .fixture {
+    transform: none;
+  }
+}

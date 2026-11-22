@@ -1,5 +1,7 @@
 import { fontSans, fontPoem, fontUbuntu } from "~/components/ui";
 import config from "~/config";
+import ThemeLamp from "~/components/layout/theme-lamp";
+import { themeBootstrap } from "~/lib/color-scheme";
 import { getSEOTags, renderSchemaTags } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 import RootProviders from "~/providers";
@@ -14,10 +16,6 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 3,
   userScalable: true,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
 };
 
 export const metadata = getSEOTags();
@@ -30,6 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <meta name="theme-color" content="#000000" suppressHydrationWarning />
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
           rel="describedby"
@@ -50,6 +50,7 @@ export default function RootLayout({
         <MicrosoftClarity />
 
         <RootProviders>{children}</RootProviders>
+        <ThemeLamp />
 
         <Analytics />
         <SpeedInsights />

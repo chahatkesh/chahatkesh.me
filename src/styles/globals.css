@@ -64,61 +64,59 @@
     --header-height: 3.5rem;
   }
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      color-scheme: light;
-      --background: 0 0% 100%;
-      --foreground: 240 10% 7%;
-      --card: 0 0% 100%;
-      --card-foreground: 240 10% 7%;
-      --popover: 0 0% 100%;
-      --popover-foreground: 240 10% 7%;
-      --primary: 240 6% 10%;
-      --primary-foreground: 0 0% 98%;
-      --secondary: 240 5% 93%;
-      --secondary-foreground: 240 6% 10%;
-      --muted: 240 5% 93%;
-      --muted-foreground: 240 4% 36%;
-      --accent: 240 5% 92%;
-      --accent-foreground: 240 6% 10%;
-      --destructive: 0 72% 36%;
-      --destructive-foreground: 0 0% 98%;
-      --border: 240 5% 82%;
-      --input: 240 4% 54%;
-      --ring: 183 100% 24%;
-      --brand-foreground: 0 0% 100%;
-      --info: 210 85% 32%;
-      --warning: 28 78% 28%;
-      --success: 158 72% 24%;
-      --danger: 0 72% 36%;
-      --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.85);
-      --contrib-github-0: #d5d5db;
-      --contrib-github-1: #7ec9ce;
-      --contrib-github-2: #2aa3ad;
-      --contrib-github-3: #0c7c86;
-      --contrib-github-4: #084f57;
-      --contrib-leetcode-0: #d5d5db;
-      --contrib-leetcode-1: #efc56a;
-      --contrib-leetcode-2: #e09a28;
-      --contrib-leetcode-3: #b67410;
-      --contrib-leetcode-4: #7a4f0c;
-      --contrib-gym-0: #d5d5db;
-      --contrib-gym-1: #7dcea0;
-      --contrib-gym-2: #34b56e;
-      --contrib-gym-3: #1a8f52;
-      --contrib-gym-4: #0c6438;
-      --muscle-chest: #c92a2a;
-      --muscle-back: #5f3dc4;
-      --muscle-shoulders: #1864ab;
-      --muscle-biceps: #8a5a00;
-      --muscle-triceps: #c2410c;
-      --muscle-legs: #157a38;
-      --muscle-core: #c2255c;
-      --muscle-cardio: #0b7285;
-      --ring-sessions: #0b7285;
-      --ring-groups: #5f3dc4;
-      --ring-time: #8a5a00;
-    }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 7%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 93%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 93%;
+    --muted-foreground: 240 4% 36%;
+    --accent: 240 5% 92%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 72% 36%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 82%;
+    --input: 240 4% 54%;
+    --ring: 183 100% 24%;
+    --brand-foreground: 0 0% 100%;
+    --info: 210 85% 32%;
+    --warning: 28 78% 28%;
+    --success: 158 72% 24%;
+    --danger: 0 72% 36%;
+    --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.85);
+    --contrib-github-0: #d5d5db;
+    --contrib-github-1: #7ec9ce;
+    --contrib-github-2: #2aa3ad;
+    --contrib-github-3: #0c7c86;
+    --contrib-github-4: #084f57;
+    --contrib-leetcode-0: #d5d5db;
+    --contrib-leetcode-1: #efc56a;
+    --contrib-leetcode-2: #e09a28;
+    --contrib-leetcode-3: #b67410;
+    --contrib-leetcode-4: #7a4f0c;
+    --contrib-gym-0: #d5d5db;
+    --contrib-gym-1: #7dcea0;
+    --contrib-gym-2: #34b56e;
+    --contrib-gym-3: #1a8f52;
+    --contrib-gym-4: #0c6438;
+    --muscle-chest: #c92a2a;
+    --muscle-back: #5f3dc4;
+    --muscle-shoulders: #1864ab;
+    --muscle-biceps: #8a5a00;
+    --muscle-triceps: #c2410c;
+    --muscle-legs: #157a38;
+    --muscle-core: #c2255c;
+    --muscle-cardio: #0b7285;
+    --ring-sessions: #0b7285;
+    --ring-groups: #5f3dc4;
+    --ring-time: #8a5a00;
   }
 
   html {
@@ -176,7 +174,7 @@
     opacity: 0.75;
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     input[type="date"]::-webkit-calendar-picker-indicator,
     input[type="datetime-local"]::-webkit-calendar-picker-indicator,
     input[type="time"]::-webkit-calendar-picker-indicator {
@@ -292,7 +290,7 @@
     filter: brightness(1.35) saturate(1.1);
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     .coding-activity-calendar rect[data-date]:hover,
     .coding-activity-calendar g[data-date]:hover {
       filter: brightness(0.92) saturate(1.05);
@@ -304,7 +302,7 @@
     fill: #5b8fd4 !important;
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     .coding-activity-calendar rect[data-rest="true"] {
       fill: #3d6eab !important;
     }

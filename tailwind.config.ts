@@ -5,7 +5,10 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 const shadcnPlugin = plugin(
   function ({ addBase, addVariant }) {
-    addVariant("light", "@media (prefers-color-scheme: light)");
+    addVariant(
+      "light",
+      "&:where([data-theme='light'], [data-theme='light'] *)",
+    );
     addBase({
       "*": {
         "@apply border-border": {},
@@ -138,7 +141,7 @@ const shadcnPreset = {
 } satisfies Config;
 
 const config = {
-  darkMode: "media",
+  darkMode: ["selector", "[data-theme='dark']"],
   presets: [shadcnPreset],
   content: ["./src/**/*.{ts,tsx}"],
   theme: {

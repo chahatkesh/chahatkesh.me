@@ -108,9 +108,6 @@ export const getSEOTags = ({
       // LinkedIn
       "article:author": config.appName,
 
-      // Discord
-      "theme-color": config.colors.main,
-
       // General social media
       "og:updated_time": new Date().toISOString(),
 
