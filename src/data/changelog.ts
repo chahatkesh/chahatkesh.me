@@ -24,6 +24,84 @@ export interface MonthlyChangelog {
 
 export const monthlyChangelog: MonthlyChangelog[] = [
   {
+    month: "2026-11",
+    publishedAt: "2026-11-28T22:20:00+05:30",
+    title: "A Sky on the Clock, Roles That Open & a Map You Can Read",
+    summary:
+      "A month about the first screen — a header that keeps the hour, an intro you can look into, and a sitemap a person can browse.",
+    overview:
+      "November redrew the front of the site. The grid banner became a sky that follows local time — a sun and drifting clouds from six in the morning until six at night, stars and a moon after that — unless you pull the lamp and keep a theme. The home intro now says I'm looking for a software engineering role, with a plain account of Layr, and the portrait, the companies, a hackathon photo, a post, and the résumé each open on hover. The nav stays hidden until that intro has scrolled past. Shipped roles open in place, the latest essays sit on the home page, and hobbies live on About with drawings of their own. A readable sitemap shares one list with sitemap.xml, and the codebase essay now says what each folder layout costs. Underneath, response headers got stricter, Next.js moved off a version with published advisories, and a few type and icon fixes kept the pictures honest.",
+    stats: { commits: 16, files: 171 },
+    changes: [
+      {
+        type: "added",
+        title: "A sky that keeps the hour",
+        description:
+          "The banner behind the header is no longer a grid. By day it is a sun and clouds that drift. After six it is stars and a moon. The picture follows your local clock and flips on its own at the next boundary.",
+      },
+      {
+        type: "added",
+        title: "A lamp you can pull",
+        description:
+          "A pull-cord in the corner sets light or dark and remembers the choice. Once that choice is stored, the clock steps aside. A click toggles it the same way a pull does.",
+      },
+      {
+        type: "improved",
+        title: "An intro you can look into",
+        description:
+          "The home page leads with a software engineering search and an honest line on Layr — a strong product, and a chapter that didn't go as planned. Hover the portrait, Layr, Annam, the hackathon count, a post, or the résumé and the picture opens. HackMol is counted with the other hackathons.",
+      },
+      {
+        type: "improved",
+        title: "The header waits",
+        description:
+          "On the home page the nav stays out of the way until the intro has scrolled past, then it comes back as a frosted bar. The book-a-call strip is gone, so that bar is only navigation.",
+      },
+      {
+        type: "improved",
+        title: "Roles that open where you are",
+        description:
+          "Each role under Where I've Shipped opens in place. The first contributions are right there, with a link through to the full page. Logos and dates were brought current in the same pass.",
+      },
+      {
+        type: "added",
+        title: "Latest writing, on the way down",
+        description:
+          "The three newest essays now sit on the home page after the work, with a link to the rest, so a new piece is part of the first scroll.",
+      },
+      {
+        type: "improved",
+        title: "Hobbies, drawn",
+        description:
+          "Writing, gym, designing, and travelling left the home page for About. Each one has an illustration of its own. The age beside my name is computed from a birthday, so the number doesn't wait on an edit.",
+      },
+      {
+        type: "added",
+        title: "A sitemap you can read",
+        description:
+          "Visiting /sitemap lists every public URL in the same order as sitemap.xml, and the footer points at it. Both come from one list, so the page and the file can't drift. The sections are linked, so you can jump instead of scanning the whole index.",
+      },
+      {
+        type: "improved",
+        title: "What each folder costs",
+        description:
+          "The Shape of a Codebase was rewritten so a layout is judged by what it costs, not only by what it names. The figures in the piece were updated with it.",
+      },
+      {
+        type: "fixed",
+        title: "Icons that keep their drawing",
+        description:
+          "Skill marks now take their viewBox and stroke from the icon itself, so a sprite doesn't squash the shape. Decorative icons are hidden from assistive tech where the words beside them already carry the name.",
+      },
+      {
+        type: "improved",
+        title: "A stricter edge",
+        description:
+          "Responses now send nosniff, a referrer policy, frame options, HSTS, and a permissions policy, and the Next.js powered-by header is off. Next.js moved from 16.4.3 to 16.4.6 for advisories fixed after 16.4.4. Imported images type as image data again, so a figure can type-check.",
+      },
+    ],
+  },
+  {
     month: "2026-09",
     publishedAt: "2026-09-19T23:57:00+05:30",
     title: "Deeper Essays, a Lock-Screen Streak & One Thread",
