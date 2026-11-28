@@ -1,19 +1,26 @@
 import config from "~/config";
+import { timelineEvents } from "~/data/timeline";
 import { getAge } from "~/lib/date-utils";
 import Image, { type StaticImageData } from "next/image";
 import { Dancing_Script } from "next/font/google";
 import type { ReactNode } from "react";
+import { Trophy } from "lucide-react";
 import { FaGoogleDrive, FaXTwitter } from "react-icons/fa6";
 import { LinkPreviewImage } from "~/components/features/link-preview-image";
-import tweet from "~/assets/images/tweet.png";
-import resume from "~/assets/images/resume.png";
+import tweet from "~/assets/images/preview/tweet.png";
+import resume from "~/assets/images/preview/resume.png";
+import hackathon from "~/assets/images/preview/hackathon.jpg";
+import annamPhoto from "~/assets/images/preview/annam.jpg";
 import { ImagePreview } from "./image-preview";
-import chahat from "~/assets/images/chahat-portrait.jpg";
+import chahat from "~/assets/images/preview/chahat-portrait.jpg";
 import layr from "~/assets/images/experience/Layr.svg";
 import zenbase from "~/assets/images/experience/Zenbase.png";
 import annam from "~/assets/images/experience/AnnamAI.png";
 
 const signature = Dancing_Script({ subsets: ["latin"], weight: "400" });
+const hackathonCount = timelineEvents.filter(
+  (event) => event.category === "hackathon",
+).length;
 const badgeClass =
   "inline-flex items-center gap-1.5 whitespace-nowrap rounded-md px-1.5 py-0.5 align-baseline text-[0.88em] font-medium leading-tight text-foreground focus-visible:outline-ring";
 
@@ -27,24 +34,17 @@ function PreviewBadge({
 }: {
   name: string;
   logo?: StaticImageData | string;
-  href: string;
+  href?: string;
   tint: string;
-  preview: ReactNode;
+  preview?: ReactNode;
   social?: boolean;
 }) {
-  return (
-    <ImagePreview
-      label={`${name} image preview`}
-      preview={preview}
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${badgeClass} ${tint}`}
-    >
+  const content = (
+    <>
       {social ? (
         <>
           <FaXTwitter aria-hidden="true" className="size-4" />
-          <span className="sr-only">X: </span>
+          <span className="sr-only">X </span>
         </>
       ) : (
         logo && (
@@ -58,6 +58,21 @@ function PreviewBadge({
         )
       )}
       {name}
+    </>
+  );
+  const className = `${badgeClass} ${tint}`;
+  if (!preview) return <span className={className}>{content}</span>;
+
+  return (
+    <ImagePreview
+      label={`${name} image preview`}
+      preview={preview}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className}
+    >
+      {content}
     </ImagePreview>
   );
 }
@@ -97,9 +112,17 @@ const AboutSection = () => {
       </h1>
       <div className="mt-3 space-y-4 font-mono text-sm leading-7 text-muted-foreground sm:text-base sm:leading-8">
         <p>
-          I’m {getAge()} and an engineering student at{" "}
+          I’m a {getAge()}-year-old engineering student at{" "}
           <strong className="font-medium text-foreground">NIT Jalandhar</strong>
-          . I co-founded{" "}
+          , looking for a{" "}
+          <strong className="font-medium text-foreground">
+            Software Engineering role
+          </strong>{" "}
+          where I can build, learn, and contribute to real products.
+        </p>
+
+        <p>
+          I co-founded{" "}
           <PreviewBadge
             name="Layr"
             preview={
@@ -113,47 +136,53 @@ const AboutSection = () => {
             logo={layr}
             tint="bg-orange-500/15"
           />
-          , where we help product teams trace a decision back to the customer
-          feedback that sparked it.
+          , where we built a product to help teams trace product decisions back
+          to the customer feedback behind them. We built a technically strong
+          product, but things didn't work out as planned. The{" "}
+          <strong className="font-medium text-foreground">experience</strong>{" "}
+          taught me a lot about building from scratch.
         </p>
 
         <p>
-          Previously, I built tools for real estate agents as a founding
-          engineer at{" "}
-          <PreviewBadge
-            name="Zenbase"
-            preview={
-              <Image
-                src={zenbase}
-                alt="Zenbase logo"
-                sizes="320px"
-                className="h-36 w-full object-contain"
-              />
-            }
-            href="https://zenbasetech.com/"
-            logo={zenbase}
-            tint="bg-muted"
-          />
-          . At{" "}
+          Previously, I worked as a Founding Engineer at{" "}
+          <PreviewBadge name="Zenbase" logo={zenbase} tint="bg-muted" />,
+          building tools for real estate agents. At{" "}
           <PreviewBadge
             name="Annam.ai"
             preview={
-              <LinkPreviewImage
-                previewImage="https://res.cloudinary.com/dgwhmqdhr/image/upload/v1778587469/annam_og_banner_aq10uy.png"
-                alt="Annam.ai website preview"
+              <Image
+                src={annamPhoto}
+                alt="Photo from Annam.ai"
                 sizes="320px"
+                className="h-auto max-h-[var(--radix-tooltip-content-available-height)] w-full object-contain"
               />
             }
-            href="https://annam.ai/"
             logo={annam}
             tint="bg-emerald-500/15"
           />
-          , I worked on agricultural AI at IIT Ropar, first as a researcher and
-          then as an entrepreneur in residence.
+          , I worked on agricultural AI at IIT Ropar, first as a Research Intern
+          and later as an Entrepreneur in Residence.
         </p>
 
         <p>
-          I share what I’m building on{" "}
+          Outside of work, I’m particularly drawn to{" "}
+          <ImagePreview
+            label="Hackathon photo preview"
+            preview={
+              <Image
+                src={hackathon}
+                alt="Photo from a hackathon"
+                sizes="320px"
+                className="h-auto max-h-[var(--radix-tooltip-content-available-height)] w-full object-contain"
+              />
+            }
+            className={`${badgeClass} bg-violet-500/15`}
+          >
+            <Trophy aria-hidden="true" className="size-4 text-warning" />
+            hackathons({hackathonCount})
+          </ImagePreview>
+          , where I enjoy turning ideas into working prototypes. I share what
+          I’m building and learning on{" "}
           <PreviewBadge
             name={config.author.twitter}
             preview={
@@ -172,7 +201,7 @@ const AboutSection = () => {
           {config.resumeUrl && (
             <>
               {" "}
-              For the longer version, read my{" "}
+              You can find more about my experience in my{" "}
               <ImagePreview
                 label="Résumé preview"
                 preview={
@@ -193,11 +222,7 @@ const AboutSection = () => {
               </ImagePreview>
               .
             </>
-          )}{" "}
-          Want to build something together?{" "}
-          <a href={`mailto:${config.social.email}`} className="link-inline">
-            Say hello.
-          </a>
+          )}
         </p>
       </div>
     </section>
