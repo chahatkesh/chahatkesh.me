@@ -1,135 +1,81 @@
 import Link from "next/link";
-import { cn } from "~/lib/utils";
-import { typo } from "~/components/ui";
-import { experiences } from "~/data/experience";
-import {
-  groupExperiencesByCompany,
-  type ExperienceGroup,
-} from "~/lib/experience-utils";
+import { ArrowRight } from "lucide-react";
 import {
   ExperienceDates,
   ExperienceLogo,
-  ExperienceThread,
 } from "~/components/features/experience";
+import { typo } from "~/components/ui";
+import { experiences } from "~/data/experience";
 
-const ProfessionalExperience = () => {
-  const groups = groupExperiencesByCompany(experiences);
+const ProfessionalExperience = () => (
+  <section
+    id="experience"
+    aria-labelledby="experience-heading"
+    className="mt-5 space-y-6"
+  >
+    <h2 id="experience-heading" className={typo({ variant: "h2" })}>
+      Where I&apos;ve Shipped
+    </h2>
 
-  return (
-    <section
-      aria-label="professional experience"
-      className="mt-5 space-y-6"
-      id="experience"
-    >
-      <h2 className={typo({ variant: "h2" })}> Where I&apos;ve Shipped</h2>
-
-      <div className="relative">
-        <ExperienceThread />
-
-        <ol className="relative">
-          {groups.map((group, idx) => {
-            const isLast = idx === groups.length - 1;
-            return group.positions.length === 1 ? (
-              <SingleRole key={group.companyId} group={group} isLast={isLast} />
-            ) : (
-              <MultiRole key={group.companyId} group={group} isLast={isLast} />
-            );
-          })}
-        </ol>
-      </div>
-    </section>
-  );
-};
-
-/* ── Single position ─────────────────────────────────────────────── */
-
-const SingleRole = ({
-  group,
-  isLast,
-}: {
-  group: ExperienceGroup;
-  isLast: boolean;
-}) => {
-  const exp = group.positions[0];
-
-  return (
-    <li className="relative">
-      <div className={cn("flex items-start gap-4", !isLast && "pb-3")}>
-        <ExperienceLogo src={group.logo} alt={group.employer} />
-        <Link
-          href={`/about/experience/${exp.slug}`}
-          className="el-focus-styles group flex flex-1 min-w-0 items-start justify-between gap-4 rounded-md"
+    <ol>
+      {experiences.map((position) => (
+        <li
+          key={position.slug}
+          className="relative pb-5 before:absolute before:bottom-0 before:left-6 before:top-12 before:w-px before:bg-border last:pb-0 last:before:hidden"
         >
-          <div className="min-w-0">
-            <h3 className="font-ubuntu text-[15px] font-medium leading-snug text-foreground transition-colors group-hover:text-ring">
-              {group.employer}
-            </h3>
-            <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">
-              {exp.role}
-            </p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              {exp.type} &middot; {exp.location}
-            </p>
-          </div>
-          <ExperienceDates start={exp.start_date} end={exp.end_date} />
-        </Link>
-      </div>
-      {!isLast && (
-        <div className="ml-[52px] mb-3 h-px bg-border/60" aria-hidden="true" />
-      )}
-    </li>
-  );
-};
-
-/* ── Multi position ──────────────────────────────────────────────── */
-
-const MultiRole = ({
-  group,
-  isLast,
-}: {
-  group: ExperienceGroup;
-  isLast: boolean;
-}) => (
-  <li className="relative">
-    <div className={cn("flex items-start gap-4", !isLast && "pb-3")}>
-      <ExperienceLogo src={group.logo} alt={group.employer} />
-
-      <div className="flex-1 min-w-0">
-        {/* Company header */}
-        <div className="flex items-start gap-4">
-          <h3 className="font-ubuntu text-[15px] font-medium text-foreground">
-            {group.employer}
-          </h3>
-        </div>
-
-        <div className="mt-3 space-y-2.5">
-          {group.positions.map((position) => (
-            <Link
-              key={position.slug}
-              href={`/about/experience/${position.slug}`}
-              className="el-focus-styles group flex items-start justify-between gap-4 rounded-md transition-colors"
-            >
-              <div className="min-w-0">
-                <p className="text-[13px] font-medium text-foreground/80 transition-colors group-hover:text-ring">
-                  {position.role}
-                </p>
-                <p className="mt-0.5 text-xs text-muted-foreground">
-                  {position.type} &middot; {position.location}
-                </p>
-              </div>
-              <ExperienceDates
-                start={position.start_date}
-                end={position.end_date}
+          <details name="shipped-experiences">
+            <summary className="el-focus-styles group relative flex cursor-pointer list-none items-start gap-4 rounded-lg font-mono [&::-webkit-details-marker]:hidden">
+              <ExperienceLogo
+                src={position.logo}
+                alt=""
+                size="md"
+                className="size-12 bg-transparent"
               />
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-    {!isLast && (
-      <div className="ml-[52px] mb-3 h-px bg-border/60" aria-hidden="true" />
-    )}
-  </li>
+              <div className="min-w-0 flex-1 self-center">
+                <h3 className="text-sm font-medium uppercase leading-snug tracking-wide text-foreground transition-colors group-hover:text-ring sm:text-base">
+                  {position.role}
+                </h3>
+                <div className="mt-1 flex flex-col gap-1 text-muted-foreground sm:flex-row sm:items-center sm:gap-3">
+                  <span className="text-sm">{position.employer}</span>
+                  <span
+                    aria-hidden="true"
+                    className="hidden flex-1 border-t border-dashed border-border sm:block"
+                  />
+                  <ExperienceDates
+                    start={position.start_date}
+                    end={position.end_date}
+                    align="inline"
+                    className="text-xs"
+                  />
+                </div>
+              </div>
+            </summary>
+            <div className="ml-10 mt-4 space-y-4 sm:ml-16">
+              <ul
+                aria-label="Key contributions"
+                className="list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-ring"
+              >
+                {position.contributions?.slice(0, 4).map((contribution) => (
+                  <li key={contribution}>{contribution}</li>
+                ))}
+              </ul>
+              <Link
+                href={`/about/experience/${position.slug}`}
+                className="el-focus-styles inline-flex items-center gap-1.5 rounded-sm text-sm text-ring hover:opacity-80"
+              >
+                View more
+                <ArrowRight aria-hidden="true" className="size-3.5" />
+                <span className="sr-only">
+                  {" "}
+                  about {position.role} at {position.employer}
+                </span>
+              </Link>
+            </div>
+          </details>
+        </li>
+      ))}
+    </ol>
+  </section>
 );
 
 export default ProfessionalExperience;

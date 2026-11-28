@@ -17,7 +17,7 @@ const PageBanner = ({ children, className }: PageBannerProps) => {
         className,
       )}
     >
-      <div className="relative z-[1] mx-auto flex w-full max-w-[57rem] flex-col items-center px-4 pb-8 pt-4 text-center sm:pb-10 sm:pt-6">
+      <div className="relative z-[1] mx-auto flex w-full max-w-[57rem] flex-col items-center px-4 pb-8 pt-8 text-center sm:py-10">
         {children}
       </div>
     </div>

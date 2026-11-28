@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { ExperienceLogo } from "~/components/features/experience/experience-logo";
 import { MotionDiv } from "~/components/shared";
-import { calculateDuration } from "~/lib/date-utils";
 import type { Experience } from "~/data/experience";
 
 interface StackExperienceListProps {
@@ -28,15 +27,12 @@ export function StackExperienceList({ experiences }: StackExperienceListProps) {
             className="el-focus-styles block h-full rounded-lg border border-border bg-background p-4 transition-colors hover:border-muted-foreground/30 group"
           >
             <div className="flex gap-3">
-              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-card">
-                <Image
-                  src={experience.logo}
-                  alt={`${experience.employer} logo`}
-                  fill
-                  sizes="40px"
-                  className="object-cover"
-                />
-              </div>
+              <ExperienceLogo
+                src={experience.logo}
+                alt=""
+                size="md"
+                className="bg-transparent"
+              />
               <div className="min-w-0 flex-1">
                 <h3 className="font-ubuntu text-base font-medium text-foreground group-hover:text-ring transition-colors">
                   {experience.role}
@@ -44,22 +40,10 @@ export function StackExperienceList({ experiences }: StackExperienceListProps) {
                 <p className="mt-0.5 text-sm text-muted-foreground">
                   {experience.employer}
                 </p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground/70">
-                  <span>
-                    {experience.start_date} → {experience.end_date}
-                  </span>
-                  <span>•</span>
-                  <span>{experience.type}</span>
-                  <span>•</span>
-                  <span>{experience.location}</span>
-                  <span>•</span>
-                  <span>
-                    {calculateDuration(
-                      experience.start_date,
-                      experience.end_date,
-                    )}
-                  </span>
-                </div>
+                <p className="mt-3 text-xs text-muted-foreground/70">
+                  {experience.start_date} - {experience.end_date} •{" "}
+                  {experience.location}
+                </p>
               </div>
             </div>
           </Link>
