@@ -216,7 +216,7 @@ export function DiagramEditor({
                 onChange={(event) => onMermaidCodeChange(event.target.value)}
                 onKeyDown={handleCodeTab}
                 spellCheck={false}
-                className="el-focus-styles scrollbar-minimal min-h-[520px] w-full resize-y rounded-md border border-input bg-card px-3 py-2 font-mono text-[13px] leading-6"
+                className="scrollbar-minimal min-h-[520px] w-full resize-y rounded-md border border-input bg-card px-3 py-2 font-mono text-[13px] leading-6 outline-none transition-colors focus-visible:border-ring"
                 placeholder="flowchart LR\n  A[Client] --> B[API]\n  B --> C[(DB)]"
               />
               <p className="text-xs text-muted-foreground">

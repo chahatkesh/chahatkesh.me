@@ -39,12 +39,13 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "relative isolate min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
           fontPoem.variable,
           fontUbuntu.variable,
         )}
       >
+        <div aria-hidden="true" className="header-sky" />
         {renderSchemaTags()}
         <GoogleAnalytics />
         <MicrosoftClarity />

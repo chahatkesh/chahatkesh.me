@@ -614,7 +614,7 @@ function AdminPlacesContent() {
                 maxLength={320}
                 rows={4}
                 disabled={isSaving}
-                className="w-full rounded-md border border-border bg-card px-3 py-2 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full rounded-md border border-border bg-card px-3 py-2 text-sm outline-none transition-colors focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-60"
               />
               <p className="text-xs text-muted-foreground">
                 {formData.shortNote.length}/320

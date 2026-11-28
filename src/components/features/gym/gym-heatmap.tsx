@@ -10,9 +10,14 @@ import {
 } from "react";
 import { ActivityCalendar } from "react-activity-calendar";
 
+import {
+  BLOCK_MARGIN_DESKTOP,
+  BLOCK_MARGIN_MOBILE,
+  MOBILE_MAX_WIDTH,
+} from "~/components/features/coding-activity/constants";
 import { useCalendarScroll } from "~/components/features/coding-activity/use-calendar-scroll";
 import { GITHUB_CALENDAR_FONT_SIZE } from "~/constants";
-import { GYM_ACTIVITY_COLORS, GYM_REST_DAY_COLOR } from "~/constants/gym";
+import { GYM_ACTIVITY_COLORS } from "~/constants/gym";
 import {
   addDays,
   classifyGymLevel,
@@ -24,7 +29,6 @@ import type { GymDaySummary, GymSummary } from "~/types/gym";
 import { GymTooltip } from "./gym-tooltip";
 import type { HoveredGymDay } from "./gym-tooltip";
 
-const MOBILE_MAX_WIDTH = 640;
 const MAX_BLOCK_SIZE = 18;
 const FALLBACK_BLOCK_SIZE = 12;
 const MAX_YEAR_FILTERS = 4;
@@ -123,7 +127,7 @@ export function GymHeatmap({ summary }: GymHeatmapProps) {
   );
 
   const isMobile = containerWidth > 0 && containerWidth < MOBILE_MAX_WIDTH;
-  const blockMargin = isMobile ? 2 : 4;
+  const blockMargin = isMobile ? BLOCK_MARGIN_MOBILE : BLOCK_MARGIN_DESKTOP;
   const minBlockSize = isMobile ? 11 : 8;
 
   const blockSize = useMemo(() => {
@@ -171,11 +175,6 @@ export function GymHeatmap({ summary }: GymHeatmapProps) {
         onFocus: enter,
         onBlur: dismissTooltip,
         onTouchStart: enter,
-        style: {
-          cursor: "pointer",
-          ...(isRestDay ? { fill: GYM_REST_DAY_COLOR } : null),
-        },
-        ...(isRestDay ? { fill: GYM_REST_DAY_COLOR } : null),
       } as React.SVGProps<SVGRectElement>);
     },
     [view.dayByDate, dismissTooltip],

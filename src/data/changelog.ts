@@ -133,7 +133,7 @@ export const monthlyChangelog: MonthlyChangelog[] = [
         type: "improved",
         title: "A header that stays put",
         description:
-          "Public and admin chrome now share a sticky SiteHeader, and a shared PageBanner plus PageHeader system replaced the one-off titles. The nav goes transparent at rest so the grid banner can flow behind it — one hero surface instead of a gap and a bar.",
+          "Public and admin chrome now share a sticky SiteHeader, and a shared PageBanner plus PageHeader system replaced the one-off titles. The nav goes transparent at rest so the banner can flow behind it — one hero surface instead of a gap and a bar.",
       },
       {
         type: "improved",

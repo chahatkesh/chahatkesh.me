@@ -139,8 +139,8 @@ export const experiences: Experience[] = [
     ],
     links: [
       {
-        title: "Product Overview",
-        url: "https://silentninja.tech/",
+        title: "Zenbase Website",
+        url: "https://zenbasetech.com/",
         icon: "website",
       },
       {

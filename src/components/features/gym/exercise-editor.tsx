@@ -342,7 +342,7 @@ function ExerciseRow({
               }
               disabled={disabled}
               aria-label="Cardio type"
-              className="h-9 w-full rounded-md border border-border bg-card px-2 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-9 w-full rounded-md border border-border bg-card px-2 text-sm outline-none transition-colors focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-60"
             >
               {CARDIO_TYPES.map((type) => (
                 <option key={type} value={type}>

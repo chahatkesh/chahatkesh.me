@@ -339,7 +339,7 @@ function AdminGymExercisesContent() {
                   }))
                 }
                 disabled={isSaving}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {MUSCLE_GROUPS.map((group) => (
                   <option key={group} value={group}>

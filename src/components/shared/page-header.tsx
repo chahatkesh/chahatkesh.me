@@ -14,7 +14,7 @@ interface PageHeaderProps {
 }
 
 /**
- * Canonical page header: centered title + subtitle on grid banner,
+ * Canonical page header: centered title + subtitle on a full-width banner,
  * breadcrumb below subtitle. `!mt-0` cancels parent `space-y-8` when a
  * JSON-LD script is the preceding sibling.
  */

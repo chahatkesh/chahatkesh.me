@@ -8,8 +8,8 @@ export const GITHUB_ACCENT = GITHUB_CONTRIBUTION_COLORS[4];
 export const LEETCODE_ACCENT = LEETCODE_CALENDAR_COLORS[4];
 
 export const MOBILE_MAX_WIDTH = 640;
-export const BLOCK_MARGIN_DESKTOP = 4;
-export const BLOCK_MARGIN_MOBILE = 2;
+export const BLOCK_MARGIN_DESKTOP = 3;
+export const BLOCK_MARGIN_MOBILE = 1;
 export const MIN_BLOCK_SIZE_DESKTOP = 8;
 export const MIN_BLOCK_SIZE_MOBILE = 11;
 export const MAX_BLOCK_SIZE = 18;

@@ -1,23 +1,40 @@
 export type ColorScheme = "light" | "dark";
 const key = "portfolio-theme";
-const query = "(prefers-color-scheme: light)";
 
+// Light from 6:00 through 17:59 local time. Dark overnight, from 18:00 through 5:59.
+// A lamp choice stored in localStorage overrides the clock.
 // Runs before paint, including on routes without the public navbar.
 export const themeBootstrap = `(() => {
-  const root = document.documentElement, media = matchMedia('${query}');
+  const root = document.documentElement;
+  const storageKey = '${key}';
   let choice;
-  try { choice = localStorage.getItem('${key}'); } catch {}
+  try { choice = localStorage.getItem(storageKey); } catch {}
+  function byClock() {
+    const hour = new Date().getHours();
+    return hour >= 6 && hour < 18 ? 'light' : 'dark';
+  }
   function apply() {
-    const theme = choice === 'light' || choice === 'dark' ? choice : media.matches ? 'light' : 'dark';
+    const theme = choice === 'light' || choice === 'dark' ? choice : byClock();
     if (root.dataset.theme !== theme) root.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#ffffff' : '#000000');
   }
-  window.addEventListener('portfolio-theme', event => { choice = event.detail; apply(); });
+  let timer = 0;
+  function arm() {
+    clearTimeout(timer);
+    if (choice === 'light' || choice === 'dark') return;
+    const now = new Date();
+    const hour = now.getHours();
+    const next = new Date(now);
+    next.setHours(hour < 6 ? 6 : hour < 18 ? 18 : 6, 0, 0, 0);
+    if (hour >= 18) next.setDate(next.getDate() + 1);
+    timer = setTimeout(() => { apply(); arm(); }, Math.max(1000, next.getTime() - now.getTime() + 250));
+  }
+  window.addEventListener('portfolio-theme', event => { choice = event.detail; apply(); arm(); });
   window.addEventListener('storage', event => {
-    if (event.key === '${key}' || event.key === null) { choice = event.newValue; apply(); }
+    if (event.key === storageKey || event.key === null) { choice = event.newValue; apply(); arm(); }
   });
-  media.addEventListener('change', apply);
   apply();
+  arm();
 })();`;
 
 export function getColorScheme(): ColorScheme {

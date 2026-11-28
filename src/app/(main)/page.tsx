@@ -59,7 +59,7 @@ const HomePage = () => {
     <>
       <HomeJsonLd />
       {renderBreadcrumbSchema([{ name: "Home", url: "/" }])}
-      <div className="!mt-8 space-y-14">
+      <div className="!mt-0 space-y-14 pt-[calc(var(--header-sky-depth)+1.5rem)]">
         <AboutSection />
         <CodingActivity />
         <ProfessionalExperience />

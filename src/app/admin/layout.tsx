@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 import { type Metadata } from "next";
-import { AdminNavbar } from "~/components/admin";
+import { AdminFieldScope, AdminNavbar } from "~/components/admin";
 import { SkipContent } from "~/components/ui";
 import { getSession } from "~/lib/auth";
 
@@ -19,6 +19,7 @@ const AdminLayout = async ({ children }: { children: ReactNode }) => {
   if (!session) {
     return (
       <div className="relative flex h-dvh flex-col">
+        <AdminFieldScope />
         <SkipContent />
         {children}
       </div>
@@ -28,6 +29,7 @@ const AdminLayout = async ({ children }: { children: ReactNode }) => {
   // Match public layout: sticky header, then AdminPageHeader owns the top gap.
   return (
     <div className="flex min-h-dvh flex-col">
+      <AdminFieldScope />
       <SkipContent />
       <AdminNavbar />
       <div className="container relative flex flex-1 flex-col">

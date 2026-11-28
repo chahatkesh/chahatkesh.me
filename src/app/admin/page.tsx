@@ -70,7 +70,7 @@ const DASHBOARD_LINKS: Array<{
 ];
 
 const fieldClassName =
-  "h-10 border-border bg-background transition-colors placeholder:text-muted-foreground/50 focus-visible:border-muted-foreground/40";
+  "h-10 border-border bg-background transition-colors placeholder:text-muted-foreground/50";
 
 export default function AdminPage() {
   return (

@@ -166,16 +166,13 @@ const SkillItems = ({
             className={duplicate ? "motion-reduce:hidden" : undefined}
             aria-hidden={duplicate || undefined}
           >
-            {duplicate ? (
-              <span className={pillClassName}>{content}</span>
-            ) : (
-              <Link
-                href={`/stack/${meta.slug}`}
-                className={`el-focus-styles ${pillClassName} transition-colors hover:border-muted-foreground/30`}
-              >
-                {content}
-              </Link>
-            )}
+            <Link
+              href={`/stack/${meta.slug}`}
+              tabIndex={duplicate ? -1 : undefined}
+              className={`el-focus-styles ${pillClassName} transition-colors hover:border-muted-foreground/30`}
+            >
+              {content}
+            </Link>
           </li>
         );
       })}
