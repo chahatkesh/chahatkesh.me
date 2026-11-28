@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import {
   AboutSection,
   ContactUs,
-  OutsideTheScreen,
   ProfessionalExperience,
   Skills,
 } from "~/components/sections";
+import LatestWriting from "~/components/sections/latest-writing";
 import { ProjectList } from "~/components/features/project";
 import { projects } from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -71,7 +71,7 @@ const HomePage = () => {
           showFeatured={true}
         />
         <Skills />
-        <OutsideTheScreen variant="minimal" />
+        <LatestWriting />
         <ContactUs />
       </div>
     </>

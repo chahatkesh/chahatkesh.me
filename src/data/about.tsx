@@ -5,13 +5,6 @@ import {
   FaMobileAlt,
   FaPenFancy,
 } from "react-icons/fa";
-import {
-  BookOpen,
-  Dumbbell,
-  PenTool,
-  Plane,
-  type LucideIcon,
-} from "lucide-react";
 
 // ── Current Projects / Work ───────────────────────────────────────
 export interface CurrentProject {
@@ -40,41 +33,35 @@ export const currentProjects: CurrentProject[] = [
 
 // ── Hobbies ───────────────────────────────────────────────────────
 export interface Hobby {
+  illustration: "notebook" | "barbell" | "curve" | "plane";
   title: string;
-  /** Short line used on the compact (home) variant */
   label: string;
-  description: string;
-  icon: LucideIcon;
   href: string;
 }
 
 export const hobbies: Hobby[] = [
   {
+    illustration: "notebook",
     title: "Writing",
     label: "Essays & notes",
-    description: "Lessons shaped by building, reading, and work.",
-    icon: BookOpen,
     href: "/about/writing",
   },
   {
+    illustration: "barbell",
     title: "Gym",
     label: "Training logs",
-    description: "The reset after a long debugging session.",
-    icon: Dumbbell,
     href: "/about/gym",
   },
   {
+    illustration: "curve",
     title: "Designing",
     label: "Visual craft",
-    description: "Design and engineering, from the other side.",
-    icon: PenTool,
     href: "/about/designing",
   },
   {
+    illustration: "plane",
     title: "Travelling",
     label: "Places I've been",
-    description: "New places, and how people live and build there.",
-    icon: Plane,
     href: "/places",
   },
 ];

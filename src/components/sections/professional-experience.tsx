@@ -2,7 +2,6 @@ import Link from "next/link";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { experiences } from "~/data/experience";
-import { calculateDuration } from "~/lib/date-utils";
 import {
   groupExperiencesByCompany,
   type ExperienceGroup,
@@ -52,7 +51,6 @@ const SingleRole = ({
   isLast: boolean;
 }) => {
   const exp = group.positions[0];
-  const duration = calculateDuration(exp.start_date, exp.end_date);
 
   return (
     <li className="relative">
@@ -73,11 +71,7 @@ const SingleRole = ({
               {exp.type} &middot; {exp.location}
             </p>
           </div>
-          <ExperienceDates
-            start={exp.start_date}
-            end={exp.end_date}
-            duration={duration}
-          />
+          <ExperienceDates start={exp.start_date} end={exp.end_date} />
         </Link>
       </div>
       {!isLast && (
@@ -109,33 +103,26 @@ const MultiRole = ({
         </div>
 
         <div className="mt-3 space-y-2.5">
-          {group.positions.map((position) => {
-            const duration = calculateDuration(
-              position.start_date,
-              position.end_date,
-            );
-            return (
-              <Link
-                key={position.slug}
-                href={`/about/experience/${position.slug}`}
-                className="el-focus-styles group flex items-start justify-between gap-4 rounded-md transition-colors"
-              >
-                <div className="min-w-0">
-                  <p className="text-[13px] font-medium text-foreground/80 transition-colors group-hover:text-ring">
-                    {position.role}
-                  </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {position.type} &middot; {position.location}
-                  </p>
-                </div>
-                <ExperienceDates
-                  start={position.start_date}
-                  end={position.end_date}
-                  duration={duration}
-                />
-              </Link>
-            );
-          })}
+          {group.positions.map((position) => (
+            <Link
+              key={position.slug}
+              href={`/about/experience/${position.slug}`}
+              className="el-focus-styles group flex items-start justify-between gap-4 rounded-md transition-colors"
+            >
+              <div className="min-w-0">
+                <p className="text-[13px] font-medium text-foreground/80 transition-colors group-hover:text-ring">
+                  {position.role}
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {position.type} &middot; {position.location}
+                </p>
+              </div>
+              <ExperienceDates
+                start={position.start_date}
+                end={position.end_date}
+              />
+            </Link>
+          ))}
         </div>
       </div>
     </div>

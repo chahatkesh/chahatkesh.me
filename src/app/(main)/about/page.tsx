@@ -275,6 +275,8 @@ const AboutPage = async () => {
             </div>
           </section>
 
+          <OutsideTheScreen />
+
           {/* Poem Section */}
           <section aria-label="A note on me" className="mt-10">
             <h2 className={typo({ variant: "h2" })}>
@@ -334,8 +336,6 @@ const AboutPage = async () => {
               </div>
             </div>
           </section>
-
-          <OutsideTheScreen />
 
           {/* Portfolio Evolution Section */}
           <section className="mt-10 space-y-6" aria-label="Portfolio Evolution">

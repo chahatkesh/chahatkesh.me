@@ -1,102 +1,44 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { ArtistPalette } from "@fluentui-emoji/react/flat/artist-palette";
-import { Airplane } from "@fluentui-emoji/react/flat/airplane";
-import { NotebookWithDecorativeCover } from "@fluentui-emoji/react/flat/notebook-with-decorative-cover";
-import { PersonLiftingWeightsDefault } from "@fluentui-emoji/react/flat/person-lifting-weights-default";
-import type { FluentEmojiComponent } from "@fluentui-emoji/react";
-import { RevealCard } from "~/components/shared";
+import { ArrowRight } from "lucide-react";
 import { typo } from "~/components/ui";
-import { cn } from "~/lib/utils";
 import { hobbies } from "~/data/about";
+import { HobbyIllustration } from "./hobby-illustration";
 
-type OutsideTheScreenProps = {
-  /** Full copy for About; compact labels for Home. */
-  variant?: "full" | "minimal";
-};
-
-const STICKERS: Record<string, { icon: FluentEmojiComponent; rotate: string }> =
-  {
-    Writing: { icon: NotebookWithDecorativeCover, rotate: "-rotate-6" },
-    Gym: { icon: PersonLiftingWeightsDefault, rotate: "rotate-3" },
-    Designing: { icon: ArtistPalette, rotate: "-rotate-2" },
-    Travelling: { icon: Airplane, rotate: "rotate-6" },
-  };
-
-const OutsideTheScreen = ({ variant = "full" }: OutsideTheScreenProps) => {
-  const isMinimal = variant === "minimal";
-
+const OutsideTheScreen = () => {
   return (
     <section
       id="outside-the-screen"
-      aria-label="Outside the Screen"
-      className={cn(isMinimal ? "space-y-5" : "mt-10 space-y-8")}
+      aria-labelledby="outside-the-screen-title"
+      className="space-y-4"
     >
-      <h2 className={typo({ variant: "h2" })}>Outside the Screen</h2>
+      <h2 id="outside-the-screen-title" className={typo({ variant: "h2" })}>
+        Outside the Screen
+      </h2>
 
       <ul
         role="list"
-        className={cn(
-          "grid",
-          isMinimal
-            ? "grid-cols-2 gap-2 sm:grid-cols-4"
-            : "grid-cols-1 gap-3 sm:grid-cols-2",
-        )}
+        className="grid grid-cols-2 gap-x-5 gap-y-3 pt-3 sm:grid-cols-[repeat(4,auto)] sm:justify-between"
       >
-        {hobbies.map((hobby, index) => {
-          const sticker = STICKERS[hobby.title];
-          const Sticker = sticker?.icon;
-
-          return (
-            <li key={hobby.title} role="listitem" className="min-w-0">
-              <RevealCard index={index}>
-                <Link
-                  href={hobby.href}
-                  className={cn(
-                    "el-focus-styles group flex h-full flex-col rounded-3xl",
-                    "focus-visible:ring-inset focus-visible:ring-offset-0",
-                    isMinimal ? "px-4 py-5" : "px-6 py-7",
-                  )}
-                >
-                  {Sticker ? (
-                    <span
-                      className={cn(
-                        "mb-5 block origin-bottom will-change-transform",
-                        "transition-transform duration-500 ease-out-quint",
-                        "group-hover:-translate-y-1.5 group-hover:scale-[1.03]",
-                        sticker.rotate,
-                        isMinimal ? "size-14" : "size-20",
-                      )}
-                    >
-                      <span className="activity-sticker block size-full">
-                        <Sticker className="size-full" aria-hidden />
-                      </span>
-                    </span>
-                  ) : null}
-
-                  <span className="flex items-center gap-1.5">
-                    <h3 className="font-ubuntu text-[15px] font-medium tracking-tight text-foreground">
-                      {hobby.title}
-                    </h3>
-                    <ArrowUpRight
-                      aria-hidden
-                      className="size-3.5 text-muted-foreground transition-colors duration-500 ease-out-quint group-hover:text-foreground"
-                    />
-                  </span>
-
-                  <p
-                    className={cn(
-                      "mt-1.5 max-w-[28ch] leading-relaxed text-muted-foreground",
-                      isMinimal ? "text-[13px]" : "text-sm",
-                    )}
-                  >
-                    {isMinimal ? hobby.label : hobby.description}
-                  </p>
-                </Link>
-              </RevealCard>
-            </li>
-          );
-        })}
+        {hobbies.map((hobby) => (
+          <li key={hobby.title}>
+            <Link
+              href={hobby.href}
+              className="el-focus-styles group flex h-full flex-col items-start rounded-sm py-2"
+            >
+              <HobbyIllustration kind={hobby.illustration} />
+              <span className="mt-1 flex items-center gap-1.5 font-ubuntu text-base font-medium tracking-tight text-foreground group-focus-visible:underline underline-offset-4">
+                {hobby.title}
+                <ArrowRight
+                  aria-hidden
+                  className="size-3.5 text-muted-foreground group-hover:text-foreground group-focus-visible:text-foreground"
+                />
+              </span>
+              <span className="mt-0.5 text-sm leading-snug text-muted-foreground">
+                {hobby.label}
+              </span>
+            </Link>
+          </li>
+        ))}
       </ul>
     </section>
   );
