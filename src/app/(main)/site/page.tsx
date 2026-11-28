@@ -160,6 +160,7 @@ const SitePage = async () => {
         {/* Tabbed Content */}
         <TabGroup
           sticky
+          siblingNav
           tabs={[
             {
               id: "stack",
@@ -620,7 +621,7 @@ const SitePage = async () => {
                         <span className="text-right">Render</span>
                       </div>
                       {pages.map((page) => {
-                        const isDynamic = page.path.includes("[slug]");
+                        const isDynamic = page.path.includes("[");
                         const renderColor =
                           page.renderType === "SSG"
                             ? "text-success"
@@ -703,29 +704,6 @@ const SitePage = async () => {
             },
           ]}
         />
-
-        {/* Footer */}
-        <RevealSection className="rounded-xl border border-border bg-card/50 p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <p className="font-ubuntu text-sm font-semibold text-foreground">
-                Version 4.0 • Built with Next.js & TypeScript
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Inspired by Apple Design Principles
-              </p>
-            </div>
-            <Link
-              href={`https://github.com/${config.author.github}/chahatkesh.me`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-muted-foreground/30 bg-card/50 px-4 py-2 text-sm hover:border-ring hover:bg-card hover:text-ring transition-all"
-            >
-              <FiCode className="text-sm" />
-              View Source Code
-            </Link>
-          </div>
-        </RevealSection>
       </div>
     </div>
   );

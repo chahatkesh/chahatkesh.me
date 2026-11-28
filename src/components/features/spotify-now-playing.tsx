@@ -61,7 +61,7 @@ const SpotifyNowPlaying = () => {
       : null;
 
   return (
-    <div ref={containerRef} className="min-w-0">
+    <div ref={containerRef} className="min-h-16 min-w-0">
       {showSkeleton ? (
         <div className="flex gap-3">
           <Skeleton className="h-16 w-16 rounded" />

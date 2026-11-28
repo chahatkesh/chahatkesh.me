@@ -1,3 +1,6 @@
+// Import a widget from its own file when a route only needs that widget.
+// This barrel re-exports client modules such as markdown highlighting, maps,
+// and diagrams, and a single import from it pulls those into the page bundle.
 // Feature Components
 export { default as CodingActivity } from "./coding-activity";
 export { CodingActivityStatusBar } from "./coding-activity";

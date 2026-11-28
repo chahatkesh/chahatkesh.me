@@ -33,18 +33,18 @@
     --radius: 0.5rem;
     --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.06);
     --contrib-github-0: #1b1b1b;
-    --contrib-github-1: #006064;
-    --contrib-github-2: #00838f;
-    --contrib-github-3: #0097a7;
-    --contrib-github-4: #00adb5;
+    --contrib-github-1: #007a80;
+    --contrib-github-2: #009ba2;
+    --contrib-github-3: #23bdc3;
+    --contrib-github-4: #6ddfe1;
     --contrib-leetcode-0: #1b1b1b;
-    --contrib-leetcode-1: #5a3a12;
-    --contrib-leetcode-2: #8a5a1f;
-    --contrib-leetcode-3: #c8892b;
-    --contrib-leetcode-4: #f2b84b;
+    --contrib-leetcode-1: #9c691e;
+    --contrib-leetcode-2: #c18a27;
+    --contrib-leetcode-3: #e7ab3c;
+    --contrib-leetcode-4: #ffd47a;
     --contrib-gym-0: #1b1b1b;
-    --contrib-gym-1: #0b3d2e;
-    --contrib-gym-2: #148f5c;
+    --contrib-gym-1: #21804e;
+    --contrib-gym-2: #299f64;
     --contrib-gym-3: #37c47f;
     --contrib-gym-4: #6ef0a5;
     --muscle-chest: #ff6b6b;
@@ -62,63 +62,62 @@
     --scrollbar-thumb-hover: hsl(var(--muted-foreground) / 0.55);
     --scrollbar-track: hsl(var(--background) / 0.72);
     --header-height: 3.5rem;
+    --header-sky-depth: 8rem;
   }
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      color-scheme: light;
-      --background: 0 0% 100%;
-      --foreground: 240 10% 7%;
-      --card: 0 0% 100%;
-      --card-foreground: 240 10% 7%;
-      --popover: 0 0% 100%;
-      --popover-foreground: 240 10% 7%;
-      --primary: 240 6% 10%;
-      --primary-foreground: 0 0% 98%;
-      --secondary: 240 5% 93%;
-      --secondary-foreground: 240 6% 10%;
-      --muted: 240 5% 93%;
-      --muted-foreground: 240 4% 36%;
-      --accent: 240 5% 92%;
-      --accent-foreground: 240 6% 10%;
-      --destructive: 0 72% 36%;
-      --destructive-foreground: 0 0% 98%;
-      --border: 240 5% 82%;
-      --input: 240 4% 54%;
-      --ring: 183 100% 24%;
-      --brand-foreground: 0 0% 100%;
-      --info: 210 85% 32%;
-      --warning: 28 78% 28%;
-      --success: 158 72% 24%;
-      --danger: 0 72% 36%;
-      --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.85);
-      --contrib-github-0: #d5d5db;
-      --contrib-github-1: #7ec9ce;
-      --contrib-github-2: #2aa3ad;
-      --contrib-github-3: #0c7c86;
-      --contrib-github-4: #084f57;
-      --contrib-leetcode-0: #d5d5db;
-      --contrib-leetcode-1: #efc56a;
-      --contrib-leetcode-2: #e09a28;
-      --contrib-leetcode-3: #b67410;
-      --contrib-leetcode-4: #7a4f0c;
-      --contrib-gym-0: #d5d5db;
-      --contrib-gym-1: #7dcea0;
-      --contrib-gym-2: #34b56e;
-      --contrib-gym-3: #1a8f52;
-      --contrib-gym-4: #0c6438;
-      --muscle-chest: #c92a2a;
-      --muscle-back: #5f3dc4;
-      --muscle-shoulders: #1864ab;
-      --muscle-biceps: #8a5a00;
-      --muscle-triceps: #c2410c;
-      --muscle-legs: #157a38;
-      --muscle-core: #c2255c;
-      --muscle-cardio: #0b7285;
-      --ring-sessions: #0b7285;
-      --ring-groups: #5f3dc4;
-      --ring-time: #8a5a00;
-    }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 7%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 5% 93%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 93%;
+    --muted-foreground: 240 4% 36%;
+    --accent: 240 5% 92%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 72% 36%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 82%;
+    --input: 240 4% 54%;
+    --ring: 183 100% 24%;
+    --brand-foreground: 0 0% 100%;
+    --info: 210 85% 32%;
+    --warning: 28 78% 28%;
+    --success: 158 72% 24%;
+    --danger: 0 72% 36%;
+    --inset-highlight: inset 0 1px 0 0 rgb(255 255 255 / 0.85);
+    --contrib-github-0: #ececf0;
+    --contrib-github-1: #258b92;
+    --contrib-github-2: #11737b;
+    --contrib-github-3: #095962;
+    --contrib-github-4: #043b42;
+    --contrib-leetcode-0: #ececf0;
+    --contrib-leetcode-1: #b47813;
+    --contrib-leetcode-2: #985e0a;
+    --contrib-leetcode-3: #794607;
+    --contrib-leetcode-4: #572e04;
+    --contrib-gym-0: #ececf0;
+    --contrib-gym-1: #39884e;
+    --contrib-gym-2: #24713f;
+    --contrib-gym-3: #145831;
+    --contrib-gym-4: #093d21;
+    --muscle-chest: #c92a2a;
+    --muscle-back: #5f3dc4;
+    --muscle-shoulders: #1864ab;
+    --muscle-biceps: #8a5a00;
+    --muscle-triceps: #c2410c;
+    --muscle-legs: #157a38;
+    --muscle-core: #c2255c;
+    --muscle-cardio: #0b7285;
+    --ring-sessions: #0b7285;
+    --ring-groups: #5f3dc4;
+    --ring-time: #8a5a00;
   }
 
   html {
@@ -176,7 +175,7 @@
     opacity: 0.75;
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     input[type="date"]::-webkit-calendar-picker-indicator,
     input[type="datetime-local"]::-webkit-calendar-picker-indicator,
     input[type="time"]::-webkit-calendar-picker-indicator {
@@ -199,7 +198,7 @@
   }
 
   .link-inline {
-    @apply el-focus-styles rounded-sm text-ring transition-opacity hover:opacity-80;
+    @apply el-focus-styles rounded-sm text-ring underline decoration-ring/40 underline-offset-[3px] transition-opacity hover:opacity-80 hover:decoration-ring;
   }
 
   ::selection {
@@ -292,7 +291,7 @@
     filter: brightness(1.35) saturate(1.1);
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     .coding-activity-calendar rect[data-date]:hover,
     .coding-activity-calendar g[data-date]:hover {
       filter: brightness(0.92) saturate(1.05);
@@ -304,7 +303,7 @@
     fill: #5b8fd4 !important;
   }
 
-  @media (prefers-color-scheme: light) {
+  :where([data-theme="light"]) {
     .coding-activity-calendar rect[data-rest="true"] {
       fill: #3d6eab !important;
     }
@@ -325,285 +324,76 @@
     scroll-behavior: smooth;
   }
 
-  /* Premium page header — fine mini-grid, edge accent cells, bottom dissolve */
-  .page-banner-grid {
-    --page-banner-cell: 10px;
-    --page-banner-line: hsl(var(--border) / 0.2);
-    --page-banner-accent-strong: hsl(var(--ring) / 0.26);
-    --page-banner-accent-soft: hsl(var(--ring) / 0.12);
-    position: relative;
-    min-height: min(7rem, 14vh);
+  .header-sky {
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(var(--header-height) + var(--header-sky-depth));
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: linear-gradient(#060606, #101010);
+    mask-image: linear-gradient(#000 0% 55%, transparent);
   }
 
-  .page-banner-grid::before {
+  .header-sky::before,
+  .header-sky::after {
     content: "";
-    pointer-events: none;
     position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-color: hsl(var(--background));
-    background-image:
-      linear-gradient(
-        var(--page-banner-accent-strong),
-        var(--page-banner-accent-strong)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-strong),
-        var(--page-banner-accent-strong)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-strong),
-        var(--page-banner-accent-strong)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-strong),
-        var(--page-banner-accent-strong)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-strong),
-        var(--page-banner-accent-strong)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(
-        var(--page-banner-accent-soft),
-        var(--page-banner-accent-soft)
-      ),
-      linear-gradient(to right, var(--page-banner-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--page-banner-line) 1px, transparent 1px);
-    background-size:
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell),
-      var(--page-banner-cell) var(--page-banner-cell);
-    background-position:
-      calc(var(--page-banner-cell) * 2) calc(var(--page-banner-cell) * 1),
-      calc(var(--page-banner-cell) * 7) calc(var(--page-banner-cell) * 3),
-      calc(var(--page-banner-cell) * 1) calc(var(--page-banner-cell) * 6),
-      calc(100% - var(--page-banner-cell) * 4) calc(var(--page-banner-cell) * 2),
-      calc(100% - var(--page-banner-cell) * 11)
-        calc(var(--page-banner-cell) * 5),
-      calc(var(--page-banner-cell) * 11) calc(var(--page-banner-cell) * 2),
-      calc(var(--page-banner-cell) * 4) calc(var(--page-banner-cell) * 9),
-      calc(100% - var(--page-banner-cell) * 16)
-        calc(var(--page-banner-cell) * 3),
-      calc(100% - var(--page-banner-cell) * 3) calc(var(--page-banner-cell) * 9),
-      calc(var(--page-banner-cell) * 2) calc(100% - var(--page-banner-cell) * 4),
-      calc(100% - var(--page-banner-cell) * 9)
-        calc(100% - var(--page-banner-cell) * 3),
-      calc(100% - var(--page-banner-cell) * 22)
-        calc(100% - var(--page-banner-cell) * 2),
-      calc(var(--page-banner-cell) * 15)
-        calc(100% - var(--page-banner-cell) * 2),
-      0 0,
-      0 0;
-    background-repeat:
-      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-      no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat,
-      repeat;
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      #000 0%,
-      #000 70%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
   }
 
-  .page-banner-grid::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
+  .header-sky::before {
     inset: 0;
-    z-index: 0;
+    background: url("/header-stars.svg") repeat;
+  }
+
+  .header-sky::after {
+    width: clamp(1.6rem, 3vw, 2.8rem);
+    aspect-ratio: 1;
+    top: 44%;
+    left: 14%;
+    border-radius: 50%;
     background:
-      radial-gradient(
-        ellipse 75% 85% at 50% 48%,
-        hsl(var(--background) / 0.52) 0%,
-        transparent 68%
-      ),
-      linear-gradient(
-        to right,
-        hsl(var(--background)) 0%,
-        transparent 7%,
-        transparent 93%,
-        hsl(var(--background)) 100%
-      );
+      radial-gradient(ellipse at 32% 32%, #dddcd7 0 13%, transparent 15%),
+      radial-gradient(circle at 48% 72%, #deddd8 0 8%, transparent 10%),
+      radial-gradient(circle at 64% 53%, #e4e3df 0 15%, transparent 17%),
+      #f5f4ee;
+    box-shadow:
+      inset -4px 0 1px #494949,
+      0 0 28px 7px #fff2;
   }
 
-  /* Desktop: spread accents into viewport wings, away from centered text */
-  @media (min-width: 768px) {
-    .page-banner-grid::before {
-      background-image:
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-strong),
-          var(--page-banner-accent-strong)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(
-          var(--page-banner-accent-soft),
-          var(--page-banner-accent-soft)
-        ),
-        linear-gradient(to right, var(--page-banner-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--page-banner-line) 1px, transparent 1px);
-      background-position:
-        2.5% 24%,
-        97.5% 22%,
-        4% 70%,
-        95.5% 68%,
-        14% 14%,
-        86% 12%,
-        24% 52%,
-        76% 50%,
-        8% 38%,
-        92% 42%,
-        6% 84%,
-        94% 80%,
-        18% 28%,
-        82% 26%,
-        20% 62%,
-        80% 58%,
-        10% 8%,
-        90% 76%,
-        0 0,
-        0 0;
-      background-size:
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell),
-        var(--page-banner-cell) var(--page-banner-cell);
-      background-repeat:
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-        repeat, repeat;
-    }
+  [data-theme="light"] .header-sky {
+    background: linear-gradient(#8fd0ef, #c5e8f8 56%, #fff);
+  }
 
-    .page-banner-grid::after {
-      background:
-        radial-gradient(
-          ellipse 52% 85% at 50% 48%,
-          hsl(var(--background) / 0.52) 0%,
-          transparent 68%
-        ),
-        linear-gradient(
-          to right,
-          hsl(var(--background)) 0%,
-          transparent 5%,
-          transparent 95%,
-          hsl(var(--background)) 100%
-        );
+  [data-theme="light"] .header-sky::before {
+    inset-inline: -4%;
+    background: url("/header-clouds.svg") 75% 24% / min(100%, 42rem) auto
+      no-repeat;
+  }
+
+  [data-theme="light"] .header-sky::after {
+    background: radial-gradient(circle, #fffdf0, #fff2ac);
+    box-shadow:
+      0 0 22px 9px #ffe9a999,
+      0 0 56px 16px #fff4c655;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-theme="light"] .header-sky::before {
+      animation: sky-cloud-drift 32s ease-in-out infinite alternate;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .header-sky::after {
+      top: 20%;
+    }
+  }
+
+  @keyframes sky-cloud-drift {
+    to {
+      transform: translateX(3%);
     }
   }
 }
@@ -643,4 +433,50 @@
   );
   --changelog-selection-text: hsl(var(--background));
   --changelog-selection-shadow: none;
+}
+
+/*
+ * Admin text fields already draw a 1px border. The shared focus ring
+ * (and its offset) sits outside that border and reads as a second outline.
+ * Keep one thin border, and move only its color on focus.
+ */
+body.admin-fields
+  :is(input, textarea, select):not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="file"],
+    [type="range"],
+    [type="color"],
+    [type="hidden"],
+    [type="button"],
+    [type="submit"],
+    [type="reset"]
+  ) {
+  outline: none;
+  outline-offset: 0;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  box-shadow: none;
+}
+
+body.admin-fields
+  :is(input, textarea, select):not(
+    [type="checkbox"],
+    [type="radio"],
+    [type="file"],
+    [type="range"],
+    [type="color"],
+    [type="hidden"],
+    [type="button"],
+    [type="submit"],
+    [type="reset"]
+  ):is(:focus, :focus-visible) {
+  outline: none;
+  outline-offset: 0;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  box-shadow: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: hsl(var(--ring));
 }

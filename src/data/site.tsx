@@ -618,6 +618,12 @@ export const pages: PageEntry[] = [
     renderType: "ISR",
   },
   {
+    path: "/sitemap",
+    name: "Sitemap",
+    description: "Human-readable index of every URL in sitemap.xml",
+    renderType: "Static",
+  },
+  {
     path: "/changelog",
     name: "Changelog",
     description:
@@ -728,12 +734,12 @@ export const pages: PageEntry[] = [
 export const codebaseMetrics: CodebaseMetric[] = [
   {
     label: "Total Lines of Code",
-    value: "41,005+",
+    value: "41,750+",
     description: "TypeScript + TSX + CSS",
   },
   {
     label: "Components",
-    value: "129",
+    value: "133",
     description: "Across 8 categories: ui, shared, features, sections, etc.",
   },
   {

@@ -205,7 +205,7 @@ export function GistEditor({
                 }
                 onKeyDown={handleTabIndent}
                 spellCheck={false}
-                className="el-focus-styles scrollbar-minimal min-h-[540px] w-full resize-y rounded-md border border-input bg-card px-3 py-2 font-mono text-[13px] leading-6"
+                className="scrollbar-minimal min-h-[540px] w-full resize-y rounded-md border border-input bg-card px-3 py-2 font-mono text-[13px] leading-6 outline-none transition-colors focus-visible:border-ring"
                 placeholder="# Design note\n\nWrite your explanation in markdown..."
               />
             </div>

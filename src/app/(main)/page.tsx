@@ -3,9 +3,10 @@ import dynamic from "next/dynamic";
 import {
   AboutSection,
   ContactUs,
-  OutsideTheScreen,
   ProfessionalExperience,
+  Skills,
 } from "~/components/sections";
+import LatestWriting from "~/components/sections/latest-writing";
 import { ProjectList } from "~/components/features/project";
 import { projects } from "~/data/projects";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
@@ -35,33 +36,12 @@ function CodingActivityFallback() {
   );
 }
 
-function SkillsFallback() {
-  return (
-    <section aria-busy="true" className="my-4 space-y-8">
-      <Skeleton className="h-7 w-48" />
-      <div className="space-y-6">
-        {[0, 1, 2].map((row) => (
-          <div key={row} className="flex gap-2 overflow-hidden">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton key={i} className="h-10 w-28 shrink-0 rounded-full" />
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 const CodingActivity = dynamic(
   () => import("~/components/features/coding-activity").then((m) => m.default),
   {
     loading: () => <CodingActivityFallback />,
   },
 );
-
-const Skills = dynamic(() => import("~/components/sections/skills"), {
-  loading: () => <SkillsFallback />,
-});
 
 // Intentionally no `title` here: the homepage should carry the brand/default
 // title ("Chahat Kesharwani - Engineer · Builder · Explorer") rather than a
@@ -79,7 +59,7 @@ const HomePage = () => {
     <>
       <HomeJsonLd />
       {renderBreadcrumbSchema([{ name: "Home", url: "/" }])}
-      <div className="!mt-8 space-y-14">
+      <div className="!mt-0 space-y-14 pt-[calc(var(--header-sky-depth)+1.5rem)]">
         <AboutSection />
         <CodingActivity />
         <ProfessionalExperience />
@@ -91,7 +71,7 @@ const HomePage = () => {
           showFeatured={true}
         />
         <Skills />
-        <OutsideTheScreen variant="minimal" />
+        <LatestWriting />
         <ContactUs />
       </div>
     </>

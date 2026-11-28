@@ -6,9 +6,9 @@ import { type LinkIconType } from "~/lib/link-icons";
 import AnnamAILogo from "../assets/images/experience/AnnamAI.png";
 import LayrLogo from "../assets/images/experience/Layr.svg";
 import LevelSuperMindLogo from "../assets/images/experience/LevelSuperMind.png";
-import XceedLogo from "../assets/images/experience/Xceed.png";
+import XceedLogo from "../assets/images/experience/Xceed.svg";
 import ZenbaseLogo from "../assets/images/experience/Zenbase.png";
-import GDGCLogo from "../assets/images/experience/GDGC.png";
+import GDGCLogo from "../assets/images/experience/gdgc.svg";
 
 export type Experience = {
   slug: string;
@@ -36,13 +36,13 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    slug: generateExperienceSlug("Layr", "Building Layr"),
+    slug: "layr-building-layr",
     employer: "Layr",
-    role: "Building Layr",
+    role: "Co-Founder",
     type: "Self-employed",
     location: "Remote",
     start_date: "Apr 2026",
-    end_date: "present",
+    end_date: "Jul 2026",
     tagline:
       "A product decision engine from customer evidence to cited answers.",
     description:
@@ -139,8 +139,8 @@ export const experiences: Experience[] = [
     ],
     links: [
       {
-        title: "Product Overview",
-        url: "https://silentninja.tech/",
+        title: "Zenbase Website",
+        url: "https://zenbasetech.com/",
         icon: "website",
       },
       {

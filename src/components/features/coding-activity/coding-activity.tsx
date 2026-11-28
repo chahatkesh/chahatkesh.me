@@ -42,7 +42,7 @@ const ZERO_CONTRIBUTION_DATES = parseIsoDateList(
 );
 
 const CodingActivity = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const [range, setRange] = useState<ActivityRange>(LAST_YEAR);
   const [hovered, setHovered] = useState<HoveredDay>(null);
@@ -121,10 +121,10 @@ const CodingActivity = () => {
   const yearOptions = (data?.availableYears ?? []).slice(0, MAX_YEAR_FILTERS);
 
   return (
-    <div
+    <section
       ref={containerRef}
-      className={cn("w-full", isMobile && "overflow-x-hidden")}
-      aria-label="Coding activity graph"
+      className={cn("w-full min-h-[220px]", isMobile && "overflow-x-hidden")}
+      aria-label="Coding activity"
     >
       {!data || isLoading || !view ? (
         <CodingActivitySkeleton />
@@ -177,12 +177,13 @@ const CodingActivity = () => {
                 href={GITHUB_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="GitHub profile"
+                aria-label={`${view.githubTotal.toLocaleString()} contributions on GitHub`}
                 className="flex items-center gap-1.5 hover:text-foreground transition-colors"
               >
                 <FaGithub
                   className="size-3.5"
                   style={{ color: GITHUB_ACCENT }}
+                  aria-hidden
                 />
                 <span className="tabular-nums">
                   {view.githubTotal.toLocaleString()}
@@ -192,12 +193,13 @@ const CodingActivity = () => {
                 href={LEETCODE_PROFILE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LeetCode profile"
+                aria-label={`${view.leetcodeTotal.toLocaleString()} contributions on LeetCode`}
                 className="flex items-center gap-1.5 hover:text-foreground transition-colors"
               >
                 <SiLeetcode
                   className="size-3.5"
                   style={{ color: LEETCODE_ACCENT }}
+                  aria-hidden
                 />
                 <span className="tabular-nums">
                   {view.leetcodeTotal.toLocaleString()}
@@ -207,7 +209,7 @@ const CodingActivity = () => {
           </div>
         </>
       )}
-    </div>
+    </section>
   );
 };
 

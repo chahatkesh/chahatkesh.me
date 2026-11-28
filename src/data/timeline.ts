@@ -133,7 +133,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Event Coordinator (Organiser) at HackMol 7.0",
     description:
       "Led HackMol 7.0 as Event Coordinator, managing end-to-end execution including registrations, hackspaces, and ceremonies. Ensured smooth coordination by interacting closely with teams. Handled 3000+ registrations and 450+ PPTs, shortlisting 60 teams (200+ participants) for the offline round, while working through 60+ hours of continuous execution. Built strong leadership and coordination skills while contributing to a growing tech community.",
-    category: "workshop",
+    category: "hackathon",
     links: [
       { title: "HackMol 7.0", url: "https://hackmol.com/", icon: "website" },
       {
@@ -171,7 +171,7 @@ export const timelineEvents: TimelineEvent[] = [
     title: "Volunteer at Hackmol 6.0",
     description:
       "Volunteered at Hackmol 6.0, one of North India’s largest hackathons, hosted during Utakansh — the techno-cultural fest of the college. Supported onsite execution for 400+ participants, gaining hands-on experience in event coordination and community management.",
-    category: "workshop",
+    category: "hackathon",
     links: [
       {
         title: "Post",

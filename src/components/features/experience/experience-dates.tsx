@@ -32,8 +32,7 @@ export function ExperienceDates({
         {duration && (
           <>
             {" "}
-            &middot;{" "}
-            <span className="text-muted-foreground/70">{duration}</span>
+            &middot; <span className="text-muted-foreground">{duration}</span>
           </>
         )}
       </p>
@@ -54,7 +53,7 @@ export function ExperienceDates({
       {duration && (
         <p
           className={cn(
-            "leading-none text-muted-foreground/60",
+            "leading-none text-muted-foreground",
             isMd ? "mt-2 text-xs" : "mt-1.5 text-[11px]",
           )}
         >

@@ -1,10 +1,8 @@
 import { fontSans, fontPoem, fontUbuntu } from "~/components/ui";
 import config from "~/config";
-import {
-  getSEOTags,
-  renderSchemaTags,
-  renderOrganizationSchema,
-} from "~/lib/seo";
+import ThemeLamp from "~/components/layout/theme-lamp";
+import { themeBootstrap } from "~/lib/color-scheme";
+import { getSEOTags, renderSchemaTags } from "~/lib/seo";
 import { cn } from "~/lib/utils";
 import RootProviders from "~/providers";
 import "~/styles/globals.css";
@@ -18,10 +16,6 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 3,
   userScalable: true,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
 };
 
 export const metadata = getSEOTags();
@@ -34,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="theme-color" content="#000000" suppressHydrationWarning />
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
           rel="describedby"
@@ -44,18 +39,19 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "relative isolate min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
           fontPoem.variable,
           fontUbuntu.variable,
         )}
       >
+        <div aria-hidden="true" className="header-sky" />
         {renderSchemaTags()}
-        {renderOrganizationSchema()}
         <GoogleAnalytics />
         <MicrosoftClarity />
 
         <RootProviders>{children}</RootProviders>
+        <ThemeLamp />
 
         <Analytics />
         <SpeedInsights />

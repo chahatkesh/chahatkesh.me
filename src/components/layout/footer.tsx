@@ -1,4 +1,4 @@
-import { VisitorCounter } from "~/components/features";
+import VisitorCounter from "~/components/features/visitor-counter";
 import Link from "next/link";
 
 const Footer = () => {
@@ -19,6 +19,13 @@ const Footer = () => {
           aria-label="Footer"
           className="flex items-center gap-x-3 text-muted-foreground"
         >
+          <Link
+            href="/sitemap"
+            className="el-focus-styles rounded-sm transition-colors hover:text-ring"
+          >
+            Sitemap
+          </Link>
+          <span aria-hidden>•</span>
           <Link
             href="/changelog"
             className="el-focus-styles rounded-sm transition-colors hover:text-ring"

@@ -10,7 +10,7 @@ import {
   type CarouselItem,
 } from "~/components/features/experience";
 import { TechStackBadges } from "~/components/features/project";
-import { LinkPreviewImage } from "~/components/features";
+import { LinkPreviewImage } from "~/components/features/link-preview-image";
 import { cn } from "~/lib/utils";
 import { typo } from "~/components/ui";
 import { type Experience } from "~/data/experience";

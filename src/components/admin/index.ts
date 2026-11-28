@@ -1,6 +1,7 @@
 /**
  * Barrel export for admin components.
  */
+export { AdminFieldScope } from "./admin-field-scope";
 export { ProtectedRoute } from "./protected-route";
 export { AdminNavbar } from "./admin-navbar";
 export { AdminPageHeader } from "./admin-page-header";

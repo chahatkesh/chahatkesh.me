@@ -47,7 +47,9 @@ const VisitorCounter = () => {
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
       <Users className="h-4 w-4" aria-hidden="true" />
-      <span>Visitor #{count === null ? "..." : count.toLocaleString()}</span>
+      <span className="inline-block min-w-[8.5rem] whitespace-nowrap tabular-nums">
+        Visitor #{count === null ? "—" : count.toLocaleString()}
+      </span>
     </div>
   );
 };

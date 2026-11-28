@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getSEOTags, renderBreadcrumbSchema } from "~/lib/seo";
 import config from "~/config";
 import { cn } from "~/lib/utils";
-import { CodingActivityStatusBar } from "~/components/features";
+import { CodingActivityStatusBar } from "~/components/features/coding-activity";
 import {
   startLinks,
   workLinks,

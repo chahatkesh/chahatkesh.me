@@ -4,7 +4,7 @@ A modern, full-stack personal portfolio website built with Next.js 16, featuring
 
 ## Overview
 
-This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring MDX essays, dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management. The page follows the viewer's system appearance: white in light mode and black in dark mode.
+This portfolio website serves as a professional showcase for projects, skills, and experience. It combines cutting-edge web technologies with performance optimization, featuring MDX essays, dynamic content management, Spotify integration, GitHub and LeetCode activity tracking, gym training logs, and an admin panel for gallery, places, gym, diagrams, gists, files, and experience management. The page follows the viewer’s system appearance until they switch it with the lamp at the top right of the screen.
 
 **Live Site:** [chahatkesh.me](https://chahatkesh.me)
 
@@ -33,7 +33,7 @@ This portfolio website serves as a professional showcase for projects, skills, a
 
 ### Public Features
 
-- **Appearance:** System light and dark mode via `prefers-color-scheme`. There is no theme toggle. Light mode uses a white page; dark mode uses a black page. Cards, text, borders, diagrams, writing covers, and activity graphs follow the same tokens. The first paint is correct without a flash, because the switch is CSS rather than client JavaScript.
+- **Appearance:** Pull the pendant lamp fixed to the top-right corner of any page, click it, or focus it and press Space or Enter to switch between light and dark. The choice is remembered across visits and tabs. Without a saved choice, the page follows the device’s appearance.
 - **Responsive Design:** Mobile-first, fully responsive interface
 - **Project Showcase:** Detailed project pages with metadata, tech stack, Mermaid diagrams, and contributions
 - **Professional Experience:** Timeline-based experience display with per-role detail pages and dynamic galleries
@@ -152,7 +152,7 @@ Edit `src/config.ts` to customize site metadata:
 - Social media links
 - Location data
 
-`config.colors` is the Discord embed color (`#000000`). It does not paint the page. Page colors live in `src/styles/globals.css`: `--background` is white (`#ffffff`) when the system prefers light and black (`#000000`) when it prefers dark. Browser chrome uses the same pair through the root `viewport.themeColor` media list. The installed-app manifest can store only one color, so it stays black.
+`config.colors` is the Discord embed color (`#000000`). Page colors live in `src/styles/globals.css`. Light mode has a blue header sky with a sun and drifting clouds that fade into white; dark mode has stars and a moon that fade into black. The sky is decorative and takes up no layout space. Cloud motion stops when reduced motion is requested.
 
 Environment variables are validated at runtime via `src/env.ts`. Copy `.env.example` to `.env.local` and fill in required values before running locally.
 
@@ -180,7 +180,7 @@ Environment variables are validated at runtime via `src/env.ts`. Copy `.env.exam
 - CDN-based image delivery via Cloudinary
 - Minimal bundle size with tree shaking
 - Native CSS smooth scrolling (`scroll-behavior: smooth`, respects `prefers-reduced-motion`)
-- System appearance with no extra theme library and no blocking script
+- Light from 06:00 to 17:59 local time and dark overnight, unless the visitor chooses a theme with the lamp.
 
 ## SEO Features
 

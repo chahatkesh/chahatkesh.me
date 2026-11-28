@@ -4,7 +4,6 @@ import Link from "next/link";
 import { experiences, type Experience } from "~/data/experience";
 import { MotionDiv } from "~/components/shared";
 import { TechStackBadges } from "~/components/features/project";
-import { calculateDuration } from "~/lib/date-utils";
 import {
   groupExperiencesByCompany,
   type ExperienceGroup,
@@ -68,7 +67,7 @@ function CompanyEntry({
               {group.employer}
             </h3>
             {location && (
-              <p className="mt-1.5 text-xs leading-none text-muted-foreground/60">
+              <p className="mt-1.5 text-xs leading-none text-muted-foreground">
                 {location}
               </p>
             )}
@@ -89,8 +88,6 @@ function CompanyEntry({
 }
 
 function RoleRow({ position }: { position: Experience }) {
-  const duration = calculateDuration(position.start_date, position.end_date);
-
   return (
     <Link
       href={`/about/experience/${position.slug}`}
@@ -104,7 +101,6 @@ function RoleRow({ position }: { position: Experience }) {
           <ExperienceDates
             start={position.start_date}
             end={position.end_date}
-            duration={duration}
             align="inline"
             className="mt-1.5 text-xs sm:hidden"
           />
@@ -125,7 +121,6 @@ function RoleRow({ position }: { position: Experience }) {
         <ExperienceDates
           start={position.start_date}
           end={position.end_date}
-          duration={duration}
           className="hidden pt-0.5 sm:block"
         />
       </div>

@@ -23,7 +23,7 @@ const Navbar = ({ variant = "public", items }: NavbarProps) => {
 
   return (
     <nav
-      className="flex h-14 items-center justify-end gap-4"
+      className="mr-[max(0px,calc(4.25rem+env(safe-area-inset-right)-(100vw-100%)/2))] flex h-14 items-center justify-end gap-4"
       role="navigation"
       aria-label={variant === "admin" ? "Admin navigation" : "Main"}
     >
